@@ -136,17 +136,7 @@ if($dbType == 'sqlite')
 		avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills,
 		count(*) as totgames, SUM(case when((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) then 1 else 0 end) as wins
 		from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN games as ga ON ga.id = dg.gameid LEFT JOIN 
-		dotaplayers as dp on dp.gameid = dg.gameid and gp.colour = dp.colour where dg.winner <> 0 and gp.name = '$username'";
-		if($ignorePubs)
-		{
-		$sql = $sql." and gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-		$sql = $sql." and gamestate = '16'";
-		}
-
-		$sql = $sql.") as h) as i";
+		dotaplayers as dp on dp.gameid = dg.gameid and gp.colour = dp.colour where dg.winner <> 0 and gp.name = '$username') as h) as i";
 	}
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
@@ -473,21 +463,11 @@ if($scoreFromDB)	//Using score table
 else
 {
 	$sql = "select ($scoreFormula) as score from(select *, (kills/deaths) as killdeathratio, (totgames-wins) as losses from (select gp.name as name,gp.gameid as gameid, gp.colour as colour, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
-	avg(dp.towerkills) as towerkills, avg(dp.assists) as assists, avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills,
-	avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills,
-	count(*) as totgames, SUM(case when((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) then 1 else 0 end) as wins
-	from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN games as ga ON ga.id = dg.gameid LEFT JOIN 
-	dotaplayers as dp on dp.gameid = dg.gameid and gp.colour = dp.colour where dg.winner <> 0 and gp.name = '$username'";
-	if($ignorePubs)
-	{
-	$sql = $sql." and gamestate = '17'";
-	}
-	else if($ignorePrivs)
-	{
-	$sql = $sql." and gamestate = '16'";
-	}
-
-	$sql = $sql.") as h) as i";
+		avg(dp.towerkills) as towerkills, avg(dp.assists) as assists, avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills,
+		avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills,
+		count(*) as totgames, SUM(case when((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) then 1 else 0 end) as wins
+		from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN games as ga ON ga.id = dg.gameid LEFT JOIN 
+		dotaplayers as dp on dp.gameid = dg.gameid and gp.colour = dp.colour where dg.winner <> 0 and gp.name = '$username' and gp.colour <= 10) as h) as i";
 }
 $result = mysql_query($sql);
 $row = mysql_fetch_array($result, MYSQL_ASSOC);

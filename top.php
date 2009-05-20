@@ -304,8 +304,8 @@ select gp.name as name,gp.gameid as gameid, gp.colour as colour, avg(dp.courierk
 avg(dp.towerkills) as towerkills, avg(dp.assists) as assists, avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills,
 avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills, sc.score as totalscore, 
 count(*) as totgames, SUM(case when((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) then 1 else 0 end) as wins
-from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN games as ga ON ga.id = dg.gameid LEFT JOIN 
-dotaplayers as dp on dp.gameid = dg.gameid and gp.colour = dp.colour LEFT JOIN scores as sc on sc.name = gp.name group by gp.name 
+from gameplayers as gp, dotagames as dg, games as ga,dotaplayers as dp, scores as sc where dg.winner <> 0 and dp.gameid = gp.gameid 
+and dg.gameid = dp.gameid and dp.gameid = ga.id and gp.gameid = dg.gameid and gp.colour = dp.colour and sc.name = gp.name group by gp.name 
 having totgames >= $games) 
 as h ORDER BY $sortcat $order, name asc";
 }
@@ -316,8 +316,8 @@ select gp.name as name,gp.gameid as gameid, gp.colour as colour, avg(dp.courierk
 avg(dp.towerkills) as towerkills, avg(dp.assists) as assists, avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills,
 avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills,
 count(*) as totgames, SUM(case when((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) then 1 else 0 end) as wins
-from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN games as ga ON ga.id = dg.gameid LEFT JOIN 
-dotaplayers as dp on dp.gameid = dg.gameid and gp.colour = dp.colour where dg.winner <> 0";
+from gameplayers as gp, dotagames as dg, games as ga,dotaplayers as dp where dg.winner <> 0 and dp.gameid = gp.gameid 
+and dg.gameid = dp.gameid and dp.gameid = ga.id and gp.gameid = dg.gameid and gp.colour = dp.colour";
 
 if($ignorePubs)
 {
