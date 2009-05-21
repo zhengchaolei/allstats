@@ -505,40 +505,56 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
     </td>
   </tr>
   <tr class="tableheader">
-	<td align="center">All Time Stats:</td>
-	<td  align="center">Highest Hero Stats:</td>
+	<td align="center" width=34%>All Time Stats:</td>
+	<td  align="center" width = 66%>Highest Hero Stats:</td>
   </tr>
   <tr> 
     <td> <table class="rowuh" width="100%">
         <tr> 
-          <td><b>Kills:</b></td>
-          <td><b><?php print $kills;?></b></td>
-		  <td><b>Creep Denies:</b></td>
-          <td><b><?php print $creepdenies;?></b></td>
+          <td>Kills:</td>
+          <td><?php print $kills;?></td>
+		  <td>Deaths: </td>
+          <td><?php print $death;?></td>
+		  
         </tr>
         <tr> 
-          <td><b>Deaths: </b></td>
-          <td><b><?php print $death;?></b></td>
-		  <td><b>Creep Kills:</b></td>
-          <td><b><?php print $creepkills;?></b></td>
+          <td>Assists:</td>
+          <td><?php print $assists;?></td>
+		  <td>Kills/Death:</td>
+          <td><?php print round(($kills/$death),2);?></td>
+		  
+        </tr>
+		<tr height=10px>
+		</tr>
+        <tr>
+		<td>Games:</td>
+          <td><?php print $wins+$losses;?></td>		
+		  <td>Wins/Losses:</td>
+          <td><?php print $wins;?>/<?php print $losses;?></td>
+		  
+        </tr>
+		<tr>
+		  <td>Score:</td>
+          <td><?php print ROUND($score, 2); ?></td>
+		</tr>
+		<tr height=10px>
+		</tr>
+        <tr> 
+          <td>Creep Kills:</td>
+          <td><?php print $creepkills;?></td>
+		  <td>Creep Denies:</td>
+          <td><?php print $creepdenies;?></td>
+        </tr>
+		<tr> 
+          <td>Tower Kills:</td>
+          <td><?php print $towerkills;?></td>
+		  <td>Rax Kills:</td>
+          <td><?php print $raxkills;?></td>
         </tr>
         <tr> 
-          <td><b>Assists:</b></td>
-          <td><b><?php print $assists;?></b></td>
-		  <td><b>Courier Kills:</b></td>
-          <td><b><?php print $courierkills;?></b></td>
-        </tr>
-        <tr> 
-          <td><b>Games:</b></td>
-          <td><b><?php print $wins+$losses;?></b></td>
-		  <td><b>Wins/Losses:</b></td>
-          <td>&nbsp;<b><?php print $wins;?>/</b><b><?php print $losses;?></b></td>
-        </tr>
-        <tr> 
-          <td><b>Score:</b></td>
-          <td><?php print ROUND($score, 1); ?></td>
-		  <td><b>Kills/Death:</b></td>
-          <td><b><?php print round(($kills/$death),2);?></b>&nbsp;</td>
+		  <td>Courier Kills:</td>
+          <td><?php print $courierkills;?></td>
+		  
         </tr>
       </table></td>
     <td align='center'  scope=col rowspan="2"> 
@@ -571,8 +587,6 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
   </tr>
 </table>
 <table class="table" id="theader">
-  <tr class="rowuh" height=20px>
-  </tr>
   <tr class="tableheader">
   <td colspan=8 align="center" >
 	<h3>Game History:</h3>

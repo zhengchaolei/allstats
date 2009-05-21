@@ -97,20 +97,20 @@ $games=$_GET["g"];
 		print("<td width=6%><a href=\"?p=top&s=totalscore&o=desc&g=".$games."\">Score</a></td>");
 	}
 	//Games
-	if($sortcat == "gcompleted")
+	if($sortcat == "totgames")
 	{
 		if($order == "asc")
 		{
-			print("<td width=6%><a href=\"?p=top&s=gcompleted&o=desc&g=".$games."\">Games</a></td>");
+			print("<td width=6%><a href=\"?p=top&s=totgames&o=desc&g=".$games."\">Games</a></td>");
 		}
 		else
 		{
-			print("<td width=6%><a href=\"?p=top&s=gcompleted&o=asc&g=".$games."\">Games</a></td>");
+			print("<td width=6%><a href=\"?p=top&s=totgames&o=asc&g=".$games."\">Games</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=6%><a href=\"?p=top&s=gcompleted&o=desc&g=".$games."\">Games</a></td>");
+		print("<td width=6%><a href=\"?p=top&s=totgames&o=desc&g=".$games."\">Games</a></td>");
 	}
 	//Wins
 	if($sortcat == "wins")

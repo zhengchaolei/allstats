@@ -152,20 +152,26 @@ require_once("config.php");
 							'gameinfo',
 							'hero', 
 							'top', 
-							'admins',
-							'topjs');
+							'admins');
 
-		if(in_array($_GET['p'], $valid_pages) && is_readable($_GET['p'] . '.php'))
+		if(!empty($_GET['p']))
 		{
-			include($_GET['p'] . '.php');
-		}
-		else if($_GET['p']=='')
-		{
-			include('intro.php');
+			if(in_array($_GET['p'], $valid_pages) && is_readable($_GET['p'] . '.php'))
+			{
+				include($_GET['p'] . '.php');
+			}
+			else if($_GET['p']=='')
+			{
+				include('intro.php');
+			}
+			else
+			{
+				echo 'Requested resource doesn\'t exist.';
+			}
 		}
 		else
 		{
-			echo 'Requested resource doesn\'t exist.';
+			include('intro.php');
 		}
 		?>		
 	</div>
