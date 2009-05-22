@@ -385,16 +385,4 @@ function checkIfAliasMySQL($value){
 	return $value;
 }
 
-function winOrLoseColour($win,$newcolour){
-if($win==1){
-if($newcolour < 6){return "#1b3516";}
-if($newcolour > 5){return "#920a0b";}
-}
-else if($win==2){
-if($newcolour > 5){return "#1b3516";}
-if($newcolour < 6){return "#920a0b";}
-}
-else return "black";
-}
-
 ?>
