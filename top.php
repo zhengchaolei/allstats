@@ -50,7 +50,7 @@ $games=$_GET["g"];
 </td>
 </tr>
 <tr>
-<td class="rowuh">
+<td class="rowuh" colspan=2>
 
 <FORM action="" method=POST id=form1 name=form1>
      Minimum Games Played:
@@ -63,6 +63,7 @@ $games=$_GET["g"];
 <td colspan=9 class="tableheader">Average Per Game:</td>
 </tr>
 <tr  class="tableheader">
+	<td width=25px>#</td>
 <?php
 	//User Name
 	if($sortcat == "name")
@@ -290,8 +291,6 @@ $games=$_GET["g"];
 	}
 ?>
 </tr>
-<tr class="row" height=10px>
-</tr>
 </table>
 <div id="datawrapper">
 	<table class="table" id="data">
@@ -335,6 +334,7 @@ as h) as i ORDER BY $sortcat $order, name asc";
 
 if($dbType == 'sqlite')
 {
+	$rank = 1;
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
 		$name=$row["name"];
@@ -355,6 +355,7 @@ if($dbType == 'sqlite')
 
 	?>
 	<tr class="row">
+	<td width=25px><?php print $rank; ?></td>
 	<td><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc"><?php print $name; ?></a></td>
 	<td width=6%><?php print ROUND($totalscore,2); ?></td>
 	<td width=6%><?php print $totgames;?></td>
@@ -375,10 +376,12 @@ if($dbType == 'sqlite')
 	</tr>
 
 	<?php
+	$rank = $rank + 1;
 	}
 }
 else
 {
+	$rank = 1;
 	$result = mysql_query($sql);
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 
@@ -400,6 +403,7 @@ else
 
 	?>
 	<tr class="row">
+	<td width=25px><?php print $rank; ?></td>
 	<td><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc"><?php print $name; ?></a></td>
 	<td width=6%><?php print ROUND($totalscore,2); ?></td>
 	<td width=6%><?php print $totgames;?></td>
@@ -420,7 +424,7 @@ else
 	</tr>
 
 	<?php
-
+		$rank = $rank + 1;
 	}
 	mysql_free_result($result);
 }

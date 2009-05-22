@@ -194,7 +194,7 @@ else
 	<table class="table" id="data">
  <?php 
  
-$sql = "SELECT id, map, datetime, gamename, ownername, duration, creatorname, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type FROM `games` ORDER BY $sortcat $order, datetime desc ";
+$sql = "SELECT g.id, map, datetime, gamename, ownername, duration, creatorname, dg.winner, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type FROM games as g LEFT JOIN dotagames as dg ON g.id = dg.gameid ORDER BY $sortcat $order, datetime desc";
 
 if($dbType == 'sqlite')
 {
@@ -208,12 +208,13 @@ if($dbType == 'sqlite')
 		$ownername=$row["ownername"];
 		$duration=$row["duration"];
 		$creator=$row["creatorname"];
+		$winner=$row["winner"];
  ?> 
 		<tr class="row">
 			<td width=15% align=center><?php print $gametime;?></td>
 			<td width=35% align=center><?php print $map;?></td>
 			<td width=5% align=center><?php print $type;?></td>
-			<td width=15% align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self"><Strong><?php print $gamename;?></strong></a></td>
+			<td width=15% align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#cc6666"';}elseif($winner==2){print 'style="color:#66cc66"';}?>><Strong><?php print $gamename;?></strong></a></td>
 			<td width=15% align=center><?php print secondsToTime($duration);?></td>
 			<td width=15% align=center><a href="?p=user&u=<?php print $creator; ?>&s=datetime&o=desc" target="_self"><Strong><?php print $creator;?></strong></a></td>
 		</tr>
@@ -232,13 +233,14 @@ else
 		$ownername=$row["ownername"];
 		$duration=$row["duration"];
 		$creator=$row["creatorname"];
+		$winner=$row["winner"];
  ?> 
  <tr class="row">
  <td width=15% align=center><?php print $gametime;?></td>
    
     <td width=35% align=center><?php print $map;?></td>
 	<td width=5% align=center><?php print $type;?></td>
-    <td width=15% align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self"><Strong><?php print $gamename;?></strong></a></td>
+    <td width=15% align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#cc6666"';}elseif($winner==2){print 'style="color:#66cc66"';}?>><Strong><?php print $gamename;?></strong></a></td>
 	<td width=15% align=center><?php print secondsToTime($duration);?></td>
     <td width=15% align=center><a href="?p=user&u=<?php print $creator; ?>&s=datetime&o=desc" target="_self"><Strong><?php print $creator;?></strong></a></td>
 	</tr>

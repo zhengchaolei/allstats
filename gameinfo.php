@@ -67,12 +67,12 @@ if($dbType == 'sqlite')
 		$item4=$row["item4"];
 		$item5=$row["item5"];
 		$item6=$row["item6"];
-		if($item1=="") $item1="empty";
-		if($item2=="") $item2="empty";
-		if($item3=="") $item3="empty";
-		if($item4=="") $item4="empty";
-		if($item5=="") $item5="empty";
-		if($item6=="") $item6="empty";
+		if(empty($item1) || $item1=="\0\0\0\0") $item1="empty";
+		if(empty($item2) || $item2=="\0\0\0\0") $item2="empty";
+		if(empty($item3) || $item3=="\0\0\0\0") $item3="empty";
+		if(empty($item4) || $item4=="\0\0\0\0") $item4="empty";
+		if(empty($item5) || $item5=="\0\0\0\0") $item5="empty";
+		if(empty($item6) || $item6=="\0\0\0\0") $item6="empty";
 		
 		
 		
@@ -239,12 +239,12 @@ else
 		$item4=$row["item4"];
 		$item5=$row["item5"];
 		$item6=$row["item6"];
-		if($item1=="\0\0\0\0") $item1="empty";
-		if($item2=="\0\0\0\0") $item2="empty";
-		if($item3=="\0\0\0\0") $item3="empty";
-		if($item4=="\0\0\0\0") $item4="empty";
-		if($item5=="\0\0\0\0") $item5="empty";
-		if($item6=="\0\0\0\0") $item6="empty";
+		if(empty($item1) || $item1=="\0\0\0\0") $item1="empty";
+		if(empty($item2) || $item2=="\0\0\0\0") $item2="empty";
+		if(empty($item3) || $item3=="\0\0\0\0") $item3="empty";
+		if(empty($item4) || $item4=="\0\0\0\0") $item4="empty";
+		if(empty($item5) || $item5=="\0\0\0\0") $item5="empty";
+		if(empty($item6) || $item6=="\0\0\0\0") $item6="empty";
 		
 		
 		
