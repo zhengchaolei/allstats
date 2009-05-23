@@ -41,7 +41,7 @@ require_once("config.php");
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Dota.Host Statistics</title>
+<title><?php print $botName; ?> Statistics</title>
 <link rel="stylesheet" href="styles.css" type="text/css" />
 <script type="text/javascript">
 	function getClientWidth() {
@@ -117,7 +117,7 @@ require_once("config.php");
 					<ul>
 						<!-- MENU -->
 						  <li>
-						  <a href=/>Home</a></li> 
+						  <a href=./>Home</a></li> 
 						  <li> 
 						  <a href=?p=top&s=totalscore&o=desc&g=<?php print $minGamesPlayed; ?>>Top Players</a></li> 
 						  <li> 
