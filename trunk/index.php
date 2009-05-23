@@ -115,7 +115,6 @@ require_once("config.php");
 		<div class="nav">
 			<div class="innernav">
 					<ul>
-					
 						<!-- MENU -->
 						  <li>
 						  <a href=/>Home</a></li> 
@@ -131,10 +130,23 @@ require_once("config.php");
 						  <a href=?p=bans&s=name&o=asc>Bans</a></li>
 						  <li> 
 						  <a href=?p=admins&n=nolimit>Admins</a></li> 
-						  
+						  <li>
+							<form name="testForm" method=GET action="">
+								<input type="text" 
+								class="searchBox" 
+								name="u" 
+								onfocus="if(this.value=='Search for User') {this.value='';this.style.color='white';} else this.select();" 
+								onblur="if(this.value==''){this.value='Search for User';this.style.color='#daa701';}" 
+								value="Search for User"
+								/>
+								<input type="hidden" value="datetime" name="s" />
+								<input type="hidden" value="desc" name="o" />
+								<input type="hidden" value="user" name="p" />
+							</form> 
+						</li>
 						<!-- END MENU -->
-						
-					</ul>
+					</ul>	
+					
 			</div>
 		</div>
 	</div>
