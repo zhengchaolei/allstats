@@ -98,8 +98,8 @@ if($dbType == 'sqlite')
 
 		$replayurl="replays/GHost++ ".$gametimenew." ".$gamename.".w3g";
 		$replayurl = str_ireplace(" ","%20",$replayurl);
-		$replayurl = str_irepalce("/","_",$replayurl);
-		$replayurl = str_irepalce("\\","_",$replayurl);
+		$replayurl = str_ireplace("/","_",$replayurl);
+		$replayurl = str_ireplace("\\","_",$replayurl);
 		// GHost++ 2009-03-16 20-16 dota 4v4 apem eu.w3g
 		?>
 		
@@ -272,8 +272,8 @@ else
 
 		$replayurl="replays/GHost++ ".$gametimenew." ".$gamename.".w3g";
 		$replayurl = str_ireplace(" ","%20",$replayurl);
-		$replayurl = str_irepalce("/","_",$replayurl);
-		$replayurl = str_irepalce("\\","_",$replayurl);
+		$replayurl = str_ireplace("/","_",$replayurl);
+		$replayurl = str_ireplace("\\","_",$replayurl);
 		
 		// GHost++ 2009-03-16 20-16 dota 4v4 apem eu.w3g
 		?>

@@ -93,6 +93,12 @@ require_once("config.php");
 			<br>
 			<br>
 			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
 		</td>
 	</tr>
 </table>
