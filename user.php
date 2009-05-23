@@ -41,6 +41,32 @@ $username=$_GET["u"];
 $sortcat=$_GET["s"];
 $order=$_GET["o"];
 
+//Determine if user exists
+$count = 0;
+
+$sql = "SELECT count(*) as count FROM gameplayers where name = '$username'";
+if($dbType == 'sqlite')
+{
+	
+	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+	{
+		$count=$row["count"]; 
+	}
+}
+else
+{
+	$result = mysql_query($sql);
+	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+	{
+		$count=$row["count"]; 
+	}
+}
+if($count == 0)
+{
+	print '<br><br><br><br><br><br><br><br><h2>User "'.$username.'" has not played any games on '.$botName.'.</h2><br><br><br><br><br><br><br><br><br><br><br><br>';
+}
+else
+{
 if($dbType == 'sqlite')
 {
 	$mostkillscount="0";
@@ -768,6 +794,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	
 	<?php
 	}
+}
 }
 	?>
 </table>
