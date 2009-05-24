@@ -61,39 +61,18 @@ else
 
 ?>
 
-<table class="table" id="introtable">
-  <tr>
-	<td colspan=20>
-	<h2>Hero Statistics</h2>
-	</td>
-	</tr>
-  <tr class="tableheader"> 
-    <td> <img src=./img/heroes/<?php print $heroid ?>.gif alt="w<?php print heroname($heroid);?>"></td>
-	<td colspan=10 align="center" ><h2><?php print heroname($heroid); ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      </h2> 
+<table class="table" id="theader">
+	<tr class="rowuh"> 
+	<td colspan=12 align="center" ><h2><?php print heroname($heroid); ?> Statistics:</h2> 
     </td>
   </tr>
-  <tr class="rowuh"> 
-    <td align="center" colspan=11><?php print heroDescription($heroid);?></td>
-  </tr>
-  <tr class="rowuh">
-	<td><br><br></td>
-  </tr>
-  <tr class="tableheader"> 
-    <td colspan=11 align="center"> <h3>Users who have played with this hero: </h3> </td>
-  </tr>
-  <tr class="rowuh" height=10px>
-  </tr>
-</table>
-
-<table class="table" id="theader">
   <tr>
 	<td class="rowuh"colspan=1></td>
 	<td class="tableheader" colspan=2>Total:</td>
 	<td class="tableheader" colspan=9>Average Per Game:</td>
   </tr>
   <tr class="tableheader"> 
-    <td>Name  </td>
+    <td>Player Name</td>
 	<td width=7%>Games:</td>
     <td width=7%>K/D Ratio</td>
     <td width=7%>Kills</td>
@@ -196,5 +175,17 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	mysql_free_result($result);
 }
  ?>
-  
+</table>
+</div>
+<table class="table" id="introtable">
+  <tr>
+    <td width=48px align="left" class="tableheader"> <img src=./img/heroes/<?php print $heroid ?>.gif alt="w<?php print heroname($heroid);?>" width=48px height=48px></td>
+	<td class="tableheader"><h3><?php print heroName($heroid);?> Information</td>
+	<td width=48px align="left" class="tableheader"> <img src=./img/heroes/<?php print $heroid ?>.gif alt="w<?php print heroname($heroid);?>" width=48px height=48px></td>
+  </tr>
+  <tr class="rowuh"> 
+    <td align="center" colspan=3><?php print heroDescription($heroid);?></td>
+  </tr>
+  <tr class="rowuh" height=10px>
+  </tr>
 </table>
