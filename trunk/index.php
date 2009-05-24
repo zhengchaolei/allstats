@@ -111,9 +111,7 @@ require_once("config.php");
 
 <body onresize="setWrapperHeight()" onload="setWrapperHeight()">
 <div class="header" id="header">
-	<div class="outernav">
 		<div class="nav">
-			<div class="innernav">
 					<ul>
 						<!-- MENU -->
 						  <li>
@@ -146,10 +144,7 @@ require_once("config.php");
 						</li>
 						<!-- END MENU -->
 					</ul>	
-					
-			</div>
 		</div>
-	</div>
 		
 	<div class="clear"></div>
 </div>
