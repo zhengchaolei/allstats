@@ -313,7 +313,7 @@ if($dbType == 'sqlite')
 {
 foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
-	$totgames=$row["totgames"];
+		$totgames=$row["totgames"];
 		$kills=$row["kills"];
 		$death=$row["deaths"];
 		$assists=$row["assists"];

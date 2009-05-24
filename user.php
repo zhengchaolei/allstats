@@ -37,7 +37,7 @@
 
 require_once("functions.php");
 require_once("config.php");
-$username=$_GET["u"];
+$username=strtolower($_GET["u"]);
 $sortcat=$_GET["s"];
 $order=$_GET["o"];
 
@@ -431,8 +431,8 @@ foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	$hid=checkIfAliasSQLite($hid, $dbType, $dbHandle);
 	$hero=$row["description"];
 	$name=$row["name"];
-	$newcolour=$row["newcolour"];
-	$win=$row["winner"];
+	$colour=$row["newcolour"];
+	$winner=$row["winner"];
 	$gameid=$row["id"]; 
 	$type=$row["type"];
 
