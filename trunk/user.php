@@ -63,7 +63,33 @@ else
 }
 if($count == 0)
 {
-	print '<br><br><br><br><br><br><br><br><h2>User "'.$username.'" has not played any games on '.$botName.'.</h2><br><br><br><br><br><br><br><br><br><br><br><br>';
+	print '<center><br><br><br><br><br><h3> List of users matching "'.$username.'" on '.$botName.'.</h3><br>';
+	//Shows a list of usernames that contains the word searched for
+	$sql = "SELECT *, count(*) as counttimes FROM gameplayers where name like '%$username%' group by name order by counttimes desc";
+		
+		if($dbType == 'sqlite')
+		{
+	
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$countimes=$row["counttimes"];
+				$founduser=$row["name"];
+				print "<a href=\"?p=user&u=$founduser&s=datetime&o=desc\">$founduser . $countimes games.</a><br>"; 
+			}
+			if($counttimes==false){ print "Sorry no users found matching that criteria.";}
+		}
+		else
+		{
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$founduser=$row["name"];
+				$countimes=$row["counttimes"];
+				print "<a href=\"?p=user&u=$founduser&s=datetime&o=desc\">$founduser . $countimes games.</a><br>";
+			}
+			if($counttimes==false){ print "<font class=rowuh> Sorry no users found matching that criteria.</font>";}
+		}
+		print "</center>";
 }
 else
 {
