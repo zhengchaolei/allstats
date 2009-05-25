@@ -93,6 +93,20 @@ function secondsToTime($seconds)//Returns the time like 1:43:32
 	}
 }
 
+function replayDuration($seconds)
+{
+	$minutes = floor($seconds/60);
+	$seconds_left = $seconds % 60;
+	
+	if(strlen($seconds_left) == 1)
+	{
+	$seconds_left = "0".$seconds_left;
+	}
+	return $minutes."m".$seconds_left."s";
+}
+
+
+
 
 function heroname ($value) {
 	

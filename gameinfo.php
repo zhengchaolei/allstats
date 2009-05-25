@@ -37,6 +37,7 @@
 $gid=$_GET["gid"];
 require_once("functions.php");
 require_once("config.php");
+require('reshine.php');
 
 	$firstline=true;
 	$scourge=true;
@@ -96,7 +97,12 @@ if($dbType == 'sqlite')
 		//$gametimenew = str_ireplace(" ","%20",$gametimenew);
 		$gametimenew = substr($gametimenew,0,16);
 
-		$replayurl="replays/GHost++ ".$gametimenew." ".str_ireplace("\\","_", str_ireplace("/","_",$gamename)).".w3g";
+		//REPLAY NAME HANDLING CODE
+		$replayurl="replays/GHost++ ".$gametimenew." ".str_ireplace("\\","_", str_ireplace("/","_",$gamename))." (".replayDuration($duration).").w3g";
+		if(!file_exists($replayurl))
+		{
+			$replayurl="replays/GHost++ ".$gametimenew." ".str_ireplace("\\","_", str_ireplace("/","_",$gamename))."w3g";
+		}
 		$replayurl = str_ireplace(" ","%20",$replayurl);
 		// GHost++ 2009-03-16 20-16 dota 4v4 apem eu.w3g
 		?>
@@ -268,7 +274,12 @@ else
 		//$gametimenew = str_ireplace(" ","%20",$gametimenew);
 		$gametimenew = substr($gametimenew,0,16);
 
-		$replayurl="replays/GHost++ ".$gametimenew." ".str_ireplace("\\","_", str_ireplace("/","_",$gamename)).".w3g";
+		//REPLAY NAME HANDLING CODE
+		$replayurl="replays/GHost++ ".$gametimenew." ".str_ireplace("\\","_", str_ireplace("/","_",$gamename))." (".replayDuration($duration).").w3g";
+		if(!file_exists($replayurl))
+		{
+			$replayurl="replays/GHost++ ".$gametimenew." ".str_ireplace("\\","_", str_ireplace("/","_",$gamename))."w3g";
+		}
 		$replayurl = str_ireplace(" ","%20",$replayurl);
 		
 		// GHost++ 2009-03-16 20-16 dota 4v4 apem eu.w3g
@@ -391,5 +402,37 @@ else
 	}
 }
 ?> 
+
+<?php
+/*
+<tr class="tableheader">
+	<td colspan=13><h3>Chat Log:</h3></td>
+</tr>
+$replay_loc = "replays/LastReplay.w3g";
+$replay = new replay($replay_loc);
+if ($replay->chat) {
+		 print 'true';
+          $prev_time = 0;
+          foreach ($replay->chat as $content) {
+			print "<tr class=\"rowuh\"> <td>";
+			
+            $prev_time = $content['time'];
+			
+            print convert_time($content['time']);
+			/*
+            if (isset($content['mode'])) {
+              if (is_int($content['mode'])) {
+
+                print ' / '.'<span class="'.$colors[$content['mode']].'">'.$names[$content['mode']] ;
+              }
+
+              else {
+                print ' / '.$content['mode'];
+              }
+            }
+			print "</td></tr>";
+          }
+	}*/
+?>
 </table>
 </div>
