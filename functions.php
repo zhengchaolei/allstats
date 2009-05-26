@@ -106,18 +106,17 @@ function replayDuration($seconds)
 }
 
 
-
-
 function heroname ($value) {
 	
-		switch (strtoupper($value)) {
+		switch ($value) {
 	
 		case 'UC01': $value = 'Queen of Pain'; break;
+		//case 'N01J': $value = 'Queen of Pain'; break; I THINK THIS ONE I WRONG:  cause its the same as alchemist
 		case 'N01I': $value = 'Alchemist'; break;
 		case 'N01J': $value = 'Alchemist'; break;
 		
 		
-		case 'HLGR': $value = 'Dragon Knight'; break;
+		case 'Hlgr': $value = 'Dragon Knight'; break;
 		case 'H00E': $value = 'Dragon Knight'; break;
 		case 'H00G': $value = 'Dragon Knight'; break;   
 
@@ -126,30 +125,30 @@ function heroname ($value) {
 		case 'U008': $value = 'Lycanthrope'; break;
 		case 'E015': $value = 'Lycanthrope'; break;
 		
-		case 'HVWD': $value = 'Vengeful Spirit'; break;
-		case 'HMBR': $value = 'Lord of Olympia'; break;
-		case 'EMOO': $value = 'Enchantress'; break;
+		case 'Hvwd': $value = 'Vengeful Spirit'; break;
+		case 'Hmbr': $value = 'Lord of Olympia'; break;
+		case 'Emoo': $value = 'Enchantress'; break;
 		case 'O00P': $value = 'Morphling'; break;
-		case 'HJAI': $value = 'Crystal Maiden'; break;
+		case 'Hjai': $value = 'Crystal Maiden'; break;
 		case 'H001': $value = 'Rogue Knight'; break;
 		case 'HC49': $value = 'Naga Siren'; break;
-		case 'OTCH': $value = 'Earthshaker'; break;
+		case 'Otch': $value = 'Earthshaker'; break;
 		case 'HC92': $value = 'Stealth Assassin'; break;
 		case 'N01O': $value = 'Lone Druid'; break;
 		case 'N015': $value = 'Lone Druid'; break;
 		case 'H004': $value = 'Slayer'; break;
-		case 'NBBC': $value = 'Juggernaut'; break;
+		case 'Nbbc': $value = 'Juggernaut'; break;
 		
 		case 'N01A': $value = 'Silencer'; break;
-		case 'HAMG': $value = 'Treant Protector'; break;
-		case 'UKTL': $value = 'Enigma'; break;
-		case 'HBLM': $value = 'Keeper of the Light'; break;
-		case 'HUTH': $value = 'Ursa Warrior'; break;
-		case 'HMKG': $value = 'Ogre Magi'; break;
-		case 'NTIN': $value = 'Tinker'; break;
-		case 'EMNS': $value = 'Prophet'; break;
-		case 'OGRH': $value = 'Phantom Lancer'; break;
-		case 'UCRL': $value = 'Stone Giant'; break;
+		case 'Hamg': $value = 'Treant Protector'; break;
+		case 'Uktl': $value = 'Enigma'; break;
+		case 'Hblm': $value = 'Keeper of the Light'; break;
+		case 'Huth': $value = 'Ursa Warrior'; break;
+		case 'Hmkg': $value = 'Ogre Magi'; break;
+		case 'Ntin': $value = 'Tinker'; break;
+		case 'Emns': $value = 'Prophet'; break;
+		case 'Ogrh': $value = 'Phantom Lancer'; break;
+		case 'Ucrl': $value = 'Stone Giant'; break;
 		case 'H00K': $value = 'Goblin Techies'; break;
 		case 'H00A': $value = 'Holy Knight'; break;
 		
@@ -166,24 +165,24 @@ function heroname ($value) {
 		case 'N0EG': $value = 'Windrunner'; break;
 		
 		case 'E005': $value = 'Moon Rider'; break;
-		case 'USYL': $value = 'Dwarven Sniper'; break;
+		case 'Usyl': $value = 'Dwarven Sniper'; break;
 		case 'N016': $value = 'Troll Warlord'; break;
-		case 'ORKN': $value = 'Shadow Shaman'; break;
+		case 'Orkn': $value = 'Shadow Shaman'; break;
 		case 'H008': $value = 'Bristleback'; break;
-		case 'NPBM': $value = 'Pandaren Brewmaster'; break;
+		case 'Npbm': $value = 'Pandaren Brewmaster'; break;
 		case 'H000': $value = 'Centaur Warchief'; break;
-		case 'NAKA': $value = 'Bounty Hunter'; break;
+		case 'Naka': $value = 'Bounty Hunter'; break;
 		case 'E021':
 		case 'E023':
 		case 'E024':
 		case 'E01P':
-		case 'EDEM': $value = 'Anti-Mage'; break;
+		case 'Edem': $value = 'Anti-Mage'; break;
 
-		case 'NBRN': $value = 'Drow Ranger'; break;
-		case 'HARF': $value = 'Omniknight'; break;
-		case 'EEVI': $value = 'Soul Keeper'; break;
-		case 'EKEE': $value = 'Tormented Soul'; break;
-		case 'ULIC': $value = 'Lich'; break;
+		case 'Nbrn': $value = 'Drow Ranger'; break;
+		case 'Harf': $value = 'Omniknight'; break;
+		case 'Eevi': $value = 'Soul Keeper'; break;
+		case 'Ekee': $value = 'Tormented Soul'; break;
+		case 'Ulic': $value = 'Lich'; break;
 		case 'UC76': $value = 'Death Prophet'; break;
 		case 'UC18': $value = 'Demon Witch'; break;
 		case 'EC57': $value = 'Venomancer'; break;
@@ -193,10 +192,10 @@ function heroname ($value) {
 
 		
 		case 'U006': $value = 'Broodmother'; break;
-		case 'EWAR': $value = 'Phantom Assassin'; break;
+		case 'Ewar': $value = 'Phantom Assassin'; break;
 		
 		case 'H00V': $value = 'Gorgon'; break;
-		case 'UDRE': $value = 'Night Stalker'; break;
+		case 'Udre': $value = 'Night Stalker'; break;
 		case 'NC00': $value = 'Skeleton King'; break;
 		case 'UC42': $value = 'Doom Bringer'; break;
 		case 'U000': $value = 'Nerubian Assassin'; break;
@@ -208,17 +207,17 @@ function heroname ($value) {
 		case 'U00C': $value = 'Lifestealer'; break;
 		
 		case 'H00H': $value = 'Oblivion'; break;
-		case 'OFAR': $value = 'Tidehunter'; break;
-		case 'OSHD': $value = 'Bane Elemental'; break;
+		case 'Ofar': $value = 'Tidehunter'; break;
+		case 'Oshd': $value = 'Bane Elemental'; break;
 		case 'U00E': $value = 'Necrolyte'; break;
 		case 'U00F': $value = 'Butcher'; break;
 		case 'O00J': $value = 'Spiritbreaker'; break;
-		case 'UBAL': $value = 'Nerubian Weaver'; break;
-		case 'NFIR': $value = 'Shadow Fiend'; break;
+		case 'Ubal': $value = 'Nerubian Weaver'; break;
+		case 'Nfir': $value = 'Shadow Fiend'; break;
 		case 'U00K': $value = 'Sand King'; break;
-		case 'OPGH': $value = 'Axe'; break;
-		case 'HVSH': $value = 'Bloodseeker'; break;
-		case 'UDEA': $value = 'Lord of Avernus'; break;
+		case 'Opgh': $value = 'Axe'; break;
+		case 'Hvsh': $value = 'Bloodseeker'; break;
+		case 'Udea': $value = 'Lord of Avernus'; break;
 		
 		case 'E01B': $value = 'Spectre'; break;
 		case 'E01A': $value = 'Witch Doctor'; break;
@@ -234,6 +233,8 @@ function heroname ($value) {
 	}
 	return $value;
 }
+
+
 function heroDescription ($value) {
 	
 		switch (strtoupper($value)) {
@@ -375,28 +376,34 @@ function getLossesMySQL($username) {
 
 function checkIfAliasSQLite($value, $dbType, $dbHandle){
 
-	$sql = "SELECT original FROM aliases where alias='$value'";
+	$sql = "SELECT heroid, original FROM originals where heroid='$value'";
 	$original="";
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
 		$original=$row["original"];
+		$heroid=$row["heroid"];
 	}
 
+	
 	//If this was an alias  we found the original
-	if($original != ""){$value=$original;}
+	if($original != "orig"){$value=$original;}
+	//else we keep the original
 	return $value;
 }
 function checkIfAliasMySQL($value){
-	$sql = "SELECT original FROM aliases where alias='$value'";
+	$sql = "SELECT heroid, original FROM originals where heroid='$value'";
 
 	$result = mysql_query($sql);
 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-		$original=$row["original"];
-
-
+		
+	$original=$row["original"];
+	$heroid=$row["heroid"];
 	//If this was an alias  we found the original
-	if($original){$value=$original;}
+	if($original != "orig"){$value=$original;}
+	//else we keep the original
+	
 	return $value;
+	print"value is $value";
 }
 
 ?>

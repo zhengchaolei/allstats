@@ -43,19 +43,19 @@ $aliasheroes="";
 if($dbType == 'sqlite')
 {
 	$heroid=checkIfAliasSQLite($heroid, $dbType, $dbHandle);
-	$sql = "select alias from aliases where original='$heroid'";
+	$sql = "select heroid from originals where original='$heroid'";
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
-		$aliasheroes="$aliasheroes or hero='".$row["alias"]."'";
+		$aliasheroes="$aliasheroes or hero='".$row["heroid"]."'";
 	}
 }
 else
 {
 	$heroid=checkIfAliasMySQL($heroid);
-	$result = mysql_query("select alias from aliases where original='$heroid'");
+	$result = mysql_query("select heroid from originals where original='$heroid'");
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 	{
-		$aliasheroes="$aliasheroes or hero='".$row["alias"]."'";
+		$aliasheroes="$aliasheroes or hero='".$row["heroid"]."'";
 	}
 }
 
