@@ -9,7 +9,8 @@ body {
 	background-color: #000000;
 	margin:0 auto;
 	padding:0;
-	font-family:Arial, Helvetica, sans-serif;
+	font-family:arial;
+	font-weight:bold;
 	overflow: hidden;
 }
 
@@ -53,27 +54,7 @@ div.nav {
 	height: 60px;
 	margin: 0 auto;
 }
-/*
-div.title {
-	
-	margin:0 auto;
-}
-div.innernav { 
-	margin:0 15px 0 0;
-	background:#140078 url('img/nav-bg.png') repeat-x scroll bottom left;
-	height:60px;
-}
-div.outernav {
-	width:90%;
-	margin:0 auto;
-	background:#140078 url('img/nav-bg-left.png') no-repeat scroll bottom left;
-}
-div.innertitle {
-	width:90%;
-	margin:0 auto;
-	padding-top:5px;
-	padding-bottom:5px;
-}*/
+
 div.nav ul {
 	list-style:none;
 	padding:0 0 0 10px;
@@ -93,7 +74,7 @@ div.nav ul li a, div.nav ul li a:visited {
 	color:#ddd;
 	font-weight:bold;
 	font-size:1em;
-	font-family:Arial, Helvetica, sans-serif;
+	font-family:helvetica;
 }
 div.nav ul li a:hover {
 	background-color:#000c54;
@@ -110,6 +91,7 @@ h1 {
 	padding-left:60px;
 }
 h2 {
+font-family: sans-serif;
 	text-align: center;
 	font-size:2em;
 	padding-top: 10px;
@@ -119,6 +101,7 @@ h2 {
 h3 {
 	font-size:1.5em;
 	color: #daa701;
+	font-weight:normal;
 }
 h4 {
 	font-size:2em;
@@ -184,7 +167,6 @@ form input.formbutton {
 {
 position: relative;
 text-align: center;
-font-weight: bold;
 background: url('img/mid.png');
 text-decoration: none;
 }
