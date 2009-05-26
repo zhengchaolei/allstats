@@ -63,18 +63,29 @@ else
 }
 if($count == 0)
 {
-	print '<center><br><br><br><br><br><h3> List of users matching "'.$username.'" on '.$botName.'.</h3><br>';
+?>
+	<table class="table" id="theader">
+	  <tr class="rowuh">
+		  <td align="center" >
+			<h2> List of users matching <?php print $username; ?> on <?php print $botName;?>:</h2>
+		  </td>
+		</tr>
+	 </table>
+	 <div id="datawrapper">
+	<table class="table" id="data">
+	<?php
 	//Shows a list of usernames that contains the word searched for
-	$sql = "SELECT *, count(*) as counttimes FROM gameplayers where name like '%$username%' group by name order by counttimes desc";
-		
+	$sql = "SELECT name, count(1) as counttimes FROM gameplayers where name like '%$username%' group by name order by counttimes desc";
+		$foundCount = 0;
 		if($dbType == 'sqlite')
 		{
-	
+			
 			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 			{
-				$countimes=$row["counttimes"];
+				$counttimes=$row["counttimes"];
 				$founduser=$row["name"];
-				print "<a href=\"?p=user&u=$founduser&s=datetime&o=desc\">$founduser . $countimes games.</a><br>"; 
+				print "<tr class=\"row\"> <td><a href=\"?p=user&u=$founduser&s=datetime&o=desc\">$founduser : $counttimes games.</a></td></tr>"; 
+				$foundCount = $foundCount+1;
 			}
 			if($counttimes==false){ print "Sorry no users found matching that criteria.";}
 		}
@@ -84,12 +95,20 @@ if($count == 0)
 			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 			{
 				$founduser=$row["name"];
-				$countimes=$row["counttimes"];
-				print "<a href=\"?p=user&u=$founduser&s=datetime&o=desc\">$founduser . $countimes games.</a><br>";
+				$counttimes=$row["counttimes"];
+				print "<tr class=\"row\"> <td><a href=\"?p=user&u=$founduser&s=datetime&o=desc\">$founduser : $counttimes games.</a></td></tr>"; 
+				$foundCount = $foundCount+1;
 			}
-			if($counttimes==false){ print "<font class=rowuh> Sorry no users found matching that criteria.</font>";}
+			if($counttimes==false){ print "<tr class=\"rowuh\"> <td> Sorry no users found matching that criteria.</td></tr>";}
 		}
-		print "</center>";
+		if($foundCount == 1)
+		{
+			header("Location: ?p=user&u=$founduser&s=datetime&o=desc");
+		}
+		?>
+		</table>
+		</div>
+<?php
 }
 else
 {
