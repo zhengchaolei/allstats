@@ -75,7 +75,7 @@ if($count == 0)
 	<table class="table" id="data">
 	<?php
 	//Shows a list of usernames that contains the word searched for
-	$sql = "SELECT name, count(1) as counttimes FROM gameplayers where name like '%$username%' group by name order by counttimes desc";
+	$sql = "SELECT name, count(1) as counttimes FROM gameplayers where name like '%$username%' group by name order by counttimes desc, name asc";
 		$foundCount = 0;
 		if($dbType == 'sqlite')
 		{
