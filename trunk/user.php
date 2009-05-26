@@ -63,31 +63,41 @@ else
 }
 if($count == 0)
 {
-?>
-	<table class="table" id="theader">
-	  <tr class="rowuh">
-		  <td align="center" >
-			<h2> List of users matching <?php print $username; ?> on <?php print $botName;?>:</h2>
-		  </td>
-		</tr>
-	 </table>
-	 <div id="datawrapper">
-	<table class="table" id="data">
-	<?php
 	//Shows a list of usernames that contains the word searched for
 	$sql = "SELECT name, count(1) as counttimes FROM gameplayers where name like '%$username%' group by name order by counttimes desc, name asc";
 		$foundCount = 0;
 		if($dbType == 'sqlite')
 		{
-			
+			//Check if there is only one result:
 			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 			{
-				$counttimes=$row["counttimes"];
 				$founduser=$row["name"];
-				print "<tr class=\"row\"> <td><a href=\"?p=user&u=$founduser&s=datetime&o=desc\">$founduser : $counttimes games.</a></td></tr>"; 
 				$foundCount = $foundCount+1;
 			}
-			if($counttimes==false){ print "Sorry no users found matching that criteria.";}
+			if($foundCount == 1)
+			{
+				header("Location: ?p=user&u=$founduser&s=datetime&o=desc");
+			}
+			else
+			{ ?>
+			<table class="table" id="theader">
+			  <tr class="rowuh">
+				  <td align="center" >
+					<h2> List of users matching <?php print $username; ?> on <?php print $botName;?>:</h2>
+				  </td>
+				</tr>
+			</table>
+			<div id="datawrapper">
+			<table class="table" id="data">
+			<?php
+				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+				{
+					$counttimes=$row["counttimes"];
+					$founduser=$row["name"];
+					print "<tr class=\"row\"> <td><a href=\"?p=user&u=$founduser&s=datetime&o=desc\">$founduser : $counttimes games.</a></td></tr>";
+				}
+				if($counttimes==false){ print "Sorry no users found matching that criteria.";}
+			}
 		}
 		else
 		{
@@ -95,16 +105,35 @@ if($count == 0)
 			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 			{
 				$founduser=$row["name"];
-				$counttimes=$row["counttimes"];
-				print "<tr class=\"row\"> <td><a href=\"?p=user&u=$founduser&s=datetime&o=desc\">$founduser : $counttimes games.</a></td></tr>"; 
 				$foundCount = $foundCount+1;
 			}
-			if($counttimes==false){ print "<tr class=\"rowuh\"> <td> Sorry no users found matching that criteria.</td></tr>";}
+			if($foundCount == 1)
+			{
+				header("Location: ?p=user&u=$founduser&s=datetime&o=desc");
+			}
+			else
+			{ ?>
+				<table class="table" id="theader">
+				  <tr class="rowuh">
+					  <td align="center" >
+						<h2> List of users matching <?php print $username; ?> on <?php print $botName;?>:</h2>
+					  </td>
+					</tr>
+				</table>
+				<div id="datawrapper">
+				<table class="table" id="data">
+				<?php
+				$result = mysql_query($sql);
+				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+				{
+					$founduser=$row["name"];
+					$counttimes=$row["counttimes"];
+					print "<tr class=\"row\"> <td><a href=\"?p=user&u=$founduser&s=datetime&o=desc\">$founduser : $counttimes games.</a></td></tr>";
+				}
+				if($counttimes==false){ print "<tr class=\"rowuh\"> <td> Sorry no users found matching that criteria.</td></tr>";}
+			}
 		}
-		if($foundCount == 1)
-		{
-			header("Location: ?p=user&u=$founduser&s=datetime&o=desc");
-		}
+		
 		?>
 		</table>
 		</div>
@@ -534,7 +563,8 @@ $result = mysql_query("SELECT SUM(`left`) as timeplayed, hero, COUNT(*) as playe
 	$mostplayedcount=$row["played"];
 	$mostplayedtime=secondsToTime($row["timeplayed"]);
 //get avg loadingtimes
-$result = mysql_query("SELECT datetime, MIN(loadingtime), MAX(loadingtime), AVG(loadingtime) FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' AND winner!=0");
+$sql = "SELECT datetime, MIN(loadingtime), MAX(loadingtime), AVG(loadingtime) FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username'";
+$result = mysql_query($sql);
 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
 	$firstgame=$row["datetime"];
 	$minLoading=millisecondsToTime($row["MIN(loadingtime)"]);
