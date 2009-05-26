@@ -493,7 +493,7 @@ if($dbType == 'sqlite')
 
  $sql = "SELECT winner, a.gameid as id, newcolour, datetime, gamename, description, hero, kills, deaths, assists, name, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type 
  FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
- LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = original where name = '$username' and description <> 'NULL' ORDER BY $sortcat $order, d.id DESC";
+ LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = heroid where name = '$username' and description <> 'NULL' ORDER BY $sortcat $order, d.id DESC";
 foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
     $gametime=$row["datetime"];
@@ -839,7 +839,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 
  $sql = "SELECT winner, a.gameid as id, newcolour, datetime, gamename, description, hero, kills, deaths, assists, name, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type 
  FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
- LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = original where name= '$username' and description <> 'NULL' ORDER BY $sortcat $order, d.id DESC";
+ LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = heroid where name= '$username' and description <> 'NULL' ORDER BY $sortcat $order, d.id DESC";
  $result = mysql_query($sql);
 while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
     $gametime=$row["datetime"];

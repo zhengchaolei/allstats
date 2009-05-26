@@ -263,10 +263,10 @@ require_once("config.php");
 	<table class="table" id="data">
 	<?php
 	$sql = "Select *, (totgames-wins) as losses, (kills*1.0/deaths) as kdratio, (wins*1.0/totgames) as winratio From 
-	(SELECT description, original, count(*) as totgames, 
+	(SELECT description, heroid, count(*) as totgames, 
 	SUM(case when((c.winner = 1 and a.newcolour < 6) or (c.winner = 2 and a.newcolour > 6)) then 1 else 0 end) as wins, AVG(kills) as kills, AVG(deaths) as deaths, 
 	AVG(assists) as assists, AVG(creepkills) as creepkills, AVG(creepdenies) as creepdenies, AVG(neutralkills) as neutralkills
-	FROM dotaplayers AS a LEFT JOIN originals as b ON hero = original LEFT JOIN dotagames as c ON c.gameid = a.gameid 
+	FROM dotaplayers AS a LEFT JOIN originals as b ON hero = heroid LEFT JOIN dotagames as c ON c.gameid = a.gameid 
 	LEFT JOIN gameplayers as d ON d.gameid = a.gameid and a.colour = d.colour LEFT JOIN games as e ON d.gameid = e.id
 	WHERE description <>  'NULL' and c.winner <> 0";
 	if($ignorePubs)
@@ -294,7 +294,7 @@ if($dbType == 'sqlite')
 		$creepkills=$row["creepkills"];
 		$creepdenies=$row["creepdenies"];
 		$neutralkills=$row["neutralkills"];
-		$hid=$row["original"]
+		$hid=$row["heroid"]
 
 	?>
 	<tr class="row">
@@ -332,7 +332,7 @@ else
 		$creepkills=$row["creepkills"];
 		$creepdenies=$row["creepdenies"];
 		$neutralkills=$row["neutralkills"];
-		$hid=$row["original"]
+		$hid=$row["heroid"]
 
 	?>
 	<tr class="row">
