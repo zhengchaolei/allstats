@@ -14,7 +14,12 @@ body {
 	overflow: hidden;
 }
 
+
 /* default links */
+a img 
+{
+	border:0;
+}
 a:link
 { 
 	color:#DAA702;
