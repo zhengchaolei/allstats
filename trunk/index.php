@@ -54,7 +54,7 @@ require_once("config.php");
 	function setWrapperDimensions()
 	{
 		setWrapperHeight();
-		//setWrapperWidth();
+		setWrapperWidth();
 		setHorizontalLoc();
 	}
 	function setWrapperHeight()
