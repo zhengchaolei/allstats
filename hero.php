@@ -179,12 +179,46 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 </div>
 <table class="table" id="introtable">
   <tr>
-    <td width=48px align="left" class="tableheader"> <img src=./img/heroes/<?php print $heroid ?>.gif alt="w<?php print heroname($heroid);?>" width=48px height=48px></td>
-	<td class="tableheader"><h3><?php print heroName($heroid);?> Information</td>
-	<td width=48px align="left" class="tableheader"> <img src=./img/heroes/<?php print $heroid ?>.gif alt="w<?php print heroname($heroid);?>" width=48px height=48px></td>
+    
+    <td width=48px align="left" class="rowuh"> <img src=./img/heroes/<?php print $heroid ?>.gif alt="w<?php print heroname($heroid);?>" width=48px height=48px></td>
+	<td class="rowuh" width=25%></td>
+	<td class="rowuh"><h3><?php print heroName($heroid);?> Information</td>
+	<td class="rowuh" width=25%></td>
+	<td width=48px align="left" class="rowuh"> <img src=./img/heroes/<?php print $heroid ?>.gif alt="w<?php print heroname($heroid);?>" width=48px height=48px></td>
+	
   </tr>
   <tr class="rowuh"> 
-    <td align="center" colspan=3><?php print heroDescription($heroid);?></td>
+  <?php
+    $sql = "Select summary, stats, skills from originals where heroid='$heroid'";
+if($dbType == 'sqlite')
+{
+	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+	{
+		$summary=$row["summary"];
+		$stats=$row["stats"];
+		$skills=$row["skills"];
+	?>
+	<td align="center" colspan=2><?php print $stats;?><br><br><?php print $skills;?></td>
+    <td align="center" colspan=3><?php print $summary;?></td>
+	<?php
+	}
+	
+}
+else
+{
+    $result = mysql_query($sql);
+	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		$summary=$row["summary"];
+		$stats=$row["stats"];
+		$skills=$row["skills"];
+	?>
+    <td align="center" colspan=2><?php print $stats;?><br><br><?php print $skills;?></td>
+    <td align="center" colspan=3><?php print $summary;?></td>
+	<?php
+	}
+	mysql_free_result($result);
+}
+	?>
   </tr>
   <tr class="rowuh" height=10px>
   </tr>

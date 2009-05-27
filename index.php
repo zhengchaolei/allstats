@@ -51,6 +51,12 @@ require_once("config.php");
 	function getClientHeight() {
 	  return document.compatMode=='CSS1Compat' && !window.opera?document.documentElement.clientHeight:document.body.clientHeight;
 	}
+	function setWrapperDimensions()
+	{
+		setWrapperHeight();
+		//setWrapperWidth();
+		setHorizontalLoc();
+	}
 	function setWrapperHeight()
 	{
 		var windowheight = getClientHeight();
@@ -65,22 +71,40 @@ require_once("config.php");
 		{
 			document.getElementById('datawrapper').style.height = windowheight-divh-thheight+'px';
 		}
+		
+	}
+	function setWrapperWidth()
+	{
 		var windowwidth = getClientWidth();
 		var ninety = windowwidth*.9; 
+		//document.getElementById('nav').style.width = ninety +'px';
 		if(document.getElementById('data') != null)
 		{
 			document.getElementById('data').style.width = ninety +'px';
-			document.getElementById('data').style.left = (windowwidth*.1)/2+'px';
 		}
 		if(document.getElementById('theader') != null)
 		{
 			document.getElementById('theader').style.width = ninety+'px';
-			document.getElementById('theader').style.left = (windowwidth*.1)/2+'px';
 		}
 		if(document.getElementById('introtable') != null)
 		{
 		document.getElementById('introtable').style.width = ninety+'px';
-		document.getElementById('introtable').style.left = (windowwidth*.1)/2+'px';
+		}
+	}
+	function setHorizontalLoc()
+	{
+		var windowwidth = getClientWidth();
+		if(document.getElementById('data') != null)
+		{
+			document.getElementById('data').style.left = (windowwidth*.05)+'px';
+		}
+		if(document.getElementById('theader') != null)
+		{
+			document.getElementById('theader').style.left = (windowwidth*.05)+'px';
+		}
+		if(document.getElementById('introtable') != null)
+		{
+		document.getElementById('introtable').style.left = (windowwidth*.05)+'px';
 		}
 	}
 	
@@ -109,9 +133,9 @@ require_once("config.php");
 
 </head>
 
-<body onresize="setWrapperHeight()" onload="setWrapperHeight()">
+<body onresize="setWrapperDimensions()" onload="setWrapperDimensions()">
 <div class="header" id="header">
-		<div class="nav">
+		<div class="nav" id="nav">
 					<ul>
 						<!-- MENU -->
 						  <li>
@@ -180,7 +204,7 @@ require_once("config.php");
 		{
 			include('intro.php');
 		}
-		?>		
+		?>
 	</div>
 </body>
 </html>
