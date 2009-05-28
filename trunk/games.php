@@ -194,7 +194,7 @@ else
 	<table class="table" id="data">
  <?php 
  
-$sql = "SELECT g.id, map, datetime, gamename, ownername, duration, creatorname, dg.winner, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type FROM games as g LEFT JOIN dotagames as dg ON g.id = dg.gameid ORDER BY $sortcat $order, datetime desc";
+$sql = "SELECT g.id, map, datetime, gamename, ownername, duration, creatorname, dg.winner, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type FROM games as g LEFT JOIN dotagames as dg ON g.id = dg.gameid where map LIKE '%dota allstars%' ORDER BY $sortcat $order, datetime desc";
 
 if($dbType == 'sqlite')
 {

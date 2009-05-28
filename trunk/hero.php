@@ -36,14 +36,48 @@
 
 
 $heroid=$_GET["hid"];
+$sortcat=$_GET["s"];
+$order=$_GET["o"];
 require_once("functions.php");
 require_once("config.php");
-//find if this is an alias
-$aliasheroes="";
+
+$heroName = "";
+$heroDescription = "";
+
+//Check If alias
 if($dbType == 'sqlite')
 {
 	$heroid=checkIfAliasSQLite($heroid, $dbType, $dbHandle);
-	$sql = "select heroid from originals where original='$heroid'";
+}
+else
+{
+	$heroid=checkIfAliasMySQL($heroid);
+}
+
+//Get hero name and description
+$sql = "select description, summary from originals where heroid='$heroid'";
+if($dbType == 'sqlite')
+{
+	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+	{
+		$heroName = $row["description"];
+		$heroDescription = $row["summary"];
+	}
+}
+else
+{
+	$result = mysql_query($sql);
+	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+	{
+		$heroName = $row["description"];
+		$heroDescription = $row["summary"];
+	}
+}
+//find if this is an alias
+$aliasheroes="";
+$sql = "select heroid from originals where original='$heroid'";
+if($dbType == 'sqlite')
+{
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
 		$aliasheroes="$aliasheroes or hero='".$row["heroid"]."'";
@@ -51,175 +85,460 @@ if($dbType == 'sqlite')
 }
 else
 {
-	$heroid=checkIfAliasMySQL($heroid);
-	$result = mysql_query("select heroid from originals where original='$heroid'");
+	$result = mysql_query($sql);
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 	{
 		$aliasheroes="$aliasheroes or hero='".$row["heroid"]."'";
 	}
 }
-
 ?>
-
-<table class="table" id="theader">
-	<tr class="rowuh"> 
-	<td colspan=12 align="center" ><h2><?php print heroname($heroid); ?> Statistics:</h2> 
-    </td>
-  </tr>
-  <tr>
-	<td class="rowuh"colspan=1></td>
-	<td class="tableheader" colspan=2>Total:</td>
-	<td class="tableheader" colspan=9>Average Per Game:</td>
-  </tr>
-  <tr class="tableheader"> 
-    <td>Player Name</td>
-	<td width=7%>Games:</td>
-    <td width=7%>K/D Ratio</td>
-    <td width=7%>Kills</td>
-    <td width=7%>Deaths</td>
-    <td width=7%>Assists</td>
-	<td width=7%>Creep Kills</td>
-	<td width=7%>Creep Denies</td>
-	<td width=7%>Neutral Kills</td>
-	<td width=7%>Tower Kills</td>
-	<td width=7%>Rax Kills</td>
-	<td width=7%>Courier Kills</td>
-  </tr>
-</table>
-<div id="datawrapper">
-	<table class="table" id="data">
-
 <?php
-$sql = "select *,(sumkills/sumdeaths) as killdeathratio from 
-(select hero, count(*) as totgames, sum(kills) as sumkills, sum(deaths) as sumdeaths, sum(assists), 
-sum(creepkills), sum(creepdenies), sum(neutralkills), sum(towerkills), sum(raxkills), sum(courierkills),
-name from (SELECT hero, name, kills, deaths, assists, creepkills, creepdenies, neutralkills, towerkills, raxkills, courierkills 
-FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour 
-LEFT JOIN dotagames ON games.id=dotagames.gameid where winner<>0  order by kills desc)
-as tb1 where hero='$heroid' $aliasheroes group by name) as tb3 order by killdeathratio desc";
-if($dbType == 'sqlite')
+//Get overall hero stats
+$sql =" Select *, (totgames-wins) as losses, (kills*1.0/deaths) as kdratio, (wins*1.0/totgames) as winratio From 
+	(SELECT description, summary, skills, stats, hero, count(*) as totgames, 
+	SUM(case when((c.winner = 1 and a.newcolour < 6) or (c.winner = 2 and a.newcolour > 6)) then 1 else 0 end) as wins, SUM(kills) as kills, SUM(deaths) as deaths, 
+	SUM(assists) as assists, SUM(creepkills) as creepkills, SUM(creepdenies) as creepdenies, SUM(neutralkills) as neutralkills, SUM(towerkills) as towerkills, SUM(raxkills) as raxkills, SUM(courierkills) as courierkills
+	FROM dotaplayers AS a LEFT JOIN originals as b ON hero = heroid LEFT JOIN dotagames as c ON c.gameid = a.gameid
+	LEFT JOIN gameplayers as d ON d.gameid = a.gameid and a.colour = d.colour LEFT JOIN games as e ON d.gameid = e.id where hero='$heroid' $aliasheroes group by description) as z order by description asc";
+	if($dbType == 'sqlite')
 {
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
 		$totgames=$row["totgames"];
-		$killdeathratio=$row["killdeathratio"];
-		$kills=$row["sumkills"];
-		$deaths=$row["sumdeaths"];
-		$assists=$row["sum(assists)"];
-		$creepkills=$row["sum(creepkills)"];
-		$creepdenies=$row["sum(creepdenies)"];
-		$neutralkills=$row["sum(neutralkills)"];
-		$towerkills=$row["sum(towerkills)"];
-		$raxkills=$row["sum(raxkills)"];
-		$courierkills=$row["sum(courierkills)"];
-		$name=$row["name"]; 
-		
-		if(!$killdeathratio){$killdeathratio=$kills;}
-		$killdeathratio= substr($killdeathratio,0,4);
-	?>
-
-		 <tr class="row"> 
-			<td><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc"><?php print $name; ?></a></td>
-			<td width=7%> <?php print $totgames;?></td>
-			<td width=7%> <?php print $killdeathratio;?></td>
-			<td width=7%> <?php print ROUND($kills/$totgames, 1);?></td>
-			<td width=7%><?php print ROUND($deaths/$totgames, 1);?></td>
-			<td width=7%><?php print ROUND($assists/$totgames, 1);?></td>
-			<td width=7%><?php print ROUND($creepkills/$totgames, 1);?></td>
-			<td width=7%><?php print ROUND($creepdenies/$totgames, 1);?></td>
-			<td width=7%><?php print ROUND($neutralkills/$totgames, 1);?></td>
-			<td width=7%><?php print ROUND($towerkills/$totgames, 1);?></td>
-			<td width=7%><?php print ROUND($raxkills/$totgames, 1);?></td>
-			<td width=7%><?php print ROUND($courierkills/$totgames, 1);?></td>
-		  </tr>
-<?php 
+		$wins=$row["wins"];
+		$losses=$row["losses"];
+		$winratio=$row["winratio"];
+		$kills=$row["kills"];
+		$deaths=$row["deaths"];
+		$assists=$row["assists"];
+		$kdratio=$row["kdratio"];
+		$creepkills=$row["creepkills"];
+		$creepdenies=$row["creepdenies"];
+		$neutralkills=$row["neutralkills"];
+		$towerkills=$row["towerkills"];
+		$raxkills=$row["raxkills"];
+		$courierkills=$row["courierkills"];
+		$summary=$row["summary"];
+		$stats=$row["stats"];
+		$skills=$row["skills"];
 	}
 }
 else
 {	
-$result = mysql_query($sql);
-while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-	$totgames=$row["totgames"];
-    $killdeathratio=$row["killdeathratio"];
-    $kills=$row["sumkills"];
-	$deaths=$row["sumdeaths"];
-    $assists=$row["sum(assists)"];
-	$creepkills=$row["sum(creepkills)"];
-	$creepdenies=$row["sum(creepdenies)"];
-	$neutralkills=$row["sum(neutralkills)"];
-	$towerkills=$row["sum(towerkills)"];
-	$raxkills=$row["sum(raxkills)"];
-	$courierkills=$row["sum(courierkills)"];
-	$name=$row["name"]; 
-	
-	if(!$killdeathratio){$killdeathratio=$kills;}
-	$killdeathratio= substr($killdeathratio,0,4);
-?>
-
- <tr class="row"> 
-    <td><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc"><?php print $name; ?></a></td>
-	<td width=7%> <?php print $totgames;?></td>
-    <td width=7%> <?php print $killdeathratio;?></td>
-    <td width=7%> <?php print ROUND($kills/$totgames, 1);?></td>
-    <td width=7%><?php print ROUND($deaths/$totgames, 1);?></td>
-    <td width=7%><?php print ROUND($assists/$totgames, 1);?></td>
-	<td width=7%><?php print ROUND($creepkills/$totgames, 1);?></td>
-	<td width=7%><?php print ROUND($creepdenies/$totgames, 1);?></td>
-	<td width=7%><?php print ROUND($neutralkills/$totgames, 1);?></td>
-	<td width=7%><?php print ROUND($towerkills/$totgames, 1);?></td>
-	<td width=7%><?php print ROUND($raxkills/$totgames, 1);?></td>
-	<td width=7%><?php print ROUND($courierkills/$totgames, 1);?></td>
-  </tr>
-<?php 
-	}
-	mysql_free_result($result);
-}
- ?>
-</table>
-</div>
-<table class="table" id="introtable">
-  <tr>
-    
-    <td width=48px align="left" class="rowuh"> <img src=./img/heroes/<?php print $heroid ?>.gif alt="w<?php print heroname($heroid);?>" width=48px height=48px></td>
-	<td class="rowuh" width=25%></td>
-	<td class="rowuh"><h3><?php print heroName($heroid);?> Information</td>
-	<td class="rowuh" width=25%></td>
-	<td width=48px align="left" class="rowuh"> <img src=./img/heroes/<?php print $heroid ?>.gif alt="w<?php print heroname($heroid);?>" width=48px height=48px></td>
-	
-  </tr>
-  <tr class="rowuh"> 
-  <?php
-    $sql = "Select summary, stats, skills from originals where heroid='$heroid'";
-if($dbType == 'sqlite')
-{
-	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-	{
+	$result = mysql_query($sql);
+	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		$totgames=$row["totgames"];
+		$wins=$row["wins"];
+		$losses=$row["losses"];
+		$winratio=$row["winratio"];
+		$kills=$row["kills"];
+		$deaths=$row["deaths"];
+		$assists=$row["assists"];
+		$kdratio=$row["kdratio"];
+		$creepkills=$row["creepkills"];
+		$creepdenies=$row["creepdenies"];
+		$neutralkills=$row["neutralkills"];
+		$towerkills=$row["towerkills"];
+		$raxkills=$row["raxkills"];
+		$courierkills=$row["courierkills"];
 		$summary=$row["summary"];
 		$stats=$row["stats"];
 		$skills=$row["skills"];
+	}
+	mysql_free_result($result);
+}
 	?>
-	<td align="center" colspan=2><?php print $stats;?><br><br><?php print $skills;?></td>
-    <td align="center" colspan=3><?php print $summary;?></td>
-	<?php
+<table class="table" id="introtable">
+	<tr class="rowuh"> 
+	<td colspan=12 align="center" >
+	<table class="rowuh" width=100%>
+	<tr>
+		<td width=64px align="left" class="rowuh"> <img src=./img/heroes/<?php print $heroid ?>.gif alt="" width=64px height=64px></td>
+		<td width=99%><h2><?php print $heroName; ?></h2></td>
+		<td width=64px align="left" class="rowuh"> <img src=./img/heroes/<?php print $heroid ?>.gif alt="" width=64px height=64px></td>
+	</tr>
+	</table>
+    </td>
+  </tr>
+  <tr>
+	<td class="tableheader"colspan=1 width=33%>All Time Statistics:</td>
+	<td class="tableheader" colspan=1><?php print $heroName; ?> Information:</td>
+  </tr>
+  <tr>
+	<td>
+	<table class="rowuh" width=100%>
+		  <tr class="rowuh">
+			<td>Games:</td>
+			<td><?php print $totgames; ?></td>
+			<td>Win/Loss Ratio:</td>
+			<td ><?php print ROUND($winratio,2); ?></td>
+		  </tr>
+		  <tr class="rowuh">
+			<td>Wins:</td>
+			<td ><?php print $wins; ?></td>
+			<td>Losses:</td>
+			<td ><?php print $losses; ?></td>
+		  </tr>
+		  <tr class="rowuh" height=10px>
+		  </tr>
+		  <tr class="rowuh">
+			<td>Kills:</td>
+			<td ><?php print ROUND($kills,2); ?></td>
+			<td>Deaths:</td>
+			<td ><?php print ROUND($deaths,2); ?></td>
+		  </tr>
+		  <tr class="rowuh">
+			<td>Assists:</td>
+			<td ><?php print ROUND($assists,2); ?></td>
+			<td>Kill/Death Ratio:</td>
+			<td ><?php print ROUND($kdratio,2); ?></td>
+		  </tr>
+		  <tr class="rowuh" height=10px>
+		  </tr>
+		  <tr class="rowuh">
+			<td>Creep Kills:</td>
+			<td ><?php print ROUND($creepkills,2); ?></td>
+			<td>Creep Denies:</td>
+			<td ><?php print ROUND($creepdenies,2);  ?></td>
+		  </tr>
+		  <tr class="rowuh">
+			<td>Neutral Kills:</td>
+			<td ><?php print ROUND($neutralkills,2); ?></td>
+			<td>Tower Kills:</td>
+			<td ><?php print ROUND($towerkills,2); ?></td>
+		  </tr>
+		  <tr class="rowuh">
+			<td>Rax Kills:</td>
+			<td ><?php print ROUND($raxkills,2); ?></td>
+			<td>Courier Kills:</td>
+			<td ><?php print ROUND($courierkills,2); ?></td>
+		  </tr>
+		</td>
+		</table>
+	</td>
+	<td>
+	<table class="rowuh">
+	<tr>
+	<td colspan=2><?php print $summary; ?></td>
+	</tr>
+	<tr class="rowuh" height=10px>
+	</tr>
+	<tr>
+		<td width=33%><?php print $stats; ?></td>
+		<td><?php print $skills; ?></td>
+	</tr>
+	</table
+	</td>
+		
+	
+  </tr>
+</table>
+<table class="table" id="theader">
+<tr class="rowuh" height=20px>
+		  </tr>
+  <tr class="rowuh">
+  <td colspan=15 align="center" >
+	<h3><strong>Player History:</strong></h3>
+  </td>
+  <tr class="tableheader">
+<?php
+  //Date and Time
+	if($sortcat == "name")
+	{
+		if($order == "asc")
+		{
+			print("<td width=15%><a href=\"?p=hero&hid=$heroid&s=name&o=desc\">Player</a></td>");
+		}
+		else
+		{
+			print("<td width=15%><a href=\"?p=hero&hid=$heroid&s=name&o=asc\">Player</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=15%><a href=\"?p=hero&hid=$heroid&s=name&o=desc\">Player</a></td>");
+	}
+	//Game Name
+	if($sortcat == "gamename")
+	{
+		if($order == "asc")
+		{
+			print("<td width=30%><a href=\"?p=hero&hid=$heroid&s=gamename&o=desc\">Game Name</a></td>");
+		}
+		else
+		{
+			print("<td width=30%><a href=\"?p=hero&hid=$heroid&s=gamename&o=asc\">Game Name</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=30%><a href=\"?p=hero&hid=$heroid&s=gamename&o=asc\">Game Name</a></td>");
+	}
+	//Game Type
+	if($sortcat == "type")
+	{
+		if($order == "asc")
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=type&o=desc\">Type</a></td>");
+		}
+		else
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=type&o=asc\">Type</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=type&o=desc\">Type</a></td>");
+	}
+	//result
+	if($sortcat == "result")
+	{
+		if($order == "asc")
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=result&o=desc\">Result</a></td>");
+		}
+		else
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=result&o=asc\">Result</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=result&o=desc\">Result</a></td>");
+	}
+	//Kills
+	if($sortcat == "kills")
+	{
+		if($order == "asc")
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=kills&o=desc\">Kills</a></td>");
+		}
+		else
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=kills&o=asc\">Kills</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=kills&o=desc\">Kills</a></td>");
 	}
 	
+	//Deaths
+	if($sortcat == "deaths")
+	{
+		if($order == "asc")
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=deaths&o=desc\">Deaths</a></td>");
+		}
+		else
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=deaths&o=asc\">Deaths</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=deaths&o=desc\">Deaths</a></td>");
+	}
+	
+	//Assists
+	if($sortcat == "assists")
+	{
+		if($order == "asc")
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=assists&o=desc\">Assists</a></td>");
+		}
+		else
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=assists&o=asc\">Assists</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=assists&o=desc\">Assists</a></td>");
+	}
+	//KDRatio
+	if($sortcat == "kdratio")
+	{
+		if($order == "asc")
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=kdratio&o=desc\">K/D Ratio</a></td>");
+		}
+		else
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=kdratio&o=asc\">K/D Ratio</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=kdratio&o=desc\">K/D Ratio</a></td>");
+	}
+	//Creep Kills
+	if($sortcat == "creepkills")
+	{
+		if($order == "asc")
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=creepkills&o=desc\">Creep<br>Kills</a></td>");
+		}
+		else
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=creepkills&o=asc\">Creep<br>Kills</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=creepkills&o=desc\">Creep<br>Kills</a></td>");
+	}
+	//Creep Denies
+	if($sortcat == "creepdenies")
+	{
+		if($order == "asc")
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=creepdenies&o=desc\">Creep<br>Denies</a></td>");
+		}
+		else
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=creepdenies&o=asc\">Creep<br>Denies</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=creepdenies&o=desc\">Creep<br>Denies</a></td>");
+	}
+	//Neutral Kills
+	if($sortcat == "neutralkills")
+	{
+		if($order == "asc")
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=neutralkills&o=desc\">Neutral<br>Kills</a></td>");
+		}
+		else
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=neutralkills&o=asc\">Neutral<br>Kills</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=neutralkills&o=desc\">Neutral<br>Kills</a></td>");
+	}
+	//Tower Kills
+	if($sortcat == "towerkills")
+	{
+		if($order == "asc")
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=towerkills&o=desc\">Tower<br>Kills</a></td>");
+		}
+		else
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=towerkills&o=asc\">Tower<br>Kills</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=towerkills&o=desc\">Tower<br>Kills</a></td>");
+	}
+	//Rax Kills
+	if($sortcat == "raxkills")
+	{
+		if($order == "asc")
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=raxkills&o=desc\">Rax<br>Kills</a></td>");
+		}
+		else
+		{
+			print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=raxkills&o=asc\">Rax<br>Kills</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=5%><a href=\"?p=hero&hid=$heroid&s=raxkills&o=desc\">Rax<br>Kills</a></td>");
+	}
+
+  ?>
+  </tr>
+  </table>
+<div id="datawrapper">
+	<table class="table" id="data">
+ <?php 
+  $sql = "Select *, CASE WHEN (deaths = 0 and kills = 0) THEN 0 WHEN (deaths = 0) then 1000 ELSE (kills*1.0/deaths) end as kdratio from (SELECT a.gameid as gameid, gamename, kills, deaths, assists, creepkills, neutralkills, creepdenies, towerkills, raxkills, courierkills, name, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type, 
+  CASE when (winner=1 and newcolour < 6) or (winner=2 and newcolour > 5) then 'WON' when  winner=0 then 'DRAW' else 'LOST' end as result
+ FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
+ LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = heroid where heroid = '$heroid') as t ORDER BY $sortcat $order, name DESC";
+if($dbType == 'sqlite')
+{
+foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+	{
+	$gameid = $row["gameid"];
+	$kills=$row["kills"];
+	$death=$row["deaths"];
+    $assists=$row["assists"];
+	$kdratio=$row["kdratio"];
+	$gamename=$row["gamename"];
+	$name=$row["name"];
+	$winner=$row["result"];
+	$type=$row["type"];
+	$creepkills=$row["creepkills"];
+	$creepdenies=$row["creepdenies"];
+	$neutralkills=$row["neutralkills"];
+	$towerkills=$row["towerkills"];
+	$raxkills=$row["raxkills"];
+ ?> 
+ <tr class="row">
+    <td width=15%><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc"><?php print $name;?></td>
+    <td width=30%><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self"><?php print $gamename;?></a></td>
+    <td width=5%><?php print $type;?></td>
+	<td width=5%> <span <?php if($winner == 'LOST'){print 'style="color:#cc6666"';}elseif($winner == 'WON'){print 'style="color:#66cc66"';} else{print 'style="color:#daa701"';} ?>><?php print $winner;?></span></td>
+    <td width=5%><?php print $kills;?></td>
+    <td width=5%><?php print $death;?></td>
+    <td width=5%><?php print $assists;?></td>
+	<td width=5%><?php print ROUND($kdratio, 2);?></td>
+	<td width=5%><?php print $creepkills;?></td>
+    <td width=5%><?php print $creepdenies;?></td>
+	<td width=5%><?php print $neutralkills;?></td>
+    <td width=5%><?php print $towerkills;?></td>
+	<td width=5%><?php print $raxkills;?></td>
+ </tr>	
+	<?php
+	}
 }
 else
 {
-    $result = mysql_query($sql);
-	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		$summary=$row["summary"];
-		$stats=$row["stats"];
-		$skills=$row["skills"];
-	?>
-    <td align="center" colspan=2><?php print $stats;?><br><br><?php print $skills;?></td>
-    <td align="center" colspan=3><?php print $summary;?></td>
+$result = mysql_query($sql);
+while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+$gameid = $row["gameid"];
+	$kills=$row["kills"];
+	$death=$row["deaths"];
+    $assists=$row["assists"];
+	$kdratio=$row["kdratio"];
+	$gamename=$row["gamename"];
+	$name=$row["name"];
+	$winner=$row["result"];
+	$type=$row["type"];
+	$creepkills=$row["creepkills"];
+	$creepdenies=$row["creepdenies"];
+	$neutralkills=$row["neutralkills"];
+	$towerkills=$row["towerkills"];
+	$raxkills=$row["raxkills"];
+
+ ?> 
+ <tr class="row">
+    <td width=15%><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc"><?php print $name;?></td>
+    <td width=30%><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self"><?php print $gamename;?></a></td>
+    <td width=5%><?php print $type;?></td>
+	<td width=5%> <span <?php if($winner == 'LOST'){print 'style="color:#cc6666"';}elseif($winner == 'WON'){print 'style="color:#66cc66"';} else{print 'style="color:#daa701"';} ?>><?php print $winner;?></span></td>
+    <td width=5%><?php print $kills;?></td>
+    <td width=5%><?php print $death;?></td>
+    <td width=5%><?php print $assists;?></td>
+	<td width=5%><?php print ROUND($kdratio,2);?></td>
+	<td width=5%><?php print $creepkills;?></td>
+    <td width=5%><?php print $creepdenies;?></td>
+	<td width=5%><?php print $neutralkills;?></td>
+    <td width=5%><?php print $towerkills;?></td>
+	<td width=5%><?php print $raxkills;?></td>
+ </tr>	
 	<?php
 	}
-	mysql_free_result($result);
 }
 	?>
-  </tr>
-  <tr class="rowuh" height=10px>
-  </tr>
 </table>
+</div>
+}

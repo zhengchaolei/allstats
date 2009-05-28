@@ -37,6 +37,7 @@
 $gid=$_GET["gid"];
 require_once("functions.php");
 require_once("config.php");
+require("reshine.php");
 
 	$firstline=true;
 	$scourge=true;
@@ -100,7 +101,7 @@ if($dbType == 'sqlite')
 		$replayurl="replays/GHost++ ".$gametimenew." ".str_ireplace("\\","_", str_ireplace("/","_",$gamename))." (".replayDuration($duration).").w3g";
 		if(!file_exists($replayurl))
 		{
-			$replayurl="replays/GHost++ ".$gametimenew." ".str_ireplace("\\","_", str_ireplace("/","_",$gamename))."w3g";
+			$replayurl="replays/GHost++ ".$gametimenew." ".str_ireplace("\\","_", str_ireplace("/","_",$gamename)).".w3g";
 		}
 		$replayurl = str_ireplace(" ","%20",$replayurl);
 		// GHost++ 2009-03-16 20-16 dota 4v4 apem eu.w3g
@@ -192,10 +193,10 @@ if($dbType == 'sqlite')
 			</td>
 			<td width=5%>
 			<?php
-			if(heroname($hero) == "?")
+			if(empty($hero))
 			print "<img width=\"32px\" height=\"32px\" src=./img/heroes/blank.gif>";
 			else
-			print "<a  href=\"?p=hero&hid=".$hero."\"><img width=\"32px\" height=\"32px\" src=./img/heroes/".$hero.".gif></a>";
+			print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc\"><img width=\"32px\" height=\"32px\" src=./img/heroes/".$hero.".gif></a>";
 			?>
 			</td>
 			<td width=5%><?php print $kills; ?></td>
@@ -277,7 +278,7 @@ else
 		$replayurl="replays/GHost++ ".$gametimenew." ".str_ireplace("\\","_", str_ireplace("/","_",$gamename))." (".replayDuration($duration).").w3g";
 		if(!file_exists($replayurl))
 		{
-			$replayurl="replays/GHost++ ".$gametimenew." ".str_ireplace("\\","_", str_ireplace("/","_",$gamename))."w3g";
+			$replayurl="replays/GHost++ ".$gametimenew." ".str_ireplace("\\","_", str_ireplace("/","_",$gamename)).".w3g";
 		}
 		$replayurl = str_ireplace(" ","%20",$replayurl);
 		
@@ -370,10 +371,10 @@ else
 			</td>
 			<td width=5%>
 			<?php
-			if(heroname($hero) == "?")
+			if(empty($hero))
 			print "<img width=\"32px\" height=\"32px\" src=./img/heroes/blank.gif>";
 			else
-			print "<a  href=\"?p=hero&hid=".$hero."\"><img width=\"32px\" height=\"32px\" src=./img/heroes/".$hero.".gif></a>";
+			print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc\"><img width=\"32px\" height=\"32px\" src=./img/heroes/".$hero.".gif></a>";
 			?>
 			</td>
 			<td width=5%><?php print $kills; ?></td>
@@ -400,38 +401,6 @@ else
 		}
 	}
 }
-?> 
-
-<?php
-/*
-<tr class="tableheader">
-	<td colspan=13><h3>Chat Log:</h3></td>
-</tr>
-$replay_loc = "replays/LastReplay.w3g";
-$replay = new replay($replay_loc);
-if ($replay->chat) {
-		 print 'true';
-          $prev_time = 0;
-          foreach ($replay->chat as $content) {
-			print "<tr class=\"rowuh\"> <td>";
-			
-            $prev_time = $content['time'];
-			
-            print convert_time($content['time']);
-			/*
-            if (isset($content['mode'])) {
-              if (is_int($content['mode'])) {
-
-                print ' / '.'<span class="'.$colors[$content['mode']].'">'.$names[$content['mode']] ;
-              }
-
-              else {
-                print ' / '.$content['mode'];
-              }
-            }
-			print "</td></tr>";
-          }
-	}*/
 ?>
 </table>
 </div>
