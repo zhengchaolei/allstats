@@ -298,8 +298,8 @@ if($dbType == 'sqlite')
 
 	?>
 	<tr class="row">
-	<td><a href="?p=hero&hid=<?php print $hid;?>"><img width="28px" height="28px" src=./img/heroes/<?php print $hid ?>.gif></a></td>
-	<td><a href="?p=hero&hid=<?php print $hid; ?>"><?php print $hero; ?></a></td>
+	<td><a href="?p=hero&hid=<?php print $hid;?>&s=kdratio&o=desc"><img width="28px" height="28px" src=./img/heroes/<?php print $hid ?>.gif></a></td>
+	<td><a href="?p=hero&hid=<?php print $hid; ?>&s=kdratio&o=desc"><?php print $hero; ?></a></td>
 	<td width=7%><?php print $totgames; ?></td>
 	<td width=7%><?php print $wins; ?></td>
 	<td width=7%><?php print $losses; ?></td>
@@ -336,8 +336,8 @@ else
 
 	?>
 	<tr class="row">
-	<td><a href="?p=hero&hid=<?php print $hid;?>"><img width="28px" height="28px" src=./img/heroes/<?php print $hid ?>.gif></a></td>
-	<td><a href="?p=hero&hid=<?php print $hid; ?>"><?php print $hero; ?></a></td>
+	<td><a href="?p=hero&hid=<?php print $hid;?>&s=kdratio&o=desc"><img width="28px" height="28px" src=./img/heroes/<?php print $hid ?>.gif></a></td>
+	<td><a href="?p=hero&hid=<?php print $hid; ?>&s=kdratio&o=desc"><?php print $hero; ?></a></td>
 	<td width=7%><?php print $totgames; ?></td>
 	<td width=7%><?php print $wins; ?></td>
 	<td width=7%><?php print $losses; ?></td>

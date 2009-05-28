@@ -515,8 +515,8 @@ foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
  <td width=20%><?php print $gametime;?></td>
      <td><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#cc6666"';}elseif($winner==2){print 'style="color:#66cc66"';}?>><Strong><?php print $gamename;?></strong></a></td>
     <td width=5%><?php print $type;?></td>
-	<td width=4%><a  href="?p=hero&hid=<?php print$hid;?>"><img width="32px" height="32px" src=./img/heroes/<?php print $hid; ?>.gif></a></td>
-	<td width=16%><a  href="?p=hero&hid=<?php print $hid;?>" <?php if($colour<6){print 'style="color:#cc6666"';}elseif($colour>5){print 'style="color:#66cc66"';}?>><?php print $hero;?></a></td>
+	<td width=4%><a  href="?p=hero&hid=<?php print$hid;?>&s=kdratio&o=desc"><img width="32px" height="32px" src=./img/heroes/<?php print $hid; ?>.gif></a></td>
+	<td width=16%><a  href="?p=hero&hid=<?php print $hid;?>&s=kdratio&o=desc" <?php if($colour<6){print 'style="color:#cc6666"';}elseif($colour>5){print 'style="color:#66cc66"';}?>><?php print $hero;?></a></td>
     <td width=10%><?php print $kills;?></td>
     <td width=10%><?php print $death;?></td>
     <td width=10%><?php print $assists;?></td>
@@ -861,8 +861,8 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
  <td width=20%><?php print $gametime;?></td>
     <td><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#cc6666"';}elseif($winner==2){print 'style="color:#66cc66"';}?>><Strong><?php print $gamename;?></strong></a></td>
     <td width=5%><?php print $type;?></td>
-	<td width=4%><a  href="?p=hero&hid=<?php print$hid;?>"><img width="32px" height="32px" src=./img/heroes/<?php print $hid; ?>.gif></a></td>
-	<td width=16%><a  href="?p=hero&hid=<?php print $hid;?>" <?php if($colour<6){print 'style="color:#cc6666"';}elseif($colour>5){print 'style="color:#66cc66"';}?>><?php print $hero;?></a></td>
+	<td width=4%><a  href="?p=hero&hid=<?php print$hid;?>&s=kdratio&o=desc"><img width="32px" height="32px" src=./img/heroes/<?php print $hid; ?>.gif></a></td>
+	<td width=16%><a  href="?p=hero&hid=<?php print $hid;?>&s=kdratio&o=desc" <?php if($colour<6){print 'style="color:#cc6666"';}elseif($colour>5){print 'style="color:#66cc66"';}?>><?php print $hero;?></a></td>
     <td width=10%><?php print $kills;?></td>
     <td width=10%><?php print $death;?></td>
     <td width=10%><?php print $assists;?></td>
