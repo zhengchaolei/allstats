@@ -37,7 +37,6 @@
 $gid=$_GET["gid"];
 require_once("functions.php");
 require_once("config.php");
-require("reshine.php");
 
 	$firstline=true;
 	$scourge=true;
