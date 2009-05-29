@@ -34,10 +34,18 @@
 -->
 **********************************************/
 
-
-$heroid=$_GET["hid"];
-$sortcat=$_GET["s"];
-$order=$_GET["o"];
+if($dbType == 'sqlite')
+{
+	$heroid=sqlite_escape_string($_GET["hid"]);
+	$sortcat=sqlite_escape_string($_GET["s"]);
+	$order=sqlite_escape_string($_GET["o"]);
+}
+else
+{
+	$heroid=mysql_real_escape_string($_GET["hid"]);
+	$sortcat=mysql_real_escape_string($_GET["s"]);
+	$order=mysql_real_escape_string($_GET["o"]);
+}
 require_once("functions.php");
 require_once("config.php");
 

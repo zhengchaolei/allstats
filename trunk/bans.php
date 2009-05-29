@@ -36,8 +36,16 @@
 
 require_once("functions.php");
 require_once("config.php");
-$sortcat=$_GET["s"];
-$order=$_GET["o"];
+if($dbType == 'sqlite')
+{
+	$sortcat=sqlite_escape_string($_GET["s"]);
+	$order=sqlite_escape_string($_GET["o"]);
+}
+else
+{
+	$sortcat=mysql_real_escape_string($_GET["s"]);
+	$order=mysql_real_escape_string($_GET["o"]);
+}
 
 $sql = "SELECT COUNT( DISTINCT id ) as totbanned from bans";
 if($dbType == 'sqlite')

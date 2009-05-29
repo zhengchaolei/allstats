@@ -33,8 +33,14 @@
 *
 -->
 **********************************************/
-
-$gid=$_GET["gid"];
+if($dbType == 'sqlite')
+{
+	$gid=sqlite_escape_string($_GET["gid"]);
+}
+else
+{
+	$gid=mysql_real_escape_string($_GET["gid"]);
+}
 require_once("functions.php");
 require_once("config.php");
 

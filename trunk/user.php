@@ -37,9 +37,19 @@
 
 require_once("functions.php");
 require_once("config.php");
-$username=strtolower($_GET["u"]);
-$sortcat=$_GET["s"];
-$order=$_GET["o"];
+if($dbType == 'sqlite')
+{
+	$username=strtolower(sqlite_escape_string($_GET["u"]));
+	$sortcat=sqlite_escape_string($_GET["s"]);
+	$order=sqlite_escape_string($_GET["o"]);
+}
+else
+{
+	$username=strtolower(mysql_real_escape_string($_GET["u"]));
+	$sortcat=mysql_real_escape_string($_GET["s"]);
+	$order=mysql_real_escape_string($_GET["o"]);
+
+}
 
 //Determine if user exists
 $count = 0;
@@ -90,6 +100,7 @@ if($count == 0)
 			<div id="datawrapper">
 			<table class="table" id="data">
 			<?php
+			    $counttimes = false;
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
 					$counttimes=$row["counttimes"];
@@ -123,6 +134,7 @@ if($count == 0)
 				<div id="datawrapper">
 				<table class="table" id="data">
 				<?php
+				$counttimes = false;
 				$result = mysql_query($sql);
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
@@ -186,7 +198,6 @@ if($dbType == 'sqlite')
 		$mostwinshero=checkIfAliasSQLite($row["hero"], $dbType, $dbHandle);
 		$mostwinscount=$row["wins"];
 		//put an blank if you ahvent won
-		echo isset($mostwinscount);
 		if(!isset($mostwinscount)){ $mostwinshero="blank"; $mostwinscount="0";}
 	}
 	//get hero with most losses
@@ -199,7 +210,7 @@ if($dbType == 'sqlite')
 		if($mostlossescount==""){ $mostlosseshero="blank"; $mostlossescount="0";}
 	}
 	//get hero you have played most with
-	$sql = "SELECT SUM(`left`) as timeplayed, hero, COUNT(*) as played FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' group by hero order by timeplayed desc";
+	$sql = "SELECT SUM(`left`) as timeplayed, hero, COUNT(*) as played FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' and hero <> '' group by hero order by played asc";
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
 		$mostplayedhero=checkIfAliasSQLite($row["hero"], $dbType, $dbHandle);
@@ -341,12 +352,12 @@ if($dbType == 'sqlite')
           <td align=center><strong>Times Played</strong></td>
         </tr>
         <tr> 
-          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostkillshero;?>"><img src="img/heroes/<?php print $mostkillshero; ?>.gif" width="64" height="64"></a></td>
-          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostdeathshero;?>"><img src="img/heroes/<?php print $mostdeathshero; ?>.gif" width="64" height="64"></a></td>
-          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostassistshero;?>"><img src="img/heroes/<?php print $mostassistshero; ?>.gif" width="64" height="64"></a></td>
-          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostwinshero;?>"><img src="img/heroes/<?php print $mostwinshero; ?>.gif" width="64" height="64"></a></td>
-          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostlosseshero;?>"><img src="img/heroes/<?php print $mostlosseshero; ?>.gif" width="64" height="64"></a></td>
-          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostplayedhero;?>"><img src="img/heroes/<?php print $mostplayedhero; ?>.gif" width="64" height="64"></a></td>
+          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostkillshero;?>&s=kdratio&o=desc"><img src="img/heroes/<?php print $mostkillshero; ?>.gif" width="64" height="64"></a></td>
+          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostdeathshero;?>&s=kdratio&o=desc"><img src="img/heroes/<?php print $mostdeathshero; ?>.gif" width="64" height="64"></a></td>
+          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostassistshero;?>&s=kdratio&o=desc"><img src="img/heroes/<?php print $mostassistshero; ?>.gif" width="64" height="64"></a></td>
+          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostwinshero;?>&s=kdratio&o=desc"><img src="img/heroes/<?php print $mostwinshero; ?>.gif" width="64" height="64"></a></td>
+          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostlosseshero;?>&s=kdratio&o=desc"><img src="img/heroes/<?php print $mostlosseshero; ?>.gif" width="64" height="64"></a></td>
+          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostplayedhero;?>&s=kdratio&o=desc"><img src="img/heroes/<?php print $mostplayedhero; ?>.gif" width="64" height="64"></a></td>
         </tr>
         <tr> 
           <td align=center ><strong>(<?php print $mostkillscount;?>)</strong></td>
@@ -557,7 +568,7 @@ $row = mysql_fetch_array($result, MYSQL_ASSOC);
 	//put an x if you ahvent lost
 	if($mostlossescount==""){ $mostlosseshero="blank"; $mostlossescount="0";}
 //get hero you have played most with
-$result = mysql_query("SELECT SUM(`left`) as timeplayed, hero, COUNT(*) as played FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' AND winner!=0 group by hero order by timeplayed desc");	
+$result = mysql_query("SELECT SUM(`left`) as timeplayed, hero, COUNT(*) as played FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' and hero<>'' group by hero order by played desc");	
 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
 	$mostplayedhero=checkIfAliasMySQL($row["hero"]);
 	$mostplayedcount=$row["played"];
@@ -688,12 +699,12 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
           <td align=center><strong>Times Played</strong></td>
         </tr>
         <tr> 
-          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostkillshero;?>"><img src="img/heroes/<?php print $mostkillshero; ?>.gif" width="64" height="64"></a></td>
-          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostdeathshero;?>"><img src="img/heroes/<?php print $mostdeathshero; ?>.gif" width="64" height="64"></a></td>
-          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostassistshero;?>"><img src="img/heroes/<?php print $mostassistshero; ?>.gif" width="64" height="64"></a></td>
-          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostwinshero;?>"><img src="img/heroes/<?php print $mostwinshero; ?>.gif" width="64" height="64"></a></td>
-          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostlosseshero;?>"><img src="img/heroes/<?php print $mostlosseshero; ?>.gif" width="64" height="64"></a></td>
-          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostplayedhero;?>"><img src="img/heroes/<?php print $mostplayedhero; ?>.gif" width="64" height="64"></a></td>
+          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostkillshero;?>&s=kdratio&o=desc"><img src="img/heroes/<?php print $mostkillshero; ?>.gif" width="64" height="64"></a></td>
+          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostdeathshero;?>&s=kdratio&o=desc"><img src="img/heroes/<?php print $mostdeathshero; ?>.gif" width="64" height="64"></a></td>
+          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostassistshero;?>&s=kdratio&o=desc"><img src="img/heroes/<?php print $mostassistshero; ?>.gif" width="64" height="64"></a></td>
+          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostwinshero;?>&s=kdratio&o=desc"><img src="img/heroes/<?php print $mostwinshero; ?>.gif" width="64" height="64"></a></td>
+          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostlosseshero;?>&s=kdratio&o=desc"><img src="img/heroes/<?php print $mostlosseshero; ?>.gif" width="64" height="64"></a></td>
+          <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostplayedhero;?>&s=kdratio&o=desc"><img src="img/heroes/<?php print $mostplayedhero; ?>.gif" width="64" height="64"></a></td>
         </tr>
         <tr> 
           <td align=center ><strong>(<?php print $mostkillscount;?>)</strong></td>
