@@ -37,10 +37,19 @@
 require_once("functions.php");
 require_once("config.php");
 
-$sortcat=$_GET["s"];
-$order=$_GET["o"];
-$games=$_GET["g"];
+if($dbType == 'sqlite')
+{
+	$games=sqlite_escape_string($_GET["g"]);
+	$sortcat=sqlite_escape_string($_GET["s"]);
+	$order=sqlite_escape_string($_GET["o"]);
+}
+else
+{
+	$games=mysql_real_escape_string($_GET["g"]);
+	$sortcat=mysql_real_escape_string($_GET["s"]);
+	$order=mysql_real_escape_string($_GET["o"]);
 
+}
 ?>
 
 <table class="table" id="theader">
