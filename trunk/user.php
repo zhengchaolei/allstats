@@ -268,12 +268,11 @@ if($dbType == 'sqlite')
 		$courierkills=$row["SUM(courierkills)"];
 		$name=$row["name"];
 		$totgames=$row["COUNT(a.id)"];
-		
+		}
 		//calculate wins
 		$wins=getWinsSQLite($username, $dbType, $dbHandle);
 		//calculate losses
 		$losses=getLossesSQLite($username, $dbType, $dbHandle);
-	
 ?>
 
 <table class="table" id="introtable">
@@ -371,9 +370,9 @@ if($dbType == 'sqlite')
   </tr>
 </table>
 <table class="table" id="theader">
-  <tr class="tableheader">
-  <td colspan=8 align="center" >
-	<h3>Game History:</h3>
+  <tr class="rowuh">
+  <td colspan=12 align="center" >
+	<h3><strong>Game History:</strong></h3>
   </td>
   <tr class="tableheader">
   <?php
@@ -382,16 +381,16 @@ if($dbType == 'sqlite')
 	{
 		if($order == "asc")
 		{
-			print("<td width=20%><a href=\"?p=user&u=$username&s=datetime&o=desc\">Date and Time</a></td>");
+			print("<td width=15%><a href=\"?p=user&u=$username&s=datetime&o=desc\">Date and Time</a></td>");
 		}
 		else
 		{
-			print("<td width=20%><a href=\"?p=user&u=$username&s=datetime&o=asc\">Date and Time</a></td>");
+			print("<td width=15%><a href=\"?p=user&u=$username&s=datetime&o=asc\">Date and Time</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=20%><a href=\"?p=user&u=$username&s=datetime&o=desc\">Date and Time</a></td>");
+		print("<td width=15%><a href=\"?p=user&u=$username&s=datetime&o=desc\">Date and Time</a></td>");
 	}
 	//Game Name
 	if($sortcat == "gamename")
@@ -414,51 +413,48 @@ if($dbType == 'sqlite')
 	{
 		if($order == "asc")
 		{
-			print("<td width=5%><a href=\"?p=user&u=$username&s=type&o=desc\">Type</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=type&o=desc\">Type</a></td>");
 		}
 		else
 		{
-			print("<td width=5%><a href=\"?p=user&u=$username&s=type&o=asc\">Type</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=type&o=asc\">Type</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=5%><a href=\"?p=user&u=$username&s=type&o=desc\">Type</a></td>");
+		print("<td width=70px><a href=\"?p=user&u=$username&s=type&o=desc\">Type</a></td>");
 	}
-	?>
-	<td width=4%></td>
-	<?php
 	//Hero
 	if($sortcat == "description")
 	{
 		if($order == "asc")
 		{
-			print("<td width=16%><a href=\"?p=user&u=$username&s=description&o=desc\">Hero Played</a></td>");
+			print("<td width=186px><a href=\"?p=user&u=$username&s=description&o=desc\">Hero Played</a></td>");
 		}
 		else
 		{
-			print("<td width=16%><a href=\"?p=user&u=$username&s=description&o=asc\">Hero Played</a></td>");
+			print("<td width=186px><a href=\"?p=user&u=$username&s=description&o=asc\">Hero Played</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=16%><a href=\"?p=user&u=$username&s=description&o=asc\">Hero Played</a></td>");
+		print("<td width=186px><a href=\"?p=user&u=$username&s=description&o=asc\">Hero Played</a></td>");
 	}
 	//Kills
 	if($sortcat == "kills")
 	{
 		if($order == "asc")
 		{
-			print("<td width=10%><a href=\"?p=user&u=$username&s=kills&o=desc\">Kills</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=kills&o=desc\">Kills</a></td>");
 		}
 		else
 		{
-			print("<td width=10%><a href=\"?p=user&u=$username&s=kills&o=asc\">Kills</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=kills&o=asc\">Kills</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=10%><a href=\"?p=user&u=$username&s=kills&o=desc\">Kills</a></td>");
+		print("<td width=70px><a href=\"?p=user&u=$username&s=kills&o=desc\">Kills</a></td>");
 	}
 	
 	//Deaths
@@ -466,16 +462,16 @@ if($dbType == 'sqlite')
 	{
 		if($order == "asc")
 		{
-			print("<td width=10%><a href=\"?p=user&u=$username&s=deaths&o=desc\">Deaths</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=deaths&o=desc\">Deaths</a></td>");
 		}
 		else
 		{
-			print("<td width=10%><a href=\"?p=user&u=$username&s=deaths&o=asc\">Deaths</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=deaths&o=asc\">Deaths</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=10%><a href=\"?p=user&u=$username&s=deaths&o=desc\">Deaths</a></td>");
+		print("<td width=70px><a href=\"?p=user&u=$username&s=deaths&o=desc\">Deaths</a></td>");
 	}
 	
 	//Assists
@@ -483,18 +479,97 @@ if($dbType == 'sqlite')
 	{
 		if($order == "asc")
 		{
-			print("<td width=10%><a href=\"?p=user&u=$username&s=assists&o=desc\">Assists</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=assists&o=desc\">Assists</a></td>");
 		}
 		else
 		{
-			print("<td width=10%><a href=\"?p=user&u=$username&s=assists&o=asc\">Assists</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=assists&o=asc\">Assists</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=10%><a href=\"?p=user&u=$username&s=assists&o=desc\">Assists</a></td>");
+		print("<td width=70px><a href=\"?p=user&u=$username&s=assists&o=desc\">Assists</a></td>");
 	}
-}
+	//KDRatio
+	if($sortcat == "kdratio")
+	{
+		if($order == "asc")
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=kdratio&o=desc\">K/D Ratio</a></td>");
+		}
+		else
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=kdratio&o=asc\">K/D Ratio</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=70px><a href=\"?p=user&u=$username&s=kdratio&o=desc\">K/D Ratio</a></td>");
+	}
+	//Creep Kills
+	if($sortcat == "creepkills")
+	{
+		if($order == "asc")
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=creepkills&o=desc\">Creep<br>Kills</a></td>");
+		}
+		else
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=creepkills&o=asc\">Creep<br>Kills</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=70px><a href=\"?p=user&u=$username&s=creepkills&o=desc\">Creep<br>Kills</a></td>");
+	}
+	//Creep Denies
+	if($sortcat == "creepdenies")
+	{
+		if($order == "asc")
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=creepdenies&o=desc\">Creep<br>Denies</a></td>");
+		}
+		else
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=creepdenies&o=asc\">Creep<br>Denies</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=70px><a href=\"?p=user&u=$username&s=creepdenies&o=desc\">Creep<br>Denies</a></td>");
+	}
+	//Neutral Kills
+	if($sortcat == "neutralkills")
+	{
+		if($order == "asc")
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=neutralkills&o=desc\">Neutral<br>Kills</a></td>");
+		}
+		else
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=neutralkills&o=asc\">Neutral<br>Kills</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=70px><a href=\"?p=user&u=$username&s=neutralkills&o=desc\">Neutral<br>Kills</a></td>");
+	}
+	//Outcome
+	if($sortcat == "outcome")
+	{
+		if($order == "asc")
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=outcome&o=desc\">Result</a></td>");
+		}
+		else
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=outcome&o=asc\">Result</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=70px><a href=\"?p=user&u=$username&s=outcome&o=desc\">Result</a></td>");
+	}
   ?>
   </tr>
   </table>
@@ -502,9 +577,11 @@ if($dbType == 'sqlite')
 	<table class="table" id="data">
  <?php 
 
- $sql = "SELECT winner, a.gameid as id, newcolour, datetime, gamename, description, hero, kills, deaths, assists, name, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type 
+ $sql = "SELECT winner, a.gameid as id, newcolour, datetime, gamename, description, hero, kills, deaths, assists, creepkills, creepdenies, neutralkills, name, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type,
+ CASE WHEN (deaths = 0 and kills = 0) THEN 0 WHEN (deaths = 0) then 1000 ELSE (kills*1.0/deaths) end as kdratio,
+ CASE when (winner=1 and newcolour < 6) or (winner=2 and newcolour > 5) then 'WON' when  winner=0 then 'DRAW' else 'LOST' end as outcome 
  FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
- LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = heroid where name = '$username' and description <> 'NULL' ORDER BY $sortcat $order, d.id DESC";
+ LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = heroid where name= '$username' and description <> 'NULL' ORDER BY $sortcat $order, d.id DESC";
 foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
     $gametime=$row["datetime"];
@@ -513,24 +590,34 @@ foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
     $assists=$row["assists"];
 	$gamename=$row["gamename"];
 	$hid=$row["hero"];
-	$hid=checkIfAliasSQLite($hid, $dbType, $dbHandle);
+	$hid=checkIfAliasSQlite($hid, $dbType, $dbHandle);
 	$hero=$row["description"];
 	$name=$row["name"];
 	$colour=$row["newcolour"];
 	$winner=$row["winner"];
 	$gameid=$row["id"]; 
 	$type=$row["type"];
-
+	$outcome=$row["outcome"];
+	$kdratio = $row["kdratio"];
+	$creepkills=$row["creepkills"];
+	$creepdenies=$row["creepdenies"];
+	$neutralkills=$row["neutralkills"];
  ?> 
  <tr class="row">
- <td width=20%><?php print $gametime;?></td>
-     <td><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#cc6666"';}elseif($winner==2){print 'style="color:#66cc66"';}?>><Strong><?php print $gamename;?></strong></a></td>
-    <td width=5%><?php print $type;?></td>
-	<td width=4%><a  href="?p=hero&hid=<?php print$hid;?>&s=kdratio&o=desc"><img width="32px" height="32px" src=./img/heroes/<?php print $hid; ?>.gif></a></td>
-	<td width=16%><a  href="?p=hero&hid=<?php print $hid;?>&s=kdratio&o=desc" <?php if($colour<6){print 'style="color:#cc6666"';}elseif($colour>5){print 'style="color:#66cc66"';}?>><?php print $hero;?></a></td>
-    <td width=10%><?php print $kills;?></td>
-    <td width=10%><?php print $death;?></td>
-    <td width=10%><?php print $assists;?></td>
+	<td width=15%><?php print $gametime;?></td>
+    <td><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self"><Strong><?php print $gamename;?></strong></a></td>
+    <td width=70px><?php print $type;?></td>
+	<td width=34px><a  href="?p=hero&hid=<?php print$hid;?>&s=kdratio&o=desc"><img width="32px" height="32px" src=./img/heroes/<?php print $hid; ?>.gif></a></td>
+	<td width=150px><a  href="?p=hero&hid=<?php print $hid;?>&s=kdratio&o=desc"><?php print $hero;?></a></td>
+    <td width=70px><?php print $kills;?></td>
+    <td width=70px><?php print $death;?></td>
+    <td width=70px><?php print $assists;?></td>
+    <td width=70px><?php print round($kdratio, 2);?></td>
+	<td width=70px><?php print $creepkills;?></td>
+    <td width=70px><?php print $creepdenies;?></td>
+	<td width=70px><?php print $neutralkills;?></td>
+	<td width=70px> <span <?php if($outcome == 'LOST'){print 'style="color:#cc6666"';}elseif($outcome == 'WON'){print 'style="color:#66cc66"';} else{print 'style="color:#daa701"';} ?>><?php print $outcome;?></span></td>
+</tr>
 	
 	<?php
 	}
@@ -651,7 +738,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
           <td>Assists:</td>
           <td><?php print $assists;?></td>
 		  <td>Kills/Death:</td>
-          <td><?php print round(($kills/$death),2);?></td>
+          <td><?php if($death != 0) {print round(($kills/$death),2); } else { print 1000; }?></td>
 		  
         </tr>
 		<tr height=10px>
@@ -718,9 +805,9 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
   </tr>
 </table>
 <table class="table" id="theader">
-  <tr class="tableheader">
-  <td colspan=8 align="center" >
-	<h3>Game History:</h3>
+  <tr class="rowuh">
+  <td colspan=12 align="center" >
+	<h3><strong>Game History:</strong></h3>
   </td>
   <tr class="tableheader">
   <?php
@@ -729,16 +816,16 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	{
 		if($order == "asc")
 		{
-			print("<td width=20%><a href=\"?p=user&u=$username&s=datetime&o=desc\">Date and Time</a></td>");
+			print("<td width=15%><a href=\"?p=user&u=$username&s=datetime&o=desc\">Date and Time</a></td>");
 		}
 		else
 		{
-			print("<td width=20%><a href=\"?p=user&u=$username&s=datetime&o=asc\">Date and Time</a></td>");
+			print("<td width=15%><a href=\"?p=user&u=$username&s=datetime&o=asc\">Date and Time</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=20%><a href=\"?p=user&u=$username&s=datetime&o=desc\">Date and Time</a></td>");
+		print("<td width=15%><a href=\"?p=user&u=$username&s=datetime&o=desc\">Date and Time</a></td>");
 	}
 	//Game Name
 	if($sortcat == "gamename")
@@ -761,51 +848,48 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	{
 		if($order == "asc")
 		{
-			print("<td width=5%><a href=\"?p=user&u=$username&s=type&o=desc\">Type</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=type&o=desc\">Type</a></td>");
 		}
 		else
 		{
-			print("<td width=5%><a href=\"?p=user&u=$username&s=type&o=asc\">Type</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=type&o=asc\">Type</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=5%><a href=\"?p=user&u=$username&s=type&o=desc\">Type</a></td>");
+		print("<td width=70px><a href=\"?p=user&u=$username&s=type&o=desc\">Type</a></td>");
 	}
-	?>
-	<td width=4%></td>
-	<?php
 	//Hero
 	if($sortcat == "description")
 	{
 		if($order == "asc")
 		{
-			print("<td width=16%><a href=\"?p=user&u=$username&s=description&o=desc\">Hero Played</a></td>");
+			print("<td width=186px><a href=\"?p=user&u=$username&s=description&o=desc\">Hero Played</a></td>");
 		}
 		else
 		{
-			print("<td width=16%><a href=\"?p=user&u=$username&s=description&o=asc\">Hero Played</a></td>");
+			print("<td width=186px><a href=\"?p=user&u=$username&s=description&o=asc\">Hero Played</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=16%><a href=\"?p=user&u=$username&s=description&o=asc\">Hero Played</a></td>");
+		print("<td width=186px><a href=\"?p=user&u=$username&s=description&o=asc\">Hero Played</a></td>");
 	}
 	//Kills
 	if($sortcat == "kills")
 	{
 		if($order == "asc")
 		{
-			print("<td width=10%><a href=\"?p=user&u=$username&s=kills&o=desc\">Kills</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=kills&o=desc\">Kills</a></td>");
 		}
 		else
 		{
-			print("<td width=10%><a href=\"?p=user&u=$username&s=kills&o=asc\">Kills</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=kills&o=asc\">Kills</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=10%><a href=\"?p=user&u=$username&s=kills&o=desc\">Kills</a></td>");
+		print("<td width=70px><a href=\"?p=user&u=$username&s=kills&o=desc\">Kills</a></td>");
 	}
 	
 	//Deaths
@@ -813,16 +897,16 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	{
 		if($order == "asc")
 		{
-			print("<td width=10%><a href=\"?p=user&u=$username&s=deaths&o=desc\">Deaths</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=deaths&o=desc\">Deaths</a></td>");
 		}
 		else
 		{
-			print("<td width=10%><a href=\"?p=user&u=$username&s=deaths&o=asc\">Deaths</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=deaths&o=asc\">Deaths</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=10%><a href=\"?p=user&u=$username&s=deaths&o=desc\">Deaths</a></td>");
+		print("<td width=70px><a href=\"?p=user&u=$username&s=deaths&o=desc\">Deaths</a></td>");
 	}
 	
 	//Assists
@@ -830,16 +914,96 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	{
 		if($order == "asc")
 		{
-			print("<td width=10%><a href=\"?p=user&u=$username&s=assists&o=desc\">Assists</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=assists&o=desc\">Assists</a></td>");
 		}
 		else
 		{
-			print("<td width=10%><a href=\"?p=user&u=$username&s=assists&o=asc\">Assists</a></td>");
+			print("<td width=70px><a href=\"?p=user&u=$username&s=assists&o=asc\">Assists</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=10%><a href=\"?p=user&u=$username&s=assists&o=desc\">Assists</a></td>");
+		print("<td width=70px><a href=\"?p=user&u=$username&s=assists&o=desc\">Assists</a></td>");
+	}
+	//KDRatio
+	if($sortcat == "kdratio")
+	{
+		if($order == "asc")
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=kdratio&o=desc\">K/D Ratio</a></td>");
+		}
+		else
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=kdratio&o=asc\">K/D Ratio</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=70px><a href=\"?p=user&u=$username&s=kdratio&o=desc\">K/D Ratio</a></td>");
+	}
+	//Creep Kills
+	if($sortcat == "creepkills")
+	{
+		if($order == "asc")
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=creepkills&o=desc\">Creep<br>Kills</a></td>");
+		}
+		else
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=creepkills&o=asc\">Creep<br>Kills</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=70px><a href=\"?p=user&u=$username&s=creepkills&o=desc\">Creep<br>Kills</a></td>");
+	}
+	//Creep Denies
+	if($sortcat == "creepdenies")
+	{
+		if($order == "asc")
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=creepdenies&o=desc\">Creep<br>Denies</a></td>");
+		}
+		else
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=creepdenies&o=asc\">Creep<br>Denies</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=70px><a href=\"?p=user&u=$username&s=creepdenies&o=desc\">Creep<br>Denies</a></td>");
+	}
+	//Neutral Kills
+	if($sortcat == "neutralkills")
+	{
+		if($order == "asc")
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=neutralkills&o=desc\">Neutral<br>Kills</a></td>");
+		}
+		else
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=neutralkills&o=asc\">Neutral<br>Kills</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=70px><a href=\"?p=user&u=$username&s=neutralkills&o=desc\">Neutral<br>Kills</a></td>");
+	}
+	//Outcome
+	if($sortcat == "outcome")
+	{
+		if($order == "asc")
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=outcome&o=desc\">Result</a></td>");
+		}
+		else
+		{
+			print("<td width=70px><a href=\"?p=user&u=$username&s=outcome&o=asc\">Result</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=70px><a href=\"?p=user&u=$username&s=outcome&o=desc\">Result</a></td>");
 	}
   ?>
   </tr>
@@ -848,7 +1012,9 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	<table class="table" id="data">
  <?php 
 
- $sql = "SELECT winner, a.gameid as id, newcolour, datetime, gamename, description, hero, kills, deaths, assists, name, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type 
+ $sql = "SELECT winner, a.gameid as id, newcolour, datetime, gamename, description, hero, kills, deaths, assists, creepkills, creepdenies, neutralkills, name, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type,
+ CASE WHEN (deaths = 0 and kills = 0) THEN 0 WHEN (deaths = 0) then 1000 ELSE (kills*1.0/deaths) end as kdratio,
+ CASE when (winner=1 and newcolour < 6) or (winner=2 and newcolour > 5) then 'WON' when  winner=0 then 'DRAW' else 'LOST' end as outcome 
  FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
  LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = heroid where name= '$username' and description <> 'NULL' ORDER BY $sortcat $order, d.id DESC";
  $result = mysql_query($sql);
@@ -866,17 +1032,27 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$winner=$row["winner"];
 	$gameid=$row["id"]; 
 	$type=$row["type"];
-
+	$outcome=$row["outcome"];
+	$kdratio = $row["kdratio"];
+	$creepkills=$row["creepkills"];
+	$creepdenies=$row["creepdenies"];
+	$neutralkills=$row["neutralkills"];
  ?> 
  <tr class="row">
- <td width=20%><?php print $gametime;?></td>
-    <td><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#cc6666"';}elseif($winner==2){print 'style="color:#66cc66"';}?>><Strong><?php print $gamename;?></strong></a></td>
-    <td width=5%><?php print $type;?></td>
-	<td width=4%><a  href="?p=hero&hid=<?php print$hid;?>&s=kdratio&o=desc"><img width="32px" height="32px" src=./img/heroes/<?php print $hid; ?>.gif></a></td>
-	<td width=16%><a  href="?p=hero&hid=<?php print $hid;?>&s=kdratio&o=desc" <?php if($colour<6){print 'style="color:#cc6666"';}elseif($colour>5){print 'style="color:#66cc66"';}?>><?php print $hero;?></a></td>
-    <td width=10%><?php print $kills;?></td>
-    <td width=10%><?php print $death;?></td>
-    <td width=10%><?php print $assists;?></td>
+ <td width=15%><?php print $gametime;?></td>
+    <td><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self"><Strong><?php print $gamename;?></strong></a></td>
+    <td width=70px><?php print $type;?></td>
+	<td width=34px><a  href="?p=hero&hid=<?php print$hid;?>&s=kdratio&o=desc"><img width="32px" height="32px" src=./img/heroes/<?php print $hid; ?>.gif></a></td>
+	<td width=150px><a  href="?p=hero&hid=<?php print $hid;?>&s=kdratio&o=desc"><?php print $hero;?></a></td>
+    <td width=70px><?php print $kills;?></td>
+    <td width=70px><?php print $death;?></td>
+    <td width=70px><?php print $assists;?></td>
+    <td width=70px><?php print round($kdratio, 2);?></td>
+	<td width=70px><?php print $creepkills;?></td>
+    <td width=70px><?php print $creepdenies;?></td>
+	<td width=70px><?php print $neutralkills;?></td>
+	<td width=70px> <span <?php if($outcome == 'LOST'){print 'style="color:#cc6666"';}elseif($outcome == 'WON'){print 'style="color:#66cc66"';} else{print 'style="color:#daa701"';} ?>><?php print $outcome;?></span></td>
+</tr>	
 	
 	<?php
 	}
