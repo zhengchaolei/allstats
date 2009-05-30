@@ -107,7 +107,7 @@ if($count == 0)
 					$founduser=$row["name"];
 					print "<tr class=\"row\"> <td><a href=\"?p=user&u=$founduser&s=datetime&o=desc\">$founduser : $counttimes games.</a></td></tr>";
 				}
-				if($counttimes==false){ print "Sorry no users found matching that criteria.";}
+				if($counttimes==false){ print "<tr class=\"rowuh\"> <td>Sorry no users found matching that criteria.</td></tr>";}
 			}
 		}
 		else
