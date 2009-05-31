@@ -46,7 +46,7 @@ else
 	$heroid=mysql_real_escape_string($_GET["hid"]);
 	$sortcat=mysql_real_escape_string($_GET["s"]);
 	$order=mysql_real_escape_string($_GET["o"]);
-	$offset=sqlite_escape_string($_GET["n"]);
+	$offset=mysql_real_escape_string($_GET["n"]);
 }
 require_once("functions.php");
 require_once("config.php");
