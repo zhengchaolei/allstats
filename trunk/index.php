@@ -121,11 +121,11 @@ require_once("config.php");
 		 return true;
 	}
 	
-	function gamesPlayed(numValue)
+	function gamesPlayed(numValue, offset)
 	{
 		if(checkRange(numValue, 0, 5000))
 		{
-			var url = '?p=top&s=totalscore&o=desc&g='+numValue;
+			var url = '?p=top&s=totalscore&o=desc&g='+numValue+'&n=0';
 			location.href = url;
 		}
 	}
@@ -141,17 +141,17 @@ require_once("config.php");
 						  <li>
 						  <a href=./>Home</a></li> 
 						  <li> 
-						  <a href=?p=top&s=totalscore&o=desc&g=<?php print $minGamesPlayed; ?>>Top Players</a></li> 
+						  <a href=?p=top&s=totalscore&o=desc&g=<?php print $minGamesPlayed; ?>&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>>Top Players</a></li> 
 						  <li> 
-						  <a href=?p=allusers&s=totgames&o=desc>Player Statistics</a></li> 
+						  <a href=?p=allusers&s=totgames&o=desc&n=<?php if($displayStyle == 'all'){ print 'all';} else{print '0';}?>>Player Statistics</a></li> 
 						  <li>
-						  <a href=?p=heroall&s=description&o=asc>Hero Statistics</a></li> 
+						  <a href=?p=heroall&s=description&o=asc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>>Hero Statistics</a></li> 
 						  <li>
-						  <a href=?p=games&s=datetime&o=desc>Game History</a></li> 
+						  <a href=?p=games&s=datetime&o=desc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>>Game History</a></li> 
 						  <li> 
-						  <a href=?p=bans&s=name&o=asc>Bans</a></li>
+						  <a href=?p=bans&s=name&o=asc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>>Bans</a></li>
 						  <li> 
-						  <a href=?p=admins&n=nolimit>Admins</a></li> 
+						  <a href=?p=admins&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>>Admins</a></li> 
 						  <li>
 							<form name="testForm" method=GET action="">
 								<input type="text" 
@@ -164,6 +164,16 @@ require_once("config.php");
 								<input type="hidden" value="datetime" name="s" />
 								<input type="hidden" value="desc" name="o" />
 								<input type="hidden" value="user" name="p" />
+								<?php
+								if($displayStyle=='all')
+								{ 
+								print '<input type="hidden" value="all" name="n" />'; 
+								} 
+								else 
+								{ 
+								print '<input type="hidden" value="0" name="n" />'; 
+								}
+								?>
 							</form> 
 						</li>
 						<!-- END MENU -->
