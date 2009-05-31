@@ -383,7 +383,7 @@ else
 				
 		<tr class="row">
 			<td>
-			<a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc" target="_self"><b><?php print $name; ?></b></a>
+			<a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><b><?php print $name; ?></b></a>
 			</td>
 			<td width=5%>
 			<?php
