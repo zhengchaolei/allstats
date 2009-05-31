@@ -35,61 +35,213 @@
 **********************************************/
 require_once("functions.php");
 require_once("config.php");
-?>
 
-<?php
-$sql = "SELECT COUNT( DISTINCT id ) as totadmins from admins";
+if($dbType == 'sqlite')
+{
+	$offset=sqlite_escape_string($_GET["n"]);
+}
+else
+{
+	$offset=mysql_real_escape_string($_GET["n"]);
+}
+
+$sql = "SELECT COUNT( DISTINCT id ) as count from admins";
 
 if($dbType == 'sqlite')
 {
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
-		$totadmins=$row["totadmins"];
-	?>
-	<table class="table" id="theader">
-		<tr class="rowuh">
-		<td colspan=2><h2>Administrators:</h2></td>
-		</tr>
-
-	  <tr class="tableheader">
-		<td width=50% align="center"><h5>Head Administrator: <a href="?p=user&u=<?php print $rootAdmin; ?>&s=datetime&o=desc"><?php print $rootAdmin; ?></a></h5></td>   
-		<td widht=50%align="center"><h5>Number of Administrators: <?php print $totadmins; ?> </h5></td>   
-	 </tr>
-	  <tr height=10px>
-	  </tr>
-	</table>
-	<?php
+		$count=$row["count"];
 	}
 }
 else
 {
 	$result = mysql_query($sql);
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		$totadmins=$row["totadmins"];
-	?>
-	<table class="table" id="theader">
-		<tr class="rowuh">
-		<td colspan=2><h2>Administrators:</h2></td>
-		</tr>
-
-	  <tr class="tableheader">
-		<td width=50% align="center"><h5>Head Administrator: <a href="?p=user&u=<?php print $rootAdmin; ?>&s=datetime&o=desc"><?php print $rootAdmin; ?></a></h5></td>   
-		<td widht=50%align="center"><h5>Number of Administrators: <?php print $totadmins; ?> </h5></td>   
-	 </tr>
-	  <tr height=10px>
-	  </tr>
-	</table>
-	<?php
+		$count=$row["count"];
 	}
 	mysql_free_result($result);
 }
+$pages = ceil($count/$adminResultSize);
 ?>
+<table class="table" id="theader">
+		<tr>
+			<td colspan=2>
+				<table class="rowuh" width=100%>
+					<tr>
+						<td width=25%>
+							<table class="rowuh" width = 235px style="float:left">
+								<tr>
+									<td>
+									<?php
+									if($offset == 'all')
+									{
+										print "Showing All Admins";
+									}
+									else
+									{
+										print "<a href=\"?p=admins&n=all\"><strong>Show All Admins</strong></a>";
+									}
+									?>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td width=50%>
+							<h2>Administrators:</h2>
+						</td>
+						<td width=25% class="rowuh">
+							<table class="rowuh" width = 235px style="float:right">
+							<h4>
+							<tr>
+								<td colspan=7>
+								<?php
+								if($offset == 'all')
+								{
+									print "Show Admins Page:";
+								}
+								else
+								{
+									$min = $offset*$adminResultSize+1;
+									$max = $offset*$adminResultSize+$adminResultSize;
+									if($max > $count)
+									{
+										$max = $count;
+									}
+									print "Showing Admins: ".$min." - ".$max;
+								}
+								?>
+								</td>
+							</tr>
+							<tr>
+							<?php
+							if($offset == 'all')
+							{
+								print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+								for($counter = 1; $counter < 6; $counter++)
+								{
+									if($counter <= $pages)
+									{
+									print "<td width=35px><a href=\"?p=admins&n=".($counter-1)."\">".$counter."</a></td>";
+									}
+								}
+								print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+							}
+							else
+							{
+								if($offset > 0)
+								{
+									print "<td width=35px><a href=\"?p=admins&n=".($offset-1)."\"><strong><</strong></a>";
+								}
+								else
+								{
+									print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+								}
+								
+								if($offset < 2)		//Close to start
+								{
+									if($offset == 0)
+									{
+										print "<td width=35px><span style=\"color:#ddd;\">1</span></td>";
+										for($counter = 2; $counter < 6; $counter++)
+										{
+											if($counter-1 < $pages)
+											{
+												print "<td width=35px><a href=\"?p=admins&n=".($counter-1)."\">".$counter."</a></td>";
+											}
+										}
+									}
+									if($offset == 1)
+									{
+										print "<td width=35px><a href=\"?p=admins&n=0\">1</a></td>";
+										print "<td width=35px><span style=\"color:#ddd;\">2</span></td>";
+										for($counter = 3; $counter < 6; $counter++)
+										{
+											if($counter-1 < $pages)
+											{
+											print "<td width=35px><a href=\"?p=admins&n=".($counter-1)."\">".$counter."</a></td>";
+											
+											}
+										}
+									}
+								}
+								else if ($pages-$offset < 3) //Close to end
+								{
+									if($offset == $pages-1)
+									{
+										for($counter = $offset-3; $counter < $offset+1; $counter++)
+										{
+											if($counter >= 1)
+											{
+											print "<td width=35px><a href=\"?p=admins&n=".($counter-1)."\">".$counter."</a></td>";
+											}
+										}
+										print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
+									}
+									else
+									{
+										
+										for($counter = $offset-2; $counter < $offset+1; $counter++)
+										{
+											if($counter >= 1)
+											{
+												print "<td width=35px><a href=\"?p=admins&n=".($counter-1)."\">".$counter."</a></td>";
+											}
+										}
+										print "<td width=35px><span style=\"color:#ddd;\">".($offset+1)."</span>";
+										print "<td width=35px><a href=\"?p=admins&n=".($offset+1)."\">".($offset+2)."</a></td>";
+									}
+								}
+								else
+								{
+									for($counter = ($offset-1); $counter < ($offset+4); $counter++)
+										{
+										if($counter == ($offset+1))
+										{
+											print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
+										}
+										else
+										{
+											print "<td width=35px><a href=\"?p=admins&n=".($counter-1)."\">".$counter."</a></td>";
+										}
+									}
+								}
+								if(($offset+1)*$adminResultSize < $count)
+								{
+									print "<td width=35px><a href=\"?p=admins&n=".($offset+1)."\"><strong>></strong></a></td>";
+								}
+								else
+								{
+									print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+								}
+							}
+							?>
+							</tr>
+							</h4>
+							</table>
+						</td>			
+					</tr>
+				</table>
+			</td>
+		</tr>
 
+	
+  <tr class="tableheader">
+	<td width=50% align="center"><h5>Head Administrator: <a href="?p=user&u=<?php print $rootAdmin; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $rootAdmin; ?></a></h5></td>   
+	<td widht=50%align="center"><h5>Number of Administrators: <?php print $count; ?> </h5></td>   
+ </tr>
+  <tr height=10px>
+  </tr>
+</table>
 <div id="datawrapper">
 	<table class="table" id="data">
 <?php 
-$sql = "SELECT name, server FROM `admins` ORDER BY name asc ";
+$sql = "SELECT Distinct(name), server FROM `admins` ORDER BY name asc ";
 
+if($offset!='all')
+{
+$sql = $sql." LIMIT ".$adminResultSize*$offset.", $adminResultSize";
+}
 if($dbType == 'sqlite')
 {
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
@@ -97,7 +249,7 @@ if($dbType == 'sqlite')
 	$name=$row["name"];
 	?> 
 	<tr class="row" >
-		<td align=center colspan=3><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc"><?php print $name; ?></a></td>   	
+		<td align=center colspan=3><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>   	
 	</tr>
 <?php
 	}
@@ -110,7 +262,7 @@ else
 		
 	?> 
 	<tr class="row" >
-		<td align=center colspan=3><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc"><?php print $name; ?></a></td>   	
+		<td align=center colspan=3><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>   	
 	</tr>
 	<?php
 	}

@@ -199,9 +199,20 @@ if($dbType == 'sqlite')
 			<td width=5%>
 			<?php
 			if(empty($hero))
-			print "<img width=\"32px\" height=\"32px\" src=./img/heroes/blank.gif>";
+			{
+				print "<img width=\"32px\" height=\"32px\" src=./img/heroes/blank.gif>";
+			}
 			else
-			print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc\"><img width=\"32px\" height=\"32px\" src=./img/heroes/".$hero.".gif></a>";
+			{
+				if($displayStyle == 'all')
+				{
+					print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc&n=all\"><img width=\"32px\" height=\"32px\" src=./img/heroes/".$hero.".gif></a>";
+				}
+				else
+				{
+					print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc&n=0\"><img width=\"32px\" height=\"32px\" src=./img/heroes/".$hero.".gif></a>";
+				}
+			}
 			?>
 			</td>
 			<td width=5%><?php print $kills; ?></td>
@@ -377,10 +388,20 @@ else
 			<td width=5%>
 			<?php
 			if(empty($hero))
-			print "<img width=\"32px\" height=\"32px\" src=./img/heroes/blank.gif>";
+			{
+				print "<img width=\"32px\" height=\"32px\" src=./img/heroes/blank.gif>";
+			}
 			else
-			print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc\"><img width=\"32px\" height=\"32px\" src=./img/heroes/".$hero.".gif></a>";
-			?>
+			{
+				if($displayStyle == 'all')
+				{
+					print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc&n=all\"><img width=\"32px\" height=\"32px\" src=./img/heroes/".$hero.".gif></a>";
+				}
+				else
+				{
+					print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc&n=0\"><img width=\"32px\" height=\"32px\" src=./img/heroes/".$hero.".gif></a>";
+				}
+			}?>
 			</td>
 			<td width=5%><?php print $kills; ?></td>
 			<td width=5%><?php print $deaths; ?></td>

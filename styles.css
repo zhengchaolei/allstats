@@ -32,7 +32,7 @@ a:visited
 } 
 a:hover 
 { 
-	color:#FFFFFF; 
+	color:#ccc; 
 }
 
 /* wrapper */
@@ -55,7 +55,7 @@ div.header {
 }
 div.nav {
 	width: 90%;
-	background:#000f6c; /*url('img/nav-bg.png') repeat-x scroll bottom left;*/
+	background:#000050;
 	height: 60px;
 	margin: 0 auto;
 }
@@ -76,20 +76,20 @@ div.nav ul li a, div.nav ul li a:visited {
 	padding:20px 15px 15px 15px;
 	height:25px;
 	text-decoration:none;
-	color:#ddd;
+	color:#ccc;
 	font-weight:bold;
 	font-size:1em;
 	font-family:helvetica;
 }
 div.nav ul li a:hover {
-	background-color:#000c54;
+	background-color:#000032;
 }
 
 
 /* headers */
 h1 {
 	text-align:left;
-	color:#ddd;
+	color:#ccc;
 	font-family: sans-serif;
 	font-size:2em;
 	font-weight: normal;
@@ -109,13 +109,11 @@ h3 {
 	font-weight:normal;
 }
 h4 {
-	font-size:2em;
-	text-align: center;
+	font-size:1.25em;
 	color: #daa701;
 }
 h5{
 	text-align: center;
-	font-family:sans-serif;
 	font-size:13pt;
 	color:#daa701;
 	font-weight: bold;
@@ -158,7 +156,7 @@ form input:hover
 }
 form input.formbutton {
 	background:#5E008D url('images/nav-bg.png') repeat-x scroll bottom left;
-	color:#ffffff;
+	color:#ccc;
 	font-size:0.9em;
 	border:1px solid #220033;
 	font-weight:bold;
@@ -183,7 +181,7 @@ width: 90%;
 font-family:sans-serif;
 font-size:13pt;
 color:#daa701;
-background-color:#000f6c;
+background-color:#000050;
 font-weight: bold;
 }
 .tablebody
@@ -194,16 +192,16 @@ font-weight: bold;
 }
 .row
 {
-	color: #ddd;
+	color: #ccc;
 }
 .row:hover
 {
-	color: #ddd;
+	color: #ccc;
 	background-color: #545166;
 }
 .rowuh
 {
-	color: #ddd;
+	color: #ccc;
 }
 
 .searchBox

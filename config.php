@@ -46,14 +46,14 @@ $dbType = 'mysql';
  
 //SQLite Database Connection information (Optional):
 //dbLocation must point to your SQLite Database.
-$dbLocation = 'THE_PATH_TO_YOUR_ghost.dbs';
+$dbLocation = './ghost.dbs';
 
 //MySQL Database Connection information (Optional):
 //Must correspond to the settings in your MySQL Database.
 $host = 'localhost';
-$username = 'YOUR_USERNAME';
-$password = 'YOUR_PASSWORD';
-$databasename = 'YOUR_GHOST_DATABASE';
+$username = 'YOUR_DB_USERNAME';
+$password = 'YOUR_DB_PASSWORD';
+$databasename = 'YOUR_DB';
 
 //If you want  to download  the replay from the webpage you got to save the replay files in the replay folder
 //This is easiest if you have your webpage on the same computer as you bot. However most people probably upload their page to an external site 
@@ -70,7 +70,7 @@ $rootAdmin = 'YOUR_ROOT_ADMIN';
 //Settings for Top Players page
 
 //Default minimum number of games played in order to be displayed on Top Players page:
-$minGamesPlayed = 2;
+$minGamesPlayed = 3;
 
 //Pre-Calculate score
 //If true:  Player scores will be taken from the score table in your MySQL database. You must populate this table through your own methods.
@@ -94,7 +94,30 @@ $scoreFormula = '((((kills-deaths+assists*0.5+towerkills*0.5+raxkills*0.2+(couri
 $ignorePubs = false;
 $ignorePrivs = false;
 
- 
+//Show all results at once or show the first page of results by default.
+//$displayStyle='all' shows all data at once by default.
+//$displayStyle='page' shows a single page of data by default.
+$displayStyle='all';
+
+//The number of results returned in a page on the top players page
+$topResultSize = 50;
+//The number of results returned in a page on the player statistics page
+$allPlayerResultSize = 100;
+//The number of results returned in a page on the hero statistics page
+$allHeroResultSize = 20;
+//The number of results returned in a page on the game history page
+$gameResultSize = 40;
+//The number of results returned in a page on the bans page
+$banResultSize = 50;
+//The number of results returned in a page on the admins page
+$adminResultSize = 30;
+//The number of results returned in a page on a hero's page
+$heroResultSize = 20;
+//The number of results returned in a page on a user's page
+$userResultSize = 20;
+
+
+
 /**********************************
  *	DO NOT EDIT BELOW THIS POINT. *
  **********************************/ 
