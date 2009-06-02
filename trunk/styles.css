@@ -204,6 +204,30 @@ font-weight: bold;
 	color: #ccc;
 }
 
+.scourge
+{
+	text-align: right;
+	color:#86E573;
+
+}
+.all
+{
+	text-align:center;
+	color:#cccccc;
+}
+.sentinel
+{
+	color:#e56879;
+	text-align: left;
+}
+
+
+.shown {
+  display: block;
+}
+.hidden {
+  display: none;
+}
 .searchBox
 {
 	width: 125px;
@@ -213,11 +237,7 @@ font-weight: bold;
 }
 .searchBox:hover
 {
-background-color:#000c54;
-}
-/* search form */
-form.searchform {
-	padding-top:0px;
+background-color:#000032;
 }
 
 
@@ -227,4 +247,57 @@ form.searchform {
 }
 .clear {
 	clear:both;
+}
+
+/* Colors */
+.red {
+  color: #DD0000;
+}
+
+.blue {
+  color: #3333FF;
+}
+
+.teal {
+  color: #00EEEE;
+}
+
+.purple {
+  color: #7711AA;
+}
+
+.yellow {
+  color: #FFFF00;
+}
+
+.orange{
+  color: #FF9900 ;
+}
+
+.dark-green {
+  color: #24573d;
+}
+
+.pink {
+  color: #FF66CC;
+}
+
+.gray {
+  color: #888888;
+}
+
+.light-blue {
+  color: #55BBEE;
+}
+
+.darkgreen {
+  color: #006F3F;
+}
+
+.brown {
+  color: #6F3F00;
+}
+
+.observer {
+  color: #FFFFFF;
 }

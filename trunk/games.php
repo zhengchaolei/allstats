@@ -473,7 +473,7 @@ if($dbType == 'sqlite')
 			<td width=15% align=center><?php print $gametime;?></td>
 			<td width=35% align=center><?php print $map;?></td>
 			<td width=5% align=center><?php print $type;?></td>
-			<td width=15% align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#cc6666"';}elseif($winner==2){print 'style="color:#66cc66"';}?>><Strong><?php print $gamename;?></strong></a></td>
+			<td width=15% align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#e56879"';}elseif($winner==2){print 'style="color:#86E573"';}?>><Strong><?php print $gamename;?></strong></a></td>
 			<td width=15% align=center><?php print secondsToTime($duration);?></td>
 			<td width=15% align=center><a href="?p=user&u=<?php print $creator; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><Strong><?php print $creator;?></strong></a></td>
 		</tr>
@@ -499,7 +499,7 @@ else
    
     <td width=35% align=center><?php print $map;?></td>
 	<td width=5% align=center><?php print $type;?></td>
-    <td width=15% align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#cc6666"';}elseif($winner==2){print 'style="color:#66cc66"';}?>><Strong><?php print $gamename;?></strong></a></td>
+    <td width=15% align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#e56879"';}elseif($winner==2){print 'style="color:#86E573"';}?>><Strong><?php print $gamename;?></strong></a></td>
 	<td width=15% align=center><?php print secondsToTime($duration);?></td>
     <td width=15% align=center><a href="?p=user&u=<?php print $creator; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><Strong><?php print $creator;?></strong></a></td>
 	</tr>

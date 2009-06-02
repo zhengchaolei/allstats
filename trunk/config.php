@@ -51,14 +51,17 @@ $dbLocation = './ghost.dbs';
 //MySQL Database Connection information (Optional):
 //Must correspond to the settings in your MySQL Database.
 $host = 'localhost';
-$username = 'YOUR_DB_USERNAME';
-$password = 'YOUR_DB_PASSWORD';
-$databasename = 'YOUR_DB';
+$username = 'YOUR_USER_NAME';
+$password = 'YOUR_PASSWORD';
+$databasename = 'YOUR_DB_NAME';
 
-//If you want  to download  the replay from the webpage you got to save the replay files in the replay folder
-//This is easiest if you have your webpage on the same computer as you bot. However most people probably upload their page to an external site 
-//this feature is disabled by default
-$enablereplayfeature = false;  //  values:   true ,  false (default) 
+//If you save your replays to a folder that AllStats can access, more information, the ability to download a replay, and a chat log will be displayed on the game info page.
+//If replays cannot be found, this info will be automatically omitted.
+
+//Replay Location:
+//OMIT THE ENDING /. DO NOT END WITH A /
+//Must be a relative path.  IE: Cannot use C:/... Use repeated ../ to move up directory chain.
+$replayLocation = "replays";
 
 //GHost++ bot user name:
 $botName = 'YOUR_BOT_NAME';
@@ -97,7 +100,7 @@ $ignorePrivs = false;
 //Show all results at once or show the first page of results by default.
 //$displayStyle='all' shows all data at once by default.
 //$displayStyle='page' shows a single page of data by default.
-$displayStyle='all';
+$displayStyle='page';
 
 //The number of results returned in a page on the top players page
 $topResultSize = 50;
@@ -112,7 +115,7 @@ $banResultSize = 50;
 //The number of results returned in a page on the admins page
 $adminResultSize = 30;
 //The number of results returned in a page on a hero's page
-$heroResultSize = 20;
+$heroResultSize = 15;
 //The number of results returned in a page on a user's page
 $userResultSize = 20;
 
