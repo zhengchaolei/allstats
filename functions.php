@@ -171,4 +171,23 @@ function checkIfAliasMySQL($value){
 	print"value is $value";
 }
 
+function getTeam($color)
+{
+	switch ($color) {
+		case 'red': return 0;
+		case 'blue': return 1;
+		case 'teal': return 1;
+		case 'purple': return 1;
+		case 'yellow': return 1;
+		case 'orange': return 1;
+		case 'green': return 0;
+		case 'pink': return 2;
+		case 'gray': return 2;
+		case 'light-blue': return 2;
+		case 'dark-green': return 2;
+		case 'brown': return 2;
+		case 'observer': return 0;
+	}
+}
+
 ?>

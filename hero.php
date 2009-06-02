@@ -828,10 +828,10 @@ foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	$neutralkills=$row["neutralkills"];
  ?> 
  <tr class="row">
-    <td width=15%><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name;?></td>
+    <td width=15%><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name;?></a></td>
     <td><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self"><?php print $gamename;?></a></td>
     <td width=70px><?php print $type;?></td>
-	<td width=70px> <span <?php if($winner == 'LOST'){print 'style="color:#cc6666"';}elseif($winner == 'WON'){print 'style="color:#66cc66"';} else{print 'style="color:#daa701"';} ?>><?php print $winner;?></span></td>
+	<td width=70px> <span <?php if($winner == 'LOST'){print 'style="color:#e56879"';}elseif($winner == 'WON'){print 'style="color:#86E573"';} else{print 'style="color:#daa701"';} ?>><?php print $winner;?></span></td>
     <td width=70px><?php print $kills;?></td>
     <td width=70px><?php print $death;?></td>
     <td width=70px><?php print $assists;?></td>
@@ -864,10 +864,10 @@ $gameid = $row["gameid"];
 
  ?> 
  <tr class="row">
-    <td width=15%><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name;?></td>
+    <td width=15%><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name;?></a></td>
     <td><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self"><?php print $gamename;?></a></td>
     <td width=70px><?php print $type;?></td>
-	<td width=70px> <span <?php if($winner == 'LOST'){print 'style="color:#cc6666"';}elseif($winner == 'WON'){print 'style="color:#66cc66"';} else{print 'style="color:#daa701"';} ?>><?php print $winner;?></span></td>
+	<td width=70px> <span <?php if($winner == 'LOST'){print 'style="color:#e56879"';}elseif($winner == 'WON'){print 'style="color:#86E573"';} else{print 'style="color:#daa701"';} ?>><?php print $winner;?></span></td>
     <td width=70px><?php print $kills;?></td>
     <td width=70px><?php print $death;?></td>
     <td width=70px><?php print $assists;?></td>

@@ -1103,7 +1103,7 @@ $pages = ceil($count/$userResultSize);
 	<td width=70px><?php print $creepkills;?></td>
     <td width=70px><?php print $creepdenies;?></td>
 	<td width=70px><?php print $neutralkills;?></td>
-	<td width=70px> <span <?php if($outcome == 'LOST'){print 'style="color:#cc6666"';}elseif($outcome == 'WON'){print 'style="color:#66cc66"';} else{print 'style="color:#daa701"';} ?>><?php print $outcome;?></span></td>
+	<td width=70px> <span <?php if($outcome == 'LOST'){print 'style="color:#e56879"';}elseif($outcome == 'WON'){print 'style="color:#86E573"';} else{print 'style="color:#daa701"';} ?>><?php print $outcome;?></span></td>
 </tr>
 	
  <?php 
@@ -1145,7 +1145,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	<td width=70px><?php print $creepkills;?></td>
     <td width=70px><?php print $creepdenies;?></td>
 	<td width=70px><?php print $neutralkills;?></td>
-	<td width=70px> <span <?php if($outcome == 'LOST'){print 'style="color:#cc6666"';}elseif($outcome == 'WON'){print 'style="color:#66cc66"';} else{print 'style="color:#daa701"';} ?>><?php print $outcome;?></span></td>
+	<td width=70px> <span <?php if($outcome == 'LOST'){print 'style="color:#e56879"';}elseif($outcome == 'WON'){print 'style="color:#86E573"';} else{print 'style="color:#daa701"';} ?>><?php print $outcome;?></span></td>
 </tr>	
 	
 	<?php

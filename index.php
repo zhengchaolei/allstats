@@ -44,6 +44,32 @@ require_once("config.php");
 <title><?php print $botName; ?> Statistics</title>
 <link rel="stylesheet" href="styles.css" type="text/css" />
 <script type="text/javascript">
+
+
+	function displayvis(id) {
+		if (document.layers) {
+		  document.layers[id].display = (document.layers[id].display != 'none') ? 'none' : 'block';
+		} else if (document.all) {
+		  document.all[id].style.display = (document.all[id].style.display != 'none') ? 'none'	: 'block';
+		} else if (document.getElementById) {
+		  document.getElementById(id).style.display = (document.getElementById(id).style.display != 'none') ? 'none' : 'block';
+		}
+	}
+	function displayhid(id) {
+		if (document.layers) {
+		  document.layers[id].display = (document.layers[id].display != 'block') ? 'block' : 'none';
+		} else if (document.all) {
+		  document.all[id].style.display = (document.all[id].style.display != 'block') ? 'block'	: 'none';
+		} else if (document.getElementById) {
+		  document.getElementById(id).style.display = (document.getElementById(id).style.display != 'block') ? 'block' : 'none';
+		}
+	}
+	function displayIds(id1, id2)
+	{
+		displayvis(id1);
+		displayvis(id2);
+		setWrapperDimensions();
+	}
 	function getClientWidth() {
 	  return document.compatMode=='CSS1Compat' && !window.opera?document.documentElement.clientWidth:document.body.clientWidth;
 	}
@@ -82,6 +108,10 @@ require_once("config.php");
 		{
 			document.getElementById('data').style.width = ninety +'px';
 		}
+		if(document.getElementById('data2') != null)
+		{
+			document.getElementById('data2').style.width = ninety +'px';
+		}
 		if(document.getElementById('theader') != null)
 		{
 			document.getElementById('theader').style.width = ninety+'px';
@@ -97,6 +127,10 @@ require_once("config.php");
 		if(document.getElementById('data') != null)
 		{
 			document.getElementById('data').style.left = (windowwidth*.05)+'px';
+		}
+		if(document.getElementById('data2') != null)
+		{
+			document.getElementById('data2').style.left = (windowwidth*.05)+'px';
 		}
 		if(document.getElementById('theader') != null)
 		{
