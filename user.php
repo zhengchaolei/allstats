@@ -87,10 +87,17 @@ if($count == 0)
 			}
 			if($foundCount == 1)
 			{
-				header("Location: ?p=user&u=$founduser&s=datetime&o=desc");
-			}
-			else
-			{ ?>
+				$headerString = "Location: ?p=user&u=".$founduser."&s=datetime&o=desc&n=";
+				if($displayStyle == 'all')
+				{ 
+				$headerString = $headerString.'all';
+				} 
+				else 
+				{
+				$headerString = $headerString.'0';
+				}
+				header($headerString);
+			}?>
 			<table class="table" id="theader">
 			  <tr class="rowuh">
 				  <td align="center" >
@@ -108,10 +115,19 @@ if($count == 0)
 				{
 					$counttimes=$row["counttimes"];
 					$founduser=$row["name"];
-					print "<tr class=\"row\"> <td><a href=\"?p=user&u=$founduser&s=datetime&o=desc\">$founduser : $counttimes games.</a></td></tr>";
+					$output = "<tr class=\"row\"> <td><a href=\"?p=user&u=$founduser&s=datetime&o=desc&n=";
+					if($displayStyle == 'all')
+					{ 
+					$output = $output.'all';
+					} 
+					else 
+					{
+					$output = $output.'0';
+					}
+					$output = $output."\">$founduser : $counttimes games.</a></td></tr>";
+					print $output;
 				}
 				if($counttimes==false){ print "<tr class=\"rowuh\"> <td>Sorry no users named ".$username." have played any DotA games on ".$botName."</td></tr>";}
-			}
 		}
 		else
 		{
@@ -123,10 +139,17 @@ if($count == 0)
 			}
 			if($foundCount == 1)
 			{
-				header("Location: ?p=user&u=$founduser&s=datetime&o=desc");
-			}
-			else
-			{ ?>
+				$headerString = "Location: ?p=user&u=".$founduser."&s=datetime&o=desc&n=";
+				if($displayStyle == 'all')
+				{ 
+				$headerString = $headerString.'all';
+				} 
+				else 
+				{
+				$headerString = $headerString.'0';
+				}
+				header($headerString);
+			}?>
 				<table class="table" id="theader">
 				  <tr class="rowuh">
 					  <td align="center" >
@@ -143,10 +166,20 @@ if($count == 0)
 				{
 					$founduser=$row["name"];
 					$counttimes=$row["counttimes"];
-					print "<tr class=\"row\"> <td><a href=\"?p=user&u=$founduser&s=datetime&o=desc\">$founduser : $counttimes games.</a></td></tr>";
+					$output = "<tr class=\"row\"> <td><a href=\"?p=user&u=$founduser&s=datetime&o=desc&n=";
+					if($displayStyle == 'all')
+					{ 
+					$output = $output.'all';
+					} 
+					else 
+					{
+					$output = $output.'0';
+					}
+					$output = $output."\">$founduser : $counttimes games.</a></td></tr>";
+					print $output;
+					
 				}
 				if($counttimes==false){ print "<tr class=\"rowuh\"> <td> Sorry no users found matching that criteria.</td></tr>";}
-			}
 		}
 		
 		?>
@@ -156,8 +189,6 @@ if($count == 0)
 }
 else
 {
-
-
 	$mostkillscount="0";
 	$mostkillshero="blank";
 	$mostdeathscount="0";

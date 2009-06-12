@@ -213,7 +213,7 @@ font-weight: bold;
 .all
 {
 	text-align:center;
-	color:#cccccc;
+	color:#daa701;
 }
 .sentinel
 {
@@ -300,4 +300,9 @@ background-color:#000032;
 
 .observer {
   color: #FFFFFF;
+}
+
+.system {
+  color: #cccccc;
+  text-align: center;
 }
