@@ -803,7 +803,7 @@ else
   $sql = "Select CASE WHEN (deaths = 0 and kills = 0) THEN 0 WHEN (deaths = 0) then 1000 ELSE (kills*1.0/deaths) end as kdratio, a.gameid as gameid, gamename, kills, deaths, assists, creepkills, neutralkills, creepdenies, towerkills, raxkills, courierkills, name, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type, 
   CASE when (winner=1 and newcolour < 6) or (winner=2 and newcolour > 5) then 'WON' when  winner=0 then 'DRAW' else 'LOST' end as result
  FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
- LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = heroid where heroid = '$heroid' ORDER BY $sortcat $order, name DESC";
+ LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = heroid where heroid = '$heroid' $aliasheroes ORDER BY $sortcat $order, name DESC";
 
  if($offset!='all')
 {
