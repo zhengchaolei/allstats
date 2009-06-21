@@ -647,7 +647,6 @@ else if($ignorePrivs)
 $sql = $sql." and d.gamestate = '16'";
 }
 $sql = $sql." group by name ORDER BY $sortcat $order, name asc";
-
 if($offset!='all')
 {
 $sql = $sql." LIMIT ".$allPlayerResultSize*$offset.", $allPlayerResultSize";

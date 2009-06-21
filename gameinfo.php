@@ -54,6 +54,7 @@ require_once("functions.php");
 require_once("config.php");
 
 $scourge=true;
+$sentinel=true;
 $sql = "SELECT winner, creatorname, duration, datetime, gamename
 FROM dotagames AS c LEFT JOIN games AS d ON d.id = c.gameid where c.gameid='$gid'";
 
@@ -86,12 +87,19 @@ $gametimenew = substr(str_ireplace(":","-",$gametime),0,16);
 //REPLAY NAME HANDLING CODE
 $replayloc="GHost++ ".$gametimenew." ".$gamename." (".replayDuration($duration).").w3g";
 if(!file_exists($replayLocation.'/'.$replayloc))
-{
-	$replayloc="GHost++ ".$gametimenew." ".$gamename.".w3g";
+{													//Time handling isn't perfect. Check time + 1 and time - 1
+	$replayloc="GHost++ ".$gametimenew." ".$gamename." (".replayDuration($duration-1).").w3g";
+	if(!file_exists($replayLocation.'/'.$replayloc))
+	{
+		$replayloc="GHost++ ".$gametimenew." ".$gamename." (".replayDuration($duration+1).").w3g";
+		if(!file_exists($replayLocation.'/'.$replayloc))
+		{
+			$replayloc="GHost++ ".$gametimenew." ".$gamename.".w3g";
+		}
+	}
 }
 $replayurl = $replayLocation.'/'.str_ireplace("#","%23", str_ireplace("\\","_",str_ireplace("/","_",str_ireplace(" ","%20",$replayloc))));
-$replayloc = $replayLocation.'/'.$replayloc;
-
+$replayloc = $replayLocation.'/'.str_ireplace("\\","_",str_ireplace("/","_",$replayloc));
 ?>
 	
 <table class="table" id="introtable">
@@ -114,7 +122,7 @@ $replayloc = $replayLocation.'/'.$replayloc;
 		<?php
 		if(file_exists($replayloc))
 		{
-			print '<a href="javascript:displayhid(\'chat\')">Toggle Chat Log</a>';
+			print '<a href="javascript:displayhid(\'chat\')">Toggle Game Log</a>';
 		}
 			?>
 		</td>
@@ -170,15 +178,7 @@ $replayloc = $replayLocation.'/'.$replayloc;
 <div id="datawrapper">
 <div id="gameData" class="shown">
 <table class="table" id="data">
-	<tr class="tableheader">
-		<td align="center" colspan=13>
-			SENTINEL - <?php if($win==1) print "Winner!"; else print "Loser!";?>
-		</td>
-	</tr>
 	
-	<tr>
-		<td height=10px colspan=12></td>
-	</tr>
 <?php
 $sql = "SELECT winner, a.gameid, b.colour, newcolour, 
 hero, kills, deaths, assists, creepkills, creepdenies, neutralkills, towerkills, gold, 
@@ -224,7 +224,22 @@ if($dbType == 'sqlite')
 		$leftreason = ucfirst(trim($leftreason));
 		$substring = strchr($leftreason, "(");
 		$leftreason = str_replace($substring, "", $leftreason);
+		if($sentinel)
+		{
+		$sentinel = false;
+		?>
 		
+		<tr class="tableheader">
+			<td align="center" colspan=13>
+				SENTINEL - <?php if($win==1) print "Winner!"; else print "Loser!";?>
+			</td>
+		</tr>
+		<tr>
+			<td height=10px colspan=12></td>
+		</tr>
+		
+		<?php
+		}
 		if($scourge&&$newcolour>5){
 			$scourge=false;
 		?>
@@ -329,7 +344,22 @@ else
 		$leftreason = ucfirst(trim($leftreason));
 		$substring = strchr($leftreason, "(");
 		$leftreason = str_replace($substring, "", $leftreason);
+		if($sentinel)
+		{
+		$sentinel = false;
+		?>
 		
+		<tr class="tableheader">
+			<td align="center" colspan=13>
+				SENTINEL - <?php if($win==1) print "Winner!"; else print "Loser!";?>
+			</td>
+		</tr>
+		<tr>
+			<td height=10px colspan=12></td>
+		</tr>
+		
+		<?php
+		}
 		if($scourge&&$newcolour>5){
 			$scourge=false;
 		?>
@@ -413,13 +443,13 @@ if(file_exists($replayloc))
 <tr class="tableheader">
 	<td colspan=13>
 		 
-		 <h3><strong>Chat Log:</strong></h3>
+		 <h3><strong>Game Log:</strong></h3>
 	</td>
 </tr>
 <tr>
 	<td colspan=13>
-
-			<table width=100% class="rowuh">
+	<center>
+			<table width=800px class="rowuh" >
 				<tr height=10px>
 				</tr>
 <?php
@@ -427,9 +457,7 @@ if(file_exists($replayloc))
 	$replay = new replay($replayloc);
 	if (!isset($error)) {
 		
-		if ($replay->errors) {
-		}
-
+		$firstBlood = true;
 		$i = 1;
 		foreach ($replay->teams as $team=>$players) {
 			if ($team != 12) {	
@@ -446,7 +474,174 @@ if(file_exists($replayloc))
 				$i++;
 			}
 		}
-		
+		for($i = 0; $i <= 14; $i++)
+		{
+			switch($i) {
+			
+			case 0:
+				$slotname[$i] = 'The Sentinel';
+				$slotcolor[$i] = 'sentinel';
+				break;
+			case 1:
+				for($n = 0; $n < 12; $n++)
+				{
+					if(isset($colors[$n]))
+					{
+						if($colors[$n] == 'blue')
+						{
+							$playerID = $n;
+						}
+					}
+				}				
+				$slotname[$i] = $names[$playerID];
+				$slotcolor[$i] = $colors[$playerID];
+				break;
+			case 2:
+				for($n = 0; $n < 12; $n++)
+				{
+					if(isset($colors[$n]))
+					{
+						if($colors[$n] == 'teal')
+						{
+							$playerID = $n;
+						}
+					}
+				}				
+				$slotname[$i] = $names[$playerID];
+				$slotcolor[$i] = $colors[$playerID];
+				break;
+			case 3:
+				for($n = 0; $n < 12; $n++)
+				{
+					if(isset($colors[$n]))
+					{
+						if($colors[$n] == 'purple')
+						{
+							$playerID = $n;
+						}
+					}
+				}				
+				$slotname[$i] = $names[$playerID];
+				$slotcolor[$i] = $colors[$playerID];
+				break;
+			case 4:
+				for($n = 0; $n < 12; $n++)
+				{
+					if(isset($colors[$n]))
+					{
+						if($colors[$n] == 'yellow')
+						{
+							$playerID = $n;
+						}
+					}
+				}				
+				$slotname[$i] = $names[$playerID];
+				$slotcolor[$i] = $colors[$playerID];
+				break;
+			case 5:
+				for($n = 0; $n < 12; $n++)
+				{
+					if(isset($colors[$n]))
+					{
+						if($colors[$n] == 'orange')
+						{
+							$playerID = $n;
+						}
+					}
+				}				
+				$slotname[$i] = $names[$playerID];
+				$slotcolor[$i] = $colors[$playerID];
+				break;
+			case 6:
+				$slotname[$i] = 'The Scourge';
+				$slotcolor[$i] = 'scourge';
+				break;
+			case 7:
+				for($n = 0; $n < 12; $n++)
+				{
+					if(isset($colors[$n]))
+					{
+						if($colors[$n] == 'pink')
+						{
+							$playerID = $n;
+						}
+					}
+				}				
+				$slotname[$i] = $names[$playerID];
+				$slotcolor[$i] = $colors[$playerID];
+				break;
+			case 8:
+				for($n = 0; $n < 12; $n++)
+				{
+					if(isset($colors[$n]))
+					{
+						if($colors[$n] == 'gray')
+						{
+							$playerID = $n;
+						}
+					}
+				}				
+				$slotname[$i] = $names[$playerID];
+				$slotcolor[$i] = $colors[$playerID];
+				break;
+			case 9:
+				for($n = 0; $n < 12; $n++)
+				{
+					if(isset($colors[$n]))
+					{
+						if($colors[$n] == 'light-blue')
+						{
+							$playerID = $n;
+						}
+					}
+				}				
+				$slotname[$i] = $names[$playerID];
+				$slotcolor[$i] = $colors[$playerID];
+				break;
+			case 10:
+				for($n = 0; $n < 12; $n++)
+				{
+					if(isset($colors[$n]))
+					{
+						if($colors[$n] == 'dark-green')
+						{
+							$playerID = $n;
+						}
+					}
+				}				
+				$slotname[$i] = $names[$playerID];
+				$slotcolor[$i] = $colors[$playerID];
+				break;
+			case 11:
+				for($n = 0; $n < 12; $n++)
+				{
+					if(isset($colors[$n]))
+					{
+						if($colors[$n] == 'brown')
+						{
+							$playerID = $n;
+						}
+					}
+				}				
+				$slotname[$i] = $names[$playerID];
+				$slotcolor[$i] = $colors[$playerID];
+				break;
+			case 12:		
+				$slotname[$i] = 'Neutral Creeps';
+				$slotcolor[$i] = 'system';
+				break;	
+			case 13:		
+				$slotname[$i] = 'The Sentinel';
+				$slotcolor[$i] = 'sentinel';
+				break;
+			case 14:
+				$slotname[$i] = 'The Scourge';
+				$slotcolor[$i] = 'scourge';
+				break;
+			}
+		}
+		$colors[''] = 'system';
+		$names[''] = 'System';
 		if ($replay->chat) {
 			foreach ($replay->chat as $content) {
 				$time = $content['time'];
@@ -457,39 +652,104 @@ if(file_exists($replayloc))
 				$text = htmlspecialchars($content['text'], ENT_COMPAT, 'UTF-8');
 				?>
 				<tr>
-					<td width=10%></td>
 					<td width=150px class="rowuh" style="text-align:right">
 					<?php
 						if($mode == 'All' || getTeam($playerColor) == 1)
 						{
 						?>
-							<a href="?p=user&u=<?php print $playerName; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><span class="<?php print $playerColor; ?>"><?php print $playerName; ?></span></a>				
+							<a href="?p=user&u=<?php print $playerName; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><span class="<?php print $playerColor; ?>"><?php print $playerName;?></span></a>				
 						<?php
 						}
 						?>
 					</td>
-					<td width=50px class="rowuh">
+					<td width=50px class="rowuh" style="text-align:left">
 						<?php print secondsToTime($time/1000); ?>
 					<td>
 					
 					<?php
 						if($mode == 'All')
 						{
-							print '<td class="all">'.$text.'</td>';
+							print '<td width=500px class="all">'.$text.'</td>';
+						}
+						else if($mode == 'System')
+						{
+							if($content['type'] == 'Start')
+							{
+								print '<td width=500px class="system">'.$text.'</td>';
+							}
+							else if($content['type'] == 'Hero')
+							{
+								$victim = trim($content['victim']);
+								$killer = $content['killer'];
+								if($firstBlood)
+								{
+									if($content['killer'] < 12)
+									{
+									print '<td width=500px class="system">'.'<span class="'.$slotcolor[$killer].'">'.$slotname[$killer].'</span>'.
+									$text.'<span class="'.$slotcolor[$victim].'">'.$slotname[$victim].'</span> for first blood'.'</td>';
+									$firstBlood = false;
+									}
+									else
+									{
+										print '<td width=500px class="system">'.'<span class="'.$slotcolor[$killer].'">'.$slotname[$killer].'</span>'.
+										$text.'<span class="'.$slotcolor[$victim].'">'.$slotname[$victim].'</span>'.'</td>';
+									}
+								}
+								else
+								{
+									print '<td width=500px class="system">'.'<span class="'.$slotcolor[$killer].'">'.$slotname[$killer].'</span>'.
+									$text.'<span class="'.$slotcolor[$victim].'">'.$slotname[$victim].'</span>'.'</td>';
+								}
+							}
+							else if($content['type'] == 'Courier')
+							{
+								$victim = trim($content['victim']);
+								$killer = $content['killer'];
+								
+								print '<td width=500px class="system">'.'<span class="'.$slotcolor[$victim].'">'.$slotname[$victim].'</span>'.
+								$text.'<span class="'.$slotcolor[$killer].'">'.$slotname[$killer].'</span>'.'</td>';
+								
+							}
+							else if($content['type'] == 'Tower')
+							{
+								
+								$killer = $content['killer'];
+								
+								print '<td width=500px class="system">'.'<span class="'.$slotcolor[$killer].'">'.$slotname[$killer].'</span>'.
+								$text.$content['side'].' level '.$content['level'].' <span class="'.strtolower($content['team']).'">'.$content['team'].'</span> tower</td>';
+								
+							}
+							else if($content['type'] == 'Rax')
+							{
+								
+								$killer = $content['killer'];
+								
+								print '<td width=500px class="system">'.'<span class="'.$slotcolor[$killer].'">'.$slotname[$killer].'</span>'.
+								$text.$content['side'].' '.$content['raxtype'].' <span class="'.strtolower($content['team']).'">'.$content['team'].'</span> barracks</td>';
+								
+							}
+							else if($content['type'] == 'Throne')
+							{
+								print '<td width=500px class="system">'.$text.'</td>';					
+							}
+							else if($content['type'] == 'Tree')
+							{
+								print '<td width=500px class="system">'.$text.'</td>';					
+							}
 						}
 						else
 						{
 							if(getTeam($playerColor) == 1)
 							{
-								print '<td class="sentinel">'.$text.'</td>';
+								print '<td width=500px class="sentinel">'.$text.'</td>';
 							}
 							else
 							{
-								print '<td class="scourge">'.$text.'</td>';
+								print '<td width=500px class="scourge">'.$text.'</td>';
 							}
 						}
 					?>
-					<td width=50px class="rowuh">
+					<td width=50px class="rowuh" style="text-align:center">
 						<?php print secondsToTime($time/1000); ?>
 					<td>
 					<td width=150px class="rowuh" style="text-align:left">
@@ -502,7 +762,6 @@ if(file_exists($replayloc))
 						}
 						?>
 					</td>
-					<td width=10%></td>
 				</tr>
 				<?php
 			}
@@ -510,7 +769,7 @@ if(file_exists($replayloc))
 	}
 	?>
 					</table>
-			
+			</center>
 		</td>
 	</tr>
 </table>
