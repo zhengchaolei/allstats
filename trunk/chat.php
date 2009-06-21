@@ -23,7 +23,7 @@ class replay {
 	var $fp, $data, $leave_unknown, $continue_game, $referees, $time, $pause, $leaves, $errors, $header, $game,  $players, $chat, $filename, $parse_actions, $parse_chat;
 	var $max_datablock = MAX_DATABLOCK;
 	
-	function replay($filename, $parse_actions=false, $parse_chat=true) {
+	function replay($filename, $parse_actions=true, $parse_chat=true) {
 		$this->parse_actions = $parse_actions;
 		$this->parse_chat = $parse_chat;
 		$this->filename = $filename;
@@ -367,534 +367,291 @@ class replay {
 					$data_left = 0;
 					break;
 				default:
-					exit('Unhandled replay command block: 0x'.sprintf('%02X', $block_id).' (prev: 0x'.sprintf('%02X', $prev).', time: '.$this->time.') in '.$this->filename);
+					$this->data = substr($this->data, 1);
+					$data_left -= 1;
+					break;
+					//exit('Unhandled replay command block: 0x'.sprintf('%02X', $block_id).' (prev: 0x'.sprintf('%02X', $prev).', time: '.$this->time.') in '.$this->filename);
 			}
 		}
 	}
 	
-	// ACTIONS, the best part...
-	function parseactions($actionblock, $data_length) {
-		$block_length = 0;
+	function hexToStr($hex)
+{
+    $string='';
+    for ($i=0; $i < strlen($hex)-1; $i+=2)
+    {
+        $string .= chr(hexdec($hex[$i].$hex[$i+1]));
+    }
+    return $string;
+}
+
+// ACTIONS, the best part...
+  function parseactions($actionblock, $data_length) {
+  $block_length = 0;
+
+  while ($data_length) {
+    if ($block_length) {
+      $actionblock = substr($actionblock, $block_length);
+    }
+	if(strlen($actionblock))
+	{
+    $temp = unpack('Cplayer_id/Slength', $actionblock);
+    $player_id = $temp['player_id'];
+    $block_length = $temp['length']+3;
+    $data_length -= $block_length;
+
+    $was_deselect = false;
+    $was_subupdate = false;
+
+    $n = 3;
+	$ablength = strlen($actionblock);
+    while ($n < $block_length) {
 	
-		while ($data_length) {
-			if ($block_length) {
-				$actionblock = substr($actionblock, $block_length);
-			}
-			$temp = unpack('Cplayer_id/vlength', $actionblock);
-			$player_id = $temp['player_id'];
-			$block_length = $temp['length']+3;
-			$data_length -= $block_length;
-	
-			$was_deselect = false;
-			$was_subupdate = false;
-	
-			$n = 3;
-	
-			while ($n < $block_length) {
-				$prev = $action;
-				$action = ord($actionblock{$n});
-	
-				switch ($action) {
-					// Unit/building ability (no additional parameters)
-					// here we detect the races, heroes, units, items, buildings,
-					// upgrades
-					case 0x10:
-						$this->players[$player_id]['actions']++;
-						if ($this->header['major_v'] >= 13) {
-							$n++; // ability flag is one byte longer
-						}
-						
-						$itemid = strrev(substr($actionblock, $n+2, 4));
-						$value = convert_itemid($itemid);
-						
-						if (!$value) {
-							$this->players[$player_id]['actions_details'][convert_action('ability')]++;
-							
-							// handling Destroyers
-							if (ord($actionblock{$n+2}) == 0x33 && ord($actionblock{$n+3}) == 0x02) {
-								$name = substr(convert_itemid('ubsp'), 2);
-								$this->players[$player_id]['units']['order'][$this->time] = $this->players[$player_id]['units_multiplier'].' '.$name;
-								$this->players[$player_id]['units'][$name]++;
-								
-								$name = substr(convert_itemid('uobs'), 2);
-								$this->players[$player_id]['units'][$name]--;
-							}
-						} else {
-							$this->players[$player_id]['actions_details'][convert_action('buildtrain')]++;
-							
-							if (!$this->players[$player_id]['race_detected']) {
-								if ($race_detected = convert_race($itemid)) {
-									$this->players[$player_id]['race_detected'] = $race_detected;
-								}
-							}
-							
-							$name = substr($value, 2);
-							switch ($value{0}) {
-								case 'u':
-									// preventing duplicated units
-									if (($this->time - $this->players[$player_id]['units_time'] > ACTION_DELAY || $itemid != $this->players[$player_id]['last_itemid'])
-									// at the beginning of the game workers are queued very fast, so
-									// it's better to omit action delay protection
-									|| (($itemid == 'hpea' || $itemid == 'ewsp' || $itemid == 'opeo' || $itemid == 'uaco') && $this->time - $this->players[$player_id]['units_time'] > 0)) {
-										$this->players[$player_id]['units_time'] = $this->time;
-										$this->players[$player_id]['units']['order'][$this->time] = $this->players[$player_id]['units_multiplier'].' '.$name;
-										$this->players[$player_id]['units'][$name] += $this->players[$player_id]['units_multiplier'];
-									}
-									break;
-								case 'b':
-									$this->players[$player_id]['buildings']['order'][$this->time] = $name;
-									$this->players[$player_id]['buildings'][$name]++;
-									break;
-								case 'h':
-									$this->players[$player_id]['heroes']['order'][$this->time] = $name;
-									$this->players[$player_id]['heroes'][$name]['revivals']++;
-									break;
-								case 'a':
-									list($hero, $ability) = explode(':', $name);
-									$retraining_time = $this->players[$player_id]['retraining_time'];
-									if (!$this->players[$player_id]['heroes'][$hero]['retraining_time']) {
-										$this->players[$player_id]['heroes'][$hero]['retraining_time'] = 0;
-									}
-									
-									// preventing too high levels (avoiding duplicated actions)
-									// the second condition is mainly for games with random heroes
-									// the third is for handling Tome of Retraining usage
-									if (($this->time - $this->players[$player_id]['heroes'][$hero]['ability_time'] > ACTION_DELAY
-									|| !$this->players[$player_id]['heroes'][$hero]['ability_time']
-									|| $this->time - $retraining_time < RETRAINING_TIME)
-									&& $this->players[$player_id]['heroes'][$hero]['abilities'][$retraining_time][$ability] < 3) {
-										if ($this->time - $retraining_time > RETRAINING_TIME) {
-											$this->players[$player_id]['heroes'][$hero]['ability_time'] = $this->time;
-											$this->players[$player_id]['heroes'][$hero]['level']++;
-											$this->players[$player_id]['heroes'][$hero]['abilities'][$this->players[$player_id]['heroes'][$hero]['retraining_time']][$ability]++;
-										} else {
-											$this->players[$player_id]['heroes'][$hero]['retraining_time'] = $retraining_time;
-											$this->players[$player_id]['heroes'][$hero]['abilities']['order'][$retraining_time] = 'Retraining';
-											$this->players[$player_id]['heroes'][$hero]['abilities'][$retraining_time][$ability]++;
-										}
-										$this->players[$player_id]['heroes'][$hero]['abilities']['order'][$this->time] = $ability;
-									}
-									break;
-								case 'i':
-									$this->players[$player_id]['items']['order'][$this->time] = $name;
-									$this->players[$player_id]['items'][$name]++;
-									
-									if ($itemid == 'tret') {
-										$this->players[$player_id]['retraining_time'] = $this->time;
-									}
-									break;
-								case 'p':
-									// preventing duplicated upgrades
-									if ($this->time - $this->players[$player_id]['upgrades_time'] > ACTION_DELAY || $itemid != $this->players[$player_id]['last_itemid']) {
-										$this->players[$player_id]['upgrades_time'] = $this->time;
-										$this->players[$player_id]['upgrades']['order'][$this->time] = $name;
-										$this->players[$player_id]['upgrades'][$name]++;
-									}
-									break;
-								default:
-									$this->errors[$this->time] = 'Unknown ItemID: '.$value;
-									break;
-							}
-							$this->players[$player_id]['last_itemid'] = $itemid;
-						}
-	
-						if ($this->header['major_v'] >= 7) {
-							$n+=14;
-						} else {
-							$n+=6;
-						}
-						break;
-	
-					// Unit/building ability (with target position)
-					case 0x11:
-						$this->players[$player_id]['actions']++;
-						if ($this->header['major_v'] >= 13) {
-							$n++; // ability flag
-						}
-						if (ord($actionblock{$n+2}) <= 0x19 && ord($actionblock{$n+3}) == 0x00) { // basic commands
-							$this->players[$player_id]['actions_details'][convert_action('basic')]++;
-						} else {
-							$this->players[$player_id]['actions_details'][convert_action('ability')]++;
-						}
-						$value = strrev(substr($actionblock, $n+2, 4));
-						if ($value = convert_buildingid($value)) {
-							$this->players[$player_id]['buildings']['order'][$this->time] = $value;
-							$this->players[$player_id]['buildings'][$value]++;
-						}
-						if ($this->header['major_v'] >= 7) {
-							$n+=22;
-						} else {
-							$n+=14;
-						}
-						break;
-	
-					// Unit/building ability (with target position and target object ID)
-					case 0x12:
-						$this->players[$player_id]['actions']++;
-						if ($this->header['major_v'] >= 13) {
-							$n++; // ability flag
-						}
-						if (ord($actionblock{$n+2}) == 0x03 && ord($actionblock{$n+3}) == 0x00) { // rightclick
-							$this->players[$player_id]['actions_details'][convert_action('rightclick')]++;
-						} elseif (ord($actionblock{$n+2}) <= 0x19 && ord($actionblock{$n+3}) == 0x00) { // basic commands
-							$this->players[$player_id]['actions_details'][convert_action('basic')]++;
-						} else {
-							$this->players[$player_id]['actions_details'][convert_action('ability')]++;
-						}
-						if ($this->header['major_v'] >= 7) {
-							$n+=30;
-						} else {
-							$n+=22;
-						}
-						break;
-	
-					// Give item to Unit / Drop item on ground
-					case 0x13:
-						$this->players[$player_id]['actions']++;
-						if ($this->header['major_v'] >= 13) {
-							$n++; // ability flag
-						}
-						$this->players[$player_id]['actions_details'][convert_action('item')]++;
-						if ($this->header['major_v'] >= 7) {
-							$n+=38;
-						} else {
-							$n+=30;
-						}
-						break;
-	
-					// Unit/building ability (with two target positions and two item IDs)
-					case 0x14:
-						$this->players[$player_id]['actions']++;
-						if ($this->header['major_v'] >= 13) {
-							$n++; // ability flag
-						}
-						if (ord($actionblock{$n+2}) == 0x03 && ord($actionblock{$n+3}) == 0x00) { // rightclick
-							$this->players[$player_id]['actions_details'][convert_action('rightclick')]++;
-						} elseif (ord($actionblock{$n+2}) <= 0x19 && ord($actionblock{$n+3}) == 0x00) { // basic commands
-							$this->players[$player_id]['actions_details'][convert_action('basic')]++;
-						} else {
-							$this->players[$player_id]['actions_details'][convert_action('ability')]++;
-						}
-						if ($this->header['major_v'] >= 7) {
-							$n+=43;
-						} else {
-							$n+=35;
-						}
-						break;
-	
-					// Change Selection (Unit, Building, Area)
-					case 0x16:
-						$temp = unpack('Cmode/vnum', substr($actionblock, $n+1, 3));
-						if ($temp['mode'] == 0x02 || !$was_deselect) {
-							$this->players[$player_id]['actions']++;
-							$this->players[$player_id]['actions_details'][convert_action('select')]++;
-						}
-						$was_deselect = ($temp['mode'] == 0x02);
-						
-						$this->players[$player_id]['units_multiplier'] = $temp['num'];
-						$n+=4 + ($temp['num'] * 8);
-						break;
-	
-					// Assign Group Hotkey
-					case 0x17:
-						$this->players[$player_id]['actions']++;
-						$this->players[$player_id]['actions_details'][convert_action('assignhotkey')]++;
-						$temp = unpack('Cgroup/vnum', substr($actionblock, $n+1, 3));
-						$this->players[$player_id]['hotkeys'][$temp['group']]['assigned']++;
-						$this->players[$player_id]['hotkeys'][$temp['group']]['last_totalitems'] = $temp['num'];
-	
-						$n+=4 + ($temp['num'] * 8);
-						break;
-	
-					// Select Group Hotkey
-					case 0x18:
-						$this->players[$player_id]['actions']++;
-						$this->players[$player_id]['actions_details'][convert_action('selecthotkey')]++;
-						$this->players[$player_id]['hotkeys'][ord($actionblock{$n+1})]['used']++;
-	
-						$this->players[$player_id]['units_multiplier'] = $this->players[$player_id]['hotkeys'][ord($actionblock{$n+1})]['last_totalitems'];
-						$n+=3;
-						break;
-	
-					// Select Subgroup
-					case 0x19:
-						// OR is for torunament reps which don't have build_v
-						if ($this->header['build_v'] >= 6040 || $this->header['major_v'] > 14) {
-							if ($was_subgroup) { // can't think of anything better (check action 0x1A)
-								$this->players[$player_id]['actions']++;
-								$this->players[$player_id]['actions_details'][convert_action('subgroup')]++;
-								
-								// I don't have any better idea what to do when somebody binds buildings
-								// of more than one type to a single key and uses them to train units
-								$this->players[$player_id]['units_multiplier'] = 1;
-							}
-							$n+=13;
-						} else {
-							if (ord($actionblock{$n+1}) != 0 && ord($actionblock{$n+1}) != 0xFF && !$was_subupdate) {
-								$this->players[$player_id]['actions']++;
-								$this->players[$player_id]['actions_details'][convert_action('subgroup')]++;
-							}
-							$was_subupdate = (ord($actionblock{$n+1}) == 0xFF);
-							$n+=2;
-						}
-						break;
-	
-					// some subaction holder?
-					// version < 14b: Only in scenarios, maybe a trigger-related command
-					case 0x1A:
-						// OR is for torunament reps which don't have build_v
-						if ($this->header['build_v'] >= 6040 || $this->header['major_v'] > 14) {
-							$n+=1;
-							$was_subgroup = ($prev == 0x19 || $prev == 0); //0 is for new blocks which start from 0x19
-						} else {
-							$n+=10;
-						}
-						break;
-	
-					// Only in scenarios, maybe a trigger-related command
-					// version < 14b: Select Ground Item
-					case 0x1B:
-						// OR is for torunament reps which don't have build_v
-						if ($this->header['build_v'] >= 6040 || $this->header['major_v'] > 14) {
-							$n+=10;
-						} else {
-							$this->players[$player_id]['actions']++;
-							$n+=10;
-						}
-						break;
-						
-					// Select Ground Item
-					// version < 14b: Cancel hero revival (new in 1.13)
-					case 0x1C:
-						// OR is for torunament reps which don't have build_v
-						if ($this->header['build_v'] >= 6040 || $this->header['major_v'] > 14) {
-							$this->players[$player_id]['actions']++;
-							$n+=10;
-						} else {
-							$this->players[$player_id]['actions']++;
-							$n+=9;
-						}
-						break;
-						
-					// Cancel hero revival
-					// Remove unit from building queue
-					case 0x1D:
-					case 0x1E:
-						// OR is for torunament reps which don't have build_v
-						if (($this->header['build_v'] >= 6040 || $this->header['major_v'] > 14) && $action != 0x1E) {
-							$this->players[$player_id]['actions']++;
-							$n+=9;
-						} else {
-							$this->players[$player_id]['actions']++;
-							$this->players[$player_id]['actions_details'][convert_action('removeunit')]++;
-							$value = convert_itemid(strrev(substr($actionblock, $n+2, 4)));
-							$name = substr($value, 2);
-							switch ($value{0}) {
-								case 'u':
-									// preventing duplicated units cancellations
-									if ($this->time - $this->players[$player_id]['runits_time'] > ACTION_DELAY || $value != $this->players[$player_id]['runits_value']) {
-										$this->players[$player_id]['runits_time'] = $this->time;
-										$this->players[$player_id]['runits_value'] = $value;
-										$this->players[$player_id]['units']['order'][$this->time] = '-1 '.$name;
-										$this->players[$player_id]['units'][$name]--;
-									}
-									break;
-								case 'b':
-									$this->players[$player_id]['buildings'][$name]--;
-									break;
-								case 'h':
-									$this->players[$player_id]['heroes'][$name]['revivals']--;
-									break;
-								case 'p':
-									// preventing duplicated upgrades cancellations
-									if ($this->time - $this->players[$player_id]['rupgrades_time'] > ACTION_DELAY || $value != $this->players[$player_id]['rupgrades_value']) {
-										$this->players[$player_id]['rupgrades_time'] = $this->time;
-										$this->players[$player_id]['rupgrades_value'] = $value;
-										$this->players[$player_id]['upgrades'][$name]--;
-									}
-									break;
-							}
-							$n+=6;
-						}
-						break;
-	
-					// Found in replays with patch version 1.04 and 1.05.
-					case 0x21:
-						$n+=9;
-						break;
-	
-					// Change ally options
-					case 0x50:
-						$n+=6;
-						break;
-	
-					// Transfer resources
-					case 0x51:
-						$n+=10;
-						break;
-	
-					// Map trigger chat command (?)
-					case 0x60:
-						while ($actionblock{$n} != "\x00") {
-							$n++;
-						}
-						$n+=2;
-						break;
-	
-					// ESC pressed
-					case 0x61:
-						$this->players[$player_id]['actions']++;
-						$this->players[$player_id]['actions_details'][convert_action('esc')]++;
-						$n+=1;
-						break;
-	
-					// Scenario Trigger
-					case 0x62:
-						if ($this->header['major_v'] >= 7) {
-							$n+=13;
-						} else {
-							$n+=9;
-						}
-						break;
-	
-					// Enter select hero skill submenu for WarCraft III patch version <= 1.06
-					case 0x65:
-						$this->players[$player_id]['actions']++;
-						$this->players[$player_id]['actions_details'][convert_action('heromenu')]++;
-						$n+=1;
-						break;
-	
-					// Enter select hero skill submenu
-					// Enter select building submenu for WarCraft III patch version <= 1.06
-					case 0x66:
-						$this->players[$player_id]['actions']++;
-						if ($this->header['major_v'] >= 7) {
-							$this->players[$player_id]['actions_details'][convert_action('heromenu')]++;
-						} else {
-							$this->players[$player_id]['actions_details'][convert_action('buildmenu')]++;
-						}
-						$n+=1;
-						break;
-	
-					// Enter select building submenu
-					// Minimap signal (ping) for WarCraft III patch version <= 1.06
-					case 0x67:
-						if ($this->header['major_v'] >= 7) {
-							$this->players[$player_id]['actions']++;
-							$this->players[$player_id]['actions_details'][convert_action('buildmenu')]++;
-							$n+=1;
-						} else {
-							$n+=13;
-						}
-						break;
-	
-					// Minimap signal (ping)
-					// Continue Game (BlockB) for WarCraft III patch version <= 1.06
-					case 0x68:
-						if ($this->header['major_v'] >= 7) {
-							$n+=13;
-						} else {
-							$n+=17;
-						}
-						break;
-	
-					// Continue Game (BlockB)
-					// Continue Game (BlockA) for WarCraft III patch version <= 1.06
-					case 0x69:
-					// Continue Game (BlockA)
-					case 0x6A:
-						$this->continue_game = 1;
-						$n+=17;
-						break;
-	
-					// Pause game
-					case 0x01:
-						$this->pause = 1;
-						$temp = '';
-						$temp['time'] = $this->time;
-						$temp['text'] = convert_chat_mode(0xFE, $this->players[$player_id]['name']);
-						$this->chat[] = $temp;
-						$n+=1;
-						break;
-	
-					// Resume game
-					case 0x02:
-						$temp = '';
-						$this->pause = 0;
-						$temp['time'] = $this->time;
-						$temp['text'] = convert_chat_mode(0xFF, $this->players[$player_id]['name']);
-						$this->chat[] = $temp;
-						$n+=1;
-						break;
-	
-					// Increase game speed in single player game (Num+)
-					case 0x04:
-					// Decrease game speed in single player game (Num-)
-					case 0x05:
-						$n+=1;
-						break;
-	
-					// Set game speed in single player game (options menu)
-					case 0x03:
-						$n+=2;
-						break;
-	
-					// Save game
-					case 0x06:
-						$i=1;
-						while ($actionblock{$n} != "\x00") {
-							$n++;
-						}
-						$n+=1;
-						break;
-	
-					// Save game finished
-					case 0x07:
-						$n+=5;
-						break;
-	
-					// Only in scenarios, maybe a trigger-related command
-					case 0x75:
-						$n+=2;
-						break;
-	
-					default:
-						$temp = '';
-	
-						for ($i=3; $i<$n; $i++) {
-							$temp .= sprintf('%02X', ord($actionblock{$i})).' ';
-						}         
-							 
-						$temp .= '['.sprintf('%02X', ord($actionblock{$n})).'] ';
-						
-						for ($i=1; $n+$i<strlen($actionblock); $i++) {
-							$temp .= sprintf('%02X', ord($actionblock{$n+$i})).' ';
-						}
-						
-						$this->errors[$this->time] = 'Unknown action: 0x'.sprintf('%02X', $action).', prev: 0x'.sprintf('%02X', $prev).', dump: '.$temp;
-						$n+=2;
-	
+		
+        //$prev = $action;
+        $action = ord($actionblock{$n});
+
+      switch ($action) {
+			// DotA player stats (kill, deaths, creep kills, creep denies)
+		case 0x6B:
+			
+			$n++;	//Skip the action byte
+			$n+=5;
+			$data = substr($actionblock, $n, 4);
+			if($data == 'Data')
+			{
+				$n++;
+				$n+=4;
+				
+				if( substr($actionblock, $n, 9) == 'GameStart')
+				{
+					$n+=9;
+					$temp['player_id'] = '';
+					$temp['text'] = '-- Creeps Spawn --';
+					$temp['type'] = 'Start';
+					$temp['time'] = $this->time;
+					$temp['mode'] = 'System';
+					$this->chat[] = $temp;
+				}
+				else if(substr($actionblock, $n, 4) == 'Hero')
+				{
+					$n+=4;
+					
+					$victim = substr($actionblock, $n, 2);
+					if(strlen(trim($victim)) == 1)
+					{
+						$killer = (ord($actionblock{$n+2}));
+					}
+					else
+					{
+						$killer = (ord($actionblock{$n+3}));
+					}
+					$temp['player_id'] = '';
+					$temp['killer'] = $killer;
+					$temp['victim'] = $victim;
+					$temp['type'] = 'Hero';
+					$temp['text'] = ' killed ';
+					$temp['time'] = $this->time;
+					$temp['mode'] = 'System';
+					$this->chat[] = $temp;
+				}
+				else if(substr($actionblock, $n, 7) == 'Courier')
+				{
+					$n+=7;
+					
+					$victim = substr($actionblock, $n, 2);
+					if(strlen(trim($victim)) == 1)
+					{
+						$killer = ord($actionblock{$n+2});
+					}
+					else
+					{
+						$killer = ord($actionblock{$n+3});
+					}
+					$temp['player_id'] = '';
+					$temp['killer'] = $killer;
+					$temp['victim'] = $victim;
+					$temp['type'] = 'Courier';
+					$temp['text'] = '\'s courier was killed by ';
+					$temp['time'] = $this->time;
+					$temp['mode'] = 'System';
+					$this->chat[] = $temp;
+				}
+				else if(substr($actionblock, $n, 5) == 'Tower')
+				{
+					$n+=5;
+					$team = substr($actionblock, $n, 1);
+					$level = substr($actionblock, $n+1, 1);
+					$side = substr($actionblock, $n+2, 1);
+					$killer = ord($actionblock{$n+4});
+					if($team == '0')
+					{
+						$team = 'Sentinel';
+					}
+					else
+					{
+						$team = 'Scourge';
+					}
+					
+					if($side == '0')
+					{
+						$side = 'top';
+					}
+					else if($side == '1')
+					{
+						$side = 'middle';
+					}
+					else if($side == '2')
+					{
+						$side = 'bottom';
+					}
+					
+					$temp['player_id'] = '';
+					$temp['killer'] = $killer;
+					$temp['type'] = 'Tower';
+					$temp['side'] = $side;
+					$temp['level'] = $level;
+					$temp['team'] = $team;
+					if($team == 'Sentinel' && ($killer > 0 && $killer <= 5))
+					{
+						$temp['text'] = ' denied the ';
+					}
+					else if($team == 'Scourge' && ($killer <=11 && $killer >= 7))
+					{
+						$temp['text'] = ' denied the ';
+					}
+					else
+					{
+						$temp['text'] = ' killed the ';
+					}
+					$temp['time'] = $this->time;
+					$temp['mode'] = 'System';
+					$this->chat[] = $temp;
+				}
+				else if(substr($actionblock, $n, 3) == 'Rax')
+				{
+					$n+=3;
+					$team = substr($actionblock, $n, 1);
+					$side = substr($actionblock, $n+1, 1);
+					$type = substr($actionblock, $n+2, 1);
+					$killer = ord($actionblock{$n+4});
+					if($team == '0')
+					{
+						$team = 'Sentinel';
+					}
+					else
+					{
+						$team = 'Scourge';
+					}
+					
+					if($side == '0')
+					{
+						$side = 'top';
+					}
+					else if($side == '1')
+					{
+						$side = 'middle';
+					}
+					else if($side == '2')
+					{
+						$side = 'bottom';
+					}
+					
+					if($type == '0')
+					{
+						$type = 'melee';
+					}
+					else
+					{
+						$type = 'ranged';
+					}
+					
+					$temp['player_id'] = '';
+					$temp['killer'] = $killer;
+					$temp['type'] = 'Rax';
+					$temp['side'] = $side;
+					$temp['raxtype'] = $type;
+					$temp['team'] = $team;
+					if($team == 'Sentinel' && ($killer > 0 && $killer <= 5))
+					{
+						$temp['text'] = ' denied the ';
+					}
+					else if($team == 'Scourge' && ($killer <=11 && $killer >= 7))
+					{
+						$temp['text'] = ' denied the ';
+					}
+					else
+					{
+						$temp['text'] = ' killed the ';
+					}
+					
+					$temp['time'] = $this->time;
+					$temp['mode'] = 'System';
+					$this->chat[] = $temp;
+				}
+				else if(substr($actionblock, $n, 6) == 'Throne')
+				{
+					$n+=6;
+					$percent = ord($actionblock{$n+1});
+					$temp['player_id'] = '';
+					$temp['type'] = 'Throne';
+					$temp['text'] = 'The Frozen Throne is at '.$percent.' percent health';
+					$temp['time'] = $this->time;
+					$temp['mode'] = 'System';
+					$this->chat[] = $temp;
+				}
+				else if(substr($actionblock, $n, 4) == 'Tree')
+				{
+					$n+=4;
+					$percent = ord($actionblock{$n+1});
+					$temp['player_id'] = '';
+					$temp['type'] = 'Tree';
+					$temp['text'] = 'The World Tree is at '.$percent.' percent health';
+					$temp['time'] = $this->time;
+					$temp['mode'] = 'System';
+					$this->chat[] = $temp;
 				}
 			}
-			$was_deselect = ($action == 0x16);
-			$was_subupdate = ($action == 0x19);
-	
+			$n+=2;
+			break;
+
+          default:
+			$n+=2;
+        }
+		if(!isset($actionblock{$n}))
+		{
+			$n = $block_length;
 		}
+      }
 	}
+	else
+	{
+		$n = 3;
+		break;
+	}
+  }
+ }
+
 	
 	function cleanup() {
 		// players time cleanup
 		foreach ($this->players as $player) {
-			if (!$player['time']) {
-				$this->players[$player['player_id']]['time'] = $this->header['length'];
+			if(isset($player['time']))
+			{
+				if (!$player['time']) {
+					$this->players[$player['player_id']]['time'] = $this->header['length'];
+				}
 			}
 		}
 	
 		// counting apm
 		if ($this->parse_actions) {
 			foreach ($this->players as $player_id=>$info) {
-				if ($this->players[$player_id]['team'] != 12) { // whole team 12 are observers/referees
-					$this->players[$player_id]['apm'] = $this->players[$player_id]['actions'] / $this->players[$player_id]['time'] * 60000;
+				if(isset($this->players[$player_id]['time']))
+				{
+					if ($this->players[$player_id]['team'] != 12) { // whole team 12 are observers/referees
+						$this->players[$player_id]['apm'] = $this->players[$player_id]['actions'] / $this->players[$player_id]['time'] * 60000;
+					}
 				}
 			}
 		}
