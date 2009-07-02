@@ -68,170 +68,171 @@ else
 }
 	$pages = ceil($count/$banResultSize);
 ?>
-	<table class="table" id="theader">		
+
+
+<div class="header" id="header">
+	<table class="rowuh" width=1016px>
 		<tr>
-			<td colspan=5>
-				<table class="rowuh" width=100%>
+			<td width=25%>
+				<table class="rowuh" width = 235px style="float:left">
+					<h4>
 					<tr>
-						<td width=25%>
-							<table class="rowuh" width = 235px style="float:left">
-								<h4>
-								<tr>
-									<td>
-									<?php
-									if($offset == 'all')
-									{
-										print "Showing All Bans";
-									}
-									else
-									{
-										print "<a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=all\"><strong>Show All Bans</strong></a>";
-									}
-									?>
-									</td>
-								</tr>
-								</h4>
-							</table>
+						<td>
+						<?php
+						if($offset == 'all')
+						{
+							print "Showing All Bans";
+						}
+						else
+						{
+							print "<a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=all\"><strong>Show All Bans</strong></a>";
+						}
+						?>
 						</td>
-						<td width=50%>
-							<h2>Banned Players:</h2>
-							<h5>Number of Banned Players: <?php print $count; ?> </h5>
-						</td>
-						<td width=25% class="rowuh">
-							<table class="rowuh" width = 235px style="float:right">
-							<h4>
-							<tr>
-								<td colspan=7>
-								<?php
-								if($offset == 'all')
-								{
-									print "Show Bans Page:";
-								}
-								else
-								{
-									$min = $offset*$banResultSize+1;
-									$max = $offset*$banResultSize+$banResultSize;
-									if($max > $count)
-									{
-										$max = $count;
-									}
-									print "Showing Bans: ".$min." - ".$max;
-								}
-								?>
-								</td>
-							</tr>
-							<tr>
-							<?php
-							if($offset == 'all')
+					</tr>
+					</h4>
+				</table>
+			</td>
+			<td width=50%>
+				<h2>Banned Players:</h2>
+			</td>
+			<td width=25% class="rowuh">
+				<table class="rowuh" width = 235px style="float:right">
+				<h4>
+				<tr>
+					<td colspan=7>
+					<?php
+					if($offset == 'all')
+					{
+						print "Show Bans Page:";
+					}
+					else
+					{
+						$min = $offset*$banResultSize+1;
+						$max = $offset*$banResultSize+$banResultSize;
+						if($max > $count)
+						{
+							$max = $count;
+						}
+						print "Showing Bans: ".$min." - ".$max;
+					}
+					?>
+					</td>
+				</tr>
+				<tr>
+				<?php
+				if($offset == 'all')
+				{
+					print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+					for($counter = 1; $counter < 6; $counter++)
+					{
+						if($counter <= $pages)
+						{
+						print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
+						}
+					}
+					print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+				}
+				else
+				{
+					if($offset > 0)
+					{
+						print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($offset-1)."\"><strong><</strong></a>";
+					}
+					else
+					{
+						print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+					}
+					
+					if($offset < 2)		//Close to start
+					{
+						if($offset == 0)
+						{
+							print "<td width=35px><span style=\"color:#ddd;\">1</span></td>";
+							for($counter = 2; $counter < 6; $counter++)
 							{
-								print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
-								for($counter = 1; $counter < 6; $counter++)
+								if($counter-1 < $pages)
 								{
-									if($counter <= $pages)
-									{
 									print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
-									}
 								}
-								print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+							}
+						}
+						if($offset == 1)
+						{
+							print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=0\">1</a></td>";
+							print "<td width=35px><span style=\"color:#ddd;\">2</span></td>";
+							for($counter = 3; $counter < 6; $counter++)
+							{
+								if($counter-1 < $pages)
+								{
+								print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
+								
+								}
+							}
+						}
+					}
+					else if ($pages-$offset < 3) //Close to end
+					{
+						if($offset == $pages-1)
+						{
+							for($counter = $offset-3; $counter < $offset+1; $counter++)
+							{
+								if($counter >= 1)
+								{
+								print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
+								}
+							}
+							print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
+						}
+						else
+						{
+							
+							for($counter = $offset-2; $counter < $offset+1; $counter++)
+							{
+								if($counter >= 1)
+								{
+									print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
+								}
+							}
+							print "<td width=35px><span style=\"color:#ddd;\">".($offset+1)."</span>";
+							print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($offset+1)."\">".($offset+2)."</a></td>";
+						}
+					}
+					else
+					{
+						for($counter = ($offset-1); $counter < ($offset+4); $counter++)
+							{
+							if($counter == ($offset+1))
+							{
+								print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
 							}
 							else
 							{
-								if($offset > 0)
-								{
-									print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($offset-1)."\"><strong><</strong></a>";
-								}
-								else
-								{
-									print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
-								}
-								
-								if($offset < 2)		//Close to start
-								{
-									if($offset == 0)
-									{
-										print "<td width=35px><span style=\"color:#ddd;\">1</span></td>";
-										for($counter = 2; $counter < 6; $counter++)
-										{
-											if($counter-1 < $pages)
-											{
-												print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
-											}
-										}
-									}
-									if($offset == 1)
-									{
-										print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=0\">1</a></td>";
-										print "<td width=35px><span style=\"color:#ddd;\">2</span></td>";
-										for($counter = 3; $counter < 6; $counter++)
-										{
-											if($counter-1 < $pages)
-											{
-											print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
-											
-											}
-										}
-									}
-								}
-								else if ($pages-$offset < 3) //Close to end
-								{
-									if($offset == $pages-1)
-									{
-										for($counter = $offset-3; $counter < $offset+1; $counter++)
-										{
-											if($counter >= 1)
-											{
-											print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
-											}
-										}
-										print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
-									}
-									else
-									{
-										
-										for($counter = $offset-2; $counter < $offset+1; $counter++)
-										{
-											if($counter >= 1)
-											{
-												print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
-											}
-										}
-										print "<td width=35px><span style=\"color:#ddd;\">".($offset+1)."</span>";
-										print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($offset+1)."\">".($offset+2)."</a></td>";
-									}
-								}
-								else
-								{
-									for($counter = ($offset-1); $counter < ($offset+4); $counter++)
-										{
-										if($counter == ($offset+1))
-										{
-											print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
-										}
-										else
-										{
-											print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
-										}
-									}
-								}
-								if(($offset+1)*$banResultSize < $count)
-								{
-									print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($offset+1)."\"><strong>></strong></a></td>";
-								}
-								else
-								{
-									print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
-								}
+								print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
 							}
-							?>
-							</tr>
-							</h4>
-							</table>
-						</td>			
-					</tr>
+						}
+					}
+					if(($offset+1)*$banResultSize < $count)
+					{
+						print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($offset+1)."\"><strong>></strong></a></td>";
+					}
+					else
+					{
+						print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+					}
+				}
+				?>
+				</h4>
 				</table>
-			</td>
+			</td>				
 		</tr>
-<tr class="tableheader">
+	</table>
+	
+</div>
+	<div class="pageholder" id="pageholder">
+	<div id="theader">
+		<table class="tableheader" id="tableheader">
+		<tr>
 <?php
  if($offset == 'all')
  {
@@ -240,80 +241,80 @@ else
 	{
 		if($order == "asc")
 		{
-			print("<td width=15%><a href=\"?p=bans&s=name&o=desc&n=all\">Name</a></td>");
+			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=desc&n=all\">Name</a></td>");
 		}
 		else
 		{
-			print("<td width=15%><a href=\"?p=bans&s=name&o=asc&n=all\">Name</a></td>");
+			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=asc&n=all\">Name</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=15%><a href=\"?p=bans&s=name&o=desc&n=all\">Name</a></td>");
+		print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=desc&n=all\">Name</a></td>");
 	}
 	//Reason
 	if($sortcat == "reason")
 	{
 		if($order == "asc")
 		{
-			print("<td width=35%><a href=\"?p=bans&s=reason&o=desc&n=all\">Reason</a></td>");
+			print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=desc&n=all\">Reason</a></td>");
 		}
 		else
 		{
-			print("<td width=35%><a href=\"?p=bans&s=reason&o=asc&n=all\">Reason</a></td>");
+			print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=asc&n=all\">Reason</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=35%><a href=\"?p=bans&s=reason&o=desc&n=all\">Reason</a></td>");
+		print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=desc&n=all\">Reason</a></td>");
 	}
 	//Game Name
 	if($sortcat == "gamename")
 	{
 		if($order == "asc")
 		{
-			print("<td width=20%><a href=\"?p=bans&s=gamename&o=desc&n=all\">Game Name</a></td>");
+			print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=desc&n=all\">Game Name</a></td>");
 		}
 		else
 		{
-			print("<td width=20%><a href=\"?p=bans&s=gamename&o=asc&n=all\">Game Name</a></td>");
+			print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=asc&n=all\">Game Name</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=20%><a href=\"?p=bans&s=gamename&o=desc&n=all\">Game Name</a></td>");
+		print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=desc&n=all\">Game Name</a></td>");
 	}
 	//Date
 	if($sortcat == "date")
 	{
 		if($order == "asc")
 		{
-			print("<td width=15%><a href=\"?p=bans&s=date&o=desc&n=all\">Date</a></td>");
+			print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=desc&n=all\">Date</a></td>");
 		}
 		else
 		{
-			print("<td width=15%><a href=\"?p=bans&s=date&o=asc&n=all\">Date</a></td>");
+			print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=asc&n=all\">Date</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=15%><a href=\"?p=bans&s=date&o=desc&n=all\">Date</a></td>");
+		print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=desc&n=all\">Date</a></td>");
 	}
 	//Banned by
 	if($sortcat == "admin")
 	{
 		if($order == "asc")
 		{
-			print("<td width=15%><a href=\"?p=bans&s=admin&o=desc&n=all\">Banned by</a></td>");
+			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=desc&n=all\">Banned by</a></td>");
 		}
 		else
 		{
-			print("<td width=15%><a href=\"?p=bans&s=admin&o=asc&n=all\">Banned by</a></td>");
+			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=asc&n=all\">Banned by</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=15%><a href=\"?p=bans&s=admin&o=desc&n=all\">Banned by</a></td>");
+		print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=desc&n=all\">Banned by</a></td>");
 	}
 }
 else
@@ -323,87 +324,89 @@ else
 	{
 		if($order == "asc")
 		{
-			print("<td width=15%><a href=\"?p=bans&s=name&o=desc&n=0\">Name</a></td>");
+			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=desc&n=0\">Name</a></td>");
 		}
 		else
 		{
-			print("<td width=15%><a href=\"?p=bans&s=name&o=asc&n=0\">Name</a></td>");
+			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=asc&n=0\">Name</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=15%><a href=\"?p=bans&s=name&o=desc&n=0\">Name</a></td>");
+		print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=desc&n=0\">Name</a></td>");
 	}
 	//Reason
 	if($sortcat == "reason")
 	{
 		if($order == "asc")
 		{
-			print("<td width=35%><a href=\"?p=bans&s=reason&o=desc&n=0\">Reason</a></td>");
+			print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=desc&n=0\">Reason</a></td>");
 		}
 		else
 		{
-			print("<td width=35%><a href=\"?p=bans&s=reason&o=asc&n=0\">Reason</a></td>");
+			print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=asc&n=0\">Reason</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=35%><a href=\"?p=bans&s=reason&o=desc&n=0\">Reason</a></td>");
+		print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=desc&n=0\">Reason</a></td>");
 	}
 	//Game Name
 	if($sortcat == "gamename")
 	{
 		if($order == "asc")
 		{
-			print("<td width=20%><a href=\"?p=bans&s=gamename&o=desc&n=0\">Game Name</a></td>");
+			print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=desc&n=0\">Game Name</a></td>");
 		}
 		else
 		{
-			print("<td width=20%><a href=\"?p=bans&s=gamename&o=asc&n=0\">Game Name</a></td>");
+			print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=asc&n=0\">Game Name</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=20%><a href=\"?p=bans&s=gamename&o=desc&n=0\">Game Name</a></td>");
+		print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=desc&n=0\">Game Name</a></td>");
 	}
 	//Date
 	if($sortcat == "date")
 	{
 		if($order == "asc")
 		{
-			print("<td width=15%><a href=\"?p=bans&s=date&o=desc&n=0\">Date</a></td>");
+			print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=desc&n=0\">Date</a></td>");
 		}
 		else
 		{
-			print("<td width=15%><a href=\"?p=bans&s=date&o=asc&n=0\">Date</a></td>");
+			print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=asc&n=0\">Date</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=15%><a href=\"?p=bans&s=date&o=desc&n=0\">Date</a></td>");
+		print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=desc&n=0\">Date</a></td>");
 	}
 	//Banned by
 	if($sortcat == "admin")
 	{
 		if($order == "asc")
 		{
-			print("<td width=15%><a href=\"?p=bans&s=admin&o=desc&n=0\">Banned by</a></td>");
+			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=desc&n=0\">Banned by</a></td>");
 		}
 		else
 		{
-			print("<td width=15%><a href=\"?p=bans&s=admin&o=asc&n=0\">Banned by</a></td>");
+			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=asc&n=0\">Banned by</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=15%><a href=\"?p=bans&s=admin&o=desc&n=0\">Banned by</a></td>");
+		print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=desc&n=0\">Banned by</a></td>");
 	}
 }
 ?>
-  </tr>
-</table>
-<div id="datawrapper">
-	<table class="table" id="data">
+		<td class="headercell" width=16px></td>
+		</tr>
+		 </table>
+	</div>
+	<div id="datawrapper">
+		<table class="table" id="data">
  <?php 
 $sql = "SELECT name,  date, gamename, admin, reason FROM `bans` ORDER BY $sortcat $order, name asc";
 if($offset!='all')
@@ -417,17 +420,17 @@ if($dbType == 'sqlite')
 	{
 		$banname=$row["name"];
 		$banby=$row["admin"];
-		$bandate=$row["date"];
+		$bandate=substr($row["date"],0,10);
 		$banreason=$row["reason"];
 		$gamename=$row["gamename"];
 ?> 
 	<tr class="row">
 		
-		<td width=15%align=center><?php print $banname;?></td>   
-		<td width=35%align=center><?php print $banreason;?></td>	
-		<td width=20%align=center><?php print $gamename;?></td>
-		<td width=15%align=center><?php print $bandate;?></td>
-		<td width=15%align=center><a href="?p=user&u=<?php print $banby; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><Strong><?php print $banby;?></strong></a></td>
+		<td width=150px><?php print $banname;?></td>   
+		<td width=360px><?php print $banreason;?></td>	
+		<td width=250px><?php print $gamename;?></td>
+		<td width=90px><?php print $bandate;?></td>
+		<td width=150px><a href="?p=user&u=<?php print $banby; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><Strong><?php print $banby;?></strong></a></td>
 		
 	</tr>
 <?php
@@ -439,23 +442,26 @@ else
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		$banname=$row["name"];
 		$banby=$row["admin"];
-		$bandate=$row["date"];
+		$bandate=substr($row["date"],0,10);
 		$banreason=$row["reason"];
 		$gamename=$row["gamename"];
 ?> 
 	<tr class="row">
 		
-		<td width=15%align=center><?php print $banname;?></td>   
-		<td width=35%align=center><?php print $banreason;?></td>	
-		<td width=20%align=center><?php print $gamename;?></td>
-		<td width=15%align=center><?php print substr($bandate,0,stripos($bandate," "));?></td>
-		<td width=15%align=center><a href="?p=user&u=<?php print $banby; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><Strong><?php print $banby;?></strong></a></td>
+		<td width=150px><?php print $banname;?></td>   
+		<td width=360px><?php print $banreason;?></td>	
+		<td width=250px><?php print $gamename;?></td>
+		<td width=90px><?php print $bandate;?></td>
+		<td width=150px><a href="?p=user&u=<?php print $banby; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><Strong><?php print $banby;?></strong></a></td>
 		
 	</tr>
 <?php
 	}
 }
 ?>
-
 </table>
+</div>
+</div>
+<div id="footer" class="footer">
+	<h5>Number of Banned Players: <?php print $count; ?></h5>
 </div>

@@ -42,10 +42,8 @@ require_once("config.php");
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title><?php print $botName; ?> Statistics</title>
-<link rel="stylesheet" href="styles.css" type="text/css" />
+<link rel="stylesheet" href="styles.css" type="text/css">
 <script type="text/javascript">
-
-
 	function displayvis(id) {
 		if (document.layers) {
 		  document.layers[id].display = (document.layers[id].display != 'none') ? 'none' : 'block';
@@ -70,6 +68,17 @@ require_once("config.php");
 		displayvis(id2);
 		setWrapperDimensions();
 	}
+	function isIE(){
+		var browser=navigator.appName;
+		if(browser =="Microsoft Internet Explorer")
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	function getClientWidth() {
 	  return document.compatMode=='CSS1Compat' && !window.opera?document.documentElement.clientWidth:document.body.clientWidth;
 	}
@@ -80,66 +89,33 @@ require_once("config.php");
 	function setWrapperDimensions()
 	{
 		setWrapperHeight();
-		setWrapperWidth();
-		setHorizontalLoc();
+		
 	}
 	function setWrapperHeight()
 	{
 		var windowheight = getClientHeight();
-		var divh = document.getElementById('header').offsetHeight;
-		var thheight = document.getElementById('theader').offsetHeight;
-		if(document.getElementById('introtable') != null)
+		var menuheight = document.getElementById('menu').offsetHeight;
+		var footerheight = document.getElementById('footer').offsetHeight;
+		
+		var headerheight = document.getElementById('header').offsetHeight;
+		var theaderheight = document.getElementById('theader').offsetHeight;
+		if(isIE())
 		{
-			var introheight = document.getElementById('introtable').offsetHeight;
-			document.getElementById('datawrapper').style.height = windowheight-divh-thheight-introheight+'px';
+		var pageholderheight = windowheight-menuheight-footerheight;
 		}
 		else
 		{
-			document.getElementById('datawrapper').style.height = windowheight-divh-thheight+'px';
+		var pageholderheight = windowheight-menuheight-headerheight-footerheight;
 		}
 		
-	}
-	function setWrapperWidth()
-	{
-		var windowwidth = getClientWidth();
-		var ninety = windowwidth*.9; 
-		//document.getElementById('nav').style.width = ninety +'px';
-		if(document.getElementById('data') != null)
+		if(document.getElementById('footerdata') != null)
 		{
-			document.getElementById('data').style.width = ninety +'px';
+		var footerdataheight = document.getElementById('footerdata').offsetHeight;
+		pageholderheight = pageholderheight - footerdataheight;
 		}
-		if(document.getElementById('data2') != null)
-		{
-			document.getElementById('data2').style.width = ninety +'px';
-		}
-		if(document.getElementById('theader') != null)
-		{
-			document.getElementById('theader').style.width = ninety+'px';
-		}
-		if(document.getElementById('introtable') != null)
-		{
-		document.getElementById('introtable').style.width = ninety+'px';
-		}
-	}
-	function setHorizontalLoc()
-	{
-		var windowwidth = getClientWidth();
-		if(document.getElementById('data') != null)
-		{
-			document.getElementById('data').style.left = (windowwidth*.05)+'px';
-		}
-		if(document.getElementById('data2') != null)
-		{
-			document.getElementById('data2').style.left = (windowwidth*.05)+'px';
-		}
-		if(document.getElementById('theader') != null)
-		{
-			document.getElementById('theader').style.left = (windowwidth*.05)+'px';
-		}
-		if(document.getElementById('introtable') != null)
-		{
-		document.getElementById('introtable').style.left = (windowwidth*.05)+'px';
-		}
+		
+		document.getElementById('pageholder').style.height = pageholderheight+'px';
+		document.getElementById('datawrapper').style.height = pageholderheight-theaderheight+'px';
 	}
 	
 	function checkRange(numValue,numLow,numHigh){
@@ -167,32 +143,33 @@ require_once("config.php");
 
 </head>
 
-<body onresize="setWrapperDimensions()" onload="setWrapperDimensions()">
-<div class="header" id="header">
+<body onload="setWrapperHeight()" onresize="setWrapperHeight()">
+
+<div class="menu" id="menu">
 		<div class="nav" id="nav">
-					<ul>
-						<!-- MENU -->
+			<ul>
+				<!-- MENU -->
+				 <li>
+						  <a href="./">Home</a></li> 
+						  <li> 
+						  <a href="?p=top&s=totalscore&o=desc&g=<?php print $minGamesPlayed; ?>&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Top Players</a></li> 
+						  <li> 
+						  <a href="?p=allusers&s=totgames&o=desc&n=<?php if($displayStyle == 'all'){ print 'all';} else{print '0';}?>">Player Statistics</a></li> 
 						  <li>
-						  <a href=./>Home</a></li> 
-						  <li> 
-						  <a href=?p=top&s=totalscore&o=desc&g=<?php print $minGamesPlayed; ?>&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>>Top Players</a></li> 
-						  <li> 
-						  <a href=?p=allusers&s=totgames&o=desc&n=<?php if($displayStyle == 'all'){ print 'all';} else{print '0';}?>>Player Statistics</a></li> 
+						  <a href="?p=heroall&s=description&o=asc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Hero Statistics</a></li> 
 						  <li>
-						  <a href=?p=heroall&s=description&o=asc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>>Hero Statistics</a></li> 
-						  <li>
-						  <a href=?p=games&s=datetime&o=desc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>>Game History</a></li> 
+						  <a href="?p=games&s=datetime&o=desc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Game History</a></li> 
 						  <li> 
-						  <a href=?p=bans&s=name&o=asc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>>Bans</a></li>
+						  <a href="?p=bans&s=date&o=desc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Bans</a></li>
 						  <li> 
-						  <a href=?p=admins&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>>Admins</a></li> 
+						  <a href="?p=admins&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Admins</a></li> 
 						  <li>
 							<form name="testForm" method=GET action="">
 								<input type="text" 
 								class="searchBox" 
 								name="u" 
 								onfocus="if(this.value=='Search for User') {this.value='';this.style.color='white';} else this.select();" 
-								onblur="if(this.value==''){this.value='Search for User';this.style.color='#daa701';}" 
+								onblur="if(this.value==''){this.value='Search for User';this.style.color='#EBEBEB';}" 
 								value="Search for User"
 								/>
 								<input type="hidden" value="datetime" name="s" />
@@ -210,13 +187,12 @@ require_once("config.php");
 								?>
 							</form> 
 						</li>
-						<!-- END MENU -->
-					</ul>	
+				<!-- END MENU -->
+			</ul>	
 		</div>
 		
 	<div class="clear"></div>
 </div>
-	<div id="wrap">
 		<?php 		
 		$valid_pages = array('intro', 
 							'bans', 
@@ -249,6 +225,5 @@ require_once("config.php");
 			include('intro.php');
 		}
 		?>
-	</div>
 </body>
 </html>

@@ -101,83 +101,82 @@ if(!file_exists($replayLocation.'/'.$replayloc))
 $replayurl = $replayLocation.'/'.str_ireplace("#","%23", str_ireplace("\\","_",str_ireplace("/","_",str_ireplace(" ","%20",$replayloc))));
 $replayloc = $replayLocation.'/'.str_ireplace("\\","_",str_ireplace("/","_",$replayloc));
 ?>
-	
-<table class="table" id="introtable">
-<tr>
-<td colspan=6>
-<table class="rowuh" width=100%>
+
+<div class="header" id="header">
+	<table width=1016px>
 	<tr>
-		<td width=25%>
-		<?php
-		if(file_exists($replayloc))
-		{
-			print '<a href="javascript:displayIds(\'gameData\',\'gameHeader\')">Toggle Game Recap</a>';
-		}
-		?>
-		</td>
-		<td width=50%>
-			<h2>Game Information for: <?php print $gamename; ?></h2>
-		</td>
-		<td width=25%>
-		<?php
-		if(file_exists($replayloc))
-		{
-			print '<a href="javascript:displayhid(\'chat\')">Toggle Game Log</a>';
-		}
+	<td colspan=6>
+	<table class="rowuh" width=100%>
+		<tr>
+			<td width=25%>
+			<?php
+			if(file_exists($replayloc))
+			{
+				print '<a href="javascript:displayIds(\'gameInfo\',\'blank\')">Toggle Game Recap</a>';
+			}
 			?>
+			</td>
+			<td width=50%>
+				<h2>Game Information for: <?php print $gamename; ?></h2>
+			</td>
+			<td width=25%>
+			<?php
+			if(file_exists($replayloc))
+			{
+				print '<a href="javascript:displayhid(\'chat\')">Toggle Game Log</a>';
+			}
+				?>
+			</td>
+		</tr>
+	</table>
+	</td>
+	</tr>
+	<tr class="rowuh" style="border-top: 1px solid #EBEBEB;">
+		<td>
+		  Game Name:&nbsp; <?php print $gamename; ?>
 		</td>
-	</tr>
-</table>
-</td>
-</tr>
-<tr class="tableheader">
-	<td>
-	  Game Name:&nbsp; <?php print $gamename; ?>
-	</td>
-	<td>
-	  Date: &nbsp; <?php print $gametime; ?> 
-	<td>
-	<td>
-	  Creator: &nbsp;<?php print $creatorname; ?>
-	</td>
-	<td>
-	  Duration: &nbsp;<?php print secondsToTime($duration); ?>
-	</td>
-	
-	  <?php 
-	  //only show the link if the replay feature is enabled in config.php and it actually exists
-	  if(file_exists($replayloc)){ ?>
-	  <td><a href=<?php print $replayurl;?>>Download replay</a></td>
-	  <?php } //end of enablefeature ?> 
+		<td>
+		  Date: &nbsp; <?php print $gametime; ?> 
+		<td>
+		<td>
+		  Creator: &nbsp;<?php print $creatorname; ?>
+		</td>
+		<td>
+		  Duration: &nbsp;<?php print secondsToTime($duration); ?>
+		</td>
+		
+		  <?php 
+		  //only show the link if the replay feature is enabled in config.php and it actually exists
+		  if(file_exists($replayloc)){ ?>
+		  <td><a href=<?php print $replayurl;?>>Download replay</a></td>
+		  <?php } //end of enablefeature ?> 
 
-</tr>
-</table>
-<div id="gameHeader" class="shown">
-<table class="table" id="theader">
-
-	<tr class="tableheader">
-		<td>Player</td>
-		<td width=50px>Hero</td>
-		<td width=65px>Kills</td>
-		<td width=65px>Deaths</td>
-		<td width=65px>Assists</td>
-		<td width=65px>Creep Kills</td>
-		<td width=65px>Creep Denies</td>
-		<td width=65px>Neutral Kills</td>
-		<td width=65px>Towers</td> 
-		<td width=50px>Gold</td>
-		<td width=164px>Items</td>
-		<td width=65px>Left At</td>
-		<td width=15%>Reason</td>		
-	</tr>
-	<tr>
-		<td height=10px colspan=14></td>
 	</tr>
 </table>
-</div>	
-<div id="datawrapper">
-<div id="gameData" class="shown">
-<table class="table" id="data">
+</div>
+<div class="pageholder" id="pageholder">
+	<div id="theader">	
+	</div>
+	<div id="datawrapper">
+		<div id="gameInfo" class="shown">
+			<table class="tableheader" id="tableheader">
+				<tr>
+					<td class="headercell" width=150px>Player</td>
+					<td class="headercell" width=40px>Hero</td>
+					<td class="headercell" width=60px>Kills</td>
+					<td class="headercell" width=60px>Deaths</td>
+					<td class="headercell" width=60px>Assists</td>
+					<td class="headercell" width=60px>Creep Kills</td>
+					<td class="headercell" width=60px>Creep Denies</td>
+					<td class="headercell" width=60px>Neutral Kills</td>
+					<td class="headercell" width=60px>Towers</td> 
+					<td class="headercell" width=60px>Gold</td>
+					<td class="headercell" width=170x>Items</td>
+					<td class="headercell" width=60px>Left At</td>
+					<td class="headercell" width=100px>Reason</td>	
+				</tr>
+			</table>
+			<table class="table" id="data">
 	
 <?php
 $sql = "SELECT winner, a.gameid, b.colour, newcolour, 
@@ -228,32 +227,21 @@ if($dbType == 'sqlite')
 		{
 		$sentinel = false;
 		?>
-		
-		<tr class="tableheader">
-			<td align="center" colspan=13>
+		<tr>
+			<td colspan=13 class="sentinelheader">
 				SENTINEL - <?php if($win==1) print "Winner!"; else print "Loser!";?>
 			</td>
 		</tr>
-		<tr>
-			<td height=10px colspan=12></td>
-		</tr>
-		
 		<?php
 		}
 		if($scourge&&$newcolour>5){
 			$scourge=false;
 		?>
-			<tr>
-				<td height=10px colspan=12></td>
-			</tr>
-			<tr class="tableheader">
-				<td align="center" colspan=13>
-				SCOURGE - <?php if($win==2) print "Winner!"; else print "Loser!";?> 
-				</td>
-			</tr>
-			<tr>
-				<td height=10px colspan=12></td>
-			</tr>
+		<tr>
+			<td colspan=13 class="scourgeheader">
+			SCOURGE - <?php if($win==2) print "Winner!"; else print "Loser!";?> 
+			</td>
+		</tr>
 		<?php
 		}
 		if($name != ""){
@@ -261,10 +249,10 @@ if($dbType == 'sqlite')
 				
 				
 		<tr class="row">
-			<td>
+			<td width=150px>
 			<a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><b><?php print $name; ?></b></a>
 			</td>
-			<td width=50px>
+			<td width=40px>
 			<?php
 			if(empty($hero))
 			{
@@ -283,15 +271,15 @@ if($dbType == 'sqlite')
 			}
 			?>
 			</td>
-			<td width=65px><?php print $kills; ?></td>
-			<td width=65px><?php print $deaths; ?></td>
-			<td width=65px><?php print $assists; ?></td>
-			<td width=65px><?php print $creepkills; ?></td>
-			<td width=65px><?php print $creepdenies; ?></td>	
-			<td width=65px><?php print $neutralkills; ?></td>
-			<td width=65px><?php print $towerkills; ?></td>
-			<td width=50px><?php print $gold; ?></td>		
-			<td align="center" width="164"> 
+			<td width=60px><?php print $kills; ?></td>
+			<td width=60px><?php print $deaths; ?></td>
+			<td width=60px><?php print $assists; ?></td>
+			<td width=60px><?php print $creepkills; ?></td>
+			<td width=60px><?php print $creepdenies; ?></td>	
+			<td width=60px><?php print $neutralkills; ?></td>
+			<td width=60px><?php print $towerkills; ?></td>
+			<td width=60px><?php print $gold; ?></td>		
+			<td align="center" width=170px> 
 				<img width="24px" height="24px" src=./img/items/<?php print $item1; ?>.gif>
 				<img width="24px" height="24px" src=./img/items/<?php print $item2; ?>.gif>
 				<img width="24px" height="24px" src=./img/items/<?php print $item3; ?>.gif>
@@ -299,8 +287,8 @@ if($dbType == 'sqlite')
 				<img width="24px" height="24px" src=./img/items/<?php print $item5; ?>.gif>
 				<img width="24px" height="24px" src=./img/items/<?php print $item6; ?>.gif>
 			</td>
-			<td width=65px><?php print secondsToTime($left); ?></td>
-			<td width=15%><?php print $leftreason; ?></td>
+			<td width=60px><?php print secondsToTime($left); ?></td>
+			<td width=100px><?php print $leftreason; ?></td>
 		</tr>
 		<?php
 		}
@@ -348,32 +336,21 @@ else
 		{
 		$sentinel = false;
 		?>
-		
-		<tr class="tableheader">
-			<td align="center" colspan=13>
+		<tr>
+			<td colspan=13 class="sentinelheader">
 				SENTINEL - <?php if($win==1) print "Winner!"; else print "Loser!";?>
 			</td>
 		</tr>
-		<tr>
-			<td height=10px colspan=12></td>
-		</tr>
-		
 		<?php
 		}
 		if($scourge&&$newcolour>5){
 			$scourge=false;
 		?>
-			<tr>
-				<td height=10px colspan=12></td>
-			</tr>
-			<tr class="tableheader">
-				<td align="center" colspan=13>
-				SCOURGE - <?php if($win==2) print "Winner!"; else print "Loser!";?> 
-				</td>
-			</tr>
-			<tr>
-				<td height=10px colspan=12></td>
-			</tr>
+		<tr>
+			<td colspan=13 class="scourgeheader">
+			SCOURGE - <?php if($win==2) print "Winner!"; else print "Loser!";?> 
+			</td>
+		</tr>
 		<?php
 		}
 		if($name != ""){
@@ -381,10 +358,10 @@ else
 				
 				
 		<tr class="row">
-			<td>
+			<td width=150px>
 			<a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><b><?php print $name; ?></b></a>
 			</td>
-			<td width=50px>
+			<td width=40px>
 			<?php
 			if(empty($hero))
 			{
@@ -403,15 +380,15 @@ else
 			}
 			?>
 			</td>
-			<td width=65px><?php print $kills; ?></td>
-			<td width=65px><?php print $deaths; ?></td>
-			<td width=65px><?php print $assists; ?></td>
-			<td width=65px><?php print $creepkills; ?></td>
-			<td width=65px><?php print $creepdenies; ?></td>	
-			<td width=65px><?php print $neutralkills; ?></td>
-			<td width=65px><?php print $towerkills; ?></td>
-			<td width=50px><?php print $gold; ?></td>		
-			<td align="center" width="164"> 
+			<td width=60px><?php print $kills; ?></td>
+			<td width=60px><?php print $deaths; ?></td>
+			<td width=60px><?php print $assists; ?></td>
+			<td width=60px><?php print $creepkills; ?></td>
+			<td width=60px><?php print $creepdenies; ?></td>	
+			<td width=60px><?php print $neutralkills; ?></td>
+			<td width=60px><?php print $towerkills; ?></td>
+			<td width=60px><?php print $gold; ?></td>		
+			<td align="center" width=170px> 
 				<img width="24px" height="24px" src=./img/items/<?php print $item1; ?>.gif>
 				<img width="24px" height="24px" src=./img/items/<?php print $item2; ?>.gif>
 				<img width="24px" height="24px" src=./img/items/<?php print $item3; ?>.gif>
@@ -419,8 +396,8 @@ else
 				<img width="24px" height="24px" src=./img/items/<?php print $item5; ?>.gif>
 				<img width="24px" height="24px" src=./img/items/<?php print $item6; ?>.gif>
 			</td>
-			<td width=65px><?php print secondsToTime($left); ?></td>
-			<td width=15%><?php print $leftreason; ?></td>
+			<td width=60px><?php print secondsToTime($left); ?></td>
+			<td width=100px><?php print $leftreason; ?></td>
 		</tr>
 		<?php
 		}
@@ -440,7 +417,7 @@ if(file_exists($replayloc))
 ?>
 <div class="hidden" id="chat">
 <table class="table" id="data2">
-<tr class="tableheader">
+<tr class="footerheadercell">
 	<td colspan=13>
 		 
 		 <h3><strong>Game Log:</strong></h3>
@@ -449,9 +426,7 @@ if(file_exists($replayloc))
 <tr>
 	<td colspan=13>
 	<center>
-			<table width=800px class="rowuh" >
-				<tr height=10px>
-				</tr>
+			<table width=1000px>
 <?php
 	require('chat.php');
 	$replay = new replay($replayloc);
@@ -652,7 +627,7 @@ if(file_exists($replayloc))
 				$text = htmlspecialchars($content['text'], ENT_COMPAT, 'UTF-8');
 				?>
 				<tr>
-					<td width=150px class="rowuh" style="text-align:right">
+					<td width=250px class="rowuh" style="text-align:right">
 					<?php
 						if($mode == 'All' || getTeam($playerColor) == 1)
 						{
@@ -662,7 +637,7 @@ if(file_exists($replayloc))
 						}
 						?>
 					</td>
-					<td width=50px class="rowuh" style="text-align:left">
+					<td width=50px class="rowuh" style="text-align:center">
 						<?php print secondsToTime($time/1000); ?>
 					<td>
 					
@@ -752,7 +727,7 @@ if(file_exists($replayloc))
 					<td width=50px class="rowuh" style="text-align:center">
 						<?php print secondsToTime($time/1000); ?>
 					<td>
-					<td width=150px class="rowuh" style="text-align:left">
+					<td width=250px class="rowuh" style="text-align:left">
 						<?php
 						if($mode == 'All' || getTeam($playerColor) == 2)
 						{
@@ -777,6 +752,7 @@ if(file_exists($replayloc))
 	<?php
 }
 ?>			
-
-
+</div>
+</div>
+<div id="footer" class="footer">
 </div>

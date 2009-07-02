@@ -88,183 +88,180 @@ else
 	$pages = ceil($count/$topResultSize);
 
 ?>
-	<table class="table" id="theader">
+<div class="header" id="header">
+	<table width=1016px>
 		<tr>
-			<td colspan=16>
-				<table class="rowuh" width=100%>
+			<td width=25%>
+				<table class="rowuh" width = 235px style="float:left">
+					<h4>
 					<tr>
-						<td width=25%>
-							<table class="rowuh" width = 235px style="float:left">
-								<h4>
-								<tr>
-									<td>
-									<?php
-									if($offset == 'all')
-									{
-										print "Showing All Players";
-									}
-									else
-									{
-										print "<a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=all\"><strong>Show All Players</strong></a>";
-									}
-									?>
-									</td>
-								</tr>
-								</h4>
-							</table>
+						<td>
+						<?php
+						if($offset == 'all')
+						{
+							print "Showing All Players";
+						}
+						else
+						{
+							print "<a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=all\">Show All Players</a>";
+						}
+						?>
 						</td>
-						<td width=50%>
-							<h2>Top Players <?php if($ignorePubs){ print "for Private Games";} else if($ignorePrivs){ print "for Public Games";} else { print "for All Games";} ?>:</h2>
-						</td>
-						<td width=25% class="rowuh">
-							<table class="rowuh" width = 235px style="float:right">
-							<h4>
-							<tr>
-								<td colspan=7>
-								<?php
-								if($offset == 'all')
-								{
-									print "Show Players Page:";
-								}
-								else
-								{
-									$min = $offset*$topResultSize+1;
-									$max = $offset*$topResultSize+$topResultSize;
-									if($max > $count)
-									{
-										$max = $count;
-									}
-									print "Showing Players: ".$min." - ".$max;
-								}
-								?>
-								</td>
-							</tr>
-							<tr>
-							<?php
-							if($offset == 'all')
+					</tr>
+					</h4>
+				</table>
+			</td>
+			<td width=50%>
+				<h2>Top Players <?php if($ignorePubs){ print "for Private Games";} else if($ignorePrivs){ print "for Public Games";} else { print "for All Games";} ?>:</h2>
+			</td>
+			<td width=25% class="rowuh">
+				<table class="rowuh" width = 235px style="float:right">
+				<h4>
+				<tr>
+					<td colspan=7>
+					<?php
+					if($offset == 'all')
+					{
+						print "Show Players Page:";
+					}
+					else
+					{
+						$min = $offset*$topResultSize+1;
+						$max = $offset*$topResultSize+$topResultSize;
+						if($max > $count)
+						{
+							$max = $count;
+						}
+						print "Showing Players: ".$min." - ".$max;
+					}
+					?>
+					</td>
+				</tr>
+				<tr>
+				<?php
+				if($offset == 'all')
+				{
+					print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+					for($counter = 1; $counter < 6; $counter++)
+					{
+						if($counter <= $pages)
+						{
+						print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
+						}
+					}
+					print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+				}
+				else
+				{
+					if($offset > 0)
+					{
+						print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($offset-1)."\"><</a>";
+					}
+					else
+					{
+						print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+					}
+					
+					if($offset < 2)		//Close to start
+					{
+						if($offset == 0)
+						{
+							print "<td width=35px><span style=\"color:#ddd;\">1</span></td>";
+							for($counter = 2; $counter < 6; $counter++)
 							{
-								print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
-								for($counter = 1; $counter < 6; $counter++)
+								if($counter-1 < $pages)
 								{
-									if($counter <= $pages)
-									{
 									print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
-									}
 								}
-								print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+							}
+						}
+						if($offset == 1)
+						{
+							print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=0\">1</a></td>";
+							print "<td width=35px><span style=\"color:#ddd;\">2</span></td>";
+							for($counter = 3; $counter < 6; $counter++)
+							{
+								if($counter-1 < $pages)
+								{
+								print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
+								
+								}
+							}
+						}
+					}
+					else if ($pages-$offset < 3) //Close to end
+					{
+						if($offset == $pages-1)
+						{
+							for($counter = $offset-3; $counter < $offset+1; $counter++)
+							{
+								if($counter >= 1)
+								{
+								print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
+								}
+							}
+							print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
+						}
+						else
+						{
+							
+							for($counter = $offset-2; $counter < $offset+1; $counter++)
+							{
+								if($counter >= 1)
+								{
+									print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
+								}
+							}
+							print "<td width=35px><span style=\"color:#ddd;\">".($offset+1)."</span>";
+							print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($offset+1)."\">".($offset+2)."</a></td>";
+						}
+					}
+					else
+					{
+						for($counter = ($offset-1); $counter < ($offset+4); $counter++)
+							{
+							if($counter == ($offset+1))
+							{
+								print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
 							}
 							else
 							{
-								if($offset > 0)
-								{
-									print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($offset-1)."\"><strong><</strong></a>";
-								}
-								else
-								{
-									print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
-								}
-								
-								if($offset < 2)		//Close to start
-								{
-									if($offset == 0)
-									{
-										print "<td width=35px><span style=\"color:#ddd;\">1</span></td>";
-										for($counter = 2; $counter < 6; $counter++)
-										{
-											if($counter-1 < $pages)
-											{
-												print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
-											}
-										}
-									}
-									if($offset == 1)
-									{
-										print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=0\">1</a></td>";
-										print "<td width=35px><span style=\"color:#ddd;\">2</span></td>";
-										for($counter = 3; $counter < 6; $counter++)
-										{
-											if($counter-1 < $pages)
-											{
-											print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
-											
-											}
-										}
-									}
-								}
-								else if ($pages-$offset < 3) //Close to end
-								{
-									if($offset == $pages-1)
-									{
-										for($counter = $offset-3; $counter < $offset+1; $counter++)
-										{
-											if($counter >= 1)
-											{
-											print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
-											}
-										}
-										print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
-									}
-									else
-									{
-										
-										for($counter = $offset-2; $counter < $offset+1; $counter++)
-										{
-											if($counter >= 1)
-											{
-												print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
-											}
-										}
-										print "<td width=35px><span style=\"color:#ddd;\">".($offset+1)."</span>";
-										print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($offset+1)."\">".($offset+2)."</a></td>";
-									}
-								}
-								else
-								{
-									for($counter = ($offset-1); $counter < ($offset+4); $counter++)
-										{
-										if($counter == ($offset+1))
-										{
-											print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
-										}
-										else
-										{
-											print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
-										}
-									}
-								}
-								if(($offset+1)*$topResultSize < $count)
-								{
-									print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($offset+1)."\"><strong>></strong></a></td>";
-								}
-								else
-								{
-									print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
-								}
+								print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
 							}
-							?>
-							</tr>
-							</h4>
-							</table>
-						</td>			
-					</tr>
+						}
+					}
+					if(($offset+1)*$topResultSize < $count)
+					{
+						print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($offset+1)."\">></a></td>";
+					}
+					else
+					{
+						print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+					}
+				}
+				?>
+				</tr>
+				</h4>
 				</table>
-			</td>
+			</td>			
 		</tr>
-<tr>
-<td class="rowuh" colspan=2>
-
-<FORM action="" method=POST id=form1 name=form1>
-     Minimum Games Played:
-	 <input type="text" id=games name=games value="<?php print $games;?>">
-	   
-	 <input type="button" id=button name=button onClick="gamesPlayed(document.getElementById('games').value)" value="Update" style="width:80px; color:#daa701;">
-</FORM>
-</td>
-<td colspan=4 class="tableheader">Total:</td>
-<td colspan=9 class="tableheader">Average Per Game:</td>
-</tr>
-<tr  class="tableheader">
-	<td width=25px>#</td>
+	</table>
+</div>
+<div class="pageholder" id="pageholder">
+	<div id="theader">
+		<table class="tableheader" id="tableheader">
+			<tr>
+				<td class="rowuh" colspan=15>
+					<FORM action="" method=POST id=form1 name=form1>
+						 Minimum Games Played:
+						 <input type="text" id=games name=games value="<?php print $games;?>">
+						   
+						 <input type="button" id=button name=button onClick="gamesPlayed(document.getElementById('games').value)" value="Update" style="width:80px; color:#ebeb7d;">
+					</FORM>
+				</td>
+			</tr>
+			<tr class="headercell">
+				<td width=25px>#</td>
 <?php
  if($offset == 'all')
  {
@@ -273,32 +270,32 @@ else
 	{
 		if($order == "asc")
 		{
-			print("<td><a href=\"?p=top&s=name&o=desc&g=".$games."&n=all\">Name</a></td>");
+			print("<td width=175px><a href=\"?p=top&s=name&o=desc&g=".$games."&n=all\">Name</a></td>");
 		}
 		else
 		{
-			print("<td><a href=\"?p=top&s=name&o=asc&g=".$games."&n=all\">Name</a></td>");
+			print("<td width=175px><a href=\"?p=top&s=name&o=asc&g=".$games."&n=all\">Name</a></td>");
 		}
 	}
 	else
 	{
-		print("<td><a href=\"?p=top&s=name&o=asc&g=".$games."&n=all\">Name</a></td>");
+		print("<td width=175px><a href=\"?p=top&s=name&o=asc&g=".$games."&n=all\">Name</a></td>");
 	}
 	//Score
 	if($sortcat == "totalscore")
 	{
 		if($order == "asc")
 		{
-			print("<td width=140px><a href=\"?p=top&s=totalscore&o=desc&g=".$games."&n=all\">Score</a></td>");
+			print("<td width=100px><a href=\"?p=top&s=totalscore&o=desc&g=".$games."&n=all\">Score</a></td>");
 		}
 		else
 		{
-			print("<td width=140px><a href=\"?p=top&s=totalscore&o=asc&g=".$games."&n=all\">Score</a></td>");
+			print("<td width=100px><a href=\"?p=top&s=totalscore&o=asc&g=".$games."&n=all\">Score</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=140px><a href=\"?p=top&s=totalscore&o=desc&g=".$games."&n=all\">Score</a></td>");
+		print("<td width=100px><a href=\"?p=top&s=totalscore&o=desc&g=".$games."&n=all\">Score</a></td>");
 	}
 	//Games
 	if($sortcat == "totgames")
@@ -468,32 +465,32 @@ else
 	{
 		if($order == "asc")
 		{
-			print("<td><a href=\"?p=top&s=name&o=desc&g=".$games."&n=0\">Name</a></td>");
+			print("<td width=175px><a href=\"?p=top&s=name&o=desc&g=".$games."&n=0\">Name</a></td>");
 		}
 		else
 		{
-			print("<td><a href=\"?p=top&s=name&o=asc&g=".$games."&n=0\">Name</a></td>");
+			print("<td width=175px><a href=\"?p=top&s=name&o=asc&g=".$games."&n=0\">Name</a></td>");
 		}
 	}
 	else
 	{
-		print("<td><a href=\"?p=top&s=name&o=asc&g=".$games."&n=0\">Name</a></td>");
+		print("<td width=175px><a href=\"?p=top&s=name&o=asc&g=".$games."&n=0\">Name</a></td>");
 	}
 	//Score
 	if($sortcat == "totalscore")
 	{
 		if($order == "asc")
 		{
-			print("<td width=140px><a href=\"?p=top&s=totalscore&o=desc&g=".$games."&n=0\">Score</a></td>");
+			print("<td width=100px><a href=\"?p=top&s=totalscore&o=desc&g=".$games."&n=0\">Score</a></td>");
 		}
 		else
 		{
-			print("<td width=140px><a href=\"?p=top&s=totalscore&o=asc&g=".$games."&n=0\">Score</a></td>");
+			print("<td width=100px><a href=\"?p=top&s=totalscore&o=asc&g=".$games."&n=0\">Score</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=140px><a href=\"?p=top&s=totalscore&o=desc&g=".$games."&n=0\">Score</a></td>");
+		print("<td width=100px><a href=\"?p=top&s=totalscore&o=desc&g=".$games."&n=0\">Score</a></td>");
 	}
 	//Games
 	if($sortcat == "totgames")
@@ -657,11 +654,12 @@ else
 	}
 }
 ?>
-</tr>
-</table>
-<div id="datawrapper">
-	<table class="table" id="data">
-	
+				<td width=16px></td>
+			</tr>
+		</table>
+	</div>
+	<div id="datawrapper">
+		<table class="table" id="data">
 <?php
 if($scoreFromDB)	//Using score table
 {
@@ -726,8 +724,8 @@ if($dbType == 'sqlite')
 	?>
 	<tr class="row">
 	<td width=25px><?php print $rank; ?></td>
-	<td><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>
-	<td width=140px><?php print ROUND($totalscore,2); ?></td>
+	<td width=175px><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>
+	<td width=100px><?php print ROUND($totalscore,2); ?></td>
 	<td width=70px><?php print $totgames;?></td>
 	<td width=70px><?php print $wins; ?></td>
 	<td width=70px><?php print $losses; ?></td>
@@ -770,8 +768,8 @@ else
 	?>
 	<tr class="row">
 	<td width=25px><?php print $rank; ?></td>
-	<td><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>
-	<td width=140px><?php print ROUND($totalscore,2); ?></td>
+	<td width=175px><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>
+	<td width=100px><?php print ROUND($totalscore,2); ?></td>
 	<td width=70px><?php print $totgames;?></td>
 	<td width=70px><?php print $wins; ?></td>
 	<td width=70px><?php print $losses; ?></td>
@@ -793,11 +791,12 @@ else
 	mysql_free_result($result);
 }
 ?>
-</tr>
 </table>
 </div>
-<table class="table" id="introtable">
-<tr class="tableheader">
+</div>
+<div id="footerdata" class="footerdata">
+<table class="table" width=1016px>
+<tr>
 	<td colspan=5>
 		<h3>All Time Top Statistics per Game</h3>
 	</td>
@@ -805,8 +804,8 @@ else
 <tr>
 	<td width=20%>
 		<table width=100%>
-			<tr class="tableheader">
-			  <td align=center colspan=3><strong>Top Kills</strong></td>
+			<tr class="footerheadercell">
+			  <td align=center colspan=3>Top Kills</td>
 			</tr>
 <?php
 //Footer TABLE//
@@ -837,10 +836,10 @@ if($dbType == 'sqlite')
 				<a  href="?p=hero&hid=<?php print $mostKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostKillsHero; ?>.gif" width="16" height="16"></a>
 			  </td>
 			  <td align=center width=60px>
-				  <a href="?p=gameinfo&gid=<?php print $mostKillsGame;?>"><strong>(<?php print $mostKillsCount;?>)</strong></a> 
+				  <a href="?p=gameinfo&gid=<?php print $mostKillsGame;?>">(<?php print $mostKillsCount;?>)</a> 
 			  </td>
 			  <td align=left>
-				<a href="?p=user&u=<?php print $mostKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><strong><?php print $mostKillsUser;?></strong></a>
+				<a href="?p=user&u=<?php print $mostKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostKillsUser;?></a>
 			  </td>
 			</tr>
 <?php	}
@@ -861,10 +860,10 @@ else
 				<a  href="?p=hero&hid=<?php print $mostKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostKillsHero; ?>.gif" width="16" height="16"></a>
 			  </td>
 			  <td align=center width=60px>
-				  <a href="?p=gameinfo&gid=<?php print $mostKillsGame;?>"><strong>(<?php print $mostKillsCount;?>)</strong></a> 
+				  <a href="?p=gameinfo&gid=<?php print $mostKillsGame;?>">(<?php print $mostKillsCount;?>)</a> 
 			  </td>
 			  <td align=left>
-				<a href="?p=user&u=<?php print $mostKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><strong><?php print $mostKillsUser;?></strong></a>
+				<a href="?p=user&u=<?php print $mostKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostKillsUser;?></a>
 			  </td>
 			</tr>
 <?php	}
@@ -875,8 +874,8 @@ else
 	</td>
 	<td width=20%>
 		<table  width=100%>
-			<tr class="tableheader">
-			  <td align=center colspan=3><strong>Top Assists</strong></td>
+			<tr class="footerheadercell">
+			  <td align=center colspan=3>Top Assists</td>
 			</tr>
 <?php
 //Top Assists in a game
@@ -905,10 +904,10 @@ if($dbType == 'sqlite')
 				<a  href="?p=hero&hid=<?php print $mostAssistsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostAssistsHero; ?>.gif" width="16" height="16"></a>
 			  </td>
 			  <td align=center width=60px>
-				  <a href="?p=gameinfo&gid=<?php print $mostAssistsGame;?>"><strong>(<?php print $mostAssistsCount;?>)</strong></a> 
+				  <a href="?p=gameinfo&gid=<?php print $mostAssistsGame;?>">(<?php print $mostAssistsCount;?>)</a> 
 			  </td>
 			  <td align=left>
-				<a href="?p=user&u=<?php print $mostAssistsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><strong><?php print $mostAssistsUser;?></strong></a>
+				<a href="?p=user&u=<?php print $mostAssistsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostAssistsUser;?></a>
 			  </td>
 			</tr>
 <?php
@@ -930,10 +929,10 @@ else
 				<a  href="?p=hero&hid=<?php print $mostAssistsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostAssistsHero; ?>.gif" width="16" height="16"></a>
 			  </td>
 			  <td align=center width=60px>
-				  <a href="?p=gameinfo&gid=<?php print $mostAssistsGame;?>"><strong>(<?php print $mostAssistsCount;?>)</strong></a> 
+				  <a href="?p=gameinfo&gid=<?php print $mostAssistsGame;?>">(<?php print $mostAssistsCount;?>)</a> 
 			  </td>
 			  <td align=left>
-				<a href="?p=user&u=<?php print $mostAssistsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><strong><?php print $mostAssistsUser;?></strong></a>
+				<a href="?p=user&u=<?php print $mostAssistsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostAssistsUser;?></a>
 			  </td>
 			</tr>
 <?php
@@ -945,8 +944,8 @@ else
 	</td>
 	<td width=20%>
 		<table  width=100%>
-			<tr class="tableheader">
-			  <td align=center colspan=3><strong>Top Deaths</strong></td>
+			<tr class="footerheadercell">
+			  <td align=center colspan=3>Top Deaths</td>
 			</tr>
 <?php
 //Top Deaths in a game
@@ -975,10 +974,10 @@ if($dbType == 'sqlite')
 				<a  href="?p=hero&hid=<?php print $mostDeathsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostDeathsHero; ?>.gif" width="16" height="16"></a>
 			  </td>
 			  <td align=center width=60px>
-				  <a href="?p=gameinfo&gid=<?php print $mostDeathsGame;?>"><strong>(<?php print $mostDeathsCount;?>)</strong></a> 
+				  <a href="?p=gameinfo&gid=<?php print $mostDeathsGame;?>">(<?php print $mostDeathsCount;?>)</a> 
 			  </td>
 			  <td align=left>
-				<a href="?p=user&u=<?php print $mostDeathsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><strong><?php print $mostDeathsUser;?></strong></a>
+				<a href="?p=user&u=<?php print $mostDeathsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostDeathsUser;?></a>
 			  </td>
 			</tr>
 <?php
@@ -1000,10 +999,10 @@ else
 				<a  href="?p=hero&hid=<?php print $mostDeathsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostDeathsHero; ?>.gif" width="16" height="16"></a>
 			  </td>
 			  <td align=center width=60px>
-				  <a href="?p=gameinfo&gid=<?php print $mostDeathsGame;?>"><strong>(<?php print $mostDeathsCount;?>)</strong></a> 
+				  <a href="?p=gameinfo&gid=<?php print $mostDeathsGame;?>">(<?php print $mostDeathsCount;?>)</a> 
 			  </td>
 			  <td align=left>
-				<a href="?p=user&u=<?php print $mostDeathsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><strong><?php print $mostDeathsUser;?></strong></a>
+				<a href="?p=user&u=<?php print $mostDeathsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostDeathsUser;?></a>
 			  </td>
 			</tr>
 <?php
@@ -1015,8 +1014,8 @@ else
 	</td>
 	<td width=20%>
 		<table  width=100%>
-			<tr class="tableheader">
-			  <td align=center colspan=3><strong>Top Creep Kills</strong></td>
+			<tr class="footerheadercell">
+			  <td align=center colspan=3>Top Creep Kills</td>
 			</tr>
 <?php
 
@@ -1046,10 +1045,10 @@ if($dbType == 'sqlite')
 				<a  href="?p=hero&hid=<?php print $mostCreepKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostCreepKillsHero; ?>.gif" width="16" height="16"></a>
 			  </td>
 			  <td align=center width=60px>
-				  <a href="?p=gameinfo&gid=<?php print $mostCreepKillsGame;?>"><strong>(<?php print $mostCreepKillsCount;?>)</strong></a> 
+				  <a href="?p=gameinfo&gid=<?php print $mostCreepKillsGame;?>">(<?php print $mostCreepKillsCount;?>)</a> 
 			  </td>
 			  <td align=left>
-				<a href="?p=user&u=<?php print $mostCreepKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><strong><?php print $mostCreepKillsUser;?></strong></a>
+				<a href="?p=user&u=<?php print $mostCreepKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostCreepKillsUser;?></a>
 			  </td>
 			</tr>
 <?php
@@ -1071,10 +1070,10 @@ else
 				<a  href="?p=hero&hid=<?php print $mostCreepKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostCreepKillsHero; ?>.gif" width="16" height="16"></a>
 			  </td>
 			  <td align=center width=60px>
-				  <a href="?p=gameinfo&gid=<?php print $mostCreepKillsGame;?>"><strong>(<?php print $mostCreepKillsCount;?>)</strong></a> 
+				  <a href="?p=gameinfo&gid=<?php print $mostCreepKillsGame;?>">(<?php print $mostCreepKillsCount;?>)</a> 
 			  </td>
 			  <td align=left>
-				<a href="?p=user&u=<?php print $mostCreepKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><strong><?php print $mostCreepKillsUser;?></strong></a>
+				<a href="?p=user&u=<?php print $mostCreepKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostCreepKillsUser;?></a>
 			  </td>
 			</tr>
 <?php
@@ -1086,8 +1085,8 @@ else
 </td>
 	<td width=20%>
 		<table width=100%>
-			<tr class="tableheader">
-			  <td align=center colspan=3><strong>Top Creep Denies</strong></td>
+			<tr class="footerheadercell">
+			  <td align=center colspan=3>Top Creep Denies</td>
 			</tr>
 
 <?php
@@ -1118,10 +1117,10 @@ if($dbType == 'sqlite')
 				<a  href="?p=hero&hid=<?php print $mostCreepDeniesHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostCreepDeniesHero; ?>.gif" width="16" height="16"></a>
 			  </td>
 			  <td align=center width=60px>
-				  <a href="?p=gameinfo&gid=<?php print $mostCreepDeniesGame;?>"><strong>(<?php print $mostCreepDeniesCount;?>)</strong></a> 
+				  <a href="?p=gameinfo&gid=<?php print $mostCreepDeniesGame;?>">(<?php print $mostCreepDeniesCount;?>)</a> 
 			  </td>
 			  <td align=left>
-				<a href="?p=user&u=<?php print $mostCreepDeniesUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><strong><?php print $mostCreepDeniesUser;?></strong></a>
+				<a href="?p=user&u=<?php print $mostCreepDeniesUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostCreepDeniesUser;?></a>
 			  </td>
 			</tr>
 <?php
@@ -1144,10 +1143,10 @@ else
 				<a  href="?p=hero&hid=<?php print $mostCreepDeniesHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostCreepDeniesHero; ?>.gif" width="16" height="16"></a>
 			  </td>
 			  <td align=center width=60px>
-				  <a href="?p=gameinfo&gid=<?php print $mostCreepDeniesGame;?>"><strong>(<?php print $mostCreepDeniesCount;?>)</strong></a> 
+				  <a href="?p=gameinfo&gid=<?php print $mostCreepDeniesGame;?>">(<?php print $mostCreepDeniesCount;?>)</a> 
 			  </td>
 			  <td align=left>
-				<a href="?p=user&u=<?php print $mostCreepDeniesUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><strong><?php print $mostCreepDeniesUser;?></strong></a>
+				<a href="?p=user&u=<?php print $mostCreepDeniesUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostCreepDeniesUser;?></a>
 			  </td>
 			</tr>
 <?php
@@ -1159,3 +1158,7 @@ else
 </td>
 </tr>
 </table>
+</div>
+<div id="footer" class="footer">
+		<h5>Total Players: <?php print $count; ?></h5>
+</div>

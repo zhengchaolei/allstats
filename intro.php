@@ -37,7 +37,12 @@
 require_once("functions.php");
 require_once("config.php");
 ?>
-<table class="table" id="theader">
+<div class="header" id="header">
+</div>
+<div class="pageholder" id="pageholder">
+<center>
+	<div id="theader">
+	<table class="tableheader" id="tableheader">
   <tr>
 	<td class="rowuh">
 			<br>
@@ -46,11 +51,15 @@ require_once("config.php");
 			<h4>
 			Welcome to the <?php print $botName; ?> Stats Page
 			</h4>
+			<br>
+			<br>
+			<br>
 	</td>
   </tr>
   </table>
-<div id="datawrapper">
-	<table class="table" id="data">
+	</div>
+	<div id="datawrapper">
+		<table class="table" id="data">
 	<tr class="rowuh">
 		<td>
 			<br>
@@ -61,45 +70,12 @@ require_once("config.php");
 			<br>
 			<br>
 			Please choose from menu above.
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
+			
 		</td>
 	</tr>
 </table>
+</div>
+</center>
+</div>
+<div id="footer" class="footer">
 </div>
