@@ -87,7 +87,7 @@ $pages = ceil($count/$gameResultSize);
 						}
 						else
 						{
-							print "<a href=\"?p=games&s=".$sortcat."&o=".$order."&n=all\"><strong>Show All Games</strong></a>";
+							print "<a href=\"?p=games&s=".$sortcat."&o=".$order."&n=all\">Show All Games</a>";
 						}
 						?>
 						</td>
@@ -139,7 +139,7 @@ $pages = ceil($count/$gameResultSize);
 				{
 					if($offset > 0)
 					{
-						print "<td width=35px><a href=\"?p=games&s=".$sortcat."&o=".$order."&n=".($offset-1)."\"><strong><</strong></a>";
+						print "<td width=35px><a href=\"?p=games&s=".$sortcat."&o=".$order."&n=".($offset-1)."\"><</a>";
 					}
 					else
 					{
@@ -216,7 +216,7 @@ $pages = ceil($count/$gameResultSize);
 					}
 					if(($offset+1)*$gameResultSize < $count)
 					{
-						print "<td width=35px><a href=\"?p=games&s=".$sortcat."&o=".$order."&n=".($offset+1)."\"><strong>></strong></a></td>";
+						print "<td width=35px><a href=\"?p=games&s=".$sortcat."&o=".$order."&n=".($offset+1)."\">></a></td>";
 					}
 					else
 					{
@@ -472,9 +472,9 @@ if($dbType == 'sqlite')
 		<td width=150px align=center><?php print $gametime;?></td>   
 		<td width=200px align=center><?php print $map;?></td>
 		<td width=50px align=center><?php print $type;?></td>
-		<td width=375px align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#e56879"';}elseif($winner==2){print 'style="color:#86E573"';}?>><Strong><?php print $gamename;?></strong></a></td>
+		<td width=375px align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#e56879"';}elseif($winner==2){print 'style="color:#86E573"';}?>><?php print $gamename;?></a></td>
 		<td width=75px align=center><?php print secondsToTime($duration);?></td>
-		<td width=150px align=center><a href="?p=user&u=<?php print $creator; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><Strong><?php print $creator;?></strong></a></td>
+		<td width=150px align=center><a href="?p=user&u=<?php print $creator; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><?php print $creator;?></a></td>
 	</tr>
 		<?php
 	}
@@ -497,9 +497,9 @@ else
 		<td width=150px align=center><?php print $gametime;?></td>   
 		<td width=200px align=center><?php print $map;?></td>
 		<td width=50px align=center><?php print $type;?></td>
-		<td width=375px align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#e56879"';}elseif($winner==2){print 'style="color:#86E573"';}?>><Strong><?php print $gamename;?></strong></a></td>
+		<td width=375px align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#e56879"';}elseif($winner==2){print 'style="color:#86E573"';}?>><?php print $gamename;?></a></td>
 		<td width=75px align=center><?php print secondsToTime($duration);?></td>
-		<td width=150px align=center><a href="?p=user&u=<?php print $creator; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><Strong><?php print $creator;?></strong></a></td>
+		<td width=150px align=center><a href="?p=user&u=<?php print $creator; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><?php print $creator;?></a></td>
 	</tr>
 	<?php
 	}

@@ -97,7 +97,7 @@ else
 						}
 						else
 						{
-							print "<a href=\"?p=heroall&s=".$sortcat."&o=".$order."&n=all\"><strong>Show All Heroes</strong></a>";
+							print "<a href=\"?p=heroall&s=".$sortcat."&o=".$order."&n=all\">Show All Heroes</a>";
 						}
 						?>
 						</td>
@@ -148,7 +148,7 @@ else
 				{
 					if($offset > 0)
 					{
-						print "<td width=35px><a href=\"?p=heroall&s=".$sortcat."&o=".$order."&n=".($offset-1)."\"><strong><</strong></a>";
+						print "<td width=35px><a href=\"?p=heroall&s=".$sortcat."&o=".$order."&n=".($offset-1)."\"><</a>";
 					}
 					else
 					{
@@ -225,7 +225,7 @@ else
 					}
 					if(($offset+1)*$allHeroResultSize < $count)
 					{
-						print "<td width=35px><a href=\"?p=heroall&s=".$sortcat."&o=".$order."&n=".($offset+1)."\"><strong>></strong></a></td>";
+						print "<td width=35px><a href=\"?p=heroall&s=".$sortcat."&o=".$order."&n=".($offset+1)."\">></a></td>";
 					}
 					else
 					{

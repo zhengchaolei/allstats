@@ -85,7 +85,7 @@ else
 						}
 						else
 						{
-							print "<a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=all\"><strong>Show All Bans</strong></a>";
+							print "<a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=all\">Show All Bans</a>";
 						}
 						?>
 						</td>
@@ -137,7 +137,7 @@ else
 				{
 					if($offset > 0)
 					{
-						print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($offset-1)."\"><strong><</strong></a>";
+						print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($offset-1)."\"><</a>";
 					}
 					else
 					{
@@ -214,7 +214,7 @@ else
 					}
 					if(($offset+1)*$banResultSize < $count)
 					{
-						print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($offset+1)."\"><strong>></strong></a></td>";
+						print "<td width=35px><a href=\"?p=bans&s=".$sortcat."&o=".$order."&n=".($offset+1)."\">></a></td>";
 					}
 					else
 					{
@@ -430,7 +430,7 @@ if($dbType == 'sqlite')
 		<td width=360px><?php print $banreason;?></td>	
 		<td width=250px><?php print $gamename;?></td>
 		<td width=90px><?php print $bandate;?></td>
-		<td width=150px><a href="?p=user&u=<?php print $banby; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><Strong><?php print $banby;?></strong></a></td>
+		<td width=150px><a href="?p=user&u=<?php print $banby; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><?php print $banby;?></a></td>
 		
 	</tr>
 <?php
@@ -452,7 +452,7 @@ else
 		<td width=360px><?php print $banreason;?></td>	
 		<td width=250px><?php print $gamename;?></td>
 		<td width=90px><?php print $bandate;?></td>
-		<td width=150px><a href="?p=user&u=<?php print $banby; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><Strong><?php print $banby;?></strong></a></td>
+		<td width=150px><a href="?p=user&u=<?php print $banby; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><?php print $banby;?></a></td>
 		
 	</tr>
 <?php

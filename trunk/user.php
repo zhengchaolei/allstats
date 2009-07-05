@@ -313,7 +313,7 @@ if($dbType == 'sqlite')
 		$score=$row["score"];
 	}
 		
-	$sql = "SELECT COUNT(a.id), SUM(kills), SUM(deaths), SUM(creepkills), SUM(creepdenies), SUM(assists), SUM(neutralkills), SUM(towerkills), SUM(raxkills), SUM(courierkills), name FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour where name= '$username' group by name ORDER BY sum(kills)";
+	$sql = "SELECT COUNT(a.id), SUM(kills), SUM(deaths), SUM(creepkills), SUM(creepdenies), SUM(assists), SUM(neutralkills), SUM(towerkills), SUM(raxkills), SUM(courierkills), name FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.newcolour = b.colour where name= '$username' group by name ORDER BY sum(kills)";
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
 		$kills=$row["SUM(kills)"];
@@ -491,12 +491,12 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
     <td align='center'  scope=col rowspan="2"> 
 	<table class="rowuh">
         <tr> 
-          <td align=center><strong>Kills</strong></td>
-          <td align=center ><strong>Deaths</strong></td>
-          <td align=center ><strong>Assists</strong></td>
-          <td align=center><strong>Wins</strong></td>
-          <td align=center><strong>Losses</strong></td>
-          <td align=center><strong>Times Played</strong></td>
+          <td align=center>Kills</td>
+          <td align=center >Deaths</td>
+          <td align=center >Assists</td>
+          <td align=center>Wins</td>
+          <td align=center>Losses</td>
+          <td align=center>Times Played</td>
         </tr>
         <tr> 
           <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostkillshero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostkillshero; ?>.gif" width="64" height="64"></a></td>
@@ -507,12 +507,12 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
           <td align='center' width=10% scope=col ><a  href="?p=hero&hid=<?php print $mostplayedhero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostplayedhero; ?>.gif" width="64" height="64"></a></td>
         </tr>
         <tr> 
-          <td align=center ><strong>(<?php print $mostkillscount;?>)</strong></td>
-          <td align=center ><strong>(<?php print $mostdeathscount;?>)</strong></td>
-          <td align=center ><strong>(<?php print $mostassistscount;?>)</strong></td>
-          <td align=center ><strong>(<?php print $mostwinscount;?>)</strong></td>
-          <td align=center ><strong>(<?php print $mostlossescount;?>)</strong></td>
-          <td align=center ><strong>(<?php print $mostplayedcount;?>)</strong></td>
+          <td align=center >(<?php print $mostkillscount;?>)</td>
+          <td align=center >(<?php print $mostdeathscount;?>)</td>
+          <td align=center >(<?php print $mostassistscount;?>)</td>
+          <td align=center >(<?php print $mostwinscount;?>)</td>
+          <td align=center >(<?php print $mostlossescount;?>)</td>
+          <td align=center >(<?php print $mostplayedcount;?>)</td>
         </tr>
       </table></td>
   </tr>
@@ -556,7 +556,7 @@ $pages = ceil($count/$userResultSize);
 						}
 						else
 						{
-							print "<a href=\"?p=user&u=".$username."&s=".$sortcat."&o=".$order."&n=all\"><strong>Show All Games</strong></a>";
+							print "<a href=\"?p=user&u=".$username."&s=".$sortcat."&o=".$order."&n=all\">Show All Games</a>";
 						}
 						?>
 						</td>
@@ -564,7 +564,7 @@ $pages = ceil($count/$userResultSize);
 				</table>
 			</td>
 			<td width=50%>
-				<h3><strong>Game History:</strong></h3>
+				<h3>Game History:</h3>
 			</td>
 			<td width=25% class="rowuh">
 				<table class="rowuh" width = 235px style="float:right">
@@ -607,7 +607,7 @@ $pages = ceil($count/$userResultSize);
 				{
 					if($offset > 0)
 					{
-						print "<td width=35px><a href=\"?p=user&u=".$username."&s=".$sortcat."&o=".$order."&n=".($offset-1)."\"><strong><</strong></a>";
+						print "<td width=35px><a href=\"?p=user&u=".$username."&s=".$sortcat."&o=".$order."&n=".($offset-1)."\"><</a>";
 					}
 					else
 					{
@@ -684,7 +684,7 @@ $pages = ceil($count/$userResultSize);
 					}
 					if(($offset+1)*$userResultSize < $count)
 					{
-						print "<td width=35px><a href=\"?p=user&u=".$username."&s=".$sortcat."&o=".$order."&n=".($offset+1)."\"><strong>></strong></a></td>";
+						print "<td width=35px><a href=\"?p=user&u=".$username."&s=".$sortcat."&o=".$order."&n=".($offset+1)."\">></a></td>";
 					}
 					else
 					{
@@ -1142,7 +1142,7 @@ $pages = ceil($count/$userResultSize);
  ?> 
  <tr class="row">
 	<td width=150px><?php print $gametime;?></td>
-    <td width=175px><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self"><Strong><?php print $gamename;?></strong></a></td>
+    <td width=175px><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self"><?php print $gamename;?></a></td>
     <td width=55px><?php print $type;?></td>
 	<td width=30px><a  href="?p=hero&hid=<?php print$hid;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img width="28px" height="28px" src=./img/heroes/<?php print $hid; ?>.gif></a></td>
 	<td width=150px><a  href="?p=hero&hid=<?php print $hid;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $hero;?></a></td>
@@ -1184,7 +1184,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
  ?> 
  <tr class="row">
 	<td width=150px><?php print $gametime;?></td>
-    <td width=175px><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self"><Strong><?php print $gamename;?></strong></a></td>
+    <td width=175px><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self"><?php print $gamename;?></a></td>
     <td width=55px><?php print $type;?></td>
 	<td width=30px><a  href="?p=hero&hid=<?php print$hid;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img width="28px" height="28px" src=./img/heroes/<?php print $hid; ?>.gif></a></td>
 	<td width=150px><a  href="?p=hero&hid=<?php print $hid;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $hero;?></a></td>

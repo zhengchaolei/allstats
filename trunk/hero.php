@@ -280,7 +280,7 @@ $pages = ceil($count/$heroResultSize);
 						}
 						else
 						{
-							print "<a href=\"?p=hero&hid=".$heroid."&s=".$sortcat."&o=".$order."&n=all\"><strong>Show All Users</strong></a>";
+							print "<a href=\"?p=hero&hid=".$heroid."&s=".$sortcat."&o=".$order."&n=all\">Show All Users</a>";
 						}
 						?>
 						</td>
@@ -288,7 +288,7 @@ $pages = ceil($count/$heroResultSize);
 				</table>
 			</td>
 			<td width=50%>
-				<h3><strong>Player History:</strong></h3>
+				<h3>Player History:</h3>
 			</td>
 			<td width=25% class="rowuh">
 				<table class="rowuh" width = 235px style="float:right">
@@ -331,7 +331,7 @@ $pages = ceil($count/$heroResultSize);
 				{
 					if($offset > 0)
 					{
-						print "<td width=35px><a href=\"?p=hero&hid=".$heroid."&s=".$sortcat."&o=".$order."&n=".($offset-1)."\"><strong><</strong></a>";
+						print "<td width=35px><a href=\"?p=hero&hid=".$heroid."&s=".$sortcat."&o=".$order."&n=".($offset-1)."\"><</a>";
 					}
 					else
 					{
@@ -408,7 +408,7 @@ $pages = ceil($count/$heroResultSize);
 					}
 					if(($offset+1)*$heroResultSize < $count)
 					{
-						print "<td width=35px><a href=\"?p=hero&hid=".$heroid."&s=".$sortcat."&o=".$order."&n=".($offset+1)."\"><strong>></strong></a></td>";
+						print "<td width=35px><a href=\"?p=hero&hid=".$heroid."&s=".$sortcat."&o=".$order."&n=".($offset+1)."\">></a></td>";
 					}
 					else
 					{
