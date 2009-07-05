@@ -631,8 +631,8 @@ else
 $sql = "SELECT COUNT(a.id) as totgames, AVG(kills) as kills, AVG(deaths) as deaths, AVG(assists) as assists,
 AVG(creepkills) as creepkills, AVG(creepdenies) as creepdenies,  AVG(neutralkills) as neutralkills, AVG(towerkills) as towerkills, 
 AVG(raxkills) as raxkills, AVG(courierkills) as courierkills, name 
-FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-LEFT JOIN dotagames AS c ON c.gameid = a.gameid LEFT JOIN games as d ON d.id = c.gameid where name <> ''";
+FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.newcolour = b.colour 
+LEFT JOIN dotagames AS c ON c.gameid = a.gameid LEFT JOIN games as d ON d.id = c.gameid where name <> '' and winner <> 0";
 if($ignorePubs)
 {
 $sql = $sql." and d.gamestate = '17'";

@@ -81,7 +81,7 @@ div.footerdata
 {
 	height: 600px;
 	width: 1016px;
-	overflow-y: auto;
+	overflow-y: scroll;
 	overflow-x: hidden;
 }
 

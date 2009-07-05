@@ -664,23 +664,23 @@ else
 if($scoreFromDB)	//Using score table
 {
 $sql = "select *,(kills/deaths) as killdeathratio, (totgames-wins) as losses from (
-select gp.name as name,gp.gameid as gameid, gp.colour as colour, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
+select gp.name as name,gp.gameid as gameid, dp.newcolour as colour, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
 avg(dp.towerkills) as towerkills, avg(dp.assists) as assists, avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills,
 avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills, sc.score as totalscore, 
 count(*) as totgames, SUM(case when((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) then 1 else 0 end) as wins
-from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.colour 
+from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.newcolour and dp.newcolour <> 12 and dp.newcolour <> 6
 LEFT JOIN games as ga ON dp.gameid = ga.id LEFT JOIN scores as sc ON sc.name = gp.name where dg.winner <> 0
 group by gp.name having totgames >= $games) as h ORDER BY $sortcat $order, name asc";
 }
 else			//Using score formula
 {
 $sql = "select *, ($scoreFormula) as totalscore from(select *, (kills/deaths) as killdeathratio, (totgames-wins) as losses from (
-select gp.name as name,gp.gameid as gameid, gp.colour as colour, avg(dp.courierkills) as courierkills, avg(dp.assists) as assists,
+select gp.name as name,gp.gameid as gameid, dp.newcolour as colour, avg(dp.courierkills) as courierkills, avg(dp.assists) as assists,
 avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills, avg(dp.towerkills) as towerkills, avg(dp.raxkills) as raxkills,
 avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills,
 count(1) as totgames, SUM(case when((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) then 1 else 0 end) as wins
-from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.colour 
-LEFT JOIN games as ga ON dp.gameid = ga.id where dg.winner <> 0 ";
+from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.newcolour and dp.newcolour <> 12 and dp.newcolour <> 6
+ LEFT JOIN games as ga ON dp.gameid = ga.id where dg.winner <> 0 ";
 
 if($ignorePubs)
 {

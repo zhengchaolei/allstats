@@ -420,7 +420,7 @@ if(file_exists($replayloc))
 <tr class="footerheadercell">
 	<td colspan=13>
 		 
-		 <h3><strong>Game Log:</strong></h3>
+		 <h3>Game Log:</h3>
 	</td>
 </tr>
 <tr>
@@ -672,8 +672,20 @@ if(file_exists($replayloc))
 								}
 								else
 								{
-									print '<td width=500px class="system">'.'<span class="'.$slotcolor[$killer].'">'.$slotname[$killer].'</span>'.
-									$text.'<span class="'.$slotcolor[$victim].'">'.$slotname[$victim].'</span>'.'</td>';
+									if($victim == $killer)
+									{
+										print '<td width=500px class="system">'.'<span class="'.$slotcolor[$killer].'">'.$slotname[$killer].'</span>'.' has killed himself!'.'</td>';
+									}
+									else if(($victim < 6 && $killer < 6) || ($victim > 6 && $killer > 6) && $killer <= 11)
+									{
+										print '<td width=500px class="system">'.'<span class="'.$slotcolor[$killer].'">'.$slotname[$killer].'</span>'.
+										' denied his teammate '.'<span class="'.$slotcolor[$victim].'">'.$slotname[$victim].'</span>'.'</td>';
+									}
+									else
+									{
+										print '<td width=500px class="system">'.'<span class="'.$slotcolor[$killer].'">'.$slotname[$killer].'</span>'.
+										$text.'<span class="'.$slotcolor[$victim].'">'.$slotname[$victim].'</span>'.'</td>';
+									}
 								}
 							}
 							else if($content['type'] == 'Courier')
