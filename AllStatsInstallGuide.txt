@@ -1,0 +1,117 @@
+===================================DotA AllStats Installation Guide===================================
+
+Note: by GHost I mean any variation of GHost++ or GHostOne. Use version 13.2+ for best results.
+
+1) Install and configure a web server and MySQL (Optional) or set up your hosted website.
+	If you plan on having >100 games, I recommend installing and using MySQL.
+	- MySQL is a true database system, unlike SQLite which is simply a specially formatted file.
+	- MySQL is significantly faster than SQLite, and newer versions of GHost will likely have
+	  MySQL only features.
+	Otherwise, SQLite is easier to setup than MySQL, and for a bot hosting a limited number of games,
+	it should work fine.
+	
+	If installing on your home computer:
+		For Windows: Download and install either:
+			a) WAMP - http://www.wampserver.com
+			b) MoWeS - http://www.chsoftware.net/en/useware/mowes/mowes.htm
+		For Linux: Download and install
+			a) LAMP - Follow steps at: http://lamphowto.com/
+			
+		(Optional) Set up DynDNS
+			DynDNS is a free service that gives your IP address it's own domain name.
+			They have a tray program that can automatically update their site with your IP address.
+			If you don't do this, in order for outsiders to view your website, they will have to know
+				your IP address.
+			Avaliable at: http://www.dyndns.com/
+			
+	If you plan on using an external hosting provider:
+		Plan on using MySQL. Using SQLite is simply not feasible.
+		You have 2 configurations for how to set the service up:
+			a) Have the website and MySQL database both running on the external host. 
+			   Have GHost running on your personal machine.
+				-Advantages:
+					Having AllStats connect to your MySQL DB will be easy.
+					Fast access between AllStats and MySQL - Leads to faster page loads.
+				-Disadvantages:
+					GHost has to send data to the external MySQL database - Can be slower for GHost
+					More difficult to set up - Make sure your provider allows external MySQL access
+						Lots of hosting providers will not support this
+				
+			b) Have the website running on the external host. 
+			   Have GHost and MySQL running on your personal machine.
+				-Advantages:
+					Easier to setup - Will work no matter your hosting provider
+				-Disadvantages:
+					AllStats won't work if your home computer is off (can't access the database)
+					AllStats will be slower since it has to get data from your computer every time. 
+		
+		If you picked configuration a) all of your MySQL configuration will be done on your hosting site.
+		If you picked configuration b) all of your MySQL configuration will be done on your local computer.
+			Follow the steps for installing on your home computer as you will need to setup MySQL and,
+			ideally have a DynDNS address pointing to your computer.
+
+2) Install and setup GHost++ or GHostOne - Look at http://forum.codelain.com for these programs.
+	If using MySQL and MySQL is running on your computer:
+		- Set db_type = mysql
+		- Set db_mysql_server = localhost
+		- Set db_mysql_port = 0 or 3306
+	If using MySQL and MySQL is running on a remote computer:
+		- Set db_type = mysql
+		- Set db_mysql_server = IP of the remote computer
+		- Set db_mysql_port = the port specified by your web host
+		- Make sure that you have given permission for your local computer to access MySQL or you won't
+		  be able to connect.
+	Import the appropriate database schema file into your MySQL database
+		If using MySQL:
+			Navigate to PHPMyAdmin (by default at http://localhost/phpmyadmin)
+			Create a GHost database if you haven't already
+			Select your GHost database on the left
+			Select the import tab
+			Click choose file and select the included SQL setup file: (Filenames may change over time)
+				mysql_create_tables_v2.3one.sql for GHostOne
+				mysql_create_tables_v2.sql for GHost++ 
+			Click Import
+		If using SQLite:
+			This is already done for you.
+	MAKE SURE GHOST IS RUNNING CORRECTLY PRIOR TO INSTALLING ALLSTATS
+		  
+3) Copy AllStats into your web folder. 
+	If you're using wamp your web server is named www under your wamp directory.
+
+4) Edit config.php for your settings
+	Remember the following: All paths are relative 
+	- This means you cannot use something of the format C:\wamp\www
+	- Instead, use relative paths - ..\ is used to move up directory trees.
+		If you are at C:\wamp\www:
+			..\ will refer to the C:\wamp directory
+			..\..\ will refer to the C:\ directory
+			..\test\ will refer to the C:\wamp\test directory
+			..\..\test will refer to the C:\test directory
+	If MySQL is running on the same computer as AllStats:
+		- Use localhost as your MySQL host
+	If MySQL is running on a different computer than AllStats:
+		- Use the IP address of the other computer.
+			
+5) Add tables into your MySQL or SQLite database
+	If using MySQL:
+		Navigate to PHPMyAdmin (by default at http://localhost/phpmyadmin)
+		Create a GHost database if you haven't already
+		Select your GHost database on the left
+		Select the import tab
+		Click choose file and select the MySQLSetup.sql file
+		Click Import
+	If using SQLite:
+		Download SQLite DB Browser
+		Open your ghost.dbs file with SQLite DB Browser
+			File->Import->Database from SQL file.
+			Select your database.
+			When asked whether to create a new database, click no.
+
+6) (Optional) Optimize your MySQL database - MySQL only
+	Especially with large databases, this will greatly improve the speed of your AllStats website
+	Inserts into the database from GHost++ will be slightly slower and your database will take up more room
+	- Through the same process as in step 5) import OptimizeMySQL.sql
+	
+		
+		
+		
