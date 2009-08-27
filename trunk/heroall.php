@@ -403,7 +403,7 @@ else
 			}
 			
 			//Creep Kills
-			if($sortcat == "assists")
+			if($sortcat == "creepkills")
 			{
 				if($order == "asc")
 				{
@@ -609,7 +609,7 @@ else
 			}
 			
 			//Creep Kills
-			if($sortcat == "assists")
+			if($sortcat == "creepkills")
 			{
 				if($order == "asc")
 				{
