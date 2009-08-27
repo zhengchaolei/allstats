@@ -75,7 +75,10 @@ else
 if($count == 0)
 {
 	//Shows a list of usernames that contains the word searched for
-	$sql = "SELECT name, count(1) as counttimes FROM gameplayers, dotaplayers where name like '%$username%' and dotaplayers.colour = gameplayers.colour and dotaplayers.gameid = gameplayers.gameid group by name order by counttimes desc, name asc";
+	$sql = "SELECT gp.name as name, bans.name as banname, count(1) as counttimes FROM gameplayers gp
+		JOIN dotaplayers dp ON dp.colour = gp.colour and dp.gameid = gp.gameid
+		LEFT JOIN bans ON bans.name = gp.name
+		where gp.name like '%$username%' group by gp.name order by counttimes desc, gp.name asc";
 		$foundCount = 0;
 		if($dbType == 'sqlite')
 		{
@@ -119,7 +122,13 @@ if($count == 0)
 				{
 					$counttimes=$row["counttimes"];
 					$founduser=$row["name"];
-					$output = "<tr class=\"row\"> <td><a href=\"?p=user&u=$founduser&s=datetime&o=desc&n=";
+                                        $banname=$row["banname"];
+                                        $output = "<tr class=\"row\"> <td><a ";
+                                        if($banname<>'')
+                                        {
+                                        $output = $output.'style="color:#e56879 "';
+                                        }
+                                        $output = $output."href=\"?p=user&u=$founduser&s=datetime&o=desc&n=";
 					if($displayStyle == 'all')
 					{ 
 					$output = $output.'all';
@@ -176,7 +185,13 @@ if($count == 0)
 				{
 					$founduser=$row["name"];
 					$counttimes=$row["counttimes"];
-					$output = "<tr class=\"row\"> <td><a href=\"?p=user&u=$founduser&s=datetime&o=desc&n=";
+                                        $banname=$row["banname"];
+                                        $output = "<tr class=\"row\"> <td><a ";
+                                        if($banname<>'')
+                                        {
+                                        $output = $output.'style="color:#e56879 "';
+                                        }
+                                        $output = $output."href=\"?p=user&u=$founduser&s=datetime&o=desc&n=";
 					if($displayStyle == 'all')
 					{ 
 					$output = $output.'all';
@@ -198,6 +213,7 @@ if($count == 0)
 				</div>
 			</div>
 			<div id="footer" class="footer">
+				<h5> Found <? print $foundCount; ?> matches</h5>
 			</div>
 <?php
 }
@@ -305,10 +321,10 @@ if($dbType == 'sqlite')
 	}
 	else
 	{
-		$sql = "select ($scoreFormula) as score from(select *, (kills/deaths) as killdeathratio, (totgames-wins) as losses from (select gp.name as name,gp.gameid as gameid, gp.colour as colour, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
+		$sql = "select ($scoreFormula) as score from(select *, (kills/deaths) as killdeathratio from (select gp.name as name,gp.gameid as gameid, gp.colour as colour, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
 		avg(dp.towerkills) as towerkills, avg(dp.assists) as assists, avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills,
 		avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills,
-		count(*) as totgames, SUM(case when((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) then 1 else 0 end) as wins
+		count(*) as totgames, SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= 0.8) then 1 else 0 end) as wins, SUM(case when(((dg.winner = 2 and dp.newcolour < 6) or (dg.winner = 1 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= 0.8) then 1 else 0 end) as losses
 		from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN games as ga ON ga.id = dg.gameid LEFT JOIN 
 		dotaplayers as dp on dp.gameid = dg.gameid and gp.colour = dp.colour where dg.winner <> 0 and gp.name = '$username') as h) as i";
 	}
@@ -398,10 +414,10 @@ if($scoreFromDB)	//Using score table
 }
 else
 {
-	$sql = "select ($scoreFormula) as score from(select *, (kills/deaths) as killdeathratio, (totgames-wins) as losses from (select gp.name as name,gp.gameid as gameid, gp.colour as colour, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
+	$sql = "select ($scoreFormula) as score from(select *, (kills/deaths) as killdeathratio from (select gp.name as name,gp.gameid as gameid, gp.colour as colour, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
 		avg(dp.towerkills) as towerkills, avg(dp.assists) as assists, avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills,
 		avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills,
-		count(*) as totgames, SUM(case when((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) then 1 else 0 end) as wins
+		count(*) as totgames SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= 0.8) then 1 else 0 end) as wins, SUM(case when(((dg.winner = 2 and dp.newcolour < 6) or (dg.winner = 1 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= 0.8) then 1 else 0 end) as losses
 		from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN games as ga ON ga.id = dg.gameid LEFT JOIN 
 		dotaplayers as dp on dp.gameid = dg.gameid and gp.colour = dp.colour where dg.winner <> 0 and gp.name = '$username') as h) as i";
 }
@@ -1117,7 +1133,7 @@ $pages = ceil($count/$userResultSize);
 
  $sql = "SELECT winner, a.gameid as id, newcolour, datetime, gamename, description, hero, kills, deaths, assists, creepkills, creepdenies, neutralkills, name, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type,
  CASE WHEN (deaths = 0 and kills = 0) THEN 0 WHEN (deaths = 0) then 1000 ELSE (kills*1.0/deaths) end as kdratio,
- CASE when (winner=1 and newcolour < 6) or (winner=2 and newcolour > 5) then 'WON' when  winner=0 then 'DRAW' else 'LOST' end as outcome 
+ CASE when ((winner=1 and newcolour < 6) or (winner=2 and newcolour > 5)) AND b.`left`/d.duration >= 0.8  then 'WON' when ((winner=2 and newcolour < 6) or (winner=1 and newcolour > 5)) AND b.`left`/d.duration >= 0.8  then 'LOST' when  winner=0 then 'DRAW' else 'N/A' end as outcome 
  FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
  LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = heroid where name= '$username' and description <> 'NULL' ORDER BY $sortcat $order, d.id DESC";
 

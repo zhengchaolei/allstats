@@ -440,7 +440,7 @@ else
 	<div id="datawrapper">
 		<table class="table" id="data">
  <?php 
-$sql = "SELECT id, name,  date, gamename, admin, reason FROM `bans` ORDER BY $sortcat $order, name asc";
+$sql = "SELECT id, name,  date, gamename, admin, reason FROM `bans` ORDER BY $sortcat $order, id desc, name asc";
 if($offset!='all')
 {
 $sql = $sql." LIMIT ".$banResultSize*$offset.", $banResultSize";

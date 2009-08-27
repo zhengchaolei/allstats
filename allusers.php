@@ -246,6 +246,7 @@ else
 					//User Name
 					if($sortcat == "name")
 					{
+				                $sortcat = "b.name";
 						if($order == "asc")
 						{
 							print("<td class=\"headercell\" width=200px><a href=\"?p=allusers&s=name&o=desc&n=all\">Name</a></td>");
@@ -435,6 +436,7 @@ else
 					//User Name
 					if($sortcat == "name")
 					{
+                                                $sortcat = "b.name";
 						if($order == "asc")
 						{
 							print("<td class=\"headercell\" width=200px><a href=\"?p=allusers&s=name&o=desc&n=0\">Name</a></td>");
@@ -630,9 +632,11 @@ else
  
 $sql = "SELECT COUNT(a.id) as totgames, AVG(kills) as kills, AVG(deaths) as deaths, AVG(assists) as assists,
 AVG(creepkills) as creepkills, AVG(creepdenies) as creepdenies,  AVG(neutralkills) as neutralkills, AVG(towerkills) as towerkills, 
-AVG(raxkills) as raxkills, AVG(courierkills) as courierkills, name 
-FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.newcolour = b.colour 
-LEFT JOIN dotagames AS c ON c.gameid = a.gameid LEFT JOIN games as d ON d.id = c.gameid where name <> '' and winner <> 0";
+AVG(raxkills) as raxkills, AVG(courierkills) as courierkills, b.name as name, e.name as banname 
+FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
+LEFT JOIN dotagames AS c ON c.gameid = a.gameid LEFT JOIN games as d ON d.id = c.gameid 
+LEFT JOIN bans AS e on b.name = e.name
+where b.name <> '' and winner <> 0";
 if($ignorePubs)
 {
 $sql = $sql." and d.gamestate = '17'";
@@ -641,14 +645,14 @@ else if($ignorePrivs)
 {
 $sql = $sql." and d.gamestate = '16'";
 }
-$sql = $sql." group by name ORDER BY $sortcat $order, name asc";
+$sql = $sql." group by b.name ORDER BY $sortcat $order, b.name asc";
 if($offset!='all')
 {
 $sql = $sql." LIMIT ".$allPlayerResultSize*$offset.", $allPlayerResultSize";
 }
 
 if($dbType == 'sqlite')
-{
+{ 
 foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
 		$totgames=$row["totgames"];
@@ -662,10 +666,11 @@ foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 		$raxkills=$row["raxkills"];
 		$courierkills=$row["courierkills"];
 		$name=$row["name"];
+                $banname=$row["banname"];
 	?>
 
 	<tr class="row">
-		<td width=200px><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>
+		<td width=200px><a <?php if($banname<>'') { print 'style="color:#e56879"'; } ?> href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>
 		<td width=80px><?php print $totgames; ?></td>
 		<td width=80px><?php print ROUND($kills, 1); ?></td>
 		<td width=80px><?php print ROUND($death, 1); ?></td>
@@ -696,11 +701,12 @@ else
 		$raxkills=$row["raxkills"];
 		$courierkills=$row["courierkills"];
 		$name=$row["name"];
+		$banname=$row["banname"];
 
 	?>
 
 	<tr class="row">
-		<td width=200px><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>
+		<td width=200px><a <?php if($banname<>'') { print 'style="color:#e56879"'; } ?> href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>
 		<td width=80px><?php print $totgames; ?></td>
 		<td width=80px><?php print ROUND($kills, 1); ?></td>
 		<td width=80px><?php print ROUND($death, 1); ?></td>
