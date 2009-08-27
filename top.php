@@ -661,27 +661,30 @@ else
 	<div id="datawrapper">
 		<table class="table" id="data">
 <?php
-if($scoreFromDB)	//Using score table
+if($scoreFromDB)        //Using score table
 {
 $sql = "select *,(kills/deaths) as killdeathratio, (totgames-wins) as losses from (
-select gp.name as name,gp.gameid as gameid, dp.newcolour as colour, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
+select gp.name as name, bans.name as banname,gp.gameid as gameid, dp.newcolour as colour, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
 avg(dp.towerkills) as towerkills, avg(dp.assists) as assists, avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills,
-avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills, sc.score as totalscore, 
+avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills, sc.score as totalscore,
 count(*) as totgames, SUM(case when((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) then 1 else 0 end) as wins
-from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.newcolour and dp.newcolour <> 12 and dp.newcolour <> 6
-LEFT JOIN games as ga ON dp.gameid = ga.id LEFT JOIN scores as sc ON sc.name = gp.name where dg.winner <> 0
+from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.colour and dp.newcolour <> 12 and dp.newcolour <> 6
+LEFT JOIN games as ga ON dp.gameid = ga.id LEFT JOIN scores as sc ON sc.name = gp.name 
+LEFT JOIN bans on bans.name = gp.name
+where dg.winner <> 0
 group by gp.name having totgames >= $games) as h ORDER BY $sortcat $order, name asc";
 }
-else			//Using score formula
+else                    //Using score formula
 {
 $sql = "select *, ($scoreFormula) as totalscore from(select *, (kills/deaths) as killdeathratio, (totgames-wins) as losses from (
-select gp.name as name,gp.gameid as gameid, dp.newcolour as colour, avg(dp.courierkills) as courierkills, avg(dp.assists) as assists,
+select gp.name as name, bans.name as banname, gp.gameid as gameid, dp.newcolour as colour, avg(dp.courierkills) as courierkills, avg(dp.assists) as assists,
 avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills, avg(dp.towerkills) as towerkills, avg(dp.raxkills) as raxkills,
 avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills,
 count(1) as totgames, SUM(case when((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) then 1 else 0 end) as wins
-from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.newcolour and dp.newcolour <> 12 and dp.newcolour <> 6
- LEFT JOIN games as ga ON dp.gameid = ga.id where dg.winner <> 0 ";
-
+from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.colour and dp.newcolour <> 12 and dp.newcolour <> 6
+LEFT JOIN games as ga ON dp.gameid = ga.id 
+LEFT JOIN bans on bans.name = gp.name
+where dg.winner <> 0 ";
 if($ignorePubs)
 {
 $sql = $sql." and gamestate = '17'";
@@ -708,6 +711,7 @@ if($dbType == 'sqlite')
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
 		$name=$row["name"];
+                $banname=$row["banname"];
 		$totgames=$row["totgames"];
 		$kills=$row["kills"];
 		$death=$row["deaths"];
@@ -724,7 +728,7 @@ if($dbType == 'sqlite')
 	?>
 	<tr class="row">
 	<td width=25px><?php print $rank; ?></td>
-	<td width=175px><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>
+	<td width=175px><a <?php if($banname<>'') { print 'style="color:#e56879"'; } ?> href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>
 	<td width=100px><?php print ROUND($totalscore,2); ?></td>
 	<td width=70px><?php print $totgames;?></td>
 	<td width=70px><?php print $wins; ?></td>
@@ -752,6 +756,7 @@ else
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 
 		$name=$row["name"];
+		$banname=$row["banname"];
 		$totgames=$row["totgames"];
 		$kills=$row["kills"];
 		$death=$row["deaths"];
@@ -768,7 +773,7 @@ else
 	?>
 	<tr class="row">
 	<td width=25px><?php print $rank; ?></td>
-	<td width=175px><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>
+	<td width=175px><a <?php if($banname<>'') { print 'style="color:#e56879"'; } ?> href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>
 	<td width=100px><?php print ROUND($totalscore,2); ?></td>
 	<td width=70px><?php print $totgames;?></td>
 	<td width=70px><?php print $wins; ?></td>

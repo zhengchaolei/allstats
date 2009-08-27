@@ -236,6 +236,22 @@ else
 <?php
  if($offset == 'all')
  {
+        //Id
+        if($sortcat == "id")
+        {
+                if($order == "asc")
+                {
+                        print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=desc&n=all\">Id</a></td>");
+                }
+                else
+                {
+                        print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=asc&n=all\">Id</a></td>");
+                }
+        }
+        else
+        {
+                print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=desc&n=all\">Id</a></td>");
+        }
 	//Name
 	if($sortcat == "name")
 	{
@@ -319,6 +335,22 @@ else
 }
 else
 {
+        //Id
+        if($sortcat == "id")
+        {
+                if($order == "asc")
+                {
+                        print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=desc&n=0\">Id</a></td>");
+                }
+                else
+                {
+                        print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=asc&n=0\">Id</a></td>");
+                }
+        }
+        else
+        {
+                print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=desc&n=0\">Id</a></td>");
+        }
 	//Name
 	if($sortcat == "name")
 	{
@@ -408,7 +440,7 @@ else
 	<div id="datawrapper">
 		<table class="table" id="data">
  <?php 
-$sql = "SELECT name,  date, gamename, admin, reason FROM `bans` ORDER BY $sortcat $order, name asc";
+$sql = "SELECT id, name,  date, gamename, admin, reason FROM `bans` ORDER BY $sortcat $order, name asc";
 if($offset!='all')
 {
 $sql = $sql." LIMIT ".$banResultSize*$offset.", $banResultSize";
@@ -418,6 +450,7 @@ if($dbType == 'sqlite')
 {
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
+                $id=$row["id"];
 		$banname=$row["name"];
 		$banby=$row["admin"];
 		$bandate=substr($row["date"],0,10);
@@ -426,7 +459,8 @@ if($dbType == 'sqlite')
 ?> 
 	<tr class="row">
 		
-		<td width=150px><?php print $banname;?></td>   
+                <td width=70px><?php print $id;?></td>
+                <td width=150px><a style="color:#e56879" href="?p=user&u=<?php print $banname; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $banname; ?></a></td>
 		<td width=360px><?php print $banreason;?></td>	
 		<td width=250px><?php print $gamename;?></td>
 		<td width=90px><?php print $bandate;?></td>
@@ -440,6 +474,7 @@ else
 { 
 	$result = mysql_query($sql);
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		$id=$row["id"];
 		$banname=$row["name"];
 		$banby=$row["admin"];
 		$bandate=substr($row["date"],0,10);
@@ -448,7 +483,8 @@ else
 ?> 
 	<tr class="row">
 		
-		<td width=150px><?php print $banname;?></td>   
+		<td width=70px><?php print $id;?></td>
+		<td width=150px><a style="color:#e56879" href="?p=user&u=<?php print $banname; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $banname; ?></a></td>   
 		<td width=360px><?php print $banreason;?></td>	
 		<td width=250px><?php print $gamename;?></td>
 		<td width=90px><?php print $bandate;?></td>

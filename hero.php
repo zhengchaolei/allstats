@@ -433,6 +433,7 @@ $pages = ceil($count/$heroResultSize);
   //Player Name
 	if($sortcat == "name")
 	{
+		$sortcat = "b.name";
 		if($order == "asc")
 		{
 			print("<td width=150px><a href=\"?p=hero&hid=$heroid&s=name&o=desc&n=all\">Player</a></td>");
@@ -449,6 +450,7 @@ $pages = ceil($count/$heroResultSize);
 	//Game Name
 	if($sortcat == "gamename")
 	{
+                $sortcat = "d.gamename";
 		if($order == "asc")
 		{
 			print("<td width=220px><a href=\"?p=hero&hid=$heroid&s=gamename&o=desc&n=all\">Game Name</a></td>");
@@ -614,6 +616,7 @@ else
   //Player Name
 	if($sortcat == "name")
 	{
+                $sortcat = "b.name";
 		if($order == "asc")
 		{
 			print("<td width=150px><a href=\"?p=hero&hid=$heroid&s=name&o=desc&n=0\">Player</a></td>");
@@ -630,6 +633,7 @@ else
 	//Game Name
 	if($sortcat == "gamename")
 	{
+                $sortcat = "d.gamename";
 		if($order == "asc")
 		{
 			print("<td width=220px><a href=\"?p=hero&hid=$heroid&s=gamename&o=desc&n=0\">Game Name</a></td>");
@@ -798,10 +802,15 @@ else
 	<div id="datawrapper">
 		<table class="table" id="data">
  <?php 
-  $sql = "Select CASE WHEN (deaths = 0 and kills = 0) THEN 0 WHEN (deaths = 0) then 1000 ELSE (kills*1.0/deaths) end as kdratio, a.gameid as gameid, gamename, kills, deaths, assists, creepkills, neutralkills, creepdenies, towerkills, raxkills, courierkills, name, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type, 
+  $sql = "Select CASE WHEN (deaths = 0 and kills = 0) THEN 0 WHEN (deaths = 0) then 1000 ELSE (kills*1.0/deaths) end as kdratio, a.gameid as gameid, d.gamename, kills, deaths, assists, creepkills, neutralkills, creepdenies, towerkills, raxkills, courierkills, b.name as name, f.name as banname, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type, 
   CASE when (winner=1 and newcolour < 6) or (winner=2 and newcolour > 5) then 'WON' when  winner=0 then 'DRAW' else 'LOST' end as result
- FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
- LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = heroid where heroid = '$heroid' $aliasheroes ORDER BY $sortcat $order, name DESC";
+ FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
+ LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
+ LEFT JOIN games AS d ON d.id = a.gameid 
+ LEFT JOIN originals as e ON a.hero = heroid 
+ LEFT JOIN bans as f ON b.name = f.name
+ where heroid = '$heroid' $aliasheroes 
+ ORDER BY $sortcat $order, b.name DESC";
 
  if($offset!='all')
 {
@@ -819,6 +828,7 @@ foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	$kdratio=$row["kdratio"];
 	$gamename=$row["gamename"];
 	$name=$row["name"];
+        $banname=$row["banname"];
 	$winner=$row["result"];
 	$type=$row["type"];
 	$creepkills=$row["creepkills"];
@@ -826,7 +836,7 @@ foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	$neutralkills=$row["neutralkills"];
  ?> 
  <tr class="row">
-    <td width=150px><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name;?></a></td>
+    <td width=150px><a <?php if($banname<>'') { print 'style="color:#e56879"'; } ?> href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name;?></a></td>
     <td width=220px><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self"><?php print $gamename;?></a></td>
     <td width=70px><?php print $type;?></td>
 	<td width=70px> <span <?php if($winner == 'LOST'){print 'style="color:#e56879"';}elseif($winner == 'WON'){print 'style="color:#86E573"';} else{print 'style="color:#ebeb7d"';} ?>><?php print $winner;?></span></td>
@@ -851,6 +861,7 @@ $gameid = $row["gameid"];
     $assists=$row["assists"];
 	$kdratio=$row["kdratio"];
 	$gamename=$row["gamename"];
+        $banname=$row["banname"];
 	$name=$row["name"];
 	$winner=$row["result"];
 	$type=$row["type"];
@@ -862,7 +873,7 @@ $gameid = $row["gameid"];
 
  ?> 
  <tr class="row">
-    <td width=150px><a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name;?></a></td>
+    <td width=150px><a <?php if($banname<>'') { print 'style="color:#e56879"'; } ?> href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name;?></a></td>
     <td width=220px><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self"><?php print $gamename;?></a></td>
     <td width=70px><?php print $type;?></td>
 	<td width=70px> <span <?php if($winner == 'LOST'){print 'style="color:#e56879"';}elseif($winner == 'WON'){print 'style="color:#86E573"';} else{print 'style="color:#ebeb7d"';} ?>><?php print $winner;?></span></td>

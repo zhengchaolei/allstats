@@ -160,7 +160,7 @@ require_once("config.php");
 						  <li>
 						  <a href="?p=games&s=datetime&o=desc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Game History</a></li> 
 						  <li> 
-						  <a href="?p=bans&s=date&o=desc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Bans</a></li>
+						  <a href="?p=bans&s=id&o=desc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Bans</a></li>
 						  <li> 
 						  <a href="?p=admins&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Admins</a></li> 
 						  <li>

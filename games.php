@@ -52,13 +52,17 @@ else
 	$offset=mysql_real_escape_string($_GET["n"]);
 }
 
-$sql = "SELECT COUNT( DISTINCT id ) as totgames from games where map LIKE '%dota allstars%'";
+$sql = "SELECT COUNT( DISTINCT id ) as totgames, MAX(duration), MIN(duration), AVG(duration), SUM(duration) from games where map LIKE '%dota allstars%'";
 
 if($dbType == 'sqlite')
 {
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
 		$count=$row["totgames"];
+                $maxDuration=secondsToTime($row["MAX(duration)"]);
+                $minDuration=secondsToTime($row["MIN(duration)"]);
+                $avgDuration=secondsToTime($row["AVG(duration)"]);
+                $totalDuration=secondsToTime($row["SUM(duration)"]);
 	}
 }
 else
@@ -66,6 +70,10 @@ else
 	$result = mysql_query($sql);
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		$count=$row["totgames"];
+                $maxDuration=secondsToTime($row["MAX(duration)"]);
+                $minDuration=secondsToTime($row["MIN(duration)"]);
+                $avgDuration=secondsToTime($row["AVG(duration)"]);
+ 		$totalDuration=secondsToTime($row["SUM(duration)"]);
 	}
 	mysql_free_result($result);
 }
@@ -510,5 +518,7 @@ else
 </div>
 </div>
 <div id="footer" class="footer">
-		<h5>Number of Games Played: <?php print $count; ?></h5>
+	<h5>Number of Games Played: <?php print $count; ?>
+	~~~~~~ Game Duration(hh:mm:ss):
+	AVG: <?php print $avgDuration;?> | TOTAL: <?php print $totalDuration;?></h5>
 </div>

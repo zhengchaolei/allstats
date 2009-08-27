@@ -277,13 +277,17 @@ if($dbType == 'sqlite')
 		$mostplayedtime=secondsToTime($row["timeplayed"]);
 	}
 //get avg loadingtimes
-	$sql = "SELECT datetime, MIN(loadingtime), MAX(loadingtime), AVG(loadingtime) FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' AND winner!=0";
+	$sql = "SELECT MIN(datetime), MIN(loadingtime), MAX(loadingtime), AVG(loadingtime), MIN(`left`), MAX(`left`), AVG(`left`), SUM(`left`) FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' AND winner!=0";
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
 		$firstgame=$row["datetime"];
 		$minLoading=millisecondsToTime($row["MIN(loadingtime)"]);
 		$maxLoading=millisecondsToTime($row["MAX(loadingtime)"]);
 		$avgLoading=millisecondsToTime($row["AVG(loadingtime)"]);
+	        $minDuration=secondsToTime($row["MIN(`left`)"]);
+        	$maxDuration=secondsToTime($row["MAX(`left`)"]);
+	        $avgDuration=secondsToTime($row["AVG(`left`)"]);
+	        $totalDuration=secondsToTime($row["SUM(`left`)"]);
 	}
 
 //get lastgame played
@@ -372,13 +376,17 @@ $result = mysql_query("SELECT SUM(`left`) as timeplayed, hero, COUNT(*) as playe
 	$mostplayedcount=$row["played"];
 	$mostplayedtime=secondsToTime($row["timeplayed"]);
 //get avg loadingtimes
-$sql = "SELECT datetime, MIN(loadingtime), MAX(loadingtime), AVG(loadingtime) FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username'";
+$sql = "SELECT MIN(datetime), MIN(loadingtime), MAX(loadingtime), AVG(loadingtime), MIN(`left`), MAX(`left`), AVG(`left`), SUM(`left`) FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username'";
 $result = mysql_query($sql);
 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
 	$firstgame=$row["datetime"];
 	$minLoading=millisecondsToTime($row["MIN(loadingtime)"]);
 	$maxLoading=millisecondsToTime($row["MAX(loadingtime)"]);
 	$avgLoading=millisecondsToTime($row["AVG(loadingtime)"]);
+	$minDuration=secondsToTime($row["MIN(`left`)"]);
+	$maxDuration=secondsToTime($row["MAX(`left`)"]);
+	$avgDuration=secondsToTime($row["AVG(`left`)"]);
+	$totalDuration=secondsToTime($row["SUM(`left`)"]);
 //get lastgame played
 $result = mysql_query("SELECT dotagames.gameid, datetime FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' AND winner!=0 order by dotagames.gameid desc");
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
@@ -430,8 +438,8 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	</td>
   </tr>
   <tr class="rowuh"> 
-    <td colspan=2 align="left"><b>Loading Times(sec): 
-      MAX: <?php print $maxLoading;?> | MIN: <?php print $minLoading;?> | AVG: <?php print $avgLoading;?> 
+    <td colspan=2 align="left"><b>Loading Times(sec):</b>
+      MAX: <?php print $maxLoading;?> | MIN: <?php print $minLoading;?> | AVG: <?php print $avgLoading;?>
     </td>
   </tr>
   <tr class="footerheadercell">
@@ -458,7 +466,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		</tr>
         <tr>
 			<td>Games:</td>
-          <td><?php print $wins+$losses;?></td>		
+          <td><?php print $totgames;?></td>		
 		  <td>Wins/Losses:</td>
           <td><?php print $wins;?>/<?php print $losses;?></td>
 		  
@@ -1207,4 +1215,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 </div>
 </div>
 <div id="footer" class="footer">
+  <h5> Game Duration(hh:mm:ss):
+    MAX: <?php print $maxDuration;?> | MIN: <?php print $minDuration;?> | AVG: <?php print $avgDuration;?> | TOTAL: <?php print $totalDuration;?>
+  </h5>
 </div>
