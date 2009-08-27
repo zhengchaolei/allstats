@@ -181,9 +181,13 @@ $replayloc = $replayLocation.'/'.str_ireplace("\\","_",str_ireplace("/","_",$rep
 <?php
 $sql = "SELECT winner, a.gameid, b.colour, newcolour, 
 hero, kills, deaths, assists, creepkills, creepdenies, neutralkills, towerkills, gold, 
-item1, item2, item3, item4, item5, item6, leftreason, b.left, name 
-FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-LEFT JOIN dotagames AS c ON c.gameid = a.gameid LEFT JOIN games AS d ON d.id = a.gameid where a.gameid='$gid' order by newcolour";	
+item1, item2, item3, item4, item5, item6, leftreason, b.left, b.name as name, e.name as banname
+FROM dotaplayers AS a 
+LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
+LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
+LEFT JOIN games AS d ON d.id = a.gameid 
+LEFT JOIN bans as e ON b.name = e.name
+where a.gameid='$gid' order by newcolour";	
 
 if($dbType == 'sqlite')
 {
@@ -216,6 +220,7 @@ if($dbType == 'sqlite')
 		$name=$row["name"];
 		$newcolour=$row["newcolour"];
 		$gameid=$row["gameid"]; 
+		$banname=$row["banname"];
 		
 		//Trim down the leftreason
 		$leftreason = str_ireplace("has", "", $leftreason);
@@ -250,7 +255,7 @@ if($dbType == 'sqlite')
 				
 		<tr class="row">
 			<td width=150px>
-			<a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><b><?php print $name; ?></b></a>
+			<a <?php if($banname<>'') { print 'style="color:#e56879"'; } ?> href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><b><?php print $name; ?></b></a>
 			</td>
 			<td width=40px>
 			<?php
@@ -325,6 +330,7 @@ else
 		$name=$row["name"];
 		$newcolour=$row["newcolour"];
 		$gameid=$row["gameid"]; 
+		$banname=$row["banname"];
 
 		//Trim down the leftreason
 		$leftreason = str_ireplace("has", "", $leftreason);
@@ -359,7 +365,7 @@ else
 				
 		<tr class="row">
 			<td width=150px>
-			<a href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><b><?php print $name; ?></b></a>
+			<a <?php if($banname<>'') { print 'style="color:#e56879"'; } ?> href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><b><?php print $name; ?></b></a>
 			</td>
 			<td width=40px>
 			<?php
