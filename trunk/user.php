@@ -296,7 +296,7 @@ if($dbType == 'sqlite')
 	$sql = "SELECT MIN(datetime), MIN(loadingtime), MAX(loadingtime), AVG(loadingtime), MIN(`left`), MAX(`left`), AVG(`left`), SUM(`left`) FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' AND winner!=0";
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
-		$firstgame=$row["datetime"];
+		$firstgame=$row["MIN(datetime)"];
 		$minLoading=millisecondsToTime($row["MIN(loadingtime)"]);
 		$maxLoading=millisecondsToTime($row["MAX(loadingtime)"]);
 		$avgLoading=millisecondsToTime($row["AVG(loadingtime)"]);
@@ -395,7 +395,7 @@ $result = mysql_query("SELECT SUM(`left`) as timeplayed, hero, COUNT(*) as playe
 $sql = "SELECT MIN(datetime), MIN(loadingtime), MAX(loadingtime), AVG(loadingtime), MIN(`left`), MAX(`left`), AVG(`left`), SUM(`left`) FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username'";
 $result = mysql_query($sql);
 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	$firstgame=$row["datetime"];
+	$firstgame=$row["MIN(datetime)"];
 	$minLoading=millisecondsToTime($row["MIN(loadingtime)"]);
 	$maxLoading=millisecondsToTime($row["MAX(loadingtime)"]);
 	$avgLoading=millisecondsToTime($row["AVG(loadingtime)"]);
