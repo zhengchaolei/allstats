@@ -123,6 +123,28 @@ td{
 	border-bottom: 1px solid #EBEBEB;
 }
 
+.contentheadercell
+{
+	background-color:#1e4378;
+	font-size: 14px;
+	font-family:helvetica;
+	font-weight:bold;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-bottom: 1px solid #EBEBEB;
+}
+
+.contentspanheadercell
+{
+	font-size: 14px;
+	font-family:helvetica;
+	font-weight:bold;
+	padding-top: 10px;
+	padding-bottom: 2px;
+	border-top: 1px solid #EBEBEB;
+	border-bottom: 1px solid #EBEBEB;
+}
+
 .thtop
 {
 	border-left: 1px solid #EBEBEB;

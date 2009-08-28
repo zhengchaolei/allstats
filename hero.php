@@ -104,10 +104,11 @@ else
 ?>
 <?php
 //Get overall hero stats
-$sql =" Select *, (totgames-wins) as losses, (kills*1.0/deaths) as kdratio, (wins*1.0/totgames) as winratio From 
+$sql =" Select *, (kills*1.0/deaths) as kdratio, (wins*1.0/totgames) as winratio From 
 	(SELECT description, summary, skills, stats, hero, count(*) as totgames, 
-	SUM(case when((c.winner = 1 and a.newcolour < 6) or (c.winner = 2 and a.newcolour > 6)) then 1 else 0 end) as wins, SUM(kills) as kills, SUM(deaths) as deaths, 
-	SUM(assists) as assists, SUM(creepkills) as creepkills, SUM(creepdenies) as creepdenies, SUM(neutralkills) as neutralkills, SUM(towerkills) as towerkills, SUM(raxkills) as raxkills, SUM(courierkills) as courierkills
+	SUM(case when(((c.winner = 1 and a.newcolour < 6) or (c.winner = 2 and a.newcolour > 6)) AND d.`left`/e.duration >= $minPlayedRatio) then 1 else 0 end) as wins, 
+	SUM(case when(((c.winner = 2 and a.newcolour < 6) or (c.winner = 1 and a.newcolour > 6)) AND d.`left`/e.duration >= $minPlayedRatio) then 1 else 0 end) as losses, 
+	SUM(kills) as kills, SUM(deaths) as deaths, SUM(assists) as assists, SUM(creepkills) as creepkills, SUM(creepdenies) as creepdenies, SUM(neutralkills) as neutralkills, SUM(towerkills) as towerkills, SUM(raxkills) as raxkills, SUM(courierkills) as courierkills
 	FROM dotaplayers AS a LEFT JOIN originals as b ON hero = heroid LEFT JOIN dotagames as c ON c.gameid = a.gameid
 	LEFT JOIN gameplayers as d ON d.gameid = a.gameid and a.colour = d.colour LEFT JOIN games as e ON d.gameid = e.id where hero='$heroid' $aliasheroes group by description) as z order by description asc";
 	if($dbType == 'sqlite')
@@ -803,7 +804,7 @@ else
 		<table class="table" id="data">
  <?php 
   $sql = "Select CASE WHEN (deaths = 0 and kills = 0) THEN 0 WHEN (deaths = 0) then 1000 ELSE (kills*1.0/deaths) end as kdratio, a.gameid as gameid, d.gamename, kills, deaths, assists, creepkills, neutralkills, creepdenies, towerkills, raxkills, courierkills, b.name as name, f.name as banname, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type, 
-  CASE when (winner=1 and newcolour < 6) or (winner=2 and newcolour > 5) then 'WON' when  winner=0 then 'DRAW' else 'LOST' end as result
+  CASE when ((winner=1 and newcolour < 6) or (winner=2 and newcolour > 5)) AND b.`left`/d.duration >= $minPlayedRatio  then 'WON' when ((winner=2 and newcolour < 6) or (winner=1 and newcolour > 5)) AND b.`left`/d.duration >= $minPlayedRatio  then 'LOST' when  winner=0 then 'DRAW' else '$notCompleted' end as result
  FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
  LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
  LEFT JOIN games AS d ON d.id = a.gameid 
