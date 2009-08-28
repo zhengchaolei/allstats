@@ -154,7 +154,7 @@ require_once("config.php");
 						  <li> 
 						  <a href="?p=top&s=totalscore&o=desc&g=<?php print $minGamesPlayed; ?>&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Top Players</a></li> 
 						  <li> 
-						  <a href="?p=monthlytop&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Monthly Tops</a></li> 
+						  <a href="?p=monthlytop&i=month&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Monthly Tops</a></li> 
 						  <li> 
 						  <a href="?p=allusers&s=totgames&o=desc&n=<?php if($displayStyle == 'all'){ print 'all';} else{print '0';}?>">Player Statistics</a></li> 
 						  <li>
