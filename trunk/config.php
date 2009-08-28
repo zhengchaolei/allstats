@@ -69,11 +69,15 @@ $botName = 'YOUR_BOT_NAME';
 //GHost++ root administrator name:
 $rootAdmin = 'YOUR_ROOT_ADMIN';
 
-
 //Settings for Top Players page
 
 //Default minimum number of games played in order to be displayed on Top Players page:
-$minGamesPlayed = 3;
+$minGamesPlayed = 2;
+
+//Minimal ratio (lefttime/duration) that a player/hero has to complete a game to be counted as win/loss. otherwise game is ignored.
+$minPlayedRatio = 0.8;
+//string to be shown instead of WIN/LOSS if a game is not counted due to ratio (lefttime/duration)
+$notCompleted = 'LEAVER';
 
 //Pre-Calculate score
 //If true:  Player scores will be taken from the score table in your MySQL database. You must populate this table through your own methods.
@@ -82,7 +86,7 @@ $minGamesPlayed = 3;
 //If false: Player scores will be dynamically calculated on page load through a formula that takes into account kills, deaths, assists, wins, losses, etc...
 //			This is less ideal and will slow your top players page load slightly. As of yet, I have not found a numeric scoring system that I believe 
 //   		accurately reflects skill level.
-$scoreFromDB = false;
+$scoreFromDB = true;
 
 //Score Formula: (Only used if $scoreFromDB = false)
 //Must follow SQL formatting conventions.
@@ -118,6 +122,10 @@ $adminResultSize = 30;
 $heroResultSize = 15;
 //The number of results returned in a page on a user's page
 $userResultSize = 20;
+//The number of results returned in a page on the monthly tops page
+$monthlyTopsResultSize = 3;
+//The number of entries in each highscore list
+$monthlyTopsListSize = 5;
 
 
 

@@ -667,7 +667,7 @@ $sql = "select *,(kills/deaths) as killdeathratio from (
 select gp.name as name, bans.name as banname,gp.gameid as gameid, dp.newcolour as colour, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
 avg(dp.towerkills) as towerkills, avg(dp.assists) as assists, avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills,
 avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills, sc.score as totalscore,
-count(*) as totgames, SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= 0.8) then 1 else 0 end) as wins, SUM(case when(((dg.winner = 2 and dp.newcolour < 6) or (dg.winner = 1 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= 0.8) then 1 else 0 end) as losses
+count(*) as totgames, SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as wins, SUM(case when(((dg.winner = 2 and dp.newcolour < 6) or (dg.winner = 1 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as losses
 from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.colour and dp.newcolour <> 12 and dp.newcolour <> 6
 LEFT JOIN games as ga ON dp.gameid = ga.id LEFT JOIN scores as sc ON sc.name = gp.name 
 LEFT JOIN bans on bans.name = gp.name
@@ -680,7 +680,7 @@ $sql = "select *, ($scoreFormula) as totalscore from(select *, (kills/deaths) as
 select gp.name as name, bans.name as banname, gp.gameid as gameid, dp.newcolour as colour, avg(dp.courierkills) as courierkills, avg(dp.assists) as assists,
 avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills, avg(dp.towerkills) as towerkills, avg(dp.raxkills) as raxkills,
 avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills,
-count(1) as totgames, SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= 0.8) then 1 else 0 end) as wins, SUM(case when(((dg.winner = 2 and dp.newcolour < 6) or (dg.winner = 1 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= 0.8) then 1 else 0 end) as losses
+count(1) as totgames, SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as wins, SUM(case when(((dg.winner = 2 and dp.newcolour < 6) or (dg.winner = 1 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as losses
 from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.colour and dp.newcolour <> 12 and dp.newcolour <> 6
 LEFT JOIN games as ga ON dp.gameid = ga.id 
 LEFT JOIN bans on bans.name = gp.name
@@ -825,7 +825,7 @@ else if($ignorePrivs)
 {
 $sql = $sql." LEFT JOIN games as c on a.gameid = c.id where gamestate = '16'";
 }
-$sql = $sql." ORDER BY kills DESC LIMIT 5";
+$sql = $sql." ORDER BY kills DESC, a.id ASC LIMIT 5";
 if($dbType == 'sqlite')
 {
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
@@ -893,7 +893,7 @@ else if($ignorePrivs)
 {
 $sql = $sql." LEFT JOIN games as c on a.gameid = c.id where gamestate = '16'";
 }
-$sql = $sql." ORDER BY assists DESC LIMIT 5";
+$sql = $sql." ORDER BY assists DESC, a.id ASC LIMIT 5";
 if($dbType == 'sqlite')
 {
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
@@ -963,7 +963,7 @@ else if($ignorePrivs)
 {
 $sql = $sql." LEFT JOIN games as c on a.gameid = c.id where gamestate = '16'";
 }
-$sql = $sql." ORDER BY deaths DESC LIMIT 5";
+$sql = $sql." ORDER BY deaths DESC, a.id ASC LIMIT 5";
 if($dbType == 'sqlite')
 {
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
@@ -1034,7 +1034,7 @@ else if($ignorePrivs)
 {
 $sql = $sql." LEFT JOIN games as c on a.gameid = c.id where gamestate = '16'";
 }
-$sql = $sql." ORDER BY creepkills DESC LIMIT 5";
+$sql = $sql." ORDER BY creepkills DESC, a.id ASC LIMIT 5";
 if($dbType == 'sqlite')
 {
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
@@ -1106,7 +1106,7 @@ else if($ignorePrivs)
 {
 $sql = $sql." LEFT JOIN games as c on a.gameid = c.id where gamestate = '16'";
 }
-$sql = $sql." ORDER BY creepdenies DESC LIMIT 5";
+$sql = $sql." ORDER BY creepdenies DESC, a.id ASC LIMIT 5";
 if($dbType == 'sqlite')
 {
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
