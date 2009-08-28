@@ -10,7 +10,7 @@
 *	Please see http://forum.codelain.com/index.php?topic=4752.0
 *	and post your webpage there, so I know who's using it.
 *
-*	Files downloaded from http://dotastats.miq.no/download/
+*	Files downloaded from http://code.google.com/p/allstats/
 *
 *	Copyright (C) 2009  Reinert, Dag Morten , Netbrain, Billbabong, Boltergeist
 *
@@ -40,30 +40,59 @@ require_once("config.php");
 if($dbType == 'sqlite')
 {
 	$offset=sqlite_escape_string($_GET["n"]);
+	$interval=sqlite_escape_string($_GET["i"]);
+
+	if($interval == 'week' || $interval == 'Week')
+	{
+		$interval="Week";
+		$sqlGroupBy1="strftime('%Y', datetime)";
+		$sqlGroupBy2="strftime('%W', datetime)";
+		$sqlGroupBy3="strftime('%W', datetime)";
+	}
+	else
+	{
+		$interval="Month";
+		$sqlGroupBy1="strftime('%Y', datetime)";
+		$sqlGroupBy2="strftime('%m', datetime)";
+		$sqlGroupBy3="strftime('%m', datetime)";
+	}
 }
 else
 {
 	$offset=mysql_real_escape_string($_GET["n"]);
+	$interval=mysql_real_escape_string($_GET["i"]);
+
+	if($interval == 'week' || $interval == 'Week')
+	{
+		$interval="Week";
+		$sqlGroupBy1="YEAR(datetime)";
+		$sqlGroupBy2="WEEK(datetime,3)";
+		$sqlGroupBy3="WEEK(datetime,3)";
+	}
+	else
+	{
+		$interval="Month";
+		$sqlGroupBy1="YEAR(datetime)";
+		$sqlGroupBy2="MONTH(datetime)";
+		$sqlGroupBy3="MONTHNAME(datetime)";
+	}
 }
 
 
+$sql = "select count(*) as count from( SELECT ".$sqlGroupBy1." as y, ".$sqlGroupBy2." as m, ".$sqlGroupBy3." as mn FROM games";
+if($ignorePubs)
+{
+	$sql = $sql." WHERE gamestate = '17'";
+}
+else if($ignorePrivs)
+{
+	$sql = $sql." WHERE gamestate = '16'";
+}
+$sql = $sql." group by ".$sqlGroupBy1.", ".$sqlGroupBy2." 
+	order by ".$sqlGroupBy1." desc, ".$sqlGroupBy2." desc) as h";	
 
 if($dbType == 'sqlite')
 {
-	$sql = "select count(*) as count from( SELECT strftime('%Y',datetime) as y, strftime('%m', datetime) as m, strftime('%m', datetime) as mn FROM games";
-
-	if($ignorePubs)
-	{
-		$sql = $sql." WHERE gamestate = '17'";
-	}
-	else if($ignorePrivs)
-	{
-		$sql = $sql." WHERE gamestate = '16'";
-	}
-
-	$sql = $sql." group by strftime('%Y',datetime), strftime('%m', datetime) 
-		order by strftime('%Y',datetime) desc, strftime('%m', datetime) desc) as h";	
-
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
 		$count=$row["count"];
@@ -71,20 +100,6 @@ if($dbType == 'sqlite')
 }
 else
 {
-	$sql = "select count(*) as count from( SELECT YEAR(datetime) as y, MONTH(datetime) as m, MONTHNAME(datetime) as mn FROM games";
-
-	if($ignorePubs)
-	{
-		$sql = $sql." WHERE gamestate = '17'";
-	}
-	else if($ignorePrivs)
-	{
-		$sql = $sql." WHERE gamestate = '16'";
-	}
-
-	$sql = $sql." group by YEAR(datetime), MONTH(datetime), MONTHNAME(datetime) 
-		order by YEAR(datetime) desc, MONTH(datetime) desc) as h";	
-
 	$result = mysql_query($sql);
 
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
@@ -94,7 +109,7 @@ else
 	mysql_free_result($result);
 }
 
-	$pages = ceil($count/$monthlyTopsResultSize);
+$pages = ceil($count/$monthlyTopsResultSize);
 
 ?>
 <div class="header" id="header">
@@ -108,11 +123,20 @@ else
 						<?php
 						if($offset == 'all')
 						{
-							print "Showing All Months";
+							print "Showing All ".$interval."s";
 						}
 						else
 						{
-							print "<a href=\"?p=monthlytop&n=all\">Show All Months</a>";
+							print "<a href=\"?p=monthlytop&n=all&i=".$interval."\">Show All ".$interval."s</a>";
+						}
+						print "<br/><br/>";
+						if($interval == 'Week')
+						{
+							print "<a href=\"?p=monthlytop&n=".$offset."&i=month\">Toggle Montly/Weekly View</a>";
+						}
+						else
+						{
+							print "<a href=\"?p=monthlytop&n=".$offset."&i=week\">Toggle Montly/Weekly View</a>";
 						}
 						?>
 						</td>
@@ -121,7 +145,7 @@ else
 				</table>
 			</td>
 			<td width=50%>
-				<h2>Monthly Tops per Game <?php if($ignorePubs){ print "(Private Games)";} else if($ignorePrivs){ print "(Public Games)";} else { print "(All Games)";} ?></h2>
+				<h2><?php print $interval; ?>ly Tops per Game <?php if($ignorePubs){ print "(Private Games)";} else if($ignorePrivs){ print "(Public Games)";} else { print "(All Games)";} ?></h2>
 			</td>
 			<td width=25% class="rowuh">
 				<table class="rowuh" width = 235px style="float:right">
@@ -131,7 +155,7 @@ else
 					<?php
 					if($offset == 'all')
 					{
-						print "Show Months Page:";
+						print "Show ".$interval."s Page:";
 					}
 					else
 					{
@@ -141,7 +165,7 @@ else
 						{
 							$max = $count;
 						}
-						print "Showing Months: ".$min." - ".$max;
+						print "Showing ".$interval."s: ".$min." - ".$max;
 					}
 					?>
 					</td>
@@ -155,7 +179,7 @@ else
 					{
 						if($counter <= $pages)
 						{
-						print "<td width=35px><a href=\"?p=monthlytop&n=".($counter-1)."\">".$counter."</a></td>";
+						print "<td width=35px><a href=\"?p=monthlytop&n=".($counter-1)."&i=".$interval."\">".$counter."</a></td>";
 						}
 					}
 					print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
@@ -164,7 +188,7 @@ else
 				{
 					if($offset > 0)
 					{
-						print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($offset-1)."\"><</a>";
+						print "<td width=35px><a href=\"?p=monthlytop&n=".($offset-1)."&i=".$interval."\"><</a>";
 					}
 					else
 					{
@@ -180,19 +204,19 @@ else
 							{
 								if($counter-1 < $pages)
 								{
-									print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
+									print "<td width=35px><a href=\"?p=monthlytop&n=".($counter-1)."&i=".$interval."\">".$counter."</a></td>";
 								}
 							}
 						}
 						if($offset == 1)
 						{
-							print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=0\">1</a></td>";
+							print "<td width=35px><a href=\"?p=monthlytop&n=0&i=".$interval."\">1</a></td>";
 							print "<td width=35px><span style=\"color:#ddd;\">2</span></td>";
 							for($counter = 3; $counter < 6; $counter++)
 							{
 								if($counter-1 < $pages)
 								{
-								print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
+								print "<td width=35px><a href=\"?p=monthlytop&n=".($counter-1)."&i=".$interval."\">".$counter."</a></td>";
 								
 								}
 							}
@@ -206,7 +230,7 @@ else
 							{
 								if($counter >= 1)
 								{
-								print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
+								print "<td width=35px><a href=\"?p=monthlytop&n=".($counter-1)."&i=".$interval."\">".$counter."</a></td>";
 								}
 							}
 							print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
@@ -218,11 +242,11 @@ else
 							{
 								if($counter >= 1)
 								{
-									print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
+									print "<td width=35px><a href=\"?p=monthlytop&n=".($counter-1)."&i=".$interval."\">".$counter."</a></td>";
 								}
 							}
 							print "<td width=35px><span style=\"color:#ddd;\">".($offset+1)."</span>";
-							print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($offset+1)."\">".($offset+2)."</a></td>";
+							print "<td width=35px><a href=\"?p=monthlytop&n=".($offset+1)."&i=".$interval."\">".($offset+2)."</a></td>";
 						}
 					}
 					else
@@ -235,13 +259,13 @@ else
 							}
 							else
 							{
-								print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($counter-1)."\">".$counter."</a></td>";
+								print "<td width=35px><a href=\"?p=monthlytop&n=".($counter-1)."&i=".$interval."\">".$counter."</a></td>";
 							}
 						}
 					}
 					if(($offset+1)*$monthlyTopsResultSize < $count)
 					{
-						print "<td width=35px><a href=\"?p=top&s=".$sortcat."&o=".$order."&g=".$games."&n=".($offset+1)."\">></a></td>";
+						print "<td width=35px><a href=\"?p=monthlytop&n=".($offset+1)."&i=".$interval."\">></a></td>";
 					}
 					else
 					{
@@ -268,7 +292,7 @@ else
 <?php
 if($dbType == 'sqlite')
 {
-	$sql0 = "SELECT strftime('%Y',datetime) as y, strftime('%m', datetime) as m, strftime('%m', datetime) as mn FROM games";
+	$sql0 = "SELECT ".$sqlGroupBy1." as y, ".$sqlGroupBy2." as m, ".$sqlGroupBy3." as mn FROM games";
 	if($ignorePubs)
 	{
 		$sql0 = $sql0." WHERE gamestate = '17'";
@@ -277,8 +301,8 @@ if($dbType == 'sqlite')
 	{
 		$sql0 = $sql0." WHERE gamestate = '16'";
 	}
-	$sql0 = $sql0." group by strftime('%Y',datetime), strftime('%m', datetime) 
-		order by strftime('%Y',datetime) desc, strftime('%m', datetime) desc";
+	$sql0 = $sql0." group by ".$sqlGroupBy1.", ".$sqlGroupBy2." 
+		order by ".$sqlGroupBy1." desc, ".$sqlGroupBy2." desc";
 	if($offset!='all')
 	{
 		$sql0 = $sql0." LIMIT ".$monthlyTopsResultSize*$offset.", $monthlyTopsResultSize";
@@ -309,7 +333,7 @@ if($dbType == 'sqlite')
 <?php
 
 		//Top Kills in a game
-		$sql = "SELECT hero, kills, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where strftime('%Y',datetime) = '$year' AND strftime('%m', datetime) = '$month'"; 
+		$sql = "SELECT hero, kills, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'"; 
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -353,7 +377,7 @@ if($dbType == 'sqlite')
 <?php
 
 		//Top Assists in a game
-		$sql = "SELECT hero, assists, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where strftime('%Y',datetime) = '$year' AND strftime('%m', datetime) = '$month'";
+		$sql = "SELECT hero, assists, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -395,7 +419,7 @@ if($dbType == 'sqlite')
 <?php
 
 		//Top Deaths in a game
-		$sql = "SELECT hero, deaths, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where strftime('%Y',datetime) = '$year' AND strftime('%m', datetime) = '$month'";
+		$sql = "SELECT hero, deaths, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -437,7 +461,7 @@ if($dbType == 'sqlite')
 <?php
 
 		//Top CreepKills in a game
-		$sql = "SELECT hero, creepkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where strftime('%Y',datetime) = '$year' AND strftime('%m', datetime) = '$month'";
+		$sql = "SELECT hero, creepkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -481,7 +505,7 @@ if($dbType == 'sqlite')
 
 		//Top CreepDenies in a game
 		
-		$sql = "SELECT hero, creepdenies, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where strftime('%Y',datetime) = '$year' AND strftime('%m', datetime) = '$month'";
+		$sql = "SELECT hero, creepdenies, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -524,7 +548,7 @@ if($dbType == 'sqlite')
 <?php
 
 		//Top Gold in a game
-		$sql = "SELECT hero, gold, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where strftime('%Y',datetime) = '$year' AND strftime('%m', datetime) = '$month'"; 
+		$sql = "SELECT hero, gold, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'"; 
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -567,7 +591,7 @@ if($dbType == 'sqlite')
 <?php
 
 		//Top Neutral Kills in a game
-		$sql = "SELECT hero, neutralkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where strftime('%Y',datetime) = '$year' AND strftime('%m', datetime) = '$month'";
+		$sql = "SELECT hero, neutralkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -609,7 +633,7 @@ if($dbType == 'sqlite')
 <?php
 
 		//Top Tower Kills in a game
-		$sql = "SELECT hero, towerkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where strftime('%Y',datetime) = '$year' AND strftime('%m', datetime) = '$month'";
+		$sql = "SELECT hero, towerkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -651,7 +675,7 @@ if($dbType == 'sqlite')
 <?php
 
 		//Top Rax Kills in a game
-		$sql = "SELECT hero, raxkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where strftime('%Y',datetime) = '$year' AND strftime('%m', datetime) = '$month'";
+		$sql = "SELECT hero, raxkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -695,7 +719,7 @@ if($dbType == 'sqlite')
 
 		//Top Courier Kills in a game
 		
-		$sql = "SELECT hero, courierkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where strftime('%Y',datetime) = '$year' AND strftime('%m', datetime) = '$month'";
+		$sql = "SELECT hero, courierkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -737,7 +761,7 @@ if($dbType == 'sqlite')
 }
 else
 {
-	$sql0 = "SELECT YEAR(datetime) as y, MONTH(datetime) as m, MONTHNAME(datetime) as mn FROM games";
+	$sql0 = "SELECT ".$sqlGroupBy1." as y, ".$sqlGroupBy2." as m, ".$sqlGroupBy3." as mn FROM games";
 	if($ignorePubs)
 	{
 		$sql0 = $sql0." WHERE gamestate = '17'";
@@ -746,8 +770,8 @@ else
 	{
 		$sql0 = $sql0." WHERE gamestate = '16'";
 	}
-	$sql0 = $sql0." group by YEAR(datetime), MONTH(datetime), MONTHNAME(datetime) 
-		order by YEAR(datetime) desc, MONTH(datetime) desc";
+	$sql0 = $sql0." group by ".$sqlGroupBy1.", ".$sqlGroupBy2.", ".$sqlGroupBy3." 
+		order by ".$sqlGroupBy1." desc, ".$sqlGroupBy2." desc";
 	if($offset!='all')
 	{
 		$sql0 = $sql0." LIMIT ".$monthlyTopsResultSize*$offset.", $monthlyTopsResultSize";
@@ -779,7 +803,7 @@ else
 <?php
 
 		//Top Kills in a game
-		$sql = "SELECT hero, kills, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where YEAR(datetime) = $year AND MONTH(datetime) = $month"; 
+		$sql = "SELECT hero, kills, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month"; 
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -824,7 +848,7 @@ else
 <?php
 
 		//Top Assists in a game
-		$sql = "SELECT hero, assists, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where YEAR(datetime) = $year AND MONTH(datetime) = $month";
+		$sql = "SELECT hero, assists, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -869,7 +893,7 @@ else
 <?php
 
 		//Top Deaths in a game
-		$sql = "SELECT hero, deaths, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where YEAR(datetime) = $year AND MONTH(datetime) = $month";
+		$sql = "SELECT hero, deaths, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -914,7 +938,7 @@ else
 <?php
 
 		//Top CreepKills in a game
-		$sql = "SELECT hero, creepkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where YEAR(datetime) = $year AND MONTH(datetime) = $month";
+		$sql = "SELECT hero, creepkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -960,7 +984,7 @@ else
 <?php
 
 		//Top CreepDenies in a game
-		$sql = "SELECT hero, creepdenies, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where YEAR(datetime) = $year AND MONTH(datetime) = $month";
+		$sql = "SELECT hero, creepdenies, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -1008,7 +1032,7 @@ else
 <?php
 
 		//Top Gold in a game
-		$sql = "SELECT hero, gold, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where YEAR(datetime) = $year AND MONTH(datetime) = $month"; 
+		$sql = "SELECT hero, gold, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month"; 
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -1053,7 +1077,7 @@ else
 <?php
 
 		//Top Neutral Kills in a game
-		$sql = "SELECT hero, neutralkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where YEAR(datetime) = $year AND MONTH(datetime) = $month";
+		$sql = "SELECT hero, neutralkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -1098,7 +1122,7 @@ else
 <?php
 
 		//Top Tower Kills in a game
-		$sql = "SELECT hero, towerkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where YEAR(datetime) = $year AND MONTH(datetime) = $month";
+		$sql = "SELECT hero, towerkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -1143,7 +1167,7 @@ else
 <?php
 
 		//Top Rax Kills in a game
-		$sql = "SELECT hero, raxkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where YEAR(datetime) = $year AND MONTH(datetime) = $month";
+		$sql = "SELECT hero, raxkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -1189,7 +1213,7 @@ else
 <?php
 
 		//Top Courier Kills in a game
-		$sql = "SELECT hero, courierkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where YEAR(datetime) = $year AND MONTH(datetime) = $month";
+		$sql = "SELECT hero, courierkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
 		if($ignorePubs)
 		{
 			$sql = $sql." AND gamestate = '17'";
@@ -1239,5 +1263,5 @@ else
 </div>
 
 <div id="footer" class="footer">
-		<h5>Total Months: <?php print $count; ?></h5>
+		<h5>Total <?php print $interval; ?>s: <?php print $count; ?></h5>
 </div>

@@ -3,16 +3,16 @@
 <!-- 
 *   	DOTA ALLSTATS
 *   
-*	Developers: Reinert, Dag Morten, Netbrain, Billbabong.
+*	Developers: Reinert, Dag Morten, Netbrain, Billbabong, Boltergeist.
 *	Contact: developer@miq.no - Reinert
 *
 *	
 *	Please see http://forum.codelain.com/index.php?topic=4752.0
 *	and post your webpage there, so I know who's using it.
 *
-*	Files downloaded from http://dotastats.miq.no/download/
+*	Files downloaded from http://code.google.com/p/allstats/
 *
-*	Copyright (C) 2009  Reinert, Dag Morten , Netbrain, Billbabong
+*	Copyright (C) 2009  Reinert, Dag Morten , Netbrain, Billbabong, Boltergeist
 *
 *	
 * Replay Parser:
