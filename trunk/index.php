@@ -201,6 +201,7 @@ require_once("config.php");
 							'games', 
 							'allusers', 
 							'user',
+							'userheroall',							
 							'heroall',							
 							'gameinfo',
 							'hero', 
