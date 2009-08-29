@@ -447,12 +447,42 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 ?>
 
 <div class="header" id="header">
-<table width=1016px>
-  <tr class="rowuh" style="border-bottom: 1px solid #EBEBEB;">
-	<td colspan=2>
-	  <h2>User Statistics for: <?php print $username;?></h2>
-	</td>
-  </tr>
+	<table width=1016px>
+  		<tr class="rowuh" style="border-bottom: 1px solid #EBEBEB;">
+			<td width=25%>
+				<table class="rowuh" width = 235px style="float:left">
+					<tr>
+						<td>
+						<?php
+							if($displayStyle == 'all')
+							{ 
+							print "<a href=\"?p=userheroall&u=".$username."&s=description&o=asc&n=all\">Show Herostats for ".$username."</a>";
+							} 
+							else 
+							{
+							print "<a href=\"?p=userheroall&u=".$username."&s=description&o=asc&n=0\">Show Herostats for ".$username."</a>";
+							}
+						?>
+						</td>
+					</tr>
+				</table>
+			</td>
+
+			<td width=50%>
+				<h2>User Statistics for: <?php print $username;?></h2>
+			</td>
+			<td width=25%>
+				<table class="rowuh" width = 235px style="float:right">
+					<tr>
+						<td>
+
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<table width=1016px>
   <tr class="rowuh"> 
     <td colspan=2 align="left"><b>Loading Times(sec):</b>
       MAX: <?php print $maxLoading;?> | MIN: <?php print $minLoading;?> | AVG: <?php print $avgLoading;?>
