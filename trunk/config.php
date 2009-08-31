@@ -79,6 +79,19 @@ $minPlayedRatio = 0.8;
 //string to be shown instead of WIN/LOSS if a game is not counted due to ratio (lefttime/duration)
 $notCompleted = 'LEAVER';
 
+//-------------Monthly/Weekly options----------------
+
+// Default view (Month / Week)
+$monthlyDefaultView = 'Month';
+
+// determine which rows to be shown
+$monthlyRow1 = true;
+$monthlyRow2 = true;
+$monthlyRow3 = false;
+$monthlyRow4 = false;
+
+//---------------------------------------------------
+
 //Pre-Calculate score
 //If true:  Player scores will be taken from the score table in your MySQL database. You must populate this table through your own methods.
 //		    One easy way to populate the score is to run the update_dota_elo.exe program in your GHost++ folder periodically. This will automatically populate

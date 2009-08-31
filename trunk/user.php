@@ -456,11 +456,11 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 						<?php
 							if($displayStyle == 'all')
 							{ 
-							print "<a href=\"?p=userheroall&u=".$username."&s=description&o=asc&n=all\">Show Herostats for ".$username."</a>";
+							print "<a href=\"?p=userheroall&u=".$username."&s=description&o=asc&n=all\">Show Hero Stats for ".$username."</a>";
 							} 
 							else 
 							{
-							print "<a href=\"?p=userheroall&u=".$username."&s=description&o=asc&n=0\">Show Herostats for ".$username."</a>";
+							print "<a href=\"?p=userheroall&u=".$username."&s=description&o=asc&n=0\">Show Hero Stats for ".$username."</a>";
 							}
 						?>
 						</td>

@@ -150,21 +150,25 @@ require_once("config.php");
 			<ul>
 				<!-- MENU -->
 				 <li>
+<?php 
+if($monthlyDefaultView == 'week' || $monthlyDefaultView == 'Week') { $interval = 'Week'; } else { $interval = 'Month'; }
+if($displayStyle == 'all') { $pageStyle = 'all'; } else { $pageStyle = '0'; }
+?>
 						  <a href="./">Home</a></li> 
 						  <li> 
-						  <a href="?p=top&s=totalscore&o=desc&g=<?php print $minGamesPlayed; ?>&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Top Players</a></li> 
-						  <li> 
-						  <a href="?p=monthlytop&i=month&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Monthly Tops</a></li> 
-						  <li> 
-						  <a href="?p=allusers&s=totgames&o=desc&n=<?php if($displayStyle == 'all'){ print 'all';} else{print '0';}?>">Player Statistics</a></li> 
+						  <a href="?p=top&s=totalscore&o=desc&g=<?php print $minGamesPlayed; ?>&n=<?php print $pageStyle; ?>">Top Players</a></li> 
 						  <li>
-						  <a href="?p=heroall&s=description&o=asc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Hero Statistics</a></li> 
+						  <a href="?p=monthlytop&i=<?php print $interval;?>&n=<?php print $pageStyle; ?>"><?php print $interval;?>ly Tops</a></li> 
+						  <li> 
+						  <a href="?p=allusers&s=totgames&o=desc&n=<?php print $pageStyle; ?>">Player Statistics</a></li> 
 						  <li>
-						  <a href="?p=games&s=datetime&o=desc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Game History</a></li> 
+						  <a href="?p=heroall&s=description&o=asc&n=<?php print $pageStyle; ?>">Hero Statistics</a></li> 
+						  <li>
+						  <a href="?p=games&s=datetime&o=desc&n=<?php print $pageStyle; ?>">Game History</a></li> 
 						  <li> 
-						  <a href="?p=bans&s=date&o=desc&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Bans</a></li>
+						  <a href="?p=bans&s=date&o=desc&n=<?php print $pageStyle; ?>">Bans</a></li>
 						  <li> 
-						  <a href="?p=admins&n=<?php if($displayStyle == 'all'){ print 'all';} else {print '0';}?>">Admins</a></li> 
+						  <a href="?p=admins&n=<?php print $pageStyle; ?>">Admins</a></li> 
 						  <li>
 							<form name="testForm" method=GET action="">
 								<input type="text" 

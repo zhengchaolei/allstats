@@ -145,7 +145,7 @@ $pages = ceil($count/$monthlyTopsResultSize);
 				</table>
 			</td>
 			<td width=50%>
-				<h2><?php print $interval; ?>ly Tops per Game <?php if($ignorePubs){ print "(Private Games)";} else if($ignorePrivs){ print "(Public Games)";} else { print "(All Games)";} ?></h2>
+				<h2><?php print $interval; ?>ly Tops for <?php if($ignorePubs){ print "Private Games";} else if($ignorePrivs){ print "Public Games";} else { print "All Games";} ?></h2>
 			</td>
 			<td width=25% class="rowuh">
 				<table class="rowuh" width = 235px style="float:right">
@@ -286,7 +286,7 @@ $pages = ceil($count/$monthlyTopsResultSize);
 	</div>
 
 	<div id="datawrapper">
-		<table class="table" id="data" width=1000px>
+		
 
 
 <?php
@@ -324,6 +324,12 @@ if($dbType == 'sqlite')
 				<h3><?php print $monthname; ?> <?php print $year; ?></h3>
 			</td>
 		</tr>
+
+<?php
+		if($monthlyRow1)
+		{
+?>
+
 		<tr>
 			<td width=20%>
 				<table width=100%>
@@ -332,25 +338,25 @@ if($dbType == 'sqlite')
 					</tr>
 <?php
 
-		//Top Kills in a game
-		$sql = "SELECT hero, kills, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'"; 
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY kills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-
-		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-		{
-			$mostKillsCount = $row["kills"];
-			$mostKillsUser = $row["name"];
-			$mostKillsHero = $row["hero"];
-			$mostKillsGame = $row["gameid"];
-			$mostKillsHero = checkIfAliasSQLite($mostKillsHero, $dbType, $dbHandle);
+			//Top Kills in a game
+			$sql = "SELECT hero, kills, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'"; 
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY kills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$mostKillsCount = $row["kills"];
+				$mostKillsUser = $row["name"];
+				$mostKillsHero = $row["hero"];
+				$mostKillsGame = $row["gameid"];
+				$mostKillsHero = checkIfAliasSQLite($mostKillsHero, $dbType, $dbHandle);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -364,7 +370,7 @@ if($dbType == 'sqlite')
 						</td>
 					</tr>
 <?php
-		}
+			}
 ?>
 
 				</table>
@@ -376,25 +382,25 @@ if($dbType == 'sqlite')
 					</tr>
 <?php
 
-		//Top Assists in a game
-		$sql = "SELECT hero, assists, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY assists DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-		{
-			$mostAssistsCount = $row["assists"];
-			$mostAssistsUser = $row["name"];
-			$mostAssistsHero = $row["hero"];
-			$mostAssistsGame = $row["gameid"];
-			$mostAssistsHero = checkIfAliasSQLite($mostAssistsHero, $dbType, $dbHandle);
-?>
+			//Top Assists in a game
+			$sql = "SELECT hero, assists, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY assists DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$mostAssistsCount = $row["assists"];
+				$mostAssistsUser = $row["name"];
+				$mostAssistsHero = $row["hero"];
+				$mostAssistsGame = $row["gameid"];
+				$mostAssistsHero = checkIfAliasSQLite($mostAssistsHero, $dbType, $dbHandle);
+	?>
 					<tr> 
 						<td align=right width=15%>
 							<a  href="?p=hero&hid=<?php print $mostAssistsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostAssistsHero; ?>.gif" width="16" height="16"></a>
@@ -407,7 +413,7 @@ if($dbType == 'sqlite')
 						</td>
 					</tr>
 <?php
-		}
+			}
 ?>
 				</table>
 			</td>
@@ -418,24 +424,24 @@ if($dbType == 'sqlite')
 					</tr>
 <?php
 
-		//Top Deaths in a game
-		$sql = "SELECT hero, deaths, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY deaths DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-		{
-			$mostDeathsCount = $row["deaths"];
-			$mostDeathsUser = $row["name"];
-			$mostDeathsHero = $row["hero"];
-			$mostDeathsGame = $row["gameid"];
-			$mostDeathsHero = checkIfAliasSQLite($mostDeathsHero, $dbType, $dbHandle);
+			//Top Deaths in a game
+			$sql = "SELECT hero, deaths, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY deaths DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$mostDeathsCount = $row["deaths"];
+				$mostDeathsUser = $row["name"];
+				$mostDeathsHero = $row["hero"];
+				$mostDeathsGame = $row["gameid"];
+				$mostDeathsHero = checkIfAliasSQLite($mostDeathsHero, $dbType, $dbHandle);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -449,7 +455,7 @@ if($dbType == 'sqlite')
 						</td>
 					</tr>
 <?php
-		}
+			}
 ?>
 				</table>
 			</td>
@@ -460,24 +466,24 @@ if($dbType == 'sqlite')
 					</tr>
 <?php
 
-		//Top CreepKills in a game
-		$sql = "SELECT hero, creepkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY creepkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-		{
-			$mostCreepKillsCount = $row["creepkills"];
-			$mostCreepKillsUser = $row["name"];
-			$mostCreepKillsHero = $row["hero"];
-			$mostCreepKillsGame = $row["gameid"];
-			$mostCreepKillsHero = checkIfAliasSQLite($mostCreepKillsHero, $dbType, $dbHandle);
+			//Top CreepKills in a game
+			$sql = "SELECT hero, creepkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY creepkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$mostCreepKillsCount = $row["creepkills"];
+				$mostCreepKillsUser = $row["name"];
+				$mostCreepKillsHero = $row["hero"];
+				$mostCreepKillsGame = $row["gameid"];
+				$mostCreepKillsHero = checkIfAliasSQLite($mostCreepKillsHero, $dbType, $dbHandle);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -491,7 +497,7 @@ if($dbType == 'sqlite')
 						</td>
 					</tr>
 <?php
-		}
+			}
 ?>
 				</table>
 			</td>
@@ -503,25 +509,25 @@ if($dbType == 'sqlite')
 
 <?php
 
-		//Top CreepDenies in a game
-		
-		$sql = "SELECT hero, creepdenies, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY creepdenies DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-		{
-			$mostCreepDeniesCount = $row["creepdenies"];
-			$mostCreepDeniesUser = $row["name"];
-			$mostCreepDeniesHero = $row["hero"];
-			$mostCreepDeniesGame = $row["gameid"];
-			$mostCreepDeniesHero = checkIfAliasSQLite($mostCreepDeniesHero, $dbType, $dbHandle);
+			//Top CreepDenies in a game
+			
+			$sql = "SELECT hero, creepdenies, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY creepdenies DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$mostCreepDeniesCount = $row["creepdenies"];
+				$mostCreepDeniesUser = $row["name"];
+				$mostCreepDeniesHero = $row["hero"];
+				$mostCreepDeniesGame = $row["gameid"];
+				$mostCreepDeniesHero = checkIfAliasSQLite($mostCreepDeniesHero, $dbType, $dbHandle);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -535,10 +541,17 @@ if($dbType == 'sqlite')
 						</td>
 					</tr>
 <?php
-		}
+			}
 ?>				</table>
 			</td>
 		</tr>		
+
+<?php
+		}
+		if($monthlyRow2)
+		{
+?>		
+
 		<tr>
 			<td width=20%>
 				<table width=100%>
@@ -547,25 +560,25 @@ if($dbType == 'sqlite')
 					</tr>
 <?php
 
-		//Top Gold in a game
-		$sql = "SELECT hero, gold, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'"; 
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY gold DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-		{
-			$mostGoldCount = $row["gold"];
-			$mostGoldUser = $row["name"];
-			$mostGoldHero = $row["hero"];
-			$mostGoldGame = $row["gameid"];
-			$mostGoldHero = checkIfAliasSQLite($mostGoldHero, $dbType, $dbHandle);
-?>
+			//Top Gold in a game
+			$sql = "SELECT hero, gold, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'"; 
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY gold DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$mostGoldCount = $row["gold"];
+				$mostGoldUser = $row["name"];
+				$mostGoldHero = $row["hero"];
+				$mostGoldGame = $row["gameid"];
+				$mostGoldHero = checkIfAliasSQLite($mostGoldHero, $dbType, $dbHandle);
+	?>
 					<tr> 
 						<td align=right width=15%>
 							<a  href="?p=hero&hid=<?php print $mostGoldHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostGoldHero; ?>.gif" width="16" height="16"></a>
@@ -578,7 +591,7 @@ if($dbType == 'sqlite')
 						</td>
 					</tr>
 <?php
-		}
+			}
 ?>
 
 				</table>
@@ -590,24 +603,24 @@ if($dbType == 'sqlite')
 					</tr>
 <?php
 
-		//Top Neutral Kills in a game
-		$sql = "SELECT hero, neutralkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY neutralkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-		{
-			$mostNeutralKillsCount = $row["neutralkills"];
-			$mostNeutralKillsUser = $row["name"];
-			$mostNeutralKillsHero = $row["hero"];
-			$mostNeutralKillsGame = $row["gameid"];
-			$mostNeutralKillsHero = checkIfAliasSQLite($mostNeutralKillsHero, $dbType, $dbHandle);
+			//Top Neutral Kills in a game
+			$sql = "SELECT hero, neutralkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY neutralkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$mostNeutralKillsCount = $row["neutralkills"];
+				$mostNeutralKillsUser = $row["name"];
+				$mostNeutralKillsHero = $row["hero"];
+				$mostNeutralKillsGame = $row["gameid"];
+				$mostNeutralKillsHero = checkIfAliasSQLite($mostNeutralKillsHero, $dbType, $dbHandle);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -621,7 +634,7 @@ if($dbType == 'sqlite')
 						</td>
 					</tr>
 <?php
-		}
+			}
 ?>
 				</table>
 			</td>
@@ -632,24 +645,24 @@ if($dbType == 'sqlite')
 					</tr>
 <?php
 
-		//Top Tower Kills in a game
-		$sql = "SELECT hero, towerkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY towerkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-		{
-			$mostTowerKillsCount = $row["towerkills"];
-			$mostTowerKillsUser = $row["name"];
-			$mostTowerKillsHero = $row["hero"];
-			$mostTowerKillsGame = $row["gameid"];
-			$mostTowerKillsHero = checkIfAliasSQLite($mostTowerKillsHero, $dbType, $dbHandle);
+			//Top Tower Kills in a game
+			$sql = "SELECT hero, towerkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY towerkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$mostTowerKillsCount = $row["towerkills"];
+				$mostTowerKillsUser = $row["name"];
+				$mostTowerKillsHero = $row["hero"];
+				$mostTowerKillsGame = $row["gameid"];
+				$mostTowerKillsHero = checkIfAliasSQLite($mostTowerKillsHero, $dbType, $dbHandle);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -663,7 +676,7 @@ if($dbType == 'sqlite')
 						</td>
 					</tr>
 <?php
-		}
+			}
 ?>
 				</table>
 			</td>
@@ -674,24 +687,24 @@ if($dbType == 'sqlite')
 					</tr>
 <?php
 
-		//Top Rax Kills in a game
-		$sql = "SELECT hero, raxkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY raxkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-		{
-			$mostRaxKillsCount = $row["raxkills"];
-			$mostRaxKillsUser = $row["name"];
-			$mostRaxKillsHero = $row["hero"];
-			$mostRaxKillsGame = $row["gameid"];
-			$mostRaxKillsHero = checkIfAliasSQLite($mostRaxKillsHero, $dbType, $dbHandle);
+			//Top Rax Kills in a game
+			$sql = "SELECT hero, raxkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY raxkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$mostRaxKillsCount = $row["raxkills"];
+				$mostRaxKillsUser = $row["name"];
+				$mostRaxKillsHero = $row["hero"];
+				$mostRaxKillsGame = $row["gameid"];
+				$mostRaxKillsHero = checkIfAliasSQLite($mostRaxKillsHero, $dbType, $dbHandle);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -705,7 +718,7 @@ if($dbType == 'sqlite')
 						</td>
 					</tr>
 <?php
-		}
+			}
 ?>
 				</table>
 			</td>
@@ -717,49 +730,52 @@ if($dbType == 'sqlite')
 
 <?php
 
-		//Top Courier Kills in a game
-		
-		$sql = "SELECT hero, courierkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY courierkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-		{
-			$mostCourierKillsCount = $row["courierkills"];
-			$mostCourierKillsUser = $row["name"];
-			$mostCourierKillsHero = $row["hero"];
-			$mostCourierKillsGame = $row["gameid"];
-			$mostCourierKillsHero = checkIfAliasSQLite($mostCourierKillsHero, $dbType, $dbHandle);
+			//Top Courier Kills in a game
+			
+			$sql = "SELECT hero, courierkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY courierkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$mostCourierKillsCount = $row["courierkills"];
+				$mostCourierKillsUser = $row["name"];
+				$mostCourierKillsHero = $row["hero"];
+				$mostCourierKillsGame = $row["gameid"];
+				$mostCourierKillsHero = checkIfAliasSQLite($mostCourierKillsHero, $dbType, $dbHandle);
 ?>
-				<tr> 
-					<td align=right width=15%>
-						<a  href="?p=hero&hid=<?php print $mostCourierKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostCourierKillsHero; ?>.gif" width="16" height="16"></a>
-					</td>
-					<td align=center width=60px>
-						<a href="?p=gameinfo&gid=<?php print $mostCourierKillsGame;?>">(<?php print $mostCourierKillsCount;?>)</a> 
-					</td>
-					<td align=left>
-						<a href="?p=user&u=<?php print $mostCourierKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostCourierKillsUser;?></a>
-					</td>
-				</tr>
+					<tr> 
+						<td align=right width=15%>
+							<a  href="?p=hero&hid=<?php print $mostCourierKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostCourierKillsHero; ?>.gif" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							<a href="?p=gameinfo&gid=<?php print $mostCourierKillsGame;?>">(<?php print $mostCourierKillsCount;?>)</a> 
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $mostCourierKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostCourierKillsUser;?></a>
+						</td>
+					</tr>
+<?php
+			}
+?>
+				</table>
+			</td>
+		</tr>
 <?php
 		}
 ?>
-			</table>
-		</td>
-	</tr>
-
+	</table>
 
 <?php
 	}
 }
-else
+else  // #################################################### MYSQL #########################################################
 {
 	$sql0 = "SELECT ".$sqlGroupBy1." as y, ".$sqlGroupBy2." as m, ".$sqlGroupBy3." as mn FROM games";
 	if($ignorePubs)
@@ -794,6 +810,11 @@ else
 				<h3><?php print $monthname; ?> <?php print $year; ?></h3>
 			</td>
 		</tr>
+
+<?php
+		if($monthlyRow1)
+		{
+?>
 		<tr>
 			<td width=20%>
 				<table width=100%>
@@ -802,26 +823,26 @@ else
 					</tr>
 <?php
 
-		//Top Kills in a game
-		$sql = "SELECT hero, kills, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month"; 
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY kills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-
-		$result = mysql_query($sql);
-		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
-		{
-			$mostKillsCount = $row["kills"];
-			$mostKillsUser = $row["name"];
-			$mostKillsHero = $row["hero"];
-			$mostKillsGame = $row["gameid"];
-			$mostKillsHero = checkIfAliasMySQL($mostKillsHero);
+			//Top Kills in a game
+			$sql = "SELECT hero, kills, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month"; 
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY kills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostKillsCount = $row["kills"];
+				$mostKillsUser = $row["name"];
+				$mostKillsHero = $row["hero"];
+				$mostKillsGame = $row["gameid"];
+				$mostKillsHero = checkIfAliasMySQL($mostKillsHero);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -835,8 +856,8 @@ else
 						</td>
 					</tr>
 <?php	
-		}
-		mysql_free_result($result);
+			}
+			mysql_free_result($result);
 ?>
 				</table>
 			</td>
@@ -847,41 +868,41 @@ else
 					</tr>
 <?php
 
-		//Top Assists in a game
-		$sql = "SELECT hero, assists, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY assists DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-
-		$result = mysql_query($sql);
-		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
-		{
-			$mostAssistsCount = $row["assists"];
-			$mostAssistsUser = $row["name"];
-			$mostAssistsHero = $row["hero"];
-			$mostAssistsGame = $row["gameid"];
-			$mostAssistsHero = checkIfAliasMySQL($mostAssistsHero);
+			//Top Assists in a game
+			$sql = "SELECT hero, assists, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY assists DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostAssistsCount = $row["assists"];
+				$mostAssistsUser = $row["name"];
+				$mostAssistsHero = $row["hero"];
+				$mostAssistsGame = $row["gameid"];
+				$mostAssistsHero = checkIfAliasMySQL($mostAssistsHero);
 ?>
-				<tr> 
-					<td align=right width=15%>
-						<a  href="?p=hero&hid=<?php print $mostAssistsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostAssistsHero; ?>.gif" width="16" height="16"></a>
-					</td>
-					<td align=center width=60px>
-						<a href="?p=gameinfo&gid=<?php print $mostAssistsGame;?>">(<?php print $mostAssistsCount;?>)</a> 
-					</td>
-					<td align=left>
-						<a href="?p=user&u=<?php print $mostAssistsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostAssistsUser;?></a>
-					</td>
-				</tr>
+					<tr> 
+						<td align=right width=15%>
+							<a  href="?p=hero&hid=<?php print $mostAssistsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostAssistsHero; ?>.gif" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							<a href="?p=gameinfo&gid=<?php print $mostAssistsGame;?>">(<?php print $mostAssistsCount;?>)</a> 
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $mostAssistsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostAssistsUser;?></a>
+						</td>
+					</tr>
 <?php
-		}
-		mysql_free_result($result);
+			}
+			mysql_free_result($result);
 ?>
 				</table>
 			</td>
@@ -892,26 +913,26 @@ else
 					</tr>
 <?php
 
-		//Top Deaths in a game
-		$sql = "SELECT hero, deaths, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY deaths DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-
-		$result = mysql_query($sql);
-		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
-		{
-			$mostDeathsCount = $row["deaths"];
-			$mostDeathsUser = $row["name"];
-			$mostDeathsHero = $row["hero"];
-			$mostDeathsGame = $row["gameid"];
-			$mostDeathsHero = checkIfAliasMySQL($mostDeathsHero);
+			//Top Deaths in a game
+			$sql = "SELECT hero, deaths, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY deaths DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostDeathsCount = $row["deaths"];
+				$mostDeathsUser = $row["name"];
+				$mostDeathsHero = $row["hero"];
+				$mostDeathsGame = $row["gameid"];
+				$mostDeathsHero = checkIfAliasMySQL($mostDeathsHero);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -925,8 +946,8 @@ else
 						</td>
 					</tr>
 <?php
-		}
-		mysql_free_result($result);
+			}
+			mysql_free_result($result);
 ?>
 				</table>
 			</td>
@@ -937,26 +958,26 @@ else
 					</tr>
 <?php
 
-		//Top CreepKills in a game
-		$sql = "SELECT hero, creepkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY creepkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-
-		$result = mysql_query($sql);
-		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
-		{
-			$mostCreepKillsCount = $row["creepkills"];
-			$mostCreepKillsUser = $row["name"];
-			$mostCreepKillsHero = $row["hero"];
-			$mostCreepKillsGame = $row["gameid"];
-			$mostCreepKillsHero = checkIfAliasMySQL($mostCreepKillsHero);
+			//Top CreepKills in a game
+			$sql = "SELECT hero, creepkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY creepkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostCreepKillsCount = $row["creepkills"];
+				$mostCreepKillsUser = $row["name"];
+				$mostCreepKillsHero = $row["hero"];
+				$mostCreepKillsGame = $row["gameid"];
+				$mostCreepKillsHero = checkIfAliasMySQL($mostCreepKillsHero);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -970,8 +991,8 @@ else
 						</td>
 					</tr>
 <?php
-		}
-		mysql_free_result($result);
+			}
+			mysql_free_result($result);
 ?>
 				</table>
 			</td>
@@ -983,26 +1004,26 @@ else
 
 <?php
 
-		//Top CreepDenies in a game
-		$sql = "SELECT hero, creepdenies, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY creepdenies DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-
-		$result = mysql_query($sql);
-		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
-		{
-			$mostCreepDeniesCount = $row["creepdenies"];
-			$mostCreepDeniesUser = $row["name"];
-			$mostCreepDeniesHero = $row["hero"];
-			$mostCreepDeniesGame = $row["gameid"];
-			$mostCreepDeniesHero = checkIfAliasMySQL($mostCreepDeniesHero);
+			//Top CreepDenies in a game
+			$sql = "SELECT hero, creepdenies, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY creepdenies DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostCreepDeniesCount = $row["creepdenies"];
+				$mostCreepDeniesUser = $row["name"];
+				$mostCreepDeniesHero = $row["hero"];
+				$mostCreepDeniesGame = $row["gameid"];
+				$mostCreepDeniesHero = checkIfAliasMySQL($mostCreepDeniesHero);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -1016,13 +1037,18 @@ else
 						</td>
 					</tr>
 <?php
-		}
-		mysql_free_result($result);
+			}
+			mysql_free_result($result);
 ?>
 				
 				</table>
 			</td>
 		</tr>
+<?php
+		}
+		if($monthlyRow2)
+		{
+?>
 		<tr>
 			<td width=20%>
 				<table width=100%>
@@ -1031,26 +1057,26 @@ else
 					</tr>
 <?php
 
-		//Top Gold in a game
-		$sql = "SELECT hero, gold, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month"; 
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY gold DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-
-		$result = mysql_query($sql);
-		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
-		{
-			$mostGoldCount = $row["gold"];
-			$mostGoldUser = $row["name"];
-			$mostGoldHero = $row["hero"];
-			$mostGoldGame = $row["gameid"];
-			$mostGoldHero = checkIfAliasMySQL($mostGoldHero);
+			//Top Gold in a game
+			$sql = "SELECT hero, gold, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month"; 
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY gold DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostGoldCount = $row["gold"];
+				$mostGoldUser = $row["name"];
+				$mostGoldHero = $row["hero"];
+				$mostGoldGame = $row["gameid"];
+				$mostGoldHero = checkIfAliasMySQL($mostGoldHero);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -1064,8 +1090,8 @@ else
 						</td>
 					</tr>
 <?php	
-		}
-		mysql_free_result($result);
+			}
+			mysql_free_result($result);
 ?>
 				</table>
 			</td>
@@ -1076,41 +1102,41 @@ else
 					</tr>
 <?php
 
-		//Top Neutral Kills in a game
-		$sql = "SELECT hero, neutralkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY neutralkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-
-		$result = mysql_query($sql);
-		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
-		{
-			$mostNeutralKillsCount = $row["neutralkills"];
-			$mostNeutralKillsUser = $row["name"];
-			$mostNeutralKillsHero = $row["hero"];
-			$mostNeutralKillsGame = $row["gameid"];
-			$mostNeutralKillsHero = checkIfAliasMySQL($mostNeutralKillsHero);
+			//Top Neutral Kills in a game
+			$sql = "SELECT hero, neutralkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY neutralkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostNeutralKillsCount = $row["neutralkills"];
+				$mostNeutralKillsUser = $row["name"];
+				$mostNeutralKillsHero = $row["hero"];
+				$mostNeutralKillsGame = $row["gameid"];
+				$mostNeutralKillsHero = checkIfAliasMySQL($mostNeutralKillsHero);
 ?>
-				<tr> 
-					<td align=right width=15%>
-						<a  href="?p=hero&hid=<?php print $mostNeutralKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostNeutralKillsHero; ?>.gif" width="16" height="16"></a>
-					</td>
-					<td align=center width=60px>
-						<a href="?p=gameinfo&gid=<?php print $mostNeutralKillsGame;?>">(<?php print $mostNeutralKillsCount;?>)</a> 
-					</td>
-					<td align=left>
-						<a href="?p=user&u=<?php print $mostNeutralKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostNeutralKillsUser;?></a>
-					</td>
-				</tr>
+					<tr> 
+						<td align=right width=15%>
+							<a  href="?p=hero&hid=<?php print $mostNeutralKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostNeutralKillsHero; ?>.gif" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							<a href="?p=gameinfo&gid=<?php print $mostNeutralKillsGame;?>">(<?php print $mostNeutralKillsCount;?>)</a> 
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $mostNeutralKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostNeutralKillsUser;?></a>
+						</td>
+					</tr>
 <?php
-		}
-		mysql_free_result($result);
+			}
+			mysql_free_result($result);
 ?>
 				</table>
 			</td>
@@ -1121,26 +1147,26 @@ else
 					</tr>
 <?php
 
-		//Top Tower Kills in a game
-		$sql = "SELECT hero, towerkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY towerkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-
-		$result = mysql_query($sql);
-		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
-		{
-			$mostTowerKillsCount = $row["towerkills"];
-			$mostTowerKillsUser = $row["name"];
-			$mostTowerKillsHero = $row["hero"];
-			$mostTowerKillsGame = $row["gameid"];
-			$mostTowerKillsHero = checkIfAliasMySQL($mostTowerKillsHero);
+			//Top Tower Kills in a game
+			$sql = "SELECT hero, towerkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY towerkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostTowerKillsCount = $row["towerkills"];
+				$mostTowerKillsUser = $row["name"];
+				$mostTowerKillsHero = $row["hero"];
+				$mostTowerKillsGame = $row["gameid"];
+				$mostTowerKillsHero = checkIfAliasMySQL($mostTowerKillsHero);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -1154,8 +1180,8 @@ else
 						</td>
 					</tr>
 <?php
-		}
-		mysql_free_result($result);
+			}
+			mysql_free_result($result);
 ?>
 				</table>
 			</td>
@@ -1166,26 +1192,26 @@ else
 					</tr>
 <?php
 
-		//Top Rax Kills in a game
-		$sql = "SELECT hero, raxkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY raxkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-
-		$result = mysql_query($sql);
-		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
-		{
-			$mostRaxKillsCount = $row["raxkills"];
-			$mostRaxKillsUser = $row["name"];
-			$mostRaxKillsHero = $row["hero"];
-			$mostRaxKillsGame = $row["gameid"];
-			$mostRaxKillsHero = checkIfAliasMySQL($mostRaxKillsHero);
+			//Top Rax Kills in a game
+			$sql = "SELECT hero, raxkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY raxkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostRaxKillsCount = $row["raxkills"];
+				$mostRaxKillsUser = $row["name"];
+				$mostRaxKillsHero = $row["hero"];
+				$mostRaxKillsGame = $row["gameid"];
+				$mostRaxKillsHero = checkIfAliasMySQL($mostRaxKillsHero);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -1199,8 +1225,8 @@ else
 						</td>
 					</tr>
 <?php
-		}
-		mysql_free_result($result);
+			}
+			mysql_free_result($result);
 ?>
 				</table>
 			</td>
@@ -1212,26 +1238,26 @@ else
 
 <?php
 
-		//Top Courier Kills in a game
-		$sql = "SELECT hero, courierkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
-		if($ignorePubs)
-		{
-			$sql = $sql." AND gamestate = '17'";
-		}
-		else if($ignorePrivs)
-		{
-			$sql = $sql." AND gamestate = '16'";
-		}
-		$sql = $sql." ORDER BY courierkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
-
-		$result = mysql_query($sql);
-		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
-		{
-			$mostCourierKillsCount = $row["courierkills"];
-			$mostCourierKillsUser = $row["name"];
-			$mostCourierKillsHero = $row["hero"];
-			$mostCourierKillsGame = $row["gameid"];
-			$mostCourierKillsHero = checkIfAliasMySQL($mostCourierKillsHero);
+			//Top Courier Kills in a game
+			$sql = "SELECT hero, courierkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY courierkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostCourierKillsCount = $row["courierkills"];
+				$mostCourierKillsUser = $row["name"];
+				$mostCourierKillsHero = $row["hero"];
+				$mostCourierKillsGame = $row["gameid"];
+				$mostCourierKillsHero = checkIfAliasMySQL($mostCourierKillsHero);
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -1245,8 +1271,474 @@ else
 						</td>
 					</tr>
 <?php
+			}
+			mysql_free_result($result);
+?>
+				</table>
+			</td>
+		</tr>
+<?php
 		}
-		mysql_free_result($result);
+		if($monthlyRow3)
+		{
+?>
+		<tr>
+			<td width=20%>
+				<table width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Top Gold</td>
+					</tr>
+<?php
+
+			//Top Gold in a game
+			$sql = "SELECT hero, gold, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month"; 
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY gold DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostGoldCount = $row["gold"];
+				$mostGoldUser = $row["name"];
+				$mostGoldHero = $row["hero"];
+				$mostGoldGame = $row["gameid"];
+				$mostGoldHero = checkIfAliasMySQL($mostGoldHero);
+?>
+					<tr> 
+						<td align=right width=15%>
+							<a  href="?p=hero&hid=<?php print $mostGoldHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostGoldHero; ?>.gif" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							<a href="?p=gameinfo&gid=<?php print $mostGoldGame;?>">(<?php print $mostGoldCount;?>)</a> 
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $mostGoldUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostGoldUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			mysql_free_result($result);
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Top Neutral Kills</td>
+					</tr>
+<?php
+
+			//Top Neutral Kills in a game
+			$sql = "SELECT hero, neutralkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY neutralkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostNeutralKillsCount = $row["neutralkills"];
+				$mostNeutralKillsUser = $row["name"];
+				$mostNeutralKillsHero = $row["hero"];
+				$mostNeutralKillsGame = $row["gameid"];
+				$mostNeutralKillsHero = checkIfAliasMySQL($mostNeutralKillsHero);
+?>
+					<tr> 
+						<td align=right width=15%>
+							<a  href="?p=hero&hid=<?php print $mostNeutralKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostNeutralKillsHero; ?>.gif" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							<a href="?p=gameinfo&gid=<?php print $mostNeutralKillsGame;?>">(<?php print $mostNeutralKillsCount;?>)</a> 
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $mostNeutralKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostNeutralKillsUser;?></a>
+						</td>
+					</tr>
+<?php
+			}
+			mysql_free_result($result);
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Top Tower Kills</td>
+					</tr>
+<?php
+
+			//Top Tower Kills in a game
+			$sql = "SELECT hero, towerkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY towerkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostTowerKillsCount = $row["towerkills"];
+				$mostTowerKillsUser = $row["name"];
+				$mostTowerKillsHero = $row["hero"];
+				$mostTowerKillsGame = $row["gameid"];
+				$mostTowerKillsHero = checkIfAliasMySQL($mostTowerKillsHero);
+?>
+					<tr> 
+						<td align=right width=15%>
+							<a  href="?p=hero&hid=<?php print $mostTowerKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostTowerKillsHero; ?>.gif" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							<a href="?p=gameinfo&gid=<?php print $mostTowerKillsGame;?>">(<?php print $mostTowerKillsCount;?>)</a> 
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $mostTowerKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostTowerKillsUser;?></a>
+						</td>
+					</tr>
+<?php
+			}
+			mysql_free_result($result);
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Top Rax Kills</td>
+					</tr>
+<?php
+
+			//Top Rax Kills in a game
+			$sql = "SELECT hero, raxkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY raxkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostRaxKillsCount = $row["raxkills"];
+				$mostRaxKillsUser = $row["name"];
+				$mostRaxKillsHero = $row["hero"];
+				$mostRaxKillsGame = $row["gameid"];
+				$mostRaxKillsHero = checkIfAliasMySQL($mostRaxKillsHero);
+?>
+					<tr> 
+						<td align=right width=15%>
+							<a  href="?p=hero&hid=<?php print $mostRaxKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostRaxKillsHero; ?>.gif" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							<a href="?p=gameinfo&gid=<?php print $mostRaxKillsGame;?>">(<?php print $mostRaxKillsCount;?>)</a> 
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $mostRaxKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostRaxKillsUser;?></a>
+						</td>
+					</tr>
+<?php
+			}
+			mysql_free_result($result);
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Top Courier Kills</td>
+					</tr>
+
+<?php
+
+			//Top Courier Kills in a game
+			$sql = "SELECT hero, courierkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY courierkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostCourierKillsCount = $row["courierkills"];
+				$mostCourierKillsUser = $row["name"];
+				$mostCourierKillsHero = $row["hero"];
+				$mostCourierKillsGame = $row["gameid"];
+				$mostCourierKillsHero = checkIfAliasMySQL($mostCourierKillsHero);
+?>
+					<tr> 
+						<td align=right width=15%>
+							<a  href="?p=hero&hid=<?php print $mostCourierKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostCourierKillsHero; ?>.gif" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							<a href="?p=gameinfo&gid=<?php print $mostCourierKillsGame;?>">(<?php print $mostCourierKillsCount;?>)</a> 
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $mostCourierKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostCourierKillsUser;?></a>
+						</td>
+					</tr>
+<?php
+			}
+			mysql_free_result($result);
+?>
+				</table>
+			</td>
+		</tr>
+<?php
+		}
+		if($monthlyRow4)
+		{
+?>
+		<tr>
+			<td width=20%>
+				<table width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Top Gold</td>
+					</tr>
+<?php
+
+			//Top Gold in a game
+			$sql = "SELECT hero, gold, name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month"; 
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY gold DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostGoldCount = $row["gold"];
+				$mostGoldUser = $row["name"];
+				$mostGoldHero = $row["hero"];
+				$mostGoldGame = $row["gameid"];
+				$mostGoldHero = checkIfAliasMySQL($mostGoldHero);
+?>
+					<tr> 
+						<td align=right width=15%>
+							<a  href="?p=hero&hid=<?php print $mostGoldHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostGoldHero; ?>.gif" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							<a href="?p=gameinfo&gid=<?php print $mostGoldGame;?>">(<?php print $mostGoldCount;?>)</a> 
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $mostGoldUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostGoldUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			mysql_free_result($result);
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Top Neutral Kills</td>
+					</tr>
+<?php
+
+			//Top Neutral Kills in a game
+			$sql = "SELECT hero, neutralkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY neutralkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostNeutralKillsCount = $row["neutralkills"];
+				$mostNeutralKillsUser = $row["name"];
+				$mostNeutralKillsHero = $row["hero"];
+				$mostNeutralKillsGame = $row["gameid"];
+				$mostNeutralKillsHero = checkIfAliasMySQL($mostNeutralKillsHero);
+?>
+					<tr> 
+						<td align=right width=15%>
+							<a  href="?p=hero&hid=<?php print $mostNeutralKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostNeutralKillsHero; ?>.gif" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							<a href="?p=gameinfo&gid=<?php print $mostNeutralKillsGame;?>">(<?php print $mostNeutralKillsCount;?>)</a> 
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $mostNeutralKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostNeutralKillsUser;?></a>
+						</td>
+					</tr>
+<?php
+			}
+			mysql_free_result($result);
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Top Tower Kills</td>
+					</tr>
+<?php
+
+			//Top Tower Kills in a game
+			$sql = "SELECT hero, towerkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY towerkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostTowerKillsCount = $row["towerkills"];
+				$mostTowerKillsUser = $row["name"];
+				$mostTowerKillsHero = $row["hero"];
+				$mostTowerKillsGame = $row["gameid"];
+				$mostTowerKillsHero = checkIfAliasMySQL($mostTowerKillsHero);
+?>
+					<tr> 
+						<td align=right width=15%>
+							<a  href="?p=hero&hid=<?php print $mostTowerKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostTowerKillsHero; ?>.gif" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							<a href="?p=gameinfo&gid=<?php print $mostTowerKillsGame;?>">(<?php print $mostTowerKillsCount;?>)</a> 
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $mostTowerKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostTowerKillsUser;?></a>
+						</td>
+					</tr>
+<?php
+			}
+			mysql_free_result($result);
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Top Rax Kills</td>
+					</tr>
+<?php
+
+			//Top Rax Kills in a game
+			$sql = "SELECT hero, raxkills, b.name, a.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY raxkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostRaxKillsCount = $row["raxkills"];
+				$mostRaxKillsUser = $row["name"];
+				$mostRaxKillsHero = $row["hero"];
+				$mostRaxKillsGame = $row["gameid"];
+				$mostRaxKillsHero = checkIfAliasMySQL($mostRaxKillsHero);
+?>
+					<tr> 
+						<td align=right width=15%>
+							<a  href="?p=hero&hid=<?php print $mostRaxKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostRaxKillsHero; ?>.gif" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							<a href="?p=gameinfo&gid=<?php print $mostRaxKillsGame;?>">(<?php print $mostRaxKillsCount;?>)</a> 
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $mostRaxKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostRaxKillsUser;?></a>
+						</td>
+					</tr>
+<?php
+			}
+			mysql_free_result($result);
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Top Courier Kills</td>
+					</tr>
+
+<?php
+
+			//Top Courier Kills in a game
+			$sql = "SELECT hero, courierkills, b.name, b.gameid FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN games as c on a.gameid = c.id where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." ORDER BY courierkills DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$mostCourierKillsCount = $row["courierkills"];
+				$mostCourierKillsUser = $row["name"];
+				$mostCourierKillsHero = $row["hero"];
+				$mostCourierKillsGame = $row["gameid"];
+				$mostCourierKillsHero = checkIfAliasMySQL($mostCourierKillsHero);
+?>
+					<tr> 
+						<td align=right width=15%>
+							<a  href="?p=hero&hid=<?php print $mostCourierKillsHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $mostCourierKillsHero; ?>.gif" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							<a href="?p=gameinfo&gid=<?php print $mostCourierKillsGame;?>">(<?php print $mostCourierKillsCount;?>)</a> 
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $mostCourierKillsUser;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $mostCourierKillsUser;?></a>
+						</td>
+					</tr>
+<?php
+			}
+			mysql_free_result($result);
 ?>
 				</table>
 			</td>
@@ -1254,11 +1746,15 @@ else
 
 <?php
 	}
+?>
+	</table>
+<?php
+	}
 	mysql_free_result($result0);
 }
 ?>
 
-		</table>
+
 	</div>
 </div>
 

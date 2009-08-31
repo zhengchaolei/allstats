@@ -107,7 +107,7 @@ else
 				</table>
 			</td>
 			<td width=50%>
-				<h2>Hero Statistics for: <?php print $username; ?></h2>
+				<h2>Hero Statistics for: <a href="?p=user&u=<?php print $username; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $username; ?></a></h2>
 			</td>
 			<td width=25% class="rowuh">
 				<table class="rowuh" width = 235px style="float:right">
