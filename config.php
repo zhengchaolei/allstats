@@ -87,8 +87,11 @@ $monthlyDefaultView = 'Month';
 // determine which rows to be shown
 $monthlyRow1 = true;
 $monthlyRow2 = true;
-$monthlyRow3 = false;
-$monthlyRow4 = false;
+$monthlyRow3 = true;
+$monthlyRow4 = true;
+
+// min games played for monthly tops (only for overall stats -> row 3/4)
+$montlyMinGames = 3;
 
 //---------------------------------------------------
 
@@ -99,7 +102,7 @@ $monthlyRow4 = false;
 //If false: Player scores will be dynamically calculated on page load through a formula that takes into account kills, deaths, assists, wins, losses, etc...
 //			This is less ideal and will slow your top players page load slightly. As of yet, I have not found a numeric scoring system that I believe 
 //   		accurately reflects skill level.
-$scoreFromDB = true;
+$scoreFromDB = false;
 
 //Score Formula: (Only used if $scoreFromDB = false)
 //Must follow SQL formatting conventions.
@@ -136,7 +139,7 @@ $heroResultSize = 15;
 //The number of results returned in a page on a user's page
 $userResultSize = 20;
 //The number of results returned in a page on the monthly tops page
-$monthlyTopsResultSize = 3;
+$monthlyTopsResultSize = 1;
 //The number of entries in each highscore list
 $monthlyTopsListSize = 5;
 
