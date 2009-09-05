@@ -1851,6 +1851,9 @@ if($dbType == 'sqlite')
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 		</tr>
