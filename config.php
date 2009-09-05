@@ -89,6 +89,7 @@ $monthlyRow1 = true;
 $monthlyRow2 = true;
 $monthlyRow3 = true;
 $monthlyRow4 = true;
+$monthlyRow5 = true;
 
 // min games played for monthly tops (only for overall stats -> row 3/4)
 $montlyMinGames = 3;

@@ -373,6 +373,9 @@ if($dbType == 'sqlite')
 			}
 ?>
 
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -415,6 +418,9 @@ if($dbType == 'sqlite')
 <?php
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -457,6 +463,9 @@ if($dbType == 'sqlite')
 <?php
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -499,6 +508,9 @@ if($dbType == 'sqlite')
 <?php
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -542,7 +554,11 @@ if($dbType == 'sqlite')
 					</tr>
 <?php
 			}
-?>				</table>
+?>				
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
+				</table>
 			</td>
 		</tr>		
 
@@ -594,6 +610,9 @@ if($dbType == 'sqlite')
 			}
 ?>
 
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -636,12 +655,15 @@ if($dbType == 'sqlite')
 <?php
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
 				<table  width=100%>
 					<tr>
-						<td align=center colspan=3 class="contentheadercell">Top Deaths</td>
+						<td align=center colspan=3 class="contentheadercell">Top Tower Kills</td>
 					</tr>
 <?php
 
@@ -678,12 +700,15 @@ if($dbType == 'sqlite')
 <?php
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
 				<table  width=100%>
 					<tr>
-						<td align=center colspan=3 class="contentheadercell">Top Neutral Kills</td>
+						<td align=center colspan=3 class="contentheadercell">Top Rax Kills</td>
 					</tr>
 <?php
 
@@ -720,12 +745,15 @@ if($dbType == 'sqlite')
 <?php
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
 				<table width=100%>
 					<tr>
-						<td align=center colspan=3 class="contentheadercell">Top Creep Denies</td>
+						<td align=center colspan=3 class="contentheadercell">Top Courier Kills</td>
 					</tr>
 
 <?php
@@ -764,13 +792,16 @@ if($dbType == 'sqlite')
 <?php
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 		</tr>
 		
 <?php
 		}
-		if($monthlyRow2) // ############################################ SQLITE Stats Row 3 #####################################################
+		if($monthlyRow3) // ############################################ SQLITE Stats Row 3 #####################################################
 		{
 ?>		
 		
@@ -839,6 +870,9 @@ if($dbType == 'sqlite')
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -905,6 +939,9 @@ if($dbType == 'sqlite')
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -971,6 +1008,9 @@ if($dbType == 'sqlite')
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -1037,6 +1077,9 @@ if($dbType == 'sqlite')
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -1104,13 +1147,16 @@ if($dbType == 'sqlite')
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 		</tr>
 		
 <?php
 		}
-		if($monthlyRow2) // ############################################ SQLITE Stats Row 4 #####################################################
+		if($monthlyRow4) // ############################################ SQLITE Stats Row 4 #####################################################
 		{
 ?>		
 		
@@ -1178,6 +1224,9 @@ if($dbType == 'sqlite')
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -1243,6 +1292,9 @@ if($dbType == 'sqlite')
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -1308,6 +1360,9 @@ if($dbType == 'sqlite')
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -1373,6 +1428,9 @@ if($dbType == 'sqlite')
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -1438,17 +1496,369 @@ if($dbType == 'sqlite')
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
+				</table>
+			</td>
+		</tr>
+		
+		
+<?php
+		}
+		if($monthlyRow5) // ############################################ SQLITE Stats Row 5 #####################################################
+		{
+?>		
+
+		<tr>
+			<td width=20%>
+				<table width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">AVG Kills</td>
+					</tr>
+<?php
+
+			//AVG Kills
+			$sql = "SELECT name as topUser, sumKills*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+				COUNT(*) as totGames,
+				SUM(kills) as sumKills 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],2);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">AVG Assists</td>
+					</tr>
+<?php
+
+			//AVG Assists
+			$sql = "SELECT name as topUser, sumAssists*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+				COUNT(*) as totGames,
+				SUM(assists) as sumAssists 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],2);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">AVG Deaths</td>
+					</tr>
+<?php
+
+			//AVG Deaths
+			$sql = "SELECT name as topUser, sumDeaths*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+				COUNT(*) as totGames,
+				SUM(deaths) as sumDeaths 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],2);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">AVG Creep Kills</td>
+					</tr>
+<?php
+
+			//AVG Creep Kills
+			$sql = "SELECT name as topUser, sumCreepKills*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+				COUNT(*) as totGames,
+				SUM(creepkills) as sumCreepKills 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],2);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">AVG Creep Denies</td>
+					</tr>
+<?php
+
+			//AVG Creep Denies
+			$sql = "SELECT name as topUser, sumCreepDenies*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+				COUNT(*) as totGames,
+				SUM(creepdenies) as sumCreepDenies 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],2);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
 				</table>
 			</td>
 		</tr>
 		
 		
 		
-		
-		
-		
 <?php
-		} // ############################################ __END__ SQLITE Stats Row 4 #####################################################
+		} // ############################################ __END__ SQLITE Stats Row 5 #####################################################
 ?>
 	</table>
 
@@ -1498,7 +1908,7 @@ else  // #################################################### MYSQL ############
 		<tr>
 			<td width=20%>
 				<table width=100%>
-					<tr>
+					</tr>
 						<td align=center colspan=3 class="contentheadercell">Top Kills</td>
 					</tr>
 <?php
@@ -1539,6 +1949,9 @@ else  // #################################################### MYSQL ############
 			}
 			mysql_free_result($result);
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -1584,6 +1997,9 @@ else  // #################################################### MYSQL ############
 			}
 			mysql_free_result($result);
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -1629,6 +2045,9 @@ else  // #################################################### MYSQL ############
 			}
 			mysql_free_result($result);
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -1674,6 +2093,9 @@ else  // #################################################### MYSQL ############
 			}
 			mysql_free_result($result);
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -1721,6 +2143,9 @@ else  // #################################################### MYSQL ############
 			mysql_free_result($result);
 ?>
 				
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 		</tr>
@@ -1773,6 +2198,9 @@ else  // #################################################### MYSQL ############
 			}
 			mysql_free_result($result);
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -1818,6 +2246,9 @@ else  // #################################################### MYSQL ############
 			}
 			mysql_free_result($result);
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -1863,6 +2294,9 @@ else  // #################################################### MYSQL ############
 			}
 			mysql_free_result($result);
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -1908,6 +2342,9 @@ else  // #################################################### MYSQL ############
 			}
 			mysql_free_result($result);
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -1954,6 +2391,9 @@ else  // #################################################### MYSQL ############
 			}
 			mysql_free_result($result);
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 		</tr>
@@ -2029,6 +2469,9 @@ else  // #################################################### MYSQL ############
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -2097,6 +2540,9 @@ else  // #################################################### MYSQL ############
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -2165,6 +2611,9 @@ else  // #################################################### MYSQL ############
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -2233,6 +2682,9 @@ else  // #################################################### MYSQL ############
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -2302,6 +2754,9 @@ else  // #################################################### MYSQL ############
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 		</tr>
@@ -2377,6 +2832,9 @@ else  // #################################################### MYSQL ############
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -2444,6 +2902,9 @@ else  // #################################################### MYSQL ############
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -2511,6 +2972,9 @@ else  // #################################################### MYSQL ############
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -2578,6 +3042,9 @@ else  // #################################################### MYSQL ############
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 			<td width=20%>
@@ -2645,6 +3112,372 @@ else  // #################################################### MYSQL ############
 <?php	
 			}
 ?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
+				</table>
+			</td>
+		</tr>
+<?php
+		}
+		if($monthlyRow5) // ############################################ MYSQL Stats Row 5 #####################################################
+		{
+?>
+
+		<tr>
+			<td width=20%>
+				<table width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">AVG Kills</td>
+					</tr>
+<?php
+
+			//AVG Kills
+			$sql = "SELECT name as topUser, sumKills/totGames as topValue from (Select b.name, MAX(a.id) as id,
+				COUNT(*) as totGames,
+				SUM(kills) as sumKills 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],2);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			mysql_free_result($result);
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">AVG Assists</td>
+					</tr>
+<?php
+
+			//AVG Assists
+			$sql = "SELECT name as topUser, sumAssists/totGames as topValue from (Select b.name, MAX(a.id) as id,
+				COUNT(*) as totGames,
+				SUM(assists) as sumAssists 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],2);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			mysql_free_result($result);
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">AVG Deaths</td>
+					</tr>
+<?php
+
+			//AVG Deaths
+			$sql = "SELECT name as topUser, sumDeaths/totGames as topValue from (Select b.name, MAX(a.id) as id,
+				COUNT(*) as totGames,
+				SUM(deaths) as sumDeaths 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],2);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			mysql_free_result($result);
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">AVG Creep Kills</td>
+					</tr>
+<?php
+
+			//AVG Creep Kills
+			$sql = "SELECT name as topUser, sumCreepKills/totGames as topValue from (Select b.name, MAX(a.id) as id,
+				COUNT(*) as totGames,
+				SUM(creepkills) as sumCreepKills 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],2);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			mysql_free_result($result);
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">AVG Creep Denies</td>
+					</tr>
+<?php
+
+			//AVG Creep Denies
+			$sql = "SELECT name as topUser, sumCreepDenies/totGames as topValue from (Select b.name, MAX(a.id) as id,
+				COUNT(*) as totGames,
+				SUM(creepdenies) as sumCreepDenies 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			$result = mysql_query($sql);
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],2);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			mysql_free_result($result);
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+					<tr>
+						<td colspan=3 class="contentemptyspacer"></td>
+					<tr>
 				</table>
 			</td>
 		</tr>
@@ -2652,7 +3485,7 @@ else  // #################################################### MYSQL ############
 
 
 <?php
-		} // ############################################ __END__ MYSQL Stats Row 4 #####################################################
+		} // ############################################ __END__ MYSQL Stats Row 5 #####################################################
 
 ?>
 	</table>
