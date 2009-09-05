@@ -767,8 +767,688 @@ if($dbType == 'sqlite')
 				</table>
 			</td>
 		</tr>
+		
 <?php
 		}
+		if($monthlyRow2) // ############################################ SQLITE Stats Row 3 #####################################################
+		{
+?>		
+		
+		<tr>
+			<td width=20%>
+				<table width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Best Win Percentage</td>
+					</tr>
+<?php
+
+			//Best Win Percentage
+			$sql = "SELECT name as topUser, 100*wins*1.0/totgames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+				count(*) as totgames,
+				SUM(case when(((d.winner = 1 and a.newcolour < 6) or (d.winner = 2 and a.newcolour > 6)) AND b.`left`*1.0/c.duration*1.0 >= $minPlayedRatio) then 1 else 0 end) as wins 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],0);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?> %)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Best K/D ratio</td>
+					</tr>
+<?php
+
+			//Best K/D ratio
+			$sql = "SELECT name as topUser, totKills*1.0/totDeaths*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+				SUM(kills) as totKills,
+				SUM(deaths) as totDeaths 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],2);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Best A/D Ratio</td>
+					</tr>
+<?php
+
+			//Best A/D Ratio
+			$sql = "SELECT name as topUser, totAssists*1.0/totDeaths*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+				SUM(assists) as totAssists,
+				SUM(deaths) as totDeaths 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+	
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],2);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Most Games</td>
+					</tr>
+<?php
+
+			//Most Games
+			$sql = "SELECT name as topUser, totGames as topValue from (Select b.name as name, MAX(a.id) as id,
+				COUNT(*) as totGames,
+				SUM(deaths) as totDeaths 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],2);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Top Stay Percentage</td>
+					</tr>
+
+<?php
+
+			//Top Stay Percentage
+			$sql = "SELECT name as topUser, 100*playedTime*1.0/gameDuration*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+				SUM(`left`) as playedTime,
+				SUM(duration) as gameDuration 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = ROUND($row["topValue"],1);
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?> %)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+				</table>
+			</td>
+		</tr>
+		
+<?php
+		}
+		if($monthlyRow2) // ############################################ SQLITE Stats Row 4 #####################################################
+		{
+?>		
+		
+		<tr>
+			<td width=20%>
+				<table width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Most Kills</td>
+					</tr>
+<?php
+
+			//Most Kills
+			$sql = "SELECT name as topUser, sumKills as topValue from (Select b.name as name, MAX(a.id) as id,
+				SUM(kills) as sumKills 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = $row["topValue"];
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Most Assists</td>
+					</tr>
+<?php
+
+			//Most Assists
+			$sql = "SELECT name as topUser, sumAssists as topValue from (Select b.name as name, MAX(a.id) as id,
+				SUM(assists) as sumAssists 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = $row["topValue"];
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Most Deaths</td>
+					</tr>
+<?php
+
+			//Most Deaths
+			$sql = "SELECT name as topUser, sumDeaths as topValue from (Select b.name as name, MAX(a.id) as id,
+				SUM(deaths) as sumDeaths 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = $row["topValue"];
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Most Creep Kills</td>
+					</tr>
+<?php
+
+			//Most Creep Kills
+			$sql = "SELECT name as topUser, sumCreepKills as topValue from (Select b.name as name, MAX(a.id) as id,
+				SUM(creepkills) as sumCreepKills 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = $row["topValue"];
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+				</table>
+			</td>
+			<td width=20%>
+				<table  width=100%>
+					<tr>
+						<td align=center colspan=3 class="contentheadercell">Most Creep Denies</td>
+					</tr>
+<?php
+
+			//Most Creep Denies
+			$sql = "SELECT name as topUser, sumCreepDenies as topValue from (Select b.name as name, MAX(a.id) as id,
+				SUM(creepdenies) as sumCreepDenies 
+				FROM dotaplayers AS a 
+				LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+				LEFT JOIN games as c on a.gameid = c.id 
+				LEFT JOIN dotagames as d on d.gameid = c.id
+				where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
+			if($ignorePubs)
+			{
+				$sql = $sql." AND gamestate = '17'";
+			}
+			else if($ignorePrivs)
+			{
+				$sql = $sql." AND gamestate = '16'";
+			}
+			$sql = $sql." group by b.name having count(*) >= ".$montlyMinGames.") as subsel ORDER BY topValue DESC, id ASC LIMIT ".$monthlyTopsListSize;
+
+			$rows = 0;
+			foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+			{
+				$rows = $rows + 1;
+				$topValue = $row["topValue"];
+				$topUser = $row["topUser"];
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(<?php print $topValue;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+			}
+			while($rows < $monthlyTopsListSize) // fill empty rows
+			{ 
+				$rows = $rows + 1;			
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" width="16" height="16">
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+			}
+?>
+				</table>
+			</td>
+		</tr>
+		
+		
+		
+		
+		
+		
+<?php
+		} // ############################################ __END__ SQLITE Stats Row 4 #####################################################
 ?>
 	</table>
 
