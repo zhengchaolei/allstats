@@ -840,10 +840,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?> %)
 						</td>
 						<td align=left>
@@ -857,10 +854,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -909,10 +903,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -926,10 +917,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -978,10 +966,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -995,10 +980,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -1047,10 +1029,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -1064,10 +1043,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -1117,10 +1093,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?> %)
 						</td>
 						<td align=left>
@@ -1134,10 +1107,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -1194,10 +1164,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -1211,10 +1178,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -1262,10 +1226,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -1279,10 +1240,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -1330,10 +1288,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -1347,10 +1302,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -1398,10 +1350,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -1415,10 +1364,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -1466,10 +1412,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -1483,10 +1426,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -1545,10 +1485,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -1562,10 +1499,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -1614,10 +1548,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -1631,10 +1562,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -1683,10 +1611,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -1700,10 +1625,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -1752,10 +1674,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -1769,10 +1688,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -1821,10 +1737,7 @@ if($dbType == 'sqlite')
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -1838,10 +1751,7 @@ if($dbType == 'sqlite')
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -2441,10 +2351,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?> %)
 						</td>
 						<td align=left>
@@ -2459,10 +2366,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -2512,10 +2416,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -2530,10 +2431,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -2583,10 +2481,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -2601,10 +2496,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -2654,10 +2546,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -2672,10 +2561,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -2726,10 +2612,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?> %)
 						</td>
 						<td align=left>
@@ -2744,10 +2627,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -2804,10 +2684,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -2822,10 +2699,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -2874,10 +2748,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -2892,10 +2763,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -2944,10 +2812,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -2962,10 +2827,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -3014,10 +2876,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -3032,10 +2891,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -3084,10 +2940,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -3102,10 +2955,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -3163,10 +3013,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -3181,10 +3028,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -3234,10 +3078,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -3252,10 +3093,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -3305,10 +3143,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -3323,10 +3158,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -3376,10 +3208,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -3394,10 +3223,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
@@ -3447,10 +3273,7 @@ else  // #################################################### MYSQL ############
 				$topUser = $row["topUser"];
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue;?>)
 						</td>
 						<td align=left>
@@ -3465,10 +3288,7 @@ else  // #################################################### MYSQL ############
 				$rows = $rows + 1;			
 ?>
 					<tr> 
-						<td align=right width=15%>
-							<img src="img/heroes/blank.gif" width="16" height="16">
-						</td>
-						<td align=center width=60px>
+						<td align=center width=80px height=22px colspan=2>
 							(---)
 						</td>
 						<td align=left>
