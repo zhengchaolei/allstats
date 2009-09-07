@@ -664,7 +664,7 @@ else
 if($scoreFromDB)        //Using score table
 {
 $sql = "select *,(kills/deaths) as killdeathratio from (
-select gp.name as name, bans.name as banname,gp.gameid as gameid, dp.newcolour as colour, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
+select gp.name as name, bans.name as banname, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
 avg(dp.towerkills) as towerkills, avg(dp.assists) as assists, avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills,
 avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills, sc.score as totalscore,
 count(*) as totgames, SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as wins, SUM(case when(((dg.winner = 2 and dp.newcolour < 6) or (dg.winner = 1 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as losses
@@ -677,7 +677,7 @@ group by gp.name having totgames >= $games) as h ORDER BY $sortcat $order, name 
 else                    //Using score formula
 {
 $sql = "select *, ($scoreFormula) as totalscore from(select *, (kills/deaths) as killdeathratio from (
-select gp.name as name, bans.name as banname, gp.gameid as gameid, dp.newcolour as colour, avg(dp.courierkills) as courierkills, avg(dp.assists) as assists,
+select gp.name as name, bans.name as banname, avg(dp.courierkills) as courierkills, avg(dp.assists) as assists,
 avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills, avg(dp.towerkills) as towerkills, avg(dp.raxkills) as raxkills,
 avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills,
 count(1) as totgames, SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as wins, SUM(case when(((dg.winner = 2 and dp.newcolour < 6) or (dg.winner = 1 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as losses
