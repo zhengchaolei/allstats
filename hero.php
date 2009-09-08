@@ -104,7 +104,7 @@ else
 ?>
 <?php
 //Get overall hero stats
-$sql =" Select *, (kills*1.0/deaths) as kdratio, (wins*1.0/totgames) as winratio From 
+$sql =" Select *, (kills*1.0/deaths) as kdratio, (wins*1.0/losses) as winratio From 
 	(SELECT description, summary, skills, stats, hero, count(*) as totgames, 
 	SUM(case when(((c.winner = 1 and a.newcolour < 6) or (c.winner = 2 and a.newcolour > 6)) AND d.`left`/e.duration >= $minPlayedRatio) then 1 else 0 end) as wins, 
 	SUM(case when(((c.winner = 2 and a.newcolour < 6) or (c.winner = 1 and a.newcolour > 6)) AND d.`left`/e.duration >= $minPlayedRatio) then 1 else 0 end) as losses, 
