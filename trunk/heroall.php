@@ -317,21 +317,21 @@ else
 				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=losses&o=desc&n=all\">Losses</a></td>");
 			}
 			
-			//Win/Game ratio
+			//Win/Loss ratio
 			if($sortcat == "winratio")
 			{
 				if($order == "asc")
 				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=desc&n=all\">Win/Game<br>Ratio</a></td>");
+					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=desc&n=all\">Win/Loss<br>Ratio</a></td>");
 				}
 				else
 				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=asc&n=all\">Win/Game<br>Ratio</a></td>");
+					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=asc&n=all\">Win/Loss<br>Ratio</a></td>");
 				}
 			}
 			else
 			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=desc&n=all\">Win/Game<br>Ratio</a></td>");
+				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=desc&n=all\">Win/Loss<br>Ratio</a></td>");
 			}
 			
 			//Kills
@@ -523,21 +523,21 @@ else
 				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=losses&o=desc&n=0\">Losses</a></td>");
 			}
 			
-			//Win/Game ratio
+			//Win/Loss ratio
 			if($sortcat == "winratio")
 			{
 				if($order == "asc")
 				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=desc&n=0\">Win/Game<br>Ratio</a></td>");
+					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=desc&n=0\">Win/Loss<br>Ratio</a></td>");
 				}
 				else
 				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=asc&n=0\">Win/Game<br>Ratio</a></td>");
+					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=asc&n=0\">Win/Loss<br>Ratio</a></td>");
 				}
 			}
 			else
 			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=desc&n=0\">Win/Game<br>Ratio</a></td>");
+				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=desc&n=0\">Win/Loss<br>Ratio</a></td>");
 			}
 			
 			//Kills
@@ -667,7 +667,7 @@ else
 <div id="datawrapper">
 	<table class="table" id="data">
 	<?php
-	$sql = "Select *, (kills*1.0/deaths) as kdratio, (wins*1.0/totgames) as winratio From 
+	$sql = "Select *, (kills*1.0/deaths) as kdratio, (wins*1.0/losses) as winratio From 
 	(SELECT description, heroid, count(*) as totgames, 
 	SUM(case when(((c.winner = 1 and a.newcolour < 6) or (c.winner = 2 and a.newcolour > 6)) AND d.`left`/e.duration >= $minPlayedRatio) then 1 else 0 end) as wins, 
 	SUM(case when(((c.winner = 2 and a.newcolour < 6) or (c.winner = 1 and a.newcolour > 6)) AND d.`left`/e.duration >= $minPlayedRatio) then 1 else 0 end) as losses, 
