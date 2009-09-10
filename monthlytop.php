@@ -386,14 +386,22 @@ if($dbType == 'sqlite')
 					$topHero = $row["topHero"];
 					$topGame = $row["topGame"];
 					$topHero = checkIfAliasSQLite($topHero, $dbType, $dbHandle);
-					$topValueUnit = $row["topValueUnit"];
+					if(isset($row["topValueUnit"]))
+					{
+						$topValueUnit = $row["topValueUnit"];
+					}
+					else
+					{
+						$topValueUnit = '';
+					}
 					if ($topValueUnit <> '') {
 						$topValue = ROUND($row["topValue"],1);
 					}
 					else
 					{
 						$topValue = ROUND($row["topValue"],2);				
-					}				
+					}
+					
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -487,7 +495,14 @@ if($dbType == 'sqlite')
 					$topHero = $row["topHero"];
 					$topGame = $row["topGame"];
 					$topHero = checkIfAliasSQLite($topHero, $dbType, $dbHandle);
-					$topValueUnit = $row["topValueUnit"];
+					if(isset($row["topValueUnit"]))
+					{
+						$topValueUnit = $row["topValueUnit"];
+					}
+					else
+					{
+						$topValueUnit = '';
+					}
 					if ($topValueUnit <> '') {
 						$topValue = ROUND($row["topValue"],1);
 					}
@@ -599,6 +614,14 @@ if($dbType == 'sqlite')
 					$rows = $rows + 1;
 					$topUser = $row["topUser"];
 					$topValueUnit = $row["topValueUnit"];
+					if(isset($row["topValueUnit"]))
+					{
+						$topValueUnit = $row["topValueUnit"];
+					}
+					else
+					{
+						$topValueUnit = '';
+					}
 					if ($topValueUnit <> '') {
 						$topValue = ROUND($row["topValue"],1);
 					}
@@ -715,7 +738,14 @@ if($dbType == 'sqlite')
 				{
 					$rows = $rows + 1;
 					$topUser = $row["topUser"];
-					$topValueUnit = $row["topValueUnit"];
+					if(isset($row["topValueUnit"]))
+					{
+						$topValueUnit = $row["topValueUnit"];
+					}
+					else
+					{
+						$topValueUnit = '';
+					}
 					if ($topValueUnit <> '') {
 						$topValue = ROUND($row["topValue"],1);
 					}
@@ -838,7 +868,14 @@ if($dbType == 'sqlite')
 				{
 					$rows = $rows + 1;
 					$topUser = $row["topUser"];
-					$topValueUnit = $row["topValueUnit"];
+					if(isset($row["topValueUnit"]))
+					{
+						$topValueUnit = $row["topValueUnit"];
+					}
+					else
+					{
+						$topValueUnit = '';
+					}
 					if ($topValueUnit <> '') {
 						$topValue = ROUND($row["topValue"],1);
 					}
@@ -990,7 +1027,14 @@ else  // #################################################### MYSQL ############
 					$topHero = $row["topHero"];
 					$topGame = $row["topGame"];
 					$topHero = checkIfAliasMySQL($topHero);
-					$topValueUnit = $row["topValueUnit"];
+					if(isset($row["topValueUnit"]))
+					{
+						$topValueUnit = $row["topValueUnit"];
+					}
+					else
+					{
+						$topValueUnit = '';
+					}
 					if ($topValueUnit <> '') {
 						$topValue = ROUND($row["topValue"],1);
 					}
@@ -1090,7 +1134,14 @@ else  // #################################################### MYSQL ############
 					$topHero = $row["topHero"];
 					$topGame = $row["topGame"];
 					$topHero = checkIfAliasMySQL($topHero);
-					$topValueUnit = $row["topValueUnit"];
+					if(isset($row["topValueUnit"]))
+					{
+						$topValueUnit = $row["topValueUnit"];
+					}
+					else
+					{
+						$topValueUnit = '';
+					}
 					if ($topValueUnit <> '') {
 						$topValue = ROUND($row["topValue"],1);
 					}
@@ -1205,7 +1256,14 @@ else  // #################################################### MYSQL ############
 				{
 					$rows = $rows + 1;
 					$topUser = $row["topUser"];
-					$topValueUnit = $row["topValueUnit"];
+					if(isset($row["topValueUnit"]))
+					{
+						$topValueUnit = $row["topValueUnit"];
+					}
+					else
+					{
+						$topValueUnit = '';
+					}
 					if ($topValueUnit <> '') {
 						$topValue = ROUND($row["topValue"],1);
 					}
@@ -1324,7 +1382,14 @@ else  // #################################################### MYSQL ############
 				{
 					$rows = $rows + 1;
 					$topUser = $row["topUser"];
-					$topValueUnit = $row["topValueUnit"];
+					if(isset($row["topValueUnit"]))
+					{
+						$topValueUnit = $row["topValueUnit"];
+					}
+					else
+					{
+						$topValueUnit = '';
+					}
 					if ($topValueUnit <> '') {
 						$topValue = ROUND($row["topValue"],1);
 					}
@@ -1448,7 +1513,14 @@ else  // #################################################### MYSQL ############
 				{
 					$rows = $rows + 1;
 					$topUser = $row["topUser"];
-					$topValueUnit = $row["topValueUnit"];
+					if(isset($row["topValueUnit"]))
+					{
+						$topValueUnit = $row["topValueUnit"];
+					}
+					else
+					{
+						$topValueUnit = '';
+					}
 					if ($topValueUnit <> '') {
 						$topValue = ROUND($row["topValue"],1);
 					}
