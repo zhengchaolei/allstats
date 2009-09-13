@@ -85,16 +85,18 @@ $gametimenew = substr(str_ireplace(":","-",$gametime),0,16);
 
 
 //REPLAY NAME HANDLING CODE
-$replayloc="GHost++ ".$gametimenew." ".$gamename." (".replayDuration($duration).").w3g";
+$replaygamename=str_ireplace("|","_",str_ireplace(">","_",str_ireplace("<","_",str_ireplace("?","_",str_ireplace("*","_",str_ireplace(":","_",str_ireplace("/","_",str_ireplace("\\","_",$gamename))))))));
+$replayloc="GHost++ ".$gametimenew." ".$replaygamename." (".replayDuration($duration).").w3g";
+
 if(!file_exists($replayLocation.'/'.$replayloc))
 {													//Time handling isn't perfect. Check time + 1 and time - 1
-	$replayloc="GHost++ ".$gametimenew." ".$gamename." (".replayDuration($duration-1).").w3g";
+	$replayloc="GHost++ ".$gametimenew." ".$replaygamename." (".replayDuration($duration-1).").w3g";
 	if(!file_exists($replayLocation.'/'.$replayloc))
 	{
-		$replayloc="GHost++ ".$gametimenew." ".$gamename." (".replayDuration($duration+1).").w3g";
+		$replayloc="GHost++ ".$gametimenew." ".$replaygamename." (".replayDuration($duration+1).").w3g";
 		if(!file_exists($replayLocation.'/'.$replayloc))
 		{
-			$replayloc="GHost++ ".$gametimenew." ".$gamename.".w3g";
+			$replayloc="GHost++ ".$gametimenew." ".$replaygamename.".w3g";
 		}
 	}
 }
