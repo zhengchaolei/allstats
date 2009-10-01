@@ -521,7 +521,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		  <td>Score:</td>
           <td><?php print ROUND($score, 2); ?></td>
 		  <td>Win Percent:</td>
-          <td><?php if($wins == 0 and $wins+$losses == 0){ print '0';} else if($wins+$losses == 0){print '1000';} else {print round($wins/($wins+$losses), 4)*100;}?></td>
+          <td><?php if($wins == 0){ print '0';} else {print round($wins/($wins+$losses), 4)*100;}?></td>
 		</tr>
 		<tr height=10px>
 		</tr>
