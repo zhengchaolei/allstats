@@ -85,7 +85,7 @@ else
 }
 
 $sql = "select count(*) as count from( select name from gameplayers as gp, dotagames as dg, games as ga,dotaplayers as dp where dg.winner <> 0 and dp.gameid = gp.gameid 
-and dg.gameid = dp.gameid and dp.gameid = ga.id and gp.gameid = dg.gameid and gp.colour = dp.colour and gp.name = $username";
+and dg.gameid = dp.gameid and dp.gameid = ga.id and gp.gameid = dg.gameid and gp.colour = dp.colour and gp.name = '$username'";
 
 if($ignorePubs)
 {
@@ -96,9 +96,7 @@ else if($ignorePrivs)
 $sql = $sql." and gamestate = '16'";
 }
 
-$sql = $sql." group by gp.name 
-having count(*) >= $historyMinGames) 
-as h";
+$sql = $sql." group by ".$sqlGroupBy1.", ".$sqlGroupBy2." having count(*) >= $historyMinGames) as h";
 
 if($dbType == 'sqlite')
 {
@@ -292,7 +290,6 @@ else
 	<div id="theader">
 		<table class="tableheader" id="tableheader">
 			<tr class="headercell">
-				<td width=25px>#</td>
 <?php
  if($offset == 'all')
  {
@@ -312,181 +309,180 @@ else
 	{
 		print("<td width=175px><a href=\"?p=top&s=datetime&o=asc&g=".$games."&n=all\">".$interval."</a></td>");
 	}
-	//Score
-	if($sortcat == "totalscore")
-	{
-		if($order == "asc")
-		{
-			print("<td width=100px><a href=\"?p=top&s=totalscore&o=desc&g=".$games."&n=all\">Score</a></td>");
-		}
-		else
-		{
-			print("<td width=100px><a href=\"?p=top&s=totalscore&o=asc&g=".$games."&n=all\">Score</a></td>");
-		}
-	}
-	else
-	{
-		print("<td width=100px><a href=\"?p=top&s=totalscore&o=desc&g=".$games."&n=all\">Score</a></td>");
-	}
 	//Games
 	if($sortcat == "totgames")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=totgames&o=desc&g=".$games."&n=all\">Games</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=totgames&o=desc&g=".$games."&n=all\">Games</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=totgames&o=asc&g=".$games."&n=all\">Games</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=totgames&o=asc&g=".$games."&n=all\">Games</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=totgames&o=desc&g=".$games."&n=all\">Games</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=totgames&o=desc&g=".$games."&n=all\">Games</a></td>");
 	}
 	//Wins
 	if($sortcat == "wins")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=wins&o=desc&g=".$games."&n=all\">Wins</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=wins&o=desc&g=".$games."&n=all\">Wins</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=wins&o=asc&g=".$games."&n=all\">Wins</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=wins&o=asc&g=".$games."&n=all\">Wins</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=wins&o=desc&g=".$games."&n=all\">Wins</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=wins&o=desc&g=".$games."&n=all\">Wins</a></td>");
 	}
 	//Losses
 	if($sortcat == "losses")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=losses&o=desc&g=".$games."&n=all\">Losses</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=losses&o=desc&g=".$games."&n=all\">Losses</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=losses&o=asc&g=".$games."&n=all\">Losses</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=losses&o=asc&g=".$games."&n=all\">Losses</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=losses&o=desc&g=".$games."&n=all\">Losses</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=losses&o=desc&g=".$games."&n=all\">Losses</a></td>");
 	}
-	//Kills
+	//WinPercent
+	if($sortcat == "winpercent")
+	{
+		if($order == "asc")
+		{
+			print("<td width=75px><a href=\"?p=top&s=winpercent&o=desc&g=".$games."&n=all\">WinPercent</a></td>");
+		}
+		else
+		{
+			print("<td width=75px><a href=\"?p=top&s=winpercent&o=asc&g=".$games."&n=all\">WinPercent</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=75px><a href=\"?p=top&s=winpercent&o=desc&g=".$games."&n=all\">WinPercent</a></td>");
+	}	//Kills
 	if($sortcat == "kills")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=kills&o=desc&g=".$games."&n=all\">Kills</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=kills&o=desc&g=".$games."&n=all\">Kills</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=kills&o=asc&g=".$games."&n=all\">Kills</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=kills&o=asc&g=".$games."&n=all\">Kills</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=kills&o=desc&g=".$games."&n=all\">Kills</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=kills&o=desc&g=".$games."&n=all\">Kills</a></td>");
 	}
 	//CreepKills
 	if($sortcat == "deaths")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=deaths&o=desc&g=".$games."&n=all\">Deaths</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=deaths&o=desc&g=".$games."&n=all\">Deaths</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=deaths&o=asc&g=".$games."&n=all\">Deaths</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=deaths&o=asc&g=".$games."&n=all\">Deaths</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=deaths&o=desc&g=".$games."&n=all\">Deaths</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=deaths&o=desc&g=".$games."&n=all\">Deaths</a></td>");
 	}
 	//Assists
 	if($sortcat == "assists")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=assists&o=desc&g=".$games."&n=all\">Assists</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=assists&o=desc&g=".$games."&n=all\">Assists</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=assists&o=asc&g=".$games."&n=all\">Assists</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=assists&o=asc&g=".$games."&n=all\">Assists</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=assists&o=desc&g=".$games."&n=all\">Assists</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=assists&o=desc&g=".$games."&n=all\">Assists</a></td>");
 	}
 	//KDRatio
 	if($sortcat == "killdeathratio")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=killdeathratio&o=desc&g=".$games."&n=all\">Kills/<br>Death</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=killdeathratio&o=desc&g=".$games."&n=all\">Kills/<br>Death</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=killdeathratio&o=asc&g=".$games."&n=all\">Kills/<br>Death</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=killdeathratio&o=asc&g=".$games."&n=all\">Kills/<br>Death</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=killdeathratio&o=desc&g=".$games."&n=all\">Kills/<br>Death</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=killdeathratio&o=desc&g=".$games."&n=all\">Kills/<br>Death</a></td>");
 	}
 	//Creep Kills
 	if($sortcat == "creepkills")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=creepkills&o=desc&g=".$games."&n=all\">Creep<br>Kills</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=creepkills&o=desc&g=".$games."&n=all\">Creep<br>Kills</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=creepkills&o=asc&g=".$games."&n=all\">Creep<br>Kills</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=creepkills&o=asc&g=".$games."&n=all\">Creep<br>Kills</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=creepkills&o=desc&g=".$games."&n=all\">Creep<br>Kills</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=creepkills&o=desc&g=".$games."&n=all\">Creep<br>Kills</a></td>");
 	}
 	//Denies
 	if($sortcat == "creepdenies")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=creepdenies&o=desc&g=".$games."&n=all\">Creep<br>Denies</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=creepdenies&o=desc&g=".$games."&n=all\">Creep<br>Denies</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=creepdenies&o=asc&g=".$games."&n=all\">Creep<br>Denies</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=creepdenies&o=asc&g=".$games."&n=all\">Creep<br>Denies</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=creepdenies&o=desc&g=".$games."&n=all\">Creep<br>Denies</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=creepdenies&o=desc&g=".$games."&n=all\">Creep<br>Denies</a></td>");
 	}
 	//Neutral Kills
 	if($sortcat == "neutralkills")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=neutralkills&o=desc&g=".$games."&n=all\">Neutral<br>Kills</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=neutralkills&o=desc&g=".$games."&n=all\">Neutral<br>Kills</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=neutralkills&o=asc&g=".$games."&n=all\">Neutral<br>Kills</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=neutralkills&o=asc&g=".$games."&n=all\">Neutral<br>Kills</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=neutralkills&o=desc&g=".$games."&n=all\">Neutral<br>Kills</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=neutralkills&o=desc&g=".$games."&n=all\">Neutral<br>Kills</a></td>");
 	}
 }
 else
@@ -507,181 +503,181 @@ else
 	{
 		print("<td width=175px><a href=\"?p=top&s=datetime&o=asc&g=".$games."&n=0\">".$interval."</a></td>");
 	}
-	//Score
-	if($sortcat == "totalscore")
-	{
-		if($order == "asc")
-		{
-			print("<td width=100px><a href=\"?p=top&s=totalscore&o=desc&g=".$games."&n=0\">Score</a></td>");
-		}
-		else
-		{
-			print("<td width=100px><a href=\"?p=top&s=totalscore&o=asc&g=".$games."&n=0\">Score</a></td>");
-		}
-	}
-	else
-	{
-		print("<td width=100px><a href=\"?p=top&s=totalscore&o=desc&g=".$games."&n=0\">Score</a></td>");
-	}
 	//Games
 	if($sortcat == "totgames")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=totgames&o=desc&g=".$games."&n=0\">Games</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=totgames&o=desc&g=".$games."&n=0\">Games</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=totgames&o=asc&g=".$games."&n=0\">Games</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=totgames&o=asc&g=".$games."&n=0\">Games</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=totgames&o=desc&g=".$games."&n=0\">Games</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=totgames&o=desc&g=".$games."&n=0\">Games</a></td>");
 	}
 	//Wins
 	if($sortcat == "wins")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=wins&o=desc&g=".$games."&n=0\">Wins</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=wins&o=desc&g=".$games."&n=0\">Wins</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=wins&o=asc&g=".$games."&n=0\">Wins</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=wins&o=asc&g=".$games."&n=0\">Wins</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=wins&o=desc&g=".$games."&n=0\">Wins</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=wins&o=desc&g=".$games."&n=0\">Wins</a></td>");
 	}
 	//Losses
 	if($sortcat == "losses")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=losses&o=desc&g=".$games."&n=0\">Losses</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=losses&o=desc&g=".$games."&n=0\">Losses</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=losses&o=asc&g=".$games."&n=0\">Losses</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=losses&o=asc&g=".$games."&n=0\">Losses</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=losses&o=desc&g=".$games."&n=0\">Losses</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=losses&o=desc&g=".$games."&n=0\">Losses</a></td>");
+	}
+	//WinPercent
+	if($sortcat == "winpercent")
+	{
+		if($order == "asc")
+		{
+			print("<td width=75px><a href=\"?p=top&s=winpercent&o=desc&g=".$games."&n=0\">WinPercent</a></td>");
+		}
+		else
+		{
+			print("<td width=75px><a href=\"?p=top&s=winpercent&o=asc&g=".$games."&n=0\">WinPercent</a></td>");
+		}
+	}
+	else
+	{
+		print("<td width=75px><a href=\"?p=top&s=winpercent&o=desc&g=".$games."&n=0\">WinPercent</a></td>");
 	}
 	//Kills
 	if($sortcat == "kills")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=kills&o=desc&g=".$games."&n=0\">Kills</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=kills&o=desc&g=".$games."&n=0\">Kills</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=kills&o=asc&g=".$games."&n=0\">Kills</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=kills&o=asc&g=".$games."&n=0\">Kills</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=kills&o=desc&g=".$games."&n=0\">Kills</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=kills&o=desc&g=".$games."&n=0\">Kills</a></td>");
 	}
 	//CreepKills
 	if($sortcat == "deaths")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=deaths&o=desc&g=".$games."&n=0\">Deaths</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=deaths&o=desc&g=".$games."&n=0\">Deaths</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=deaths&o=asc&g=".$games."&n=0\">Deaths</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=deaths&o=asc&g=".$games."&n=0\">Deaths</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=deaths&o=desc&g=".$games."&n=0\">Deaths</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=deaths&o=desc&g=".$games."&n=0\">Deaths</a></td>");
 	}
 	//Assists
 	if($sortcat == "assists")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=assists&o=desc&g=".$games."&n=0\">Assists</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=assists&o=desc&g=".$games."&n=0\">Assists</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=assists&o=asc&g=".$games."&n=0\">Assists</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=assists&o=asc&g=".$games."&n=0\">Assists</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=assists&o=desc&g=".$games."&n=0\">Assists</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=assists&o=desc&g=".$games."&n=0\">Assists</a></td>");
 	}
 	//KDRatio
 	if($sortcat == "killdeathratio")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=killdeathratio&o=desc&g=".$games."&n=0\">Kills/<br>Death</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=killdeathratio&o=desc&g=".$games."&n=0\">Kills/<br>Death</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=killdeathratio&o=asc&g=".$games."&n=0\">Kills/<br>Death</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=killdeathratio&o=asc&g=".$games."&n=0\">Kills/<br>Death</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=killdeathratio&o=desc&g=".$games."&n=0\">Kills/<br>Death</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=killdeathratio&o=desc&g=".$games."&n=0\">Kills/<br>Death</a></td>");
 	}
 	//Creep Kills
 	if($sortcat == "creepkills")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=creepkills&o=desc&g=".$games."&n=0\">Creep<br>Kills</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=creepkills&o=desc&g=".$games."&n=0\">Creep<br>Kills</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=creepkills&o=asc&g=".$games."&n=0\">Creep<br>Kills</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=creepkills&o=asc&g=".$games."&n=0\">Creep<br>Kills</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=creepkills&o=desc&g=".$games."&n=0\">Creep<br>Kills</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=creepkills&o=desc&g=".$games."&n=0\">Creep<br>Kills</a></td>");
 	}
 	//Denies
 	if($sortcat == "creepdenies")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=creepdenies&o=desc&g=".$games."&n=0\">Creep<br>Denies</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=creepdenies&o=desc&g=".$games."&n=0\">Creep<br>Denies</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=creepdenies&o=asc&g=".$games."&n=0\">Creep<br>Denies</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=creepdenies&o=asc&g=".$games."&n=0\">Creep<br>Denies</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=creepdenies&o=desc&g=".$games."&n=0\">Creep<br>Denies</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=creepdenies&o=desc&g=".$games."&n=0\">Creep<br>Denies</a></td>");
 	}
 	//Neutral Kills
 	if($sortcat == "neutralkills")
 	{
 		if($order == "asc")
 		{
-			print("<td width=70px><a href=\"?p=top&s=neutralkills&o=desc&g=".$games."&n=0\">Neutral<br>Kills</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=neutralkills&o=desc&g=".$games."&n=0\">Neutral<br>Kills</a></td>");
 		}
 		else
 		{
-			print("<td width=70px><a href=\"?p=top&s=neutralkills&o=asc&g=".$games."&n=0\">Neutral<br>Kills</a></td>");
+			print("<td width=75px><a href=\"?p=top&s=neutralkills&o=asc&g=".$games."&n=0\">Neutral<br>Kills</a></td>");
 		}
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=top&s=neutralkills&o=desc&g=".$games."&n=0\">Neutral<br>Kills</a></td>");
+		print("<td width=75px><a href=\"?p=top&s=neutralkills&o=desc&g=".$games."&n=0\">Neutral<br>Kills</a></td>");
 	}
 }
 ?>
@@ -693,14 +689,14 @@ else
 		<table class="table" id="data">
 <?php
 
-$sql = "select *,(kills/deaths) as killdeathratio from (
+$sql = "select *,(kills/deaths) as killdeathratio, (wins+0.000001)/(losses+0.000001) as winpercent from (
 select ".$sqlGroupBy1." as y, ".$sqlGroupBy2." as m, ".$sqlGroupBy3." as mn, MIN(datetime) as datetime, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
 avg(dp.towerkills) as towerkills, avg(dp.assists) as assists, avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills,
 avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills,
 count(*) as totgames, SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as wins, SUM(case when(((dg.winner = 2 and dp.newcolour < 6) or (dg.winner = 1 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as losses
 from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.colour and dp.newcolour <> 12 and dp.newcolour <> 6
 LEFT JOIN games as ga ON dp.gameid = ga.id 
-where dg.winner <> 0 and gp.name = $username";
+where dg.winner <> 0 and gp.name = '$username'";
 
 if($ignorePubs)
 {
@@ -711,7 +707,7 @@ else if($ignorePrivs)
 $sql = $sql." and gamestate = '16'";
 }
 
-$sql = $sql." group by ".$sqlGroupBy1.", ".$sqlGroupBy2." having totgames >= $historyMinGames) as h) as i ORDER BY $sortcat $order";
+$sql = $sql." group by ".$sqlGroupBy1.", ".$sqlGroupBy2." having totgames >= $historyMinGames) as h ORDER BY $sortcat $order";
 
 
 if($offset!='all')
@@ -734,6 +730,14 @@ if($dbType == 'sqlite')
 		$courierkills=$row["courierkills"];
 		$wins=$row["wins"];
 		$losses=$row["losses"];
+		if($wins == 0)
+		{ 
+			$winpercent = 0;
+		} 
+		else 
+		{
+			$winpercent = round($wins/($wins+$losses), 4)*100;
+		}
 		$killdeathratio=ROUND($row["killdeathratio"],2);
 
 	?>
@@ -778,22 +782,31 @@ else
 		$courierkills=$row["courierkills"];
 		$wins=$row["wins"];
 		$losses=$row["losses"];
+		if($wins == 0)
+		{ 
+			$winpercent = 0;
+		} 
+		else 
+		{
+			$winpercent = round($wins/($wins+$losses), 4)*100;
+		}
 		$killdeathratio=ROUND($row["killdeathratio"],2);
 
 	?>
 	<tr class="row">
-    <td width=200px><?php print $monthname; ?> <?php print $year; ?></td>
-	<td width=80px><?php print $totgames;?></td>
-	<td width=80px><?php print $wins; ?></td>
-	<td width=80px><?php print $losses; ?></td>
-	<td width=80px><?php print ROUND($kills,1); ?></td>
-	<td width=80px><?php print ROUND($death,1); ?></td>
-	<td width=80px><?php print ROUND($assists,1); ?></td>
-	<td width=80px><?php print $killdeathratio; ?></td>
+    <td width=175px><?php print $monthname; ?> <?php print $year; ?></td>
+	<td width=75px><?php print $totgames;?></td>
+	<td width=75px><?php print $wins; ?></td>
+	<td width=75px><?php print $losses; ?></td>
+	<td width=75px><?php print $winpercent; ?> %</td>
+	<td width=75px><?php print ROUND($kills,1); ?></td>
+	<td width=75px><?php print ROUND($death,1); ?></td>
+	<td width=75px><?php print ROUND($assists,1); ?></td>
+	<td width=75px><?php print $killdeathratio; ?></td>
 
-	<td width=80px><?php print ROUND($creepkills,1) ?></td>
-	<td width=80px><?php print ROUND($creepdenies,1); ?></td>
-	<td width=80px><?php print ROUND($neutralkills,1); ?></td>
+	<td width=75px><?php print ROUND($creepkills,1) ?></td>
+	<td width=75px><?php print ROUND($creepdenies,1); ?></td>
+	<td width=75px><?php print ROUND($neutralkills,1); ?></td>
 
 
 	</tr>
@@ -811,7 +824,7 @@ else
 	<table class="table" width=1016px>
 		<tr>
 			<td colspan=5>
-				<h3>All Time Top Statistics per Game</h3>
+				<h3>All Time Top Statistics per Game for <?php print $username; ?></h3>
 			</td>
 		</tr>
 		<tr>
@@ -911,23 +924,23 @@ else  // #################################################### MYSQL ############
 {
 
 	$arrStatRow = array(
-		"Top Kills" => "SELECT hero as topHero, kills as topValue, name as topUser, a.gameid as topGame
+		"Top Kills" => "SELECT hero as topHero, kills as topValue, datetime as topDate, a.gameid as topGame
 			FROM dotaplayers AS a 
 			LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 			LEFT JOIN games as c on a.gameid = c.id",
-		"Top Assists" => "SELECT hero as topHero, assists as topValue, name as topUser, a.gameid as topGame
+		"Top Assists" => "SELECT hero as topHero, assists as topValue, datetime as topDate, a.gameid as topGame
 			FROM dotaplayers AS a 
 			LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 			LEFT JOIN games as c on a.gameid = c.id",
-		"Top Deaths" => "SELECT hero as topHero, deaths as topValue, name as topUser, a.gameid as topGame
+		"Top Deaths" => "SELECT hero as topHero, deaths as topValue, datetime as topDate, a.gameid as topGame
 			FROM dotaplayers AS a 
 			LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 			LEFT JOIN games as c on a.gameid = c.id",
-			"Top Creep Kills" => "SELECT hero as topHero, creepkills as topValue, name as topUser, a.gameid as topGame
+			"Top Creep Kills" => "SELECT hero as topHero, creepkills as topValue, datetime as topDate, a.gameid as topGame
 			FROM dotaplayers AS a 
 			LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 			LEFT JOIN games as c on a.gameid = c.id",
-		"Top Creep Denies" => "SELECT hero as topHero, creepdenies as topValue, name as topUser, a.gameid as topGame
+		"Top Creep Denies" => "SELECT hero as topHero, creepdenies as topValue, datetime as topDate, a.gameid as topGame
 			FROM dotaplayers AS a 
 			LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 			LEFT JOIN games as c on a.gameid = c.id");
@@ -943,20 +956,21 @@ else  // #################################################### MYSQL ############
 					</tr>
 
 <?php
+		$sql = $sql." WHERE name = '$username'";
 		if($ignorePubs)
 		{
-			$sql = $sql." WHERE gamestate = '17'";
+			$sql = $sql." AND gamestate = '17'";
 		}
 		else if($ignorePrivs)
 		{
-			$sql = $sql." WHERE gamestate = '16'";
+			$sql = $sql." AND gamestate = '16'";
 		}
 		$sql = $sql." ORDER BY topValue DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
 
 		$result = mysql_query($sql);
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 		{
-			$topUser = $row["topUser"];
+			$topDate = substr($row["topDate"],0,10);
 			$topHero = $row["topHero"];
 			$topGame = $row["topGame"];
 			$topHero = checkIfAliasMySQL($topHero);
@@ -984,7 +998,7 @@ else  // #################################################### MYSQL ############
 							<a href="?p=gameinfo&gid=<?php print $topGame;?>">(<?php print $topValue;?>)</a> 
 						</td>
 						<td align=left>
-							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+							<?php print $topDate;?>
 						</td>
 					</tr>
 <?php
