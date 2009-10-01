@@ -671,8 +671,7 @@ count(*) as totgames, SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg
 from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.colour and dp.newcolour <> 12 and dp.newcolour <> 6
 LEFT JOIN games as ga ON dp.gameid = ga.id LEFT JOIN scores as sc ON sc.name = gp.name 
 LEFT JOIN bans on bans.name = gp.name
-where dg.winner <> 0 
-group by gp.name having totgames >= $games) as h ORDER BY $sortcat $order, name asc";
+where dg.winner <> 0";
 }
 else                    //Using score formula
 {
@@ -685,6 +684,7 @@ from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT J
 LEFT JOIN games as ga ON dp.gameid = ga.id 
 LEFT JOIN bans on bans.name = gp.name
 where dg.winner <> 0 ";
+}
 if($ignorePubs)
 {
 $sql = $sql." and gamestate = '17'";
@@ -694,11 +694,9 @@ else if($ignorePrivs)
 $sql = $sql." and gamestate = '16'";
 }
 
-$sql = $sql." group by gp.name 
-having totgames >= $games) 
-as h) as i ORDER BY $sortcat $order, name asc";
+$sql = $sql." group by gp.name having totgames >= $games) as h) as i ORDER BY $sortcat $order, name asc";
 
-}
+
 
 if($offset!='all')
 {
