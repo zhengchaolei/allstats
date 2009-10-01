@@ -205,6 +205,7 @@ if($displayStyle == 'all') { $pageStyle = 'all'; } else { $pageStyle = '0'; }
 							'games', 
 							'allusers', 
 							'user',
+							'userhistory',
 							'userheroall',							
 							'heroall',							
 							'gameinfo',

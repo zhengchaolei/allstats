@@ -94,6 +94,18 @@ $monthlyRow5 = true;
 // min games played for monthly tops (only for overall stats -> row 3/4)
 $montlyMinGames = 3;
 
+//The number of entries in each highscore list
+$monthlyTopsListSize = 5;
+
+//---------------------------------------------------
+//-------------User history options----------------
+
+// Default view (Month / Week)
+$historyDefaultView = 'Month';
+
+// min games played for monthly tops (only for overall stats -> row 3/4)
+$historyMinGames = 3;
+
 //---------------------------------------------------
 
 //Pre-Calculate score
@@ -141,8 +153,8 @@ $heroResultSize = 15;
 $userResultSize = 20;
 //The number of results returned in a page on the monthly tops page
 $monthlyTopsResultSize = 1;
-//The number of entries in each highscore list
-$monthlyTopsListSize = 5;
+//The number of results returned in a page on the monthly tops page
+$userHistoryResultSize = 20;
 
 
 
