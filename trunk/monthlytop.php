@@ -546,9 +546,10 @@ if($dbType == 'sqlite')
 
 <?php
 			$arrStatRow = array(
-				"Best Win Percentage" => "SELECT name as topUser, 100*wins*1.0/totgames*1.0 as topValue, ' %' as topValueUnit from (Select b.name as name, MAX(a.id) as id,
+				"Best Win Percentage" => "SELECT name as topUser, 100*wins*1.0/((wins+losses)*1.0) as topValue, ' %' as topValueUnit from (Select b.name as name, MAX(a.id) as id,
 					count(*) as totgames,
-					SUM(case when(((d.winner = 1 and a.newcolour < 6) or (d.winner = 2 and a.newcolour > 6)) AND b.`left`*1.0/c.duration*1.0 >= $minPlayedRatio) then 1 else 0 end) as wins 
+					SUM(case when(((d.winner = 1 and a.newcolour < 6) or (d.winner = 2 and a.newcolour > 6)) AND b.`left`*1.0/c.duration*1.0 >= $minPlayedRatio) then 1 else 0 end) as wins, 
+					SUM(case when(((d.winner = 2 and a.newcolour < 6) or (d.winner = 1 and a.newcolour > 6)) AND b.`left`*1.0/c.duration*1.0 >= $minPlayedRatio) then 1 else 0 end) as losses
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
@@ -1188,9 +1189,10 @@ else  // #################################################### MYSQL ############
 		
 <?php
 			$arrStatRow = array(
-				"Best Win Percentage" => "SELECT name as topUser, 100*wins/totgames as topValue ,' %' as topValueUnit from (Select b.name, MAX(a.id) as id,
+				"Best Win Percentage" => "SELECT name as topUser, 100*wins/(wins+losses) as topValue ,' %' as topValueUnit from (Select b.name, MAX(a.id) as id,
 					count(*) as totgames,
-					SUM(case when(((d.winner = 1 and a.newcolour < 6) or (d.winner = 2 and a.newcolour > 6)) AND b.`left`/c.duration >= $minPlayedRatio) then 1 else 0 end) as wins 
+					SUM(case when(((d.winner = 1 and a.newcolour < 6) or (d.winner = 2 and a.newcolour > 6)) AND b.`left`/c.duration >= $minPlayedRatio) then 1 else 0 end) as wins, 
+					SUM(case when(((d.winner = 2 and a.newcolour < 6) or (d.winner = 1 and a.newcolour > 6)) AND b.`left`/c.duration >= $minPlayedRatio) then 1 else 0 end) as losses
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
