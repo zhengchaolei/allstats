@@ -244,208 +244,115 @@ $pages = ceil($count/$gameResultSize);
 		<table class="tableheader" id="tableheader">
 			<tr>
  <?php
+ 
  if($offset == 'all')
- {
-	//Time
-	if($sortcat == "datetime")
+{
+	$sortoffset = $offset;
+}
+else
+{
+	$sortoffset = 0;
+}
+
+//Time
+if($sortcat == "datetime")
+{
+	if($order == "asc")
 	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=desc&n=all\">Date and Time</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=asc&n=all\">Date and Time</a></td>");
-		}
+		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=desc&n=".$sortoffset."\">Date and Time</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=desc&n=all\">Date and Time</a></td>");
+		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=asc&n=".$sortoffset."\">Date and Time</a></td>");
 	}
-	//Map
-	if($sortcat == "map")
+}
+else
+{
+	print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=desc&n=".$sortoffset."\">Date and Time</a></td>");
+}
+//Map
+if($sortcat == "map")
+{
+	if($order == "asc")
 	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=desc&n=all\">Map</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=asc&n=all\">Map</a></td>");
-		}
-	}
-	else
-	{
-		print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=asc&n=all\">Map</a></td>");
-	}
-	//Game Type
-	if($sortcat == "type")
-	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=desc&n=all\">Type</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=asc&n=all\">Type</a></td>");
-		}
+		print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=desc&n=".$sortoffset."\">Map</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=desc&n=all\">Type</a></td>");
-	}	
-	//Game
-	if($sortcat == "gamename")
+		print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=asc&n=".$sortoffset."\">Map</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=asc&n=".$sortoffset."\">Map</a></td>");
+}
+//Game Type
+if($sortcat == "type")
+{
+	if($order == "asc")
 	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=desc&n=all\">Game</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=asc&n=all\">Game</a></td>");
-		}
+		print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=desc&n=".$sortoffset."\">Type</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=asc&n=all\">Game</a></td>");
+		print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=asc&n=".$sortoffset."\">Type</a></td>");
 	}
-	
-	//Duration
-	if($sortcat == "duration")
+}
+else
+{
+	print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=desc&n=".$sortoffset."\">Type</a></td>");
+}	
+//Game
+if($sortcat == "gamename")
+{
+	if($order == "asc")
 	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=desc&n=all\">Duration</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=asc&n=all\">Duration</a></td>");
-		}
-	}
-	else
-	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=desc&n=all\">Duration</a></td>");
-	}
-	
-	//Creator
-	if($sortcat == "creatorname")
-	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=desc&n=all\">Creator</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=asc&n=all\">Creator</a></td>");
-		}
+		print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=desc&n=".$sortoffset."\">Game</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=asc&n=all\">Creator</a></td>");
+		print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=asc&n=".$sortoffset."\">Game</a></td>");
 	}
- }
- else
- {
- //Time
-	if($sortcat == "datetime")
+}
+else
+{
+	print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=asc&n=".$sortoffset."\">Game</a></td>");
+}
+
+//Duration
+if($sortcat == "duration")
+{
+	if($order == "asc")
 	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=desc&n=0\">Date and Time</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=asc&n=0\">Date and Time</a></td>");
-		}
+		print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=desc&n=".$sortoffset."\">Duration</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=desc&n=0\">Date and Time</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=asc&n=".$sortoffset."\">Duration</a></td>");
 	}
-	//Map
-	if($sortcat == "map")
+}
+else
+{
+	print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=desc&n=".$sortoffset."\">Duration</a></td>");
+}
+
+//Creator
+if($sortcat == "creatorname")
+{
+	if($order == "asc")
 	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=desc&n=0\">Map</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=asc&n=0\">Map</a></td>");
-		}
-	}
-	else
-	{
-		print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=asc&n=0\">Map</a></td>");
-	}
-	//Game Type
-	if($sortcat == "type")
-	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=desc&n=0\">Type</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=asc&n=0\">Type</a></td>");
-		}
+		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=desc&n=".$sortoffset."\">Creator</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=desc&n=0\">Type</a></td>");
-	}	
-	//Game
-	if($sortcat == "gamename")
-	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=desc&n=0\">Game</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=asc&n=0\">Game</a></td>");
-		}
+		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=asc&n=".$sortoffset."\">Creator</a></td>");
 	}
-	else
-	{
-		print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=asc&n=0\">Game</a></td>");
-	}
-	
-	//Duration
-	if($sortcat == "duration")
-	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=desc&n=0\">Duration</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=asc&n=0\">Duration</a></td>");
-		}
-	}
-	else
-	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=desc&n=0\">Duration</a></td>");
-	}
-	
-	//Creator
-	if($sortcat == "creatorname")
-	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=desc&n=0\">Creator</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=asc&n=0\">Creator</a></td>");
-		}
-	}
-	else
-	{
-		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=asc&n=0\">Creator</a></td>");
-	}
- }
+}
+else
+{
+	print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=asc&n=".$sortoffset."\">Creator</a></td>");
+}
+
 ?> 
 			<td class="headercell" width=16px></td>
 			</tr>

@@ -245,421 +245,221 @@ else
 	<table class="tableheader" id="tableheader">
 	  <tr>
 		<td class="headercell" width=30px></td>
-		  <?php
+<?php
 		  
-		 if($offset == 'all')
-		 {
-			//Hero name
-			if($sortcat == "description")
-			{
-				if($order == "asc")
-				{
-					print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall&s=description&o=desc&n=all\">Hero</a></td>");
-				}
-				else
-				{
-					print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall&s=description&o=asc&n=all\">Hero</a></td>");
-				}
-			}
-			else
-			{
-				print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall&s=description&o=asc&n=all\">Hero</a></td>");
-			}
-			
-			//Times played
-			if($sortcat == "totgames")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=totgames&o=desc&n=all\">Times<br>Played</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=totgames&o=asc&n=all\">Times<br>Played</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=totgames&o=desc&n=all\">Times<br>Played</a></td>");
-			}
-			
-			//Wins
-			if($sortcat == "wins")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=wins&o=desc&n=all\">Wins</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=wins&o=asc&n=all\">Wins</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=wins&o=desc&n=all\">Wins</a></td>");
-			}
-			
-			//Losses
-			if($sortcat == "losses")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=losses&o=desc&n=all\">Losses</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=losses&o=asc&n=all\">Losses</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=losses&o=desc&n=all\">Losses</a></td>");
-			}
-			
-			//Win/Loss ratio
-			if($sortcat == "winratio")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=desc&n=all\">Win/Loss<br>Ratio</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=asc&n=all\">Win/Loss<br>Ratio</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=desc&n=all\">Win/Loss<br>Ratio</a></td>");
-			}
-			
-			//Kills
-			if($sortcat == "kills")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kills&o=desc&n=all\">Kills</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kills&o=asc&n=all\">Kills</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kills&o=desc&n=all\">Kills</a></td>");
-			}
-			
-			//Deaths
-			if($sortcat == "deaths")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=deaths&o=desc&n=all\">Deaths</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=deaths&o=asc&n=all\">Deaths</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=deaths&o=desc&n=all\">Deaths</a></td>");
-			}
-			
-			//Assists
-			if($sortcat == "assists")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=assists&o=desc&n=all\">Assists</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=assists&o=asc&n=all\">Assists</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=assists&o=desc&n=all\">Assists</a></td>");
-			}
-			
-			//KDRatio
-			if($sortcat == "kdratio")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kdratio&o=desc&n=all\">K/D<br>Ratio</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kdratio&o=asc&n=all\">K/D<br>Ratio</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kdratio&o=desc&n=all\">K/D<br>Ratio</a></td>");
-			}
-			
-			//Creep Kills
-			if($sortcat == "creepkills")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepkills&o=desc&n=all\">Creep<br>Kills</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepkills&o=asc&n=all\">Creep<br>Kills</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepkills&o=desc&n=all\">Creep<br>Kills</a></td>");
-			}
-			
-			//Creep Denies
-			if($sortcat == "creepdenies")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepdenies&o=desc&n=all\">Creep<br>Denies</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepdenies&o=asc&n=all\">Creep<br>Denies</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepdenies&o=desc&n=all\">Creep<br>Denies</a></td>");
-			}
-			
-			//Neutral Kills
-			if($sortcat == "neutralkills")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=neutralkills&o=desc&n=all\">Neutral<br>Kills</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=neutralkills&o=asc&n=all\">Neutral<br>Kills</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=neutralkills&o=desc&n=all\">Neutral<br>Kills</a></td>");
-			}
-		}
-		else
-		{
-			//Hero name
-			if($sortcat == "description")
-			{
-				if($order == "asc")
-				{
-					print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall&s=description&o=desc&n=0\">Hero</a></td>");
-				}
-				else
-				{
-					print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall&s=description&o=asc&n=0\">Hero</a></td>");
-				}
-			}
-			else
-			{
-				print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall&s=description&o=asc&n=0\">Hero</a></td>");
-			}
-			
-			//Times played
-			if($sortcat == "totgames")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=totgames&o=desc&n=0\">Times<br>Played</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=totgames&o=asc&n=0\">Times<br>Played</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=totgames&o=desc&n=0\">Times<br>Played</a></td>");
-			}
-			
-			//Wins
-			if($sortcat == "wins")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=wins&o=desc&n=0\">Wins</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=wins&o=asc&n=0\">Wins</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=wins&o=desc&n=0\">Wins</a></td>");
-			}
-			
-			//Losses
-			if($sortcat == "losses")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=losses&o=desc&n=0\">Losses</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=losses&o=asc&n=0\">Losses</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=losses&o=desc&n=0\">Losses</a></td>");
-			}
-			
-			//Win/Loss ratio
-			if($sortcat == "winratio")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=desc&n=0\">Win/Loss<br>Ratio</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=asc&n=0\">Win/Loss<br>Ratio</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=desc&n=0\">Win/Loss<br>Ratio</a></td>");
-			}
-			
-			//Kills
-			if($sortcat == "kills")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kills&o=desc&n=0\">Kills</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kills&o=asc&n=0\">Kills</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kills&o=desc&n=0\">Kills</a></td>");
-			}
-			
-			//Deaths
-			if($sortcat == "deaths")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=deaths&o=desc&n=0\">Deaths</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=deaths&o=asc&n=0\">Deaths</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=deaths&o=desc&n=0\">Deaths</a></td>");
-			}
-			
-			//Assists
-			if($sortcat == "assists")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=assists&o=desc&n=0\">Assists</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=assists&o=asc&n=0\">Assists</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=assists&o=desc&n=0\">Assists</a></td>");
-			}
-			
-			//KDRatio
-			if($sortcat == "kdratio")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kdratio&o=desc&n=0\">K/D<br>Ratio</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kdratio&o=asc&n=0\">K/D<br>Ratio</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kdratio&o=desc&n=0\">K/D<br>Ratio</a></td>");
-			}
-			
-			//Creep Kills
-			if($sortcat == "creepkills")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepkills&o=desc&n=0\">Creep<br>Kills</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepkills&o=asc&n=0\">Creep<br>Kills</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepkills&o=desc&n=0\">Creep<br>Kills</a></td>");
-			}
-			
-			//Creep Denies
-			if($sortcat == "creepdenies")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepdenies&o=desc&n=0\">Creep<br>Denies</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepdenies&o=asc&n=0\">Creep<br>Denies</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepdenies&o=desc&n=0\">Creep<br>Denies</a></td>");
-			}
-			
-			//Neutral Kills
-			if($sortcat == "neutralkills")
-			{
-				if($order == "asc")
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=neutralkills&o=desc&n=0\">Neutral<br>Kills</a></td>");
-				}
-				else
-				{
-					print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=neutralkills&o=asc&n=0\">Neutral<br>Kills</a></td>");
-				}
-			}
-			else
-			{
-				print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=neutralkills&o=desc&n=0\">Neutral<br>Kills</a></td>");
-			}
-		}
-		?>
+if($offset == 'all')
+{
+	$sortoffset = $offset;
+}
+else
+{
+	$sortoffset = 0;
+}
+
+//Hero name
+if($sortcat == "description")
+{
+	if($order == "asc")
+	{
+		print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall&s=description&o=desc&n=".$sortoffset."\">Hero</a></td>");
+	}
+	else
+	{
+		print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall&s=description&o=asc&n=".$sortoffset."\">Hero</a></td>");
+	}
+}
+else
+{
+	print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall&s=description&o=asc&n=".$sortoffset."\">Hero</a></td>");
+}
+
+//Times played
+if($sortcat == "totgames")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=totgames&o=desc&n=".$sortoffset."\">Times<br>Played</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=totgames&o=asc&n=".$sortoffset."\">Times<br>Played</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=totgames&o=desc&n=".$sortoffset."\">Times<br>Played</a></td>");
+}
+
+//Wins
+if($sortcat == "wins")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=wins&o=desc&n=".$sortoffset."\">Wins</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=wins&o=asc&n=".$sortoffset."\">Wins</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=wins&o=desc&n=".$sortoffset."\">Wins</a></td>");
+}
+
+//Losses
+if($sortcat == "losses")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=losses&o=desc&n=".$sortoffset."\">Losses</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=losses&o=asc&n=".$sortoffset."\">Losses</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=losses&o=desc&n=".$sortoffset."\">Losses</a></td>");
+}
+
+//Win/Loss ratio
+if($sortcat == "winratio")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=desc&n=".$sortoffset."\">Win/Loss<br>Ratio</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=asc&n=".$sortoffset."\">Win/Loss<br>Ratio</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=winratio&o=desc&n=".$sortoffset."\">Win/Loss<br>Ratio</a></td>");
+}
+
+//Kills
+if($sortcat == "kills")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kills&o=desc&n=".$sortoffset."\">Kills</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kills&o=asc&n=".$sortoffset."\">Kills</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kills&o=desc&n=".$sortoffset."\">Kills</a></td>");
+}
+
+//Deaths
+if($sortcat == "deaths")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=deaths&o=desc&n=".$sortoffset."\">Deaths</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=deaths&o=asc&n=".$sortoffset."\">Deaths</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=deaths&o=desc&n=".$sortoffset."\">Deaths</a></td>");
+}
+
+//Assists
+if($sortcat == "assists")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=assists&o=desc&n=".$sortoffset."\">Assists</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=assists&o=asc&n=".$sortoffset."\">Assists</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=assists&o=desc&n=".$sortoffset."\">Assists</a></td>");
+}
+
+//KDRatio
+if($sortcat == "kdratio")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kdratio&o=desc&n=".$sortoffset."\">K/D<br>Ratio</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kdratio&o=asc&n=".$sortoffset."\">K/D<br>Ratio</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=kdratio&o=desc&n=".$sortoffset."\">K/D<br>Ratio</a></td>");
+}
+
+//Creep Kills
+if($sortcat == "creepkills")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepkills&o=desc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepkills&o=asc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepkills&o=desc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
+}
+
+//Creep Denies
+if($sortcat == "creepdenies")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepdenies&o=desc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepdenies&o=asc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=creepdenies&o=desc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
+}
+
+//Neutral Kills
+if($sortcat == "neutralkills")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=neutralkills&o=desc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=neutralkills&o=asc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall&s=neutralkills&o=desc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
+}
+?>
 	<td class="headercell" width=16px></td>
   </tr>
 </table>

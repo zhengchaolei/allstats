@@ -234,203 +234,109 @@ else
 		<table class="tableheader" id="tableheader">
 		<tr>
 <?php
- if($offset == 'all')
- {
-        //Id
-        if($sortcat == "id")
-        {
-                if($order == "asc")
-                {
-                        print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=desc&n=all\">Id</a></td>");
-                }
-                else
-                {
-                        print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=asc&n=all\">Id</a></td>");
-                }
-        }
-        else
-        {
-                print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=desc&n=all\">Id</a></td>");
-        }
-	//Name
-	if($sortcat == "name")
+if($offset == 'all')
+{
+	$sortoffset = $offset;
+}
+else
+{
+	$sortoffset = 0;
+}
+//Id
+if($sortcat == "id")
+{
+	if($order == "asc")
 	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=desc&n=all\">Name</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=asc&n=all\">Name</a></td>");
-		}
+		print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=desc&n=".$sortoffset."\">Id</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=desc&n=all\">Name</a></td>");
-	}
-	//Reason
-	if($sortcat == "reason")
-	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=desc&n=all\">Reason</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=asc&n=all\">Reason</a></td>");
-		}
-	}
-	else
-	{
-		print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=desc&n=all\">Reason</a></td>");
-	}
-	//Game Name
-	if($sortcat == "gamename")
-	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=desc&n=all\">Game Name</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=asc&n=all\">Game Name</a></td>");
-		}
-	}
-	else
-	{
-		print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=desc&n=all\">Game Name</a></td>");
-	}
-	//Date
-	if($sortcat == "date")
-	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=desc&n=all\">Date</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=asc&n=all\">Date</a></td>");
-		}
-	}
-	else
-	{
-		print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=desc&n=all\">Date</a></td>");
-	}
-	//Banned by
-	if($sortcat == "admin")
-	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=desc&n=all\">Banned by</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=asc&n=all\">Banned by</a></td>");
-		}
-	}
-	else
-	{
-		print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=desc&n=all\">Banned by</a></td>");
+		print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=asc&n=".$sortoffset."\">Id</a></td>");
 	}
 }
 else
 {
-        //Id
-        if($sortcat == "id")
-        {
-                if($order == "asc")
-                {
-                        print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=desc&n=0\">Id</a></td>");
-                }
-                else
-                {
-                        print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=asc&n=0\">Id</a></td>");
-                }
-        }
-        else
-        {
-                print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=desc&n=0\">Id</a></td>");
-        }
-	//Name
-	if($sortcat == "name")
+		print("<td class=\"headercell\" width=70px><a href=\"?p=bans&s=id&o=desc&n=".$sortoffset."\">Id</a></td>");
+}
+//Name
+if($sortcat == "name")
+{
+	if($order == "asc")
 	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=desc&n=0\">Name</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=asc&n=0\">Name</a></td>");
-		}
+		print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=desc&n=".$sortoffset."\">Name</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=desc&n=0\">Name</a></td>");
+		print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=asc&n=".$sortoffset."\">Name</a></td>");
 	}
-	//Reason
-	if($sortcat == "reason")
+}
+else
+{
+	print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=name&o=desc&n=".$sortoffset."\">Name</a></td>");
+}
+//Reason
+if($sortcat == "reason")
+{
+	if($order == "asc")
 	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=desc&n=0\">Reason</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=asc&n=0\">Reason</a></td>");
-		}
+		print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=desc&n=".$sortoffset."\">Reason</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=desc&n=0\">Reason</a></td>");
+		print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=asc&n=".$sortoffset."\">Reason</a></td>");
 	}
-	//Game Name
-	if($sortcat == "gamename")
+}
+else
+{
+	print("<td class=\"headercell\" width=360px><a href=\"?p=bans&s=reason&o=desc&n=".$sortoffset."\">Reason</a></td>");
+}
+//Game Name
+if($sortcat == "gamename")
+{
+	if($order == "asc")
 	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=desc&n=0\">Game Name</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=asc&n=0\">Game Name</a></td>");
-		}
+		print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=desc&n=".$sortoffset."\">Game Name</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=desc&n=0\">Game Name</a></td>");
+		print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=asc&n=".$sortoffset."\">Game Name</a></td>");
 	}
-	//Date
-	if($sortcat == "date")
+}
+else
+{
+	print("<td class=\"headercell\" width=250px><a href=\"?p=bans&s=gamename&o=desc&n=".$sortoffset."\">Game Name</a></td>");
+}
+//Date
+if($sortcat == "date")
+{
+	if($order == "asc")
 	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=desc&n=0\">Date</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=asc&n=0\">Date</a></td>");
-		}
+		print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=desc&n=".$sortoffset."\">Date</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=desc&n=0\">Date</a></td>");
+		print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=asc&n=".$sortoffset."\">Date</a></td>");
 	}
-	//Banned by
-	if($sortcat == "admin")
+}
+else
+{
+	print("<td class=\"headercell\" width=90px><a href=\"?p=bans&s=date&o=desc&n=".$sortoffset."\">Date</a></td>");
+}
+//Banned by
+if($sortcat == "admin")
+{
+	if($order == "asc")
 	{
-		if($order == "asc")
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=desc&n=0\">Banned by</a></td>");
-		}
-		else
-		{
-			print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=asc&n=0\">Banned by</a></td>");
-		}
+		print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=desc&n=".$sortoffset."\">Banned by</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=desc&n=0\">Banned by</a></td>");
+		print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=asc&n=".$sortoffset."\">Banned by</a></td>");
 	}
+}
+else
+{
+	print("<td class=\"headercell\" width=150px><a href=\"?p=bans&s=admin&o=desc&n=".$sortoffset."\">Banned by</a></td>");
 }
 ?>
 		<td class="headercell" width=16px></td>
