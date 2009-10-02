@@ -240,388 +240,204 @@ else
 	<div id="theader">
 		<table class="tableheader" id="tableheader">
 			<tr>
-				<?php
-				 if($offset == 'all')
-				 {
-					//User Name
-					if($sortcat == "name")
-					{
-				                $sortcat = "b.name";
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=200px><a href=\"?p=allusers&s=name&o=desc&n=all\">Name</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=200px><a href=\"?p=allusers&s=name&o=asc&n=all\">Name</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=200px><a href=\"?p=allusers&s=name&o=asc&n=all\">Name</a></td>");
-					}
-					
-					//Games
-					if($sortcat == "totgames")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=totgames&o=desc&n=all\">Games</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=totgames&o=asc&n=all\">Games</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=totgames&o=desc&n=all\">Games</a></td>");
-					}
-					
-					//Kills
-					if($sortcat == "kills")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=kills&o=desc&n=all\">Kills</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=kills&o=asc&n=all\">Kills</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=kills&o=desc&n=all\">Kills</a></td>");
-					}
-					
-					//Deaths
-					if($sortcat == "deaths")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=deaths&o=desc&n=all\">Deaths</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=deaths&o=asc&n=all\">Deaths</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=deaths&o=desc&n=all\">Deaths</a></td>");
-					}
-					
-					//Assists
-					if($sortcat == "assists")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=assists&o=desc&n=all\">Assists</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=assists&o=asc&n=all\">Assists</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=assists&o=desc&n=all\">Assists</a></td>");
-					}
-					
-					//Creep Kills
-					if($sortcat == "creepkills")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepkills&o=desc&n=all\">Creep<br>Kills</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepkills&o=asc&n=all\">Creep<br>Kills</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepkills&o=desc&n=all\">Creep<br>Kills</a></td>");
-					}
-					
-					//Creep Denies
-					if($sortcat == "creepdenies")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepdenies&o=desc&n=all\">Creep<br>Denies</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepdenies&o=asc&n=all\">Creep<br>Denies</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepdenies&o=desc&n=all\">Creep<br>Denies</a></td>");
-					}
-					
-					//Neutral Kills
-					if($sortcat == "neutralkills")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=neutralkills&o=desc&n=all\">Neutral<br>Kills</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=neutralkills&o=asc&n=all\">Neutral<br>Kills</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=neutralkills&o=desc&n=all\">Neutral<br>Kills</a></td>");
-					}
-					
-					//Tower Kills
-					if($sortcat == "towerkills")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=towerkills&o=desc&n=all\">Tower<br>Kills</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=towerkills&o=asc&n=all\">Tower<br>Kills</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=towerkills&o=desc&n=all\">Tower<br>Kills</a></td>");
-					}
-					
-					//Rax Kills
-					if($sortcat == "raxkills")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=raxkills&o=desc&n=all\">Rax<br>Kills</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=raxkills&o=asc&n=all\">Rax<br>Kills</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=raxkills&o=desc&n=all\">Rax<br>Kills</a></td>");
-					}
-					
-					//Courier Kills
-					if($sortcat == "courierkills")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=courierkills&o=desc&n=all\">Courier<br>Kills</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=courierkills&o=asc&n=all\">Courier<br>Kills</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=courierkills&o=desc&n=all\">Courier<br>Kills</a></td>");
-					}
-				}
-				else
-				{
-					//User Name
-					if($sortcat == "name")
-					{
-                                                $sortcat = "b.name";
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=200px><a href=\"?p=allusers&s=name&o=desc&n=0\">Name</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=200px><a href=\"?p=allusers&s=name&o=asc&n=0\">Name</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=200px><a href=\"?p=allusers&s=name&o=asc&n=0\">Name</a></td>");
-					}
-					
-					//Games
-					if($sortcat == "totgames")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=totgames&o=desc&n=0\">Games</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=totgames&o=asc&n=0\">Games</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=totgames&o=desc&n=0\">Games</a></td>");
-					}
-					
-					//Kills
-					if($sortcat == "kills")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=kills&o=desc&n=0\">Kills</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=kills&o=asc&n=0\">Kills</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=kills&o=desc&n=0\">Kills</a></td>");
-					}
-					
-					//Deaths
-					if($sortcat == "deaths")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=deaths&o=desc&n=0\">Deaths</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=deaths&o=asc&n=0\">Deaths</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=deaths&o=desc&n=0\">Deaths</a></td>");
-					}
-					
-					//Assists
-					if($sortcat == "assists")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=assists&o=desc&n=0\">Assists</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=assists&o=asc&n=0\">Assists</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=assists&o=desc&n=0\">Assists</a></td>");
-					}
-					
-					//Creep Kills
-					if($sortcat == "creepkills")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepkills&o=desc&n=0\">Creep<br>Kills</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepkills&o=asc&n=0\">Creep<br>Kills</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepkills&o=desc&n=0\">Creep<br>Kills</a></td>");
-					}
-					
-					//Creep Denies
-					if($sortcat == "creepdenies")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepdenies&o=desc&n=0\">Creep<br>Denies</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepdenies&o=asc&n=0\">Creep<br>Denies</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepdenies&o=desc&n=0\">Creep<br>Denies</a></td>");
-					}
-					
-					//Neutral Kills
-					if($sortcat == "neutralkills")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=neutralkills&o=desc&n=0\">Neutral<br>Kills</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=neutralkills&o=asc&n=0\">Neutral<br>Kills</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=neutralkills&o=desc&n=0\">Neutral<br>Kills</a></td>");
-					}
-					
-					//Tower Kills
-					if($sortcat == "towerkills")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=towerkills&o=desc&n=0\">Tower<br>Kills</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=towerkills&o=asc&n=0\">Tower<br>Kills</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=towerkills&o=desc&n=0\">Tower<br>Kills</a></td>");
-					}
-					
-					//Rax Kills
-					if($sortcat == "raxkills")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=raxkills&o=desc&n=0\">Rax<br>Kills</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=raxkills&o=asc&n=0\">Rax<br>Kills</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=raxkills&o=desc&n=0\">Rax<br>Kills</a></td>");
-					}
-					
-					//Courier Kills
-					if($sortcat == "courierkills")
-					{
-						if($order == "asc")
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=courierkills&o=desc&n=0\">Courier<br>Kills</a></td>");
-						}
-						else
-						{
-							print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=courierkills&o=asc&n=0\">Courier<br>Kills</a></td>");
-						}
-					}
-					else
-					{
-						print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=courierkills&o=desc&n=0\">Courier<br>Kills</a></td>");
-					}
-				}
-				?>					
+<?php
+if($offset == 'all')
+{
+	$sortoffset = $offset;
+}
+else
+{
+	$sortoffset = 0;
+}
+
+//User Name
+if($sortcat == "name")
+{
+			$sortcat = "b.name";
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=200px><a href=\"?p=allusers&s=name&o=desc&n=".$sortoffset."\">Name</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=200px><a href=\"?p=allusers&s=name&o=asc&n=".$sortoffset."\">Name</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=200px><a href=\"?p=allusers&s=name&o=asc&n=".$sortoffset."\">Name</a></td>");
+}
+
+//Games
+if($sortcat == "totgames")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=totgames&o=desc&n=".$sortoffset."\">Games</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=totgames&o=asc&n=".$sortoffset."\">Games</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=totgames&o=desc&n=".$sortoffset."\">Games</a></td>");
+}
+
+//Kills
+if($sortcat == "kills")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=kills&o=desc&n=".$sortoffset."\">Kills</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=kills&o=asc&n=".$sortoffset."\">Kills</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=kills&o=desc&n=".$sortoffset."\">Kills</a></td>");
+}
+
+//Deaths
+if($sortcat == "deaths")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=deaths&o=desc&n=".$sortoffset."\">Deaths</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=deaths&o=asc&n=".$sortoffset."\">Deaths</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=deaths&o=desc&n=".$sortoffset."\">Deaths</a></td>");
+}
+
+//Assists
+if($sortcat == "assists")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=assists&o=desc&n=".$sortoffset."\">Assists</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=assists&o=asc&n=".$sortoffset."\">Assists</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=assists&o=desc&n=".$sortoffset."\">Assists</a></td>");
+}
+
+//Creep Kills
+if($sortcat == "creepkills")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepkills&o=desc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepkills&o=asc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepkills&o=desc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
+}
+
+//Creep Denies
+if($sortcat == "creepdenies")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepdenies&o=desc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepdenies&o=asc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepdenies&o=desc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
+}
+
+//Neutral Kills
+if($sortcat == "neutralkills")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=neutralkills&o=desc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=neutralkills&o=asc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=neutralkills&o=desc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
+}
+
+//Tower Kills
+if($sortcat == "towerkills")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=towerkills&o=desc&n=".$sortoffset."\">Tower<br>Kills</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=towerkills&o=asc&n=".$sortoffset."\">Tower<br>Kills</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=towerkills&o=desc&n=".$sortoffset."\">Tower<br>Kills</a></td>");
+}
+
+//Rax Kills
+if($sortcat == "raxkills")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=raxkills&o=desc&n=".$sortoffset."\">Rax<br>Kills</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=raxkills&o=asc&n=".$sortoffset."\">Rax<br>Kills</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=raxkills&o=desc&n=".$sortoffset."\">Rax<br>Kills</a></td>");
+}
+
+//Courier Kills
+if($sortcat == "courierkills")
+{
+	if($order == "asc")
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=courierkills&o=desc&n=".$sortoffset."\">Courier<br>Kills</a></td>");
+	}
+	else
+	{
+		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=courierkills&o=asc&n=".$sortoffset."\">Courier<br>Kills</a></td>");
+	}
+}
+else
+{
+	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=courierkills&o=desc&n=".$sortoffset."\">Courier<br>Kills</a></td>");
+}
+?>					
 			<td class="headercell" width=16px></td>
 			</tr>
 	 </table>
