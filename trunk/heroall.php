@@ -110,7 +110,19 @@ else
 				</table>
 			</td>
 			<td width=50%>
+<?php
+if($username != '') {
+?>				
+				<h2>Hero Statistics <?php if($ignorePubs){ print "for Private Games";} else if($ignorePrivs){ print "for Public Games";} else { print "for All Games";} ?>:</h2>
+<?php
+}
+else 
+{
+?>
 				<h2>Hero Statistics for: <a href="?p=user&u=<?php print $username; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $username; ?></a></h2>
+<?php
+}
+?>				
 			</td>
 			<td width=25% class="rowuh">
 				<table class="rowuh" width = 235px style="float:right">
