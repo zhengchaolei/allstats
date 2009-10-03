@@ -555,7 +555,7 @@ if($dbType == 'sqlite')
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN dotagames as d on d.gameid = c.id
 					where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Best K/D ratio" => "SELECT name as topUser, totKills*1.0/totDeaths*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+				"Best K/D ratio" => "SELECT name as topUser, case when (totKills = 0) then 0 when (totDeaths = 0) then 1000 else ((totKills*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name as name, MAX(a.id) as id,
 					SUM(kills) as totKills,
 					SUM(deaths) as totDeaths 
 					FROM dotaplayers AS a 
@@ -563,7 +563,7 @@ if($dbType == 'sqlite')
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN dotagames as d on d.gameid = c.id
 					where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Best A/D Ratio" => "SELECT name as topUser, totAssists*1.0/totDeaths*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+				"Best A/D Ratio" => "SELECT name as topUser, case when (totAssists = 0) then 0 when (totDeaths = 0) then 1000 else ((totAssists*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name as name, MAX(a.id) as id,
 					SUM(assists) as totAssists,
 					SUM(deaths) as totDeaths 
 					FROM dotaplayers AS a 
@@ -1198,7 +1198,7 @@ else  // #################################################### MYSQL ############
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN dotagames as d on d.gameid = c.id
 					where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Best K/D ratio" => "SELECT name as topUser, totKills/totDeaths as topValue from (Select b.name, MAX(a.id) as id,
+				"Best K/D ratio" => "SELECT name as topUser, case when (totKills = 0) then 0 when (totDeaths = 0) then 1000 else ((totKills*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name, MAX(a.id) as id,
 					SUM(kills) as totKills,
 					SUM(deaths) as totDeaths 
 					FROM dotaplayers AS a 
@@ -1206,7 +1206,7 @@ else  // #################################################### MYSQL ############
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN dotagames as d on d.gameid = c.id
 					where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",			
-				"Best A/D Ratio" => "SELECT name as topUser, totAssists/totDeaths as topValue from (Select b.name, MAX(a.id) as id,
+				"Best A/D Ratio" => "SELECT name as topUser, case when (totAssists = 0) then 0 when (totDeaths = 0) then 1000 else ((totAssists*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name, MAX(a.id) as id,
 					SUM(assists) as totAssists,
 					SUM(deaths) as totDeaths 
 					FROM dotaplayers AS a 

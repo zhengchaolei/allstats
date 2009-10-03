@@ -456,11 +456,11 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 						<?php
 							if($displayStyle == 'all')
 							{ 
-							print "<a href=\"?p=userheroall&u=".$username."&s=description&o=asc&n=all\">Show Hero Stats for ".$username."</a>";
+							print "<a href=\"?p=heroall&u=".$username."&s=description&o=asc&n=all\">Show Hero Stats for ".$username."</a>";
 							} 
 							else 
 							{
-							print "<a href=\"?p=userheroall&u=".$username."&s=description&o=asc&n=0\">Show Hero Stats for ".$username."</a>";
+							print "<a href=\"?p=heroall&u=".$username."&s=description&o=asc&n=0\">Show Hero Stats for ".$username."</a>";
 							}
 						?>
 						</td>
@@ -514,7 +514,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
           <td>Assists:</td>
           <td><?php print $assists;?></td>
 		  <td>Kills/Death:</td>
-          <td><?php if($death == 0 and $kills == 0){ print '0';} else if($death == 0){print '1000';} else {print round(($kills/$death),2);}?></td>
+          <td><?php print getRatio($kills, $death); ?></td>
 		  
         </tr>
 		<tr height=10px>
@@ -981,7 +981,7 @@ else
  <?php 
 
  $sql = "SELECT winner, a.gameid as id, newcolour, datetime, gamename, description, hero, kills, deaths, assists, creepkills, creepdenies, neutralkills, name, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type,
- CASE WHEN (deaths = 0 and kills = 0) THEN 0 WHEN (deaths = 0) then 1000 ELSE (kills*1.0/deaths) end as kdratio,
+ CASE WHEN (kills = 0) THEN 0 WHEN (deaths = 0) then 1000 ELSE (kills*1.0/deaths) end as kdratio,
  CASE when ((winner=1 and newcolour < 6) or (winner=2 and newcolour > 5)) AND b.`left`/d.duration >= 0.8  then 'WON' when ((winner=2 and newcolour < 6) or (winner=1 and newcolour > 5)) AND b.`left`/d.duration >= 0.8  then 'LOST' when  winner=0 then 'DRAW' else '$notCompleted' end as outcome 
  FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
  LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = heroid where name= '$username' and description <> 'NULL' ORDER BY $sortcat $order, d.id DESC";

@@ -190,4 +190,29 @@ function getTeam($color)
 	}
 }
 
+function getRatio($nom, $denom) 
+{
+	if($nom == 0) {
+		return 0;
+	}
+	else if($denom == 0) {
+		return 1000;
+	}
+	else {
+		return round((($nom*1.0)/($denom*1.0)),2);
+	}
+}
+
+function getUserParam($username)
+{
+	if($username == '') 
+	{
+		return '';
+	}
+	else
+	{
+		return "&u=".$username;
+	}
+}
+
 ?>
