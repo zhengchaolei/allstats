@@ -111,7 +111,7 @@ else
 			</td>
 			<td width=50%>
 <?php
-if($username != '') {
+if($username == '') {
 ?>				
 				<h2>Hero Statistics <?php if($ignorePubs){ print "for Private Games";} else if($ignorePrivs){ print "for Public Games";} else { print "for All Games";} ?>:</h2>
 <?php
