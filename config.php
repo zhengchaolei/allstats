@@ -157,6 +157,14 @@ $monthlyTopsResultSize = 1;
 $userHistoryResultSize = 20;
 
 
+//configure which pages to be shown
+$showTops=true;
+$showMonthlyTops=true;
+$showPlayerStats=true;
+$showHeroStats=true;
+$showGameHistoy=true;
+$showBans=true;
+$showAdmins=true;
 
 /**********************************
  *	DO NOT EDIT BELOW THIS POINT. *

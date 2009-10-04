@@ -70,7 +70,64 @@ require_once("config.php");
 			<br>
 			<br>
 			Please choose from menu above.
-			
+<?php
+
+if($dbType == 'sqlite')
+{
+	$sql = "select count(*) as count from sqlite_master WHERE tbl_name = 'originals' and type = 'table'";
+	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+	{
+		$count=$row["count"];
+	}
+}
+else
+{
+	$sql = "SELECT count(*) as count FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='originals' and TABLE_SCHEMA='$databasename'";
+	$result = mysql_query($sql);
+	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		$count=$row["count"];
+	}
+	mysql_free_result($result);
+}
+if ($count == 0) 
+{
+?>
+			<br>
+			<br>
+			<br>
+			<div style="color:red">WARNING: "originals" table not found. Please run allstats sql setup script first!</div>
+<?php
+}
+
+if($dbType == 'sqlite')
+{
+	$sql = "select count(*) as count from sqlite_master WHERE (tbl_name like 'dota%' or tbl_name like 'game%') and type = 'table'";
+	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+	{
+		$count=$row["count"];
+	}
+}
+else
+{
+	$sql = "SELECT count(*) as count FROM INFORMATION_SCHEMA.TABLES WHERE (TABLE_NAME like 'dota%' or TABLE_NAME like 'game%') and TABLE_SCHEMA='$databasename'";
+	$result = mysql_query($sql);
+	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		$count=$row["count"];
+	}
+	mysql_free_result($result);
+}
+if ($count < 4) 
+{
+?>
+			<br>
+			<br>
+			<br>
+			<div style="color:red">ERROR: ghost tables not found. Please check your configuration</div>
+<?php
+}
+?>
+
+
 		</td>
 	</tr>
 </table>
