@@ -155,20 +155,21 @@ if($monthlyDefaultView == 'week' || $monthlyDefaultView == 'Week') { $interval =
 if($displayStyle == 'all') { $pageStyle = 'all'; } else { $pageStyle = '0'; }
 ?>
 						  <a href="./">Home</a></li> 
-						  <li> 
-						  <a href="?p=top&s=totalscore&o=desc&g=<?php print $minGamesPlayed; ?>&n=<?php print $pageStyle; ?>">Top Players</a></li> 
-						  <li>
-						  <a href="?p=monthlytop&i=<?php print $interval;?>&n=<?php print $pageStyle; ?>"><?php print $interval;?>ly Tops</a></li> 
-						  <li> 
-						  <a href="?p=allusers&s=totgames&o=desc&n=<?php print $pageStyle; ?>">Player Statistics</a></li> 
-						  <li>
-						  <a href="?p=heroall&s=description&o=asc&n=<?php print $pageStyle; ?>">Hero Statistics</a></li> 
-						  <li>
-						  <a href="?p=games&s=datetime&o=desc&n=<?php print $pageStyle; ?>">Game History</a></li> 
-						  <li> 
-						  <a href="?p=bans&s=date&o=desc&n=<?php print $pageStyle; ?>">Bans</a></li>
-						  <li> 
-						  <a href="?p=admins&n=<?php print $pageStyle; ?>">Admins</a></li> 
+							<?php if ($showTops) { ?>
+								<li><a href="?p=top&s=totalscore&o=desc&g=<?php print $minGamesPlayed; ?>&n=<?php print $pageStyle; ?>">Top Players</a></li>
+							<?php } if ($showMonthlyTops) { ?>
+								<li><a href="?p=monthlytop&i=<?php print $interval;?>&n=<?php print $pageStyle; ?>"><?php print $interval;?>ly Tops</a></li> 
+							<?php } if ($showPlayerStats) { ?>
+								<li><a href="?p=allusers&s=totgames&o=desc&n=<?php print $pageStyle; ?>">Player Statistics</a></li> 
+							<?php } if ($showHeroStats) { ?>
+								<li><a href="?p=heroall&s=description&o=asc&n=<?php print $pageStyle; ?>">Hero Statistics</a></li> 
+							<?php } if ($showGameHistoy) { ?>
+								<li><a href="?p=games&s=datetime&o=desc&n=<?php print $pageStyle; ?>">Game History</a></li> 
+							<?php } if ($showBans) { ?>
+								<li><a href="?p=bans&s=date&o=desc&n=<?php print $pageStyle; ?>">Bans</a></li>
+							<?php } if ($showAdmins) { ?>
+								<li><a href="?p=admins&n=<?php print $pageStyle; ?>">Admins</a></li> 
+							<?php } ?>
 						  <li>
 							<form name="testForm" method=GET action="">
 								<input type="text" 
