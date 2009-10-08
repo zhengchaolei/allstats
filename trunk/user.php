@@ -90,7 +90,7 @@ if($count == 0)
 			}
 			if($foundCount == 1)
 			{
-				$headerString = "Location: ?p=user&u=".$founduser."&s=datetime&o=desc&n=";
+				$headerString = "?p=user&u=".$founduser."&s=datetime&o=desc&n=";
 				if($displayStyle == 'all')
 				{ 
 				$headerString = $headerString.'all';
@@ -99,8 +99,15 @@ if($count == 0)
 				{
 				$headerString = $headerString.'0';
 				}
-				header($headerString);
-			}?>
+?>
+				<script language="javascript" type="text/javascript">
+				<!--
+				window.setTimeout('window.location = "<?php print $headerString; ?>"',2000);
+				// –>
+				</script>			
+<?php			
+			}
+?>
 			<div class="header" id="header">
 				<table width=1016px>
 				<tr>
@@ -152,7 +159,7 @@ if($count == 0)
 			}
 			if($foundCount == 1)
 			{
-				$headerString = "Location: ?p=user&u=".$founduser."&s=datetime&o=desc&n=";
+				$headerString = "?p=user&u=".$founduser."&s=datetime&o=desc&n=";
 				if($displayStyle == 'all')
 				{ 
 				$headerString = $headerString.'all';
@@ -161,8 +168,15 @@ if($count == 0)
 				{
 				$headerString = $headerString.'0';
 				}
-				header($headerString);
-			}?>
+?>
+				<script language="javascript" type="text/javascript">
+				<!--
+				window.setTimeout('window.location = "<?php print $headerString; ?>"',2000);
+				// –>
+				</script>			
+<?php			
+			}
+?>
 				<div class="header" id="header">
 					<table width=1016px>
 						<tr>
