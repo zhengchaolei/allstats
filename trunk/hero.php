@@ -113,7 +113,6 @@ $sql ="Select *, (kills*1.0/deaths) as kdratio, (wins*1.0/losses) as winratio, s
 	LEFT JOIN gameplayers as d ON d.gameid = a.gameid and a.colour = d.colour LEFT JOIN games as e ON d.gameid = e.id where hero='$heroid' $aliasheroes group by description) as y 
 	LEFT JOIN originals as z ON y.description = z.description 
 	where z.heroid='$heroid'";
-	print $sql;
 	if($dbType == 'sqlite')
 {
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
