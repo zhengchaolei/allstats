@@ -168,7 +168,6 @@ function checkIfAliasMySQL($value){
 	//else we keep the original
 	
 	return $value;
-	print"value is $value";
 }
 
 function getTeam($color)
