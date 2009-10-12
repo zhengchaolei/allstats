@@ -546,15 +546,15 @@ if($dbType == 'sqlite')
 
 <?php
 			$arrStatRow = array(
-				"Best Win Percentage" => "SELECT name as topUser, 100*wins*1.0/((wins+losses)*1.0) as topValue, ' %' as topValueUnit from (Select b.name as name, MAX(a.id) as id,
+				"Best Win Percentage" => "SELECT name as topUser, 100*wins*1.0/(totgames*1.0) as topValue, ' %' as topValueUnit from (Select b.name as name, MAX(a.id) as id,
 					count(*) as totgames,
-					SUM(case when(((d.winner = 1 and a.newcolour < 6) or (d.winner = 2 and a.newcolour > 6)) AND b.`left`*1.0/c.duration*1.0 >= $minPlayedRatio) then 1 else 0 end) as wins, 
-					SUM(case when(((d.winner = 2 and a.newcolour < 6) or (d.winner = 1 and a.newcolour > 6)) AND b.`left`*1.0/c.duration*1.0 >= $minPlayedRatio) then 1 else 0 end) as losses
+					SUM(case when((d.winner = 1 and a.newcolour < 6) or (d.winner = 2 and a.newcolour > 6)) then 1 else 0 end) as wins, 
+					SUM(case when((d.winner = 2 and a.newcolour < 6) or (d.winner = 1 and a.newcolour > 6)) then 1 else 0 end) as losses
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
+					where winner <> 0 AND b.`left`*1.0/c.duration*1.0 >= $minPlayedRatio AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
 				"Best K/D ratio" => "SELECT name as topUser, case when (totKills = 0) then 0 when (totDeaths = 0) then 1000 else ((totKills*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name as name, MAX(a.id) as id,
 					SUM(kills) as totKills,
 					SUM(deaths) as totDeaths 
@@ -1189,15 +1189,15 @@ else  // #################################################### MYSQL ############
 		
 <?php
 			$arrStatRow = array(
-				"Best Win Percentage" => "SELECT name as topUser, 100*wins/(wins+losses) as topValue ,' %' as topValueUnit from (Select b.name, MAX(a.id) as id,
+				"Best Win Percentage" => "SELECT name as topUser, 100*wins/totgames as topValue ,' %' as topValueUnit from (Select b.name, MAX(a.id) as id,
 					count(*) as totgames,
-					SUM(case when(((d.winner = 1 and a.newcolour < 6) or (d.winner = 2 and a.newcolour > 6)) AND b.`left`/c.duration >= $minPlayedRatio) then 1 else 0 end) as wins, 
-					SUM(case when(((d.winner = 2 and a.newcolour < 6) or (d.winner = 1 and a.newcolour > 6)) AND b.`left`/c.duration >= $minPlayedRatio) then 1 else 0 end) as losses
+					SUM(case when((d.winner = 1 and a.newcolour < 6) or (d.winner = 2 and a.newcolour > 6)) then 1 else 0 end) as wins, 
+					SUM(case when((d.winner = 2 and a.newcolour < 6) or (d.winner = 1 and a.newcolour > 6)) then 1 else 0 end) as losses
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
+					where winner <> 0 AND b.`left`/c.duration >= $minPlayedRatio AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
 				"Best K/D ratio" => "SELECT name as topUser, case when (totKills = 0) then 0 when (totDeaths = 0) then 1000 else ((totKills*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name, MAX(a.id) as id,
 					SUM(kills) as totKills,
 					SUM(deaths) as totDeaths 
