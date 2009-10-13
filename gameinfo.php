@@ -183,14 +183,23 @@ $replayloc = $replayLocation.'/'.str_ireplace("\\","_",str_ireplace("/","_",$rep
 <?php
 $sql = "SELECT winner, a.gameid, b.colour, newcolour, 
 original as hero, kills, deaths, assists, creepkills, creepdenies, neutralkills, towerkills, gold, 
-item1, item2, item3, item4, item5, item6, leftreason, b.left, b.name as name, e.name as banname
+item1, item2, item3, item4, item5, item6, 
+it1.icon as itemicon1, it2.icon as itemicon2, it3.icon as itemicon3, it4.icon as itemicon4, it5.icon as itemicon5, it6.icon as itemicon6, 
+it1.name as itemname1, it2.name as itemname2, it3.name as itemname3, it4.name as itemname4, it5.name as itemname5, it6.name as itemname6, 
+leftreason, b.left, b.name as name, e.name as banname
 FROM dotaplayers AS a 
 LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
 LEFT JOIN games AS d ON d.id = a.gameid 
 LEFT JOIN bans as e ON b.name = e.name
 LEFT JOIN heroes as f ON hero = heroid
-where a.gameid='$gid' order by newcolour";	
+LEFT JOIN items as it1 ON it1.itemid = item1
+LEFT JOIN items as it2 ON it2.itemid = item2
+LEFT JOIN items as it3 ON it3.itemid = item3
+LEFT JOIN items as it4 ON it4.itemid = item4
+LEFT JOIN items as it5 ON it5.itemid = item5
+LEFT JOIN items as it6 ON it6.itemid = item6
+where a.gameid='$gid' order by newcolour";
 
 if($dbType == 'sqlite')
 {
@@ -210,12 +219,103 @@ if($dbType == 'sqlite')
 		$item4=$row["item4"];
 		$item5=$row["item5"];
 		$item6=$row["item6"];
-		if(empty($item1) || $item1=="\0\0\0\0") $item1="empty";
-		if(empty($item2) || $item2=="\0\0\0\0") $item2="empty";
-		if(empty($item3) || $item3=="\0\0\0\0") $item3="empty";
-		if(empty($item4) || $item4=="\0\0\0\0") $item4="empty";
-		if(empty($item5) || $item5=="\0\0\0\0") $item5="empty";
-		if(empty($item6) || $item6=="\0\0\0\0") $item6="empty";
+		if(empty($item1) || $item1=="\0\0\0\0") 
+		{
+			$item1="empty";
+			$itemname1="empty";
+			$itemicon1="empty.gif";
+		}
+		else
+		{
+			$itemname1=$row["itemname1"];
+			$itemicon1=$row["itemicon1"];
+			if(itemicon1 == '')
+			{
+				$itemname1 = $item1;
+				$itemicon1 = "blue_star2.gif";
+			}
+			
+		}
+		if(empty($item2) || $item2=="\0\0\0\0") 
+		{
+			$item2="empty";
+			$itemname2="empty";
+			$itemicon2="empty.gif";
+		}
+		else
+		{
+			$itemname2=$row["itemname2"];
+			$itemicon2=$row["itemicon2"];
+			if(itemicon2 == '')
+			{
+				$itemname2 = $item2;
+				$itemicon2 = "blue_star2.gif";
+			}
+		}
+		if(empty($item3) || $item3=="\0\0\0\0") 
+		{
+			$item3="empty";
+			$itemname3="empty";
+			$itemicon3="empty.gif";
+		}
+		else
+		{
+			$itemname3=$row["itemname3"];
+			$itemicon3=$row["itemicon3"];
+			if(itemicon3 == '')
+			{
+				$itemname3 = $item3;
+				$itemicon3 = "blue_star2.gif";
+			}
+		}
+		if(empty($item4) || $item4=="\0\0\0\0") 
+		{
+			$item4="empty";
+			$itemname4="empty";
+			$itemicon4="empty.gif";
+		}
+		else
+		{
+			$itemname4=$row["itemname4"];
+			$itemicon4=$row["itemicon4"];
+			if(itemicon4 == '')
+			{
+				$itemname4 = $item4;
+				$itemicon4 = "blue_star2.gif";
+			}
+		}
+		if(empty($item5) || $item5=="\0\0\0\0") 
+		{
+			$item5="empty";
+			$itemname5="empty";
+			$itemicon5="empty.gif";
+		}
+		else
+		{
+			$itemname5=$row["itemname5"];
+			$itemicon5=$row["itemicon5"];
+			if(itemicon5 == '')
+			{
+				$itemname5 = item5;
+				$itemicon5 = "blue_star2.gif";
+			}
+		}
+		if(empty($item6) || $item6=="\0\0\0\0") 
+		{
+			$item6="empty";
+			$itemname6="empty";
+			$itemicon6="empty.gif";
+		}
+		else
+		{
+			$itemname6=$row["itemname6"];
+			$itemicon6=$row["itemicon6"];
+			if(itemicon6 == '')
+			{
+				$itemname6 = item6;
+				$itemicon6 = "blue_star2.gif";
+			}
+		}
 		$left=$row["left"];
 		$leftreason=$row["leftreason"];
 		$hero=$row["hero"];	
@@ -287,12 +387,12 @@ if($dbType == 'sqlite')
 			<td width=60px><?php print $towerkills; ?></td>
 			<td width=60px><?php print $gold; ?></td>		
 			<td align="center" width=170px> 
-				<img width="24px" height="24px" src=./img/items/<?php print $item1; ?>.gif>
-				<img width="24px" height="24px" src=./img/items/<?php print $item2; ?>.gif>
-				<img width="24px" height="24px" src=./img/items/<?php print $item3; ?>.gif>
-				<img width="24px" height="24px" src=./img/items/<?php print $item4; ?>.gif>
-				<img width="24px" height="24px" src=./img/items/<?php print $item5; ?>.gif>
-				<img width="24px" height="24px" src=./img/items/<?php print $item6; ?>.gif>
+				<img width="24px" height="24px" src=./img/items/<?php print $itemicon1; ?> alt="XX" title="<?php print $itemname1; ?>">
+				<img width="24px" height="24px" src=./img/items/<?php print $itemicon2; ?> alt="XX" title="<?php print $itemname2; ?>">
+				<img width="24px" height="24px" src=./img/items/<?php print $itemicon3; ?> alt="XX" title="<?php print $itemname3; ?>">
+				<img width="24px" height="24px" src=./img/items/<?php print $itemicon4; ?> alt="XX" title="<?php print $itemname4; ?>">
+				<img width="24px" height="24px" src=./img/items/<?php print $itemicon5; ?> alt="XX" title="<?php print $itemname5; ?>">
+				<img width="24px" height="24px" src=./img/items/<?php print $itemicon6; ?> alt="XX" title="<?php print $itemname6; ?>">
 			</td>
 			<td width=60px><?php print secondsToTime($left); ?></td>
 			<td width=100px><?php print $leftreason; ?></td>
@@ -319,12 +419,103 @@ else
 		$item4=$row["item4"];
 		$item5=$row["item5"];
 		$item6=$row["item6"];
-		if(empty($item1) || $item1=="\0\0\0\0") $item1="empty";
-		if(empty($item2) || $item2=="\0\0\0\0") $item2="empty";
-		if(empty($item3) || $item3=="\0\0\0\0") $item3="empty";
-		if(empty($item4) || $item4=="\0\0\0\0") $item4="empty";
-		if(empty($item5) || $item5=="\0\0\0\0") $item5="empty";
-		if(empty($item6) || $item6=="\0\0\0\0") $item6="empty";
+		if(empty($item1) || $item1=="\0\0\0\0") 
+		{
+			$item1="empty";
+			$itemname1="empty";
+			$itemicon1="empty.gif";
+		}
+		else
+		{
+			$itemname1=$row["itemname1"];
+			$itemicon1=$row["itemicon1"];
+			if(itemicon1 == '')
+			{
+				$itemname1 = $item1;
+				$itemicon1 = "blue_star2.gif";
+			}
+			
+		}
+		if(empty($item2) || $item2=="\0\0\0\0") 
+		{
+			$item2="empty";
+			$itemname2="empty";
+			$itemicon2="empty.gif";
+		}
+		else
+		{
+			$itemname2=$row["itemname2"];
+			$itemicon2=$row["itemicon2"];
+			if(itemicon2 == '')
+			{
+				$itemname2 = $item2;
+				$itemicon2 = "blue_star2.gif";
+			}
+		}
+		if(empty($item3) || $item3=="\0\0\0\0") 
+		{
+			$item3="empty";
+			$itemname3="empty";
+			$itemicon3="empty.gif";
+		}
+		else
+		{
+			$itemname3=$row["itemname3"];
+			$itemicon3=$row["itemicon3"];
+			if(itemicon3 == '')
+			{
+				$itemname3 = $item3;
+				$itemicon3 = "blue_star2.gif";
+			}
+		}
+		if(empty($item4) || $item4=="\0\0\0\0") 
+		{
+			$item4="empty";
+			$itemname4="empty";
+			$itemicon4="empty.gif";
+		}
+		else
+		{
+			$itemname4=$row["itemname4"];
+			$itemicon4=$row["itemicon4"];
+			if(itemicon4 == '')
+			{
+				$itemname4 = $item4;
+				$itemicon4 = "blue_star2.gif";
+			}
+		}
+		if(empty($item5) || $item5=="\0\0\0\0") 
+		{
+			$item5="empty";
+			$itemname5="empty";
+			$itemicon5="empty.gif";
+		}
+		else
+		{
+			$itemname5=$row["itemname5"];
+			$itemicon5=$row["itemicon5"];
+			if(itemicon5 == '')
+			{
+				$itemname5 = item5;
+				$itemicon5 = "blue_star2.gif";
+			}
+		}
+		if(empty($item6) || $item6=="\0\0\0\0") 
+		{
+			$item6="empty";
+			$itemname6="empty";
+			$itemicon6="empty.gif";
+		}
+		else
+		{
+			$itemname6=$row["itemname6"];
+			$itemicon6=$row["itemicon6"];
+			if(itemicon6 == '')
+			{
+				$itemname6 = item6;
+				$itemicon6 = "blue_star2.gif";
+			}
+		}
 		$left=$row["left"];
 		$leftreason=$row["leftreason"];
 		$hero=$row["hero"];	
@@ -396,12 +587,12 @@ else
 			<td width=60px><?php print $towerkills; ?></td>
 			<td width=60px><?php print $gold; ?></td>		
 			<td align="center" width=170px> 
-				<img width="24px" height="24px" src=./img/items/<?php print $item1; ?>.gif>
-				<img width="24px" height="24px" src=./img/items/<?php print $item2; ?>.gif>
-				<img width="24px" height="24px" src=./img/items/<?php print $item3; ?>.gif>
-				<img width="24px" height="24px" src=./img/items/<?php print $item4; ?>.gif>
-				<img width="24px" height="24px" src=./img/items/<?php print $item5; ?>.gif>
-				<img width="24px" height="24px" src=./img/items/<?php print $item6; ?>.gif>
+				<img width="24px" height="24px" src=./img/items/<?php print $itemicon1; ?> alt="XX" title="<?php print $itemname1; ?>">
+				<img width="24px" height="24px" src=./img/items/<?php print $itemicon2; ?> alt="XX" title="<?php print $itemname2; ?>">
+				<img width="24px" height="24px" src=./img/items/<?php print $itemicon3; ?> alt="XX" title="<?php print $itemname3; ?>">
+				<img width="24px" height="24px" src=./img/items/<?php print $itemicon4; ?> alt="XX" title="<?php print $itemname4; ?>">
+				<img width="24px" height="24px" src=./img/items/<?php print $itemicon5; ?> alt="XX" title="<?php print $itemname5; ?>">
+				<img width="24px" height="24px" src=./img/items/<?php print $itemicon6; ?> alt="XX" title="<?php print $itemname6; ?>">
 			</td>
 			<td width=60px><?php print secondsToTime($left); ?></td>
 			<td width=100px><?php print $leftreason; ?></td>
