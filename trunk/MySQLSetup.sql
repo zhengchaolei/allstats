@@ -141,7 +141,7 @@ INSERT INTO heroes (heroid, original, description, summary, stats, skills) VALUE
 DROP TABLE IF EXISTS items;
 CREATE TABLE IF NOT EXISTS items (
   itemid varchar(4) NOT NULL,
-  name varchar(32) NOT NULL,
+  name varchar(50) NOT NULL,
   icon varchar(50) NOT NULL,
   PRIMARY KEY (itemid)
 );
@@ -174,7 +174,7 @@ INSERT INTO items (itemid, name, icon) VALUES('MCRI', 'Mechanical Critter', 'BTN
 INSERT INTO items (itemid, name, icon) VALUES('SSAN', 'Staff of Sanctuary', 'BTNStaffOfSanctuary.gif');
 INSERT INTO items (itemid, name, icon) VALUES('SHAS', 'Scroll of Speed', 'BTNScrollOfHaste.gif');
 INSERT INTO items (itemid, name, icon) VALUES('DUST', 'Dust of Appearance', 'BTNDustOfAppearance.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I007', '|c00fffc01Illusion|r', 'blue_star2');
+INSERT INTO items (itemid, name, icon) VALUES('I007', 'Illusion', 'blue_star2');
 INSERT INTO items (itemid, name, icon) VALUES('I00E', 'Morphling Bug Fix', 'BTNManual.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I015', 'Disassembler', 'BTNEngineeringUpgrade.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I01N', 'Freeze Hero', 'BTNPendantOfMana.gif');
@@ -251,7 +251,7 @@ INSERT INTO items (itemid, name, icon) VALUES('I04K', 'Mask of Death', 'BTNUndea
 INSERT INTO items (itemid, name, icon) VALUES('I04L', 'Messerschmidt''s Reaver', 'BTNSpiritWalkerMasterTraining.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I04M', 'Mithril Hammer', 'BTNHammer.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I04N', 'Mystic Staff', 'BTNStaffOfNegation.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I04O', 'Ogre Axe', 'BTNSpiritWalkerAdeptTraining.tga');
+INSERT INTO items (itemid, name, icon) VALUES('I04O', 'Ogre Axe', 'BTNSpiritWalkerAdeptTraining.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I04P', 'Planeswalker''s Cloak', 'BTNINV_Misc_Cape_08.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I04Q', 'Plate Mail', 'BTNINV_Chest_Plate13.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I04R', 'Point Booster', 'BTNUsedSoulGem.gif');
@@ -307,13 +307,13 @@ INSERT INTO items (itemid, name, icon) VALUES('I063', 'Headdress of Rejuvenation
 INSERT INTO items (itemid, name, icon) VALUES('I064', 'Headdress of Rejuvenation', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I065', 'Nathrezim Buckler', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I066', 'Nathrezim Buckler', 'BTNThoriumArmor.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I067', 'Ring of Basilius (|cff00ff00Normal|r)', 'BTNRingVioletSpider.tga');
+INSERT INTO items (itemid, name, icon) VALUES('I067', 'Ring of Basilius (Normal)', 'BTNRingVioletSpider.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I068', 'Ring of Basilius', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I069', 'Ring of Basilius (Heroes)', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I06A', 'Ring of Basilius (|cffff0000Heroes|r)', 'BTNRingVioletSpider.tga');
+INSERT INTO items (itemid, name, icon) VALUES('I06A', 'Ring of Basilius (Heroes)', 'BTNRingVioletSpider.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I06B', 'Boots of Travel', 'BTNAbility_Rogue_Sprint.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I06C', 'Boots of Travel', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I06D', 'Hand of Midas', 'BTNGoldGloves.BLP');
+INSERT INTO items (itemid, name, icon) VALUES('I06D', 'Hand of Midas', 'BTNGoldGloves.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I06E', 'Hand of Midas', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I06F', 'Oblivion Staff', 'BTNINV_Mace_10.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I06G', 'Oblivion Staff', 'BTNSnazzyScrollPurple.gif');
@@ -321,7 +321,7 @@ INSERT INTO items (itemid, name, icon) VALUES('I06H', 'Bracer', 'BTNRunedBracers
 INSERT INTO items (itemid, name, icon) VALUES('I06I', 'Bracer', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I06J', 'Wraith Band', 'BTNRevenant.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I06K', 'Wraith Band', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I06L', 'Null Talisman', 'BTNTalisman.tga');
+INSERT INTO items (itemid, name, icon) VALUES('I06L', 'Null Talisman', 'BTNTalisman.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I06M', 'Null Talisman', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I06N', 'Yasha Recipe', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I06O', 'Yasha Recipe', 'BTNSnazzyScroll.gif');
@@ -389,7 +389,7 @@ INSERT INTO items (itemid, name, icon) VALUES('I08D', 'Armlet of Mordiggian Reci
 INSERT INTO items (itemid, name, icon) VALUES('I08E', 'Shiva''s Guard Recipe', 'BTNSnazzyScroll.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I08F', 'Yasha', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I08G', 'Yasha', 'BTNINV_Sword_10.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I08H', 'Sange', 'BTNJapaneseSword.BLP');
+INSERT INTO items (itemid, name, icon) VALUES('I08H', 'Sange', 'BTNJapaneseSword.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I08I', 'Sange', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I08J', 'Cranium Basher', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I08K', 'Cranium Basher', 'BTNINV_Hammer_10.gif');
@@ -425,7 +425,7 @@ INSERT INTO items (itemid, name, icon) VALUES('I09D', 'Black King Bar (6)', 'BTN
 INSERT INTO items (itemid, name, icon) VALUES('I09E', 'Black King Bar (8)', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I09F', 'Manta Style', 'BTNINV_ThrowingAxe_02.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I09G', 'Manta Style', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I09H', 'Lothar''s Edge', 'BTNLothars.BLP');
+INSERT INTO items (itemid, name, icon) VALUES('I09H', 'Lothar''s Edge', 'BTNLothars.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I09I', 'Lothar''s Edge', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I09K', 'Dagon Level 1', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I09L', 'Dagon Level 5', 'BTNINV_Wand_06.gif');
@@ -443,13 +443,13 @@ INSERT INTO items (itemid, name, icon) VALUES('I09V', 'Necronomicon Level 2', 'B
 INSERT INTO items (itemid, name, icon) VALUES('I09W', 'Necronomicon Level 3', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I09X', 'Necronomicon Level 2', 'BTNBookOfTheDead.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I09Y', 'Necronomicon Level 3', 'BTNNecromancerMaster.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I09Z', 'Linken''s Sphere', 'BTNOrb of Water.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I09Z', 'Linken''s Sphere', 'BTNOrb_of_Water.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0A0', 'Linken''s Sphere', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0A1', '|c00000000Divine Rapier|r', 'BTNINV_Sword_25.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0A2', '|c00000000Divine Rapier|r', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I0A1', 'Divine Rapier', 'BTNINV_Sword_25.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I0A2', 'Divine Rapier', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0A3', 'Buriza-do Kyanon', 'BTNINV_Weapon_Crossbow_10.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0A4', 'Buriza-do Kyanon', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0A5', 'Monkey King Bar (True Strike |cff00ff00Active|r)', 'BTNINV_Weapon_Halberd_10.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I0A5', 'Monkey King Bar (True Strike Active)', 'BTNINV_Weapon_Halberd_10.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0A6', 'Monkey King Bar', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0A7', 'Radiance', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0A8', 'Radiance', 'BTNTransmute.gif');
@@ -528,10 +528,10 @@ INSERT INTO items (itemid, name, icon) VALUES('I0BK', 'Bloodstone', 'BTNINV_Misc
 INSERT INTO items (itemid, name, icon) VALUES('I0BL', 'Bloodstone', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0BM', 'Hood of Defiance', 'BTNHoodOfCunning.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0BN', 'Hood of Defiance', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I006', '|c00ff0303Haste|r', 'BTNBootsOfSpeed.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I008', '|cff00ff00Regeneration|r', 'BTNRegenerate.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I00J', '|cff99ccffInvisibility|r', 'BTNInvisibility.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I00K', '|c000042ffDouble Damage|r', 'BTNShamanMaster.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I006', 'Haste', 'BTNBootsOfSpeed.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I008', 'Regeneration', 'BTNRegenerate.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I00J', 'Invisibility', 'BTNInvisibility.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I00K', 'Double Damage', 'BTNShamanMaster.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I00L', 'Empty Bottle', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I00M', 'Armlet of Mordiggian', 'BTNImprovedUnholyStrength.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I00N', 'Armlet of Mordiggian (Courier Edition)', 'BTNImprovedUnholyStrength.gif');
@@ -557,18 +557,18 @@ INSERT INTO items (itemid, name, icon) VALUES('I01E', 'Armlet of Mordiggian (Off
 INSERT INTO items (itemid, name, icon) VALUES('I01J', 'Perseverance', 'BTNPerse_Borrowed.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I01K', 'Headdress of Rejuvenation', 'DISBTNINV_Helmet_17.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I01L', 'Nathrezim Buckler', 'DISBTNThoriumArmor.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I01M', 'Ring of Basilius', 'DISBTNRingVioletSpider.tga');
+INSERT INTO items (itemid, name, icon) VALUES('I01M', 'Ring of Basilius', 'DISBTNRingVioletSpider.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I01P', 'Boots of Travel', 'DISBTNAbility_Rogue_Sprint.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I01Q', 'Power Treads (Strength)', 'DISBTNWirtsLeg.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I01R', 'Power Treads (Agility)', 'DISBTNWirtsLegGreen.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I01S', 'Power Treads (Intelligence)', 'DISBTNWirtsLegBlue.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I01T', 'Hand of Midas', 'DISBTNGoldGloves.BLP');
+INSERT INTO items (itemid, name, icon) VALUES('I01T', 'Hand of Midas', 'DISBTNGoldGloves.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I01U', 'Oblivion Staff', 'DISBTNINV_Mace_10.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I01V', 'Bracer', 'DISBTNRunedBracers.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I01W', 'Wraith Band', 'DISBTNRevenant.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I01X', 'Null Talisman', 'DISBTNTalisman.tga');
+INSERT INTO items (itemid, name, icon) VALUES('I01X', 'Null Talisman', 'DISBTNTalisman.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I01Y', 'Yasha', 'DISBTNINV_Sword_10.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I01Z', 'Sange', 'DISBTNJapaneseSword.BLP');
+INSERT INTO items (itemid, name, icon) VALUES('I01Z', 'Sange', 'DISBTNJapaneseSword.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I020', 'Cranium Basher', 'DISBTNINV_Hammer_10.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I021', 'Blade Mail', 'DISBTNINV_Chest_Plate06.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I022', 'Maelstrom', 'DISBTNStormHammer.gif');
@@ -584,12 +584,12 @@ INSERT INTO items (itemid, name, icon) VALUES('I02B', 'Battle Fury', 'DISBTNINV_
 INSERT INTO items (itemid, name, icon) VALUES('I02C', 'Crystalys', 'DISBTNThoriumMelee.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I02D', 'Black King Bar (7)', 'DISBTNRodOfNecromancy.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I02E', 'Manta Style', 'DISBTNINV_ThrowingAxe_02.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I02F', 'Lothar''s Edge', 'DISBTNLothars.BLP');
+INSERT INTO items (itemid, name, icon) VALUES('I02F', 'Lothar''s Edge', 'DISBTNLothars.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I02G', 'Dagon Level 2', 'DISBTNINV_Wand_06.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I02H', 'Necronomicon Level 1', 'DISBTNNecromancerAdept.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I02I', 'Necronomicon Level 2', 'DISBTNBookOfTheDead.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I02J', 'Necronomicon Level 3', 'DISBTNNecromancerMaster.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0BO', 'Linkin''s Sphere', 'DISBTNOrb of Water.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I0BO', 'Linkin''s Sphere', 'DISBTNOrb_of_Water.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0BP', 'Divine Rapier', 'BTNDivine_Borrowed.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0BQ', 'Buriza-do Kyanon', 'DISBTNINV_Weapon_Crossbow_10.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0BR', 'Monkey King Bar', 'DISBTNINV_Weapon_Halberd_10.gif');
@@ -640,12 +640,12 @@ INSERT INTO items (itemid, name, icon) VALUES('I0D4', 'Circlet of Nobility', 'DI
 INSERT INTO items (itemid, name, icon) VALUES('I0D5', 'Blades of Attack', 'DISBTNClawsOfAttack.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0D6', 'Javelin', 'DISBTNSteelRanged.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0D7', 'Chain Mail', 'DISBTNINV_Chest_Chain_12.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0D8', 'Ogre Axe', 'DISBTNSpiritWalkerAdeptTraining.tga');
-INSERT INTO items (itemid, name, icon) VALUES('I0D9', 'Stout Shield (melee)', 'DISBTNSteelArmor.BLP');
+INSERT INTO items (itemid, name, icon) VALUES('I0D8', 'Ogre Axe', 'DISBTNSpiritWalkerAdeptTraining.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I0D9', 'Stout Shield (melee)', 'DISBTNSteelArmor.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0DA', 'Helm of Iron Will', 'DISBTNHelmutPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0DB', 'Plate Mail', 'DISBTNINV_Chest_Plate13.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I04V', 'Ring of Regeneration', 'BTNRingSkull.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0C6', 'Ring of Basilius (Heroes)', 'DISBTNRingVioletSpider.tga');
+INSERT INTO items (itemid, name, icon) VALUES('I0C6', 'Ring of Basilius (Heroes)', 'DISBTNRingVioletSpider.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0C8', 'Cranium Basher (Ranged)', 'DISBTNINV_Hammer_10.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0CO', 'Helm of the Dominator (Courier)', 'DISBTNINV_Helmet_13.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I01G', 'Dagon Level 1', 'DISBTNINV_Wand_06.gif');
@@ -762,7 +762,7 @@ INSERT INTO items (itemid, name, icon) VALUES('I0GA', 'Black King Bar (5)', 'DIS
 INSERT INTO items (itemid, name, icon) VALUES('I0GB', 'Black King Bar (6)', 'DISBTNRodOfNecromancy.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0GC', 'Magic Stick', 'BTNWand.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0GD', 'Magic Stick', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0GE', 'Magic Stick', 'DISBTNWand.BLP');
+INSERT INTO items (itemid, name, icon) VALUES('I0GE', 'Magic Stick', 'DISBTNWand.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0GF', 'Poison Powder', 'BTNPotionOfDivinity.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0GG', 'Poison Powder', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0GH', 'Dust of Appearance', 'BTNDustOfAppearance.gif');
@@ -805,10 +805,10 @@ INSERT INTO items (itemid, name, icon) VALUES('I0HF', 'Force Staff Recipe', 'BTN
 INSERT INTO items (itemid, name, icon) VALUES('I0HG', 'Force Staff', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0HH', 'Force Staff', 'DISBTNForceStaff.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0HI', 'Force Staff', 'BTNForceStaff.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0HJ', 'Linken''s Sphere', 'BTNOrb of Water.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I0HJ', 'Linken''s Sphere', 'BTNOrb_of_Water.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0HK', 'Linken''s Sphere', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0HL', 'Linkin''s Sphere', 'DISBTNOrb of Water.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0HM', 'Linken''s Sphere', 'BTNOrb of Water.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I0HL', 'Linkin''s Sphere', 'DISBTNOrb_of_Water.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I0HM', 'Linken''s Sphere', 'BTNOrb_of_Water.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0HN', 'Ghost Potion', 'BTNVialFull.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0HO', 'Ghost Potion', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0HP', 'Quelling Blade (Ranged)', 'BTNOrcMeleeUpTwo.gif');
@@ -817,14 +817,14 @@ INSERT INTO items (itemid, name, icon) VALUES('I0HR', 'Quelling Blade', 'BTNOrcM
 INSERT INTO items (itemid, name, icon) VALUES('I0HS', 'The Leveler (Ranged)', 'BTNNagaWeaponUp3.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0HT', 'Quelling Blade', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0HU', 'Quelling Blade (Ranged)', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0HV', 'Quelling Blade', 'DISBTNOrcMeleeUpTwo.BLP');
-INSERT INTO items (itemid, name, icon) VALUES('I0HW', 'Quelling Blade Ranged', 'DISBTNOrcMeleeUpTwo.BLP');
+INSERT INTO items (itemid, name, icon) VALUES('I0HV', 'Quelling Blade', 'DISBTNOrcMeleeUpTwo.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I0HW', 'Quelling Blade Ranged', 'DISBTNOrcMeleeUpTwo.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0HX', 'Khadgar''s Pipe of Insight', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0HY', 'Khadgar''s Pipe of Insight', 'DISBTNSnazzyScroll.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0HZ', 'Khadgar''s Pipe of Insight Recipe', 'BTNSnazzyScroll.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0I0', 'Khadgar''s Pipe of Insight', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0I1', 'The Leveler (Ranged)', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0I2', 'Khadgar''s Pipe of Insight', 'DISBTNPipeOfInsight.BLP');
+INSERT INTO items (itemid, name, icon) VALUES('I0I2', 'Khadgar''s Pipe of Insight', 'DISBTNPipeOfInsight.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0I3', 'The Leveler (Ranged)', 'DISBTNINV_ThrowingKnife_04.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0I4', 'Aghanim''s Scepter Recipe', 'BTNSnazzyScroll.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0I5', 'Aghanim''s Scepter Recipe', 'BTNSnazzyScrollPurple.gif');
@@ -901,12 +901,12 @@ INSERT INTO items (itemid, name, icon) VALUES('I0K4', 'Aghanim''s Scepter (Abadd
 INSERT INTO items (itemid, name, icon) VALUES('I0K5', 'Aghanim''s Scepter (Dazzle)', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0JX', 'Aghanim''s Scepter (Dazzle)', 'BTNINV_Wand_05.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0K6', 'Khadgar''s Pipe of Insight', 'BTNPipeOfInsight.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0K7', 'Monkey King Bar (True Strike |cffff0000Inactive|r)', 'BTNINV_Weapon_Halberd_10.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I0K7', 'Monkey King Bar (True Strike Inactive)', 'BTNINV_Weapon_Halberd_10.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0K8', 'Monkey King Bar', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0K9', 'Monkey King Bar', 'DISBTNINV_Weapon_Halberd_10.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0KA', 'Stout Shield (ranged)', 'BTNSteelArmor.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0KB', 'Stout Shield (ranged)', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0KC', 'Stout Shield (ranged)', 'DISBTNSteelArmor.BLP');
+INSERT INTO items (itemid, name, icon) VALUES('I0KC', 'Stout Shield (ranged)', 'DISBTNSteelArmor.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0KD', 'Poor Man''s Shield (ranged)', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0KE', 'Poor Man''s Shield (ranged)', 'DISBTNImprovedUnholyArmor.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0KF', 'Poor Man''s Shield (ranged)', 'BTNImprovedUnholyArmor.gif');
@@ -914,7 +914,7 @@ INSERT INTO items (itemid, name, icon) VALUES('I0KG', 'Aghanim''s Scepter Recipe
 INSERT INTO items (itemid, name, icon) VALUES('I0KH', 'Aghanim''s Scepter (Techies)', 'BTNINV_Wand_05.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0KI', 'Aghanim''s Scepter (Techies)', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0KJ', 'Aghanim''s Scepter (Techies)', 'DISBTNINV_Wand_05.gif');
-INSERT INTO items (itemid, name, icon) VALUES('I0KK', 'Aegis Check', 'BTNOrb of Water.gif');
+INSERT INTO items (itemid, name, icon) VALUES('I0KK', 'Aegis Check', 'BTNOrb_of_Water.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0KL', 'Disabled Heart of Tarrasque', 'BTNInactiveHeart.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0KM', 'Disabled Heart of Tarrasque', 'DISBTNHeartOfAszune.gif');
 INSERT INTO items (itemid, name, icon) VALUES('I0KN', 'Mjollnir Recipe', 'BTNSnazzyScroll.gif');
