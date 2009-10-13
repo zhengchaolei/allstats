@@ -332,30 +332,35 @@ if($dbType == 'sqlite')
 		
 <?php
 			$arrStatRow = array(
-				"Top Kills" => "SELECT hero as topHero, kills as topValue, name as topUser, a.gameid as topGame
+				"Top Kills" => "SELECT original as topHero, kills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Top Assists" => "SELECT hero as topHero, assists as topValue, name as topUser, a.gameid as topGame
+				"Top Assists" => "SELECT original as topHero, assists as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Top Deaths" => "SELECT hero as topHero, deaths as topValue, name as topUser, a.gameid as topGame
+				"Top Deaths" => "SELECT original as topHero, deaths as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",		
-				"Top Creep Kills" => "SELECT hero as topHero, creepkills as topValue, name as topUser, a.gameid as topGame
+				"Top Creep Kills" => "SELECT original as topHero, creepkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",		
-				"Top Creep Denies" => "SELECT hero as topHero, creepdenies as topValue, name as topUser, a.gameid as topGame
+				"Top Creep Denies" => "SELECT original as topHero, creepdenies as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'");
 				
 			foreach($arrStatRow as $title => $sql)
@@ -385,7 +390,6 @@ if($dbType == 'sqlite')
 					$topUser = $row["topUser"];
 					$topHero = $row["topHero"];
 					$topGame = $row["topGame"];
-					$topHero = checkIfAliasSQLite($topHero, $dbType, $dbHandle);
 					if(isset($row["topValueUnit"]))
 					{
 						$topValueUnit = $row["topValueUnit"];
@@ -445,26 +449,31 @@ if($dbType == 'sqlite')
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
 				"Top Neutral Kills" => "SELECT hero as topHero, neutralkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
 				"Top Tower Kills" => "SELECT hero as topHero, towerkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",		
 				"Top Rax Kills" => "SELECT hero as topHero, raxkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",		
 				"Top Courier Kills" => "SELECT hero as topHero, courierkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'");
 				
 			foreach($arrStatRow as $title => $sql)
@@ -494,7 +503,6 @@ if($dbType == 'sqlite')
 					$topUser = $row["topUser"];
 					$topHero = $row["topHero"];
 					$topGame = $row["topGame"];
-					$topHero = checkIfAliasSQLite($topHero, $dbType, $dbHandle);
 					if(isset($row["topValueUnit"]))
 					{
 						$topValueUnit = $row["topValueUnit"];
@@ -974,30 +982,35 @@ else  // #################################################### MYSQL ############
 		
 <?php
 			$arrStatRow = array(
-				"Top Kills" => "SELECT hero as topHero, kills as topValue, name as topUser, a.gameid as topGame
+				"Top Kills" => "SELECT original as topHero, kills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Assists" => "SELECT hero as topHero, assists as topValue, name as topUser, a.gameid as topGame
+				"Top Assists" => "SELECT original as topHero, assists as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Deaths" => "SELECT hero as topHero, deaths as topValue, name as topUser, a.gameid as topGame
+				"Top Deaths" => "SELECT original as topHero, deaths as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Creep Kills" => "SELECT hero as topHero, creepkills as topValue, name as topUser, a.gameid as topGame
+				"Top Creep Kills" => "SELECT original as topHero, creepkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Creep Denies" => "SELECT hero as topHero, creepdenies as topValue, name as topUser, a.gameid as topGame
+				"Top Creep Denies" => "SELECT original as topHero, creepdenies as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month");
 				
 			foreach($arrStatRow as $title => $sql)
@@ -1027,7 +1040,6 @@ else  // #################################################### MYSQL ############
 					$topUser = $row["topUser"];
 					$topHero = $row["topHero"];
 					$topGame = $row["topGame"];
-					$topHero = checkIfAliasMySQL($topHero);
 					if(isset($row["topValueUnit"]))
 					{
 						$topValueUnit = $row["topValueUnit"];
@@ -1081,30 +1093,35 @@ else  // #################################################### MYSQL ############
 		
 <?php
 			$arrStatRow = array(
-				"Top Gold" => "SELECT hero as topHero, gold as topValue, name as topUser, a.gameid as topGame
+				"Top Gold" => "SELECT original as topHero, gold as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Neutral Kills" => "SELECT hero as topHero, neutralkills as topValue, name as topUser, a.gameid as topGame
+				"Top Neutral Kills" => "SELECT original as topHero, neutralkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Tower Kills" => "SELECT hero as topHero, towerkills as topValue, name as topUser, a.gameid as topGame
+				"Top Tower Kills" => "SELECT original as topHero, towerkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Rax Kills" => "SELECT hero as topHero, raxkills as topValue, name as topUser, a.gameid as topGame
+				"Top Rax Kills" => "SELECT original as topHero, raxkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Courier Kills" => "SELECT hero as topHero, courierkills as topValue, name as topUser, a.gameid as topGame
+				"Top Courier Kills" => "SELECT original as topHero, courierkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
+					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month");
 				
 			foreach($arrStatRow as $title => $sql)
@@ -1134,7 +1151,6 @@ else  // #################################################### MYSQL ############
 					$topUser = $row["topUser"];
 					$topHero = $row["topHero"];
 					$topGame = $row["topGame"];
-					$topHero = checkIfAliasMySQL($topHero);
 					if(isset($row["topValueUnit"]))
 					{
 						$topValueUnit = $row["topValueUnit"];

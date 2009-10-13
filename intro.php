@@ -74,7 +74,7 @@ require_once("config.php");
 
 if($dbType == 'sqlite')
 {
-	$sql = "select count(*) as count from sqlite_master WHERE tbl_name = 'originals' and type = 'table'";
+	$sql = "select count(*) as count from sqlite_master WHERE tbl_name = 'heroes' and type = 'table'";
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
 		$count=$row["count"];
@@ -82,7 +82,7 @@ if($dbType == 'sqlite')
 }
 else
 {
-	$sql = "SELECT count(*) as count FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='originals' and TABLE_SCHEMA='$databasename'";
+	$sql = "SELECT count(*) as count FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='heroes' and TABLE_SCHEMA='$databasename'";
 	$result = mysql_query($sql);
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		$count=$row["count"];
@@ -95,7 +95,34 @@ if ($count == 0)
 			<br>
 			<br>
 			<br>
-			<div style="color:red">WARNING: "originals" table not found. Please run allstats sql setup script first!</div>
+			<div style="color:red">WARNING: "heroes" table not found. Please run allstats sql setup script first!</div>
+<?php
+}
+
+if($dbType == 'sqlite')
+{
+	$sql = "select count(*) as count from sqlite_master WHERE tbl_name = 'items' and type = 'table'";
+	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+	{
+		$count=$row["count"];
+	}
+}
+else
+{
+	$sql = "SELECT count(*) as count FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='items' and TABLE_SCHEMA='$databasename'";
+	$result = mysql_query($sql);
+	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		$count=$row["count"];
+	}
+	mysql_free_result($result);
+}
+if ($count == 0) 
+{
+?>
+			<br>
+			<br>
+			<br>
+			<div style="color:red">WARNING: "items" table not found. Please run allstats sql setup script first!</div>
 <?php
 }
 

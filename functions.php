@@ -140,36 +140,6 @@ function getLossesMySQL($username) {
 	return $inlosses;
 }
 
-function checkIfAliasSQLite($value, $dbType, $dbHandle){
-
-	$sql = "SELECT heroid, original FROM originals where heroid='$value'";
-	$original="";
-	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-	{
-		$original=$row["original"];
-		$heroid=$row["heroid"];
-	}
-	
-	//If this was an alias  we found the original
-	if($original != "orig"){$value=$original;}
-	//else we keep the original
-	return $value;
-}
-function checkIfAliasMySQL($value){
-	$sql = "SELECT heroid, original FROM originals where heroid='$value'";
-
-	$result = mysql_query($sql);
-	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-		
-	$original=$row["original"];
-	$heroid=$row["heroid"];
-	//If this was an alias  we found the original
-	if($original != "orig"){$value=$original;}
-	//else we keep the original
-	
-	return $value;
-}
-
 function getTeam($color)
 {
 	switch ($color) {

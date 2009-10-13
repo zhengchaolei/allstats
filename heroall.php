@@ -52,9 +52,9 @@ else
 }
 
 $sql = "Select count(*) as count FROM
-    (SELECT count(*) as totgames FROM dotaplayers AS a LEFT JOIN originals as b ON hero = heroid LEFT JOIN dotagames as c ON c.gameid = a.gameid 
+    (SELECT count(*) as totgames FROM dotaplayers AS a LEFT JOIN heroes as b ON hero = heroid LEFT JOIN dotagames as c ON c.gameid = a.gameid 
 	LEFT JOIN gameplayers as d ON d.gameid = a.gameid and a.colour = d.colour LEFT JOIN games as e ON d.gameid = e.id
-	WHERE description <> 'NULL' and c.winner <> 0";
+	WHERE original <> 'NULL' and c.winner <> 0";
 	if($username != '') {
 		$sql = $sql." and d.name = '$username'";
 	}
@@ -66,7 +66,7 @@ $sql = "Select count(*) as count FROM
 	{
 		$sql = $sql." and gamestate = '16'";
 	}
-	$sql= $sql." group by description) as z where z.totgames > 0";
+	$sql= $sql." group by original) as z where z.totgames > 0";
 	
 if($dbType == 'sqlite')
 {
@@ -485,14 +485,14 @@ else
 	<table class="table" id="data">
 	<?php
 	$sql = "Select *, case when (wins = 0) then 0 when (losses = 0) then 1000 else ((wins*1.0)/(losses*1.0)) end as winratio,
-	case when (kills = 0) then 0 when (deaths = 0) then 1000 else ((kills*1.0)/(deaths*1.0)) end as kdratio from 
-	(SELECT description, heroid, count(*) as totgames, 
+	case when (kills = 0) then 0 when (deaths = 0) then 1000 else ((kills*1.0)/(deaths*1.0)) end as kdratio, description from 
+	(SELECT original, count(*) as totgames, 
 	SUM(case when(((c.winner = 1 and a.newcolour < 6) or (c.winner = 2 and a.newcolour > 6)) AND d.`left`/e.duration >= $minPlayedRatio) then 1 else 0 end) as wins, 
 	SUM(case when(((c.winner = 2 and a.newcolour < 6) or (c.winner = 1 and a.newcolour > 6)) AND d.`left`/e.duration >= $minPlayedRatio) then 1 else 0 end) as losses, 
 	AVG(kills) as kills, AVG(deaths) as deaths, AVG(assists) as assists, AVG(creepkills) as creepkills, AVG(creepdenies) as creepdenies, AVG(neutralkills) as neutralkills
-	FROM dotaplayers AS a LEFT JOIN originals as b ON hero = heroid LEFT JOIN dotagames as c ON c.gameid = a.gameid 
+	FROM dotaplayers AS a LEFT JOIN heroes as b ON hero = heroid LEFT JOIN dotagames as c ON c.gameid = a.gameid 
 	LEFT JOIN gameplayers as d ON d.gameid = a.gameid and a.colour = d.colour LEFT JOIN games as e ON d.gameid = e.id
-	WHERE description <>  'NULL' and c.winner <> 0";
+	WHERE original <> 'NULL' and c.winner <> 0";
 	if($username != '') {
 		$sql = $sql." and d.name = '$username'";
 	}	
@@ -504,7 +504,7 @@ else
 	{
 	$sql = $sql." and gamestate = '16'";
 	}
-	$sql= $sql." group by description) as z where z.totgames > 0 order by $sortcat $order, description asc";
+	$sql= $sql." group by original) as y LEFT JOIN heroes as z on y.original = z.heroid where y.totgames > 0 order by $sortcat $order, description asc";
 	if($offset!='all')
 	{
 	$sql = $sql." LIMIT ".$allHeroResultSize*$offset.", $allHeroResultSize";
@@ -513,7 +513,7 @@ if($dbType == 'sqlite')
 {
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
-	$hero=$row["description"];
+		$hero=$row["description"];
 		$totgames=$row["totgames"];
 		$wins=$row["wins"];
 		$losses=$row["losses"];
@@ -525,7 +525,7 @@ if($dbType == 'sqlite')
 		$creepkills=$row["creepkills"];
 		$creepdenies=$row["creepdenies"];
 		$neutralkills=$row["neutralkills"];
-		$hid=checkIfAliasSQLite($row["heroid"], $dbType, $dbHandle);
+		$hid=$row["original"];
 
 	?>
 	<tr class="row">
@@ -563,7 +563,7 @@ else
 		$creepkills=$row["creepkills"];
 		$creepdenies=$row["creepdenies"];
 		$neutralkills=$row["neutralkills"];
-		$hid=checkIfAliasMySQL($row["heroid"]);
+		$hid=$row["original"];
 
 	?>
 	<tr class="row">

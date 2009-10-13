@@ -260,49 +260,49 @@ if($dbType == 'sqlite')
 {
 	//Find top heroes for this dude!
 	//find hero with most kills
-	$sql = "SELECT hero, max(kills) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour where name= '$username' group by hero ORDER BY max(kills) DESC LIMIT 1 ";
+	$sql = "SELECT original, max(kills) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY max(kills) DESC LIMIT 1 ";
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
-		$mostkillshero=checkIfAliasSQLite($row["hero"], $dbType, $dbHandle);
+		$mostkillshero=$row["original"];
 		$mostkillscount=$row["max(kills)"];
 	}
 	//find hero with most deaths
-	$sql = "SELECT hero, max(deaths) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour where name= '$username' group by hero ORDER BY max(kills) DESC LIMIT 1 ";
+	$sql = "SELECT original, max(deaths) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY max(deaths) DESC LIMIT 1 ";
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
-		$mostdeathshero=checkIfAliasSQLite($row["hero"], $dbType, $dbHandle);
+		$mostdeathshero=$row["original"];
 		$mostdeathscount=$row["max(deaths)"];
 	}
 	//find hero with most assists
-	$sql = "SELECT hero, max(assists) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour where name= '$username' group by hero ORDER BY max(kills) DESC LIMIT 1 ";
+	$sql = "SELECT original, max(assists) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY max(assists) DESC LIMIT 1 ";
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
-		$mostassistshero=checkIfAliasSQLite($row["hero"], $dbType, $dbHandle);
+		$mostassistshero=$row["original"];
 		$mostassistscount=$row["max(assists)"];
 	}
 	//get hero with most wins
-	$sql = "SELECT hero, COUNT(*) as wins FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' AND((winner=1 AND dotaplayers.newcolour>=1 AND dotaplayers.newcolour<=5) OR (winner=2 AND dotaplayers.newcolour>=7 AND dotaplayers.newcolour<=11)) group by hero order by wins desc limit 1";
+	$sql = "SELECT original, COUNT(*) as wins FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid LEFT JOIN heroes on hero = heroid WHERE name='$username' AND((winner=1 AND dotaplayers.newcolour>=1 AND dotaplayers.newcolour<=5) OR (winner=2 AND dotaplayers.newcolour>=7 AND dotaplayers.newcolour<=11)) group by original order by wins desc limit 1";
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
-		$mostwinshero=checkIfAliasSQLite($row["hero"], $dbType, $dbHandle);
+		$mostwinshero=$row["original"];
 		$mostwinscount=$row["wins"];
 		//put an blank if you ahvent won
 		if(!isset($mostwinscount)){ $mostwinshero="blank"; $mostwinscount="0";}
 	}
 	//get hero with most losses
-	$sql = "SELECT hero, COUNT(*) as losses FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' AND((winner=2 AND dotaplayers.newcolour>=1 AND dotaplayers.newcolour<=5) OR (winner=1 AND dotaplayers.newcolour>=7 AND dotaplayers.newcolour<=11)) group by hero order by losses desc limit 1";
+	$sql = "SELECT original, COUNT(*) as losses FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid LEFT JOIN heroes on hero = heroid WHERE name='$username' AND((winner=2 AND dotaplayers.newcolour>=1 AND dotaplayers.newcolour<=5) OR (winner=1 AND dotaplayers.newcolour>=7 AND dotaplayers.newcolour<=11)) group by original order by losses desc limit 1";
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
-		$mostlosseshero=checkIfAliasSQLite($row["hero"], $dbType, $dbHandle);
+		$mostlosseshero=$row["original"];
 		$mostlossescount=$row["losses"];
 		//put an x if you ahvent lost
 		if($mostlossescount==""){ $mostlosseshero="blank"; $mostlossescount="0";}
 	}
 	//get hero you have played most with
-	$sql = "SELECT SUM(`left`) as timeplayed, hero, COUNT(*) as played FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' and hero <> '' group by hero order by played asc";
+	$sql = "SELECT SUM(`left`) as timeplayed, original, COUNT(*) as played FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid LEFT JOIN heroes on hero = heroid WHERE name='$username' group by original order by played desc";
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
-		$mostplayedhero=checkIfAliasSQLite($row["hero"], $dbType, $dbHandle);
+		$mostplayedhero=$row["original"];
 		$mostplayedcount=$row["played"];
 		$mostplayedtime=secondsToTime($row["timeplayed"]);
 	}
@@ -371,38 +371,38 @@ else
 {
 //Find top heroes for this dude!
 //find hero with most kills
-$result = mysql_query("SELECT hero, max(kills) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour where name= '$username' group by hero ORDER BY max(kills) DESC LIMIT 1 ");
+$result = mysql_query("SELECT original, max(kills) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY max(kills) DESC LIMIT 1 ");
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
-$mostkillshero=checkIfAliasMySQL($row["hero"]);
+$mostkillshero=$row["original"];
 $mostkillscount=$row["max(kills)"];
 //find hero with most deaths
-$result = mysql_query("SELECT hero, max(deaths) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour where name= '$username' group by hero ORDER BY max(deaths) DESC LIMIT 1 ");
+$result = mysql_query("SELECT original, max(deaths) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY max(deaths) DESC LIMIT 1 ");
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
-$mostdeathshero=checkIfAliasMySQL($row["hero"]);
+$mostdeathshero=$row["original"];
 $mostdeathscount=$row["max(deaths)"];
 //find hero with most assists
-$result = mysql_query("SELECT hero, max(assists) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour where name= '$username' group by hero ORDER BY max(assists) DESC LIMIT 1 ");
+$result = mysql_query("SELECT original, max(assists) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY max(assists) DESC LIMIT 1 ");
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
-$mostassistshero=checkIfAliasMySQL($row["hero"]);
+$mostassistshero=$row["original"];
 $mostassistscount=$row["max(assists)"];
 //get hero with most wins
-$result = mysql_query("SELECT hero, COUNT(*) as wins FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' AND((winner=1 AND dotaplayers.newcolour>=1 AND dotaplayers.newcolour<=5) OR (winner=2 AND dotaplayers.newcolour>=7 AND dotaplayers.newcolour<=11)) group by hero order by wins desc limit 1");
+$result = mysql_query("SELECT original, COUNT(*) as wins FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid LEFT JOIN heroes on hero = heroid WHERE name='$username' AND((winner=1 AND dotaplayers.newcolour>=1 AND dotaplayers.newcolour<=5) OR (winner=2 AND dotaplayers.newcolour>=7 AND dotaplayers.newcolour<=11)) group by original order by wins desc limit 1");
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
-	$mostwinshero=checkIfAliasMySQL($row["hero"]);
+	$mostwinshero=$row["original"];
 	$mostwinscount=$row["wins"];
 	//put an blank if you ahvent won
 	if($mostwinscount==""){ $mostwinshero="blank"; $mostwinscount="0";}
 //get hero with most losses
-$result = mysql_query("SELECT hero, COUNT(*) as losses FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' AND((winner=2 AND dotaplayers.newcolour>=1 AND dotaplayers.newcolour<=5) OR (winner=1 AND dotaplayers.newcolour>=7 AND dotaplayers.newcolour<=11)) group by hero order by losses desc limit 1");
+$result = mysql_query("SELECT original, COUNT(*) as losses FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid LEFT JOIN heroes on hero = heroid WHERE name='$username' AND((winner=2 AND dotaplayers.newcolour>=1 AND dotaplayers.newcolour<=5) OR (winner=1 AND dotaplayers.newcolour>=7 AND dotaplayers.newcolour<=11)) group by original order by losses desc limit 1");
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
-	$mostlosseshero=checkIfAliasMySQL($row["hero"]);
+	$mostlosseshero=$row["original"];
 	$mostlossescount=$row["losses"];
 	//put an x if you ahvent lost
 	if($mostlossescount==""){ $mostlosseshero="blank"; $mostlossescount="0";}
 //get hero you have played most with
-$result = mysql_query("SELECT SUM(`left`) as timeplayed, hero, COUNT(*) as played FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' and hero<>'' group by hero order by played desc");	
+$result = mysql_query("SELECT SUM(`left`) as timeplayed, original, COUNT(*) as played FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid LEFT JOIN heroes on hero = heroid WHERE name='$username' group by original order by played desc");	
 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	$mostplayedhero=checkIfAliasMySQL($row["hero"]);
+	$mostplayedhero=$row["original"];
 	$mostplayedcount=$row["played"];
 	$mostplayedtime=secondsToTime($row["timeplayed"]);
 //get avg loadingtimes
@@ -599,7 +599,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 <?php
  $sql = "SELECT count(*) as count FROM( select a.hero
  FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
- LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = heroid where name= '$username' and description <> 'NULL') as t";
+ LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN heroes as e ON a.hero = heroid where name= '$username' and description <> 'NULL') as t";
 
 if($dbType == 'sqlite')
 {
@@ -994,11 +994,16 @@ else
 		<table class="table" id="data">
  <?php 
 
- $sql = "SELECT winner, a.gameid as id, newcolour, datetime, gamename, description, hero, kills, deaths, assists, creepkills, creepdenies, neutralkills, name, CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type,
+ $sql = "SELECT *, description from (SELECT winner, a.gameid as id, newcolour, datetime, gamename, original, kills, deaths, assists, creepkills, creepdenies, neutralkills, name, 
+ CASE when(gamestate = '17') then 'PRIV' else 'PUB' end as type,
  CASE WHEN (kills = 0) THEN 0 WHEN (deaths = 0) then 1000 ELSE (kills*1.0/deaths) end as kdratio,
  CASE when ((winner=1 and newcolour < 6) or (winner=2 and newcolour > 5)) AND b.`left`/d.duration >= 0.8  then 'WON' when ((winner=2 and newcolour < 6) or (winner=1 and newcolour > 5)) AND b.`left`/d.duration >= 0.8  then 'LOST' when  winner=0 then 'DRAW' else '$notCompleted' end as outcome 
- FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
- LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = heroid where name= '$username' and description <> 'NULL' ORDER BY $sortcat $order, d.id DESC";
+ FROM dotaplayers AS a 
+ LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
+ LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
+ LEFT JOIN games AS d ON d.id = a.gameid 
+ LEFT JOIN heroes as e ON a.hero = heroid 
+ where name= '$username' and original <> 'NULL' ORDER BY $sortcat $order, d.id DESC) as y LEFT JOIN heroes as z on y.original = z.heroid";
 
 	if($offset!='all')
 	{
@@ -1013,8 +1018,7 @@ else
 	$death=$row["deaths"];
     $assists=$row["assists"];
 	$gamename=$row["gamename"];
-	$hid=$row["hero"];
-	$hid=checkIfAliasSQlite($hid, $dbType, $dbHandle);
+	$hid=$row["original"];
 	$hero=$row["description"];
 	$name=$row["name"];
 	$colour=$row["newcolour"];
@@ -1055,8 +1059,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$death=$row["deaths"];
     $assists=$row["assists"];
 	$gamename=$row["gamename"];
-	$hid=$row["hero"];
-	$hid=checkIfAliasMySQL($hid);
+	$hid=$row["original"];
 	$hero=$row["description"];
 	$name=$row["name"];
 	$colour=$row["newcolour"];
