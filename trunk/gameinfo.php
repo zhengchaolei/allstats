@@ -182,13 +182,14 @@ $replayloc = $replayLocation.'/'.str_ireplace("\\","_",str_ireplace("/","_",$rep
 	
 <?php
 $sql = "SELECT winner, a.gameid, b.colour, newcolour, 
-hero, kills, deaths, assists, creepkills, creepdenies, neutralkills, towerkills, gold, 
+original as hero, kills, deaths, assists, creepkills, creepdenies, neutralkills, towerkills, gold, 
 item1, item2, item3, item4, item5, item6, leftreason, b.left, b.name as name, e.name as banname
 FROM dotaplayers AS a 
 LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
 LEFT JOIN games AS d ON d.id = a.gameid 
 LEFT JOIN bans as e ON b.name = e.name
+LEFT JOIN heroes as f ON hero = heroid
 where a.gameid='$gid' order by newcolour";	
 
 if($dbType == 'sqlite')
@@ -218,7 +219,6 @@ if($dbType == 'sqlite')
 		$left=$row["left"];
 		$leftreason=$row["leftreason"];
 		$hero=$row["hero"];	
-		$hero=checkIfAliasSQLite($hero, $dbType, $dbHandle);
 		$name=$row["name"];
 		$newcolour=$row["newcolour"];
 		$gameid=$row["gameid"]; 
@@ -328,7 +328,6 @@ else
 		$left=$row["left"];
 		$leftreason=$row["leftreason"];
 		$hero=$row["hero"];	
-		$hero=checkIfAliasMySQL($hero);
 		$name=$row["name"];
 		$newcolour=$row["newcolour"];
 		$gameid=$row["gameid"]; 

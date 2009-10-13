@@ -57,15 +57,23 @@ $heroDescription = "";
 //Check If alias
 if($dbType == 'sqlite')
 {
-	$heroid=checkIfAliasSQLite($heroid, $dbType, $dbHandle);
+	$sql = "SELECT heroid, original FROM heroes where heroid='$heroid'";
+	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+	{
+		$heroid=$row["original"];
+	}
 }
 else
 {
-	$heroid=checkIfAliasMySQL($heroid);
+	$sql = "SELECT heroid, original FROM heroes where heroid='$heroid'";
+	$result = mysql_query($sql);
+	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	$heroid=$row["original"];
+	mysql_free_result($result);
 }
 
 //Get hero name and description
-$sql = "select description, summary from originals where heroid='$heroid'";
+$sql = "select description, summary from heroes where heroid='$heroid'";
 if($dbType == 'sqlite')
 {
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
@@ -83,36 +91,16 @@ else
 		$heroDescription = $row["summary"];
 	}
 }
-//find if this is an alias
-$aliasheroes="";
-$sql = "select heroid from originals where original='$heroid'";
-if($dbType == 'sqlite')
-{
-	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-	{
-		$aliasheroes="$aliasheroes or hero='".$row["heroid"]."'";
-	}
-}
-else
-{
-	$result = mysql_query($sql);
-	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
-	{
-		$aliasheroes="$aliasheroes or hero='".$row["heroid"]."'";
-	}
-}
-?>
-<?php
+
 //Get overall hero stats
 $sql ="Select *, (kills*1.0/deaths) as kdratio, (wins*1.0/losses) as winratio, summary, skills, stats From 
-	(SELECT count(*) as totgames, description,
+	(SELECT count(*) as totgames, original,
 	SUM(case when(((c.winner = 1 and a.newcolour < 6) or (c.winner = 2 and a.newcolour > 6)) AND d.`left`/e.duration >= $minPlayedRatio) then 1 else 0 end) as wins, 
 	SUM(case when(((c.winner = 2 and a.newcolour < 6) or (c.winner = 1 and a.newcolour > 6)) AND d.`left`/e.duration >= $minPlayedRatio) then 1 else 0 end) as losses, 
 	SUM(kills) as kills, SUM(deaths) as deaths, SUM(assists) as assists, SUM(creepkills) as creepkills, SUM(creepdenies) as creepdenies, SUM(neutralkills) as neutralkills, SUM(towerkills) as towerkills, SUM(raxkills) as raxkills, SUM(courierkills) as courierkills
-	FROM dotaplayers AS a LEFT JOIN originals as b ON hero = heroid LEFT JOIN dotagames as c ON c.gameid = a.gameid
-	LEFT JOIN gameplayers as d ON d.gameid = a.gameid and a.colour = d.colour LEFT JOIN games as e ON d.gameid = e.id where hero='$heroid' $aliasheroes group by description) as y 
-	LEFT JOIN originals as z ON y.description = z.description 
-	where z.heroid='$heroid'";
+	FROM dotaplayers AS a LEFT JOIN heroes as b ON hero = heroid LEFT JOIN dotagames as c ON c.gameid = a.gameid
+	LEFT JOIN gameplayers as d ON d.gameid = a.gameid and a.colour = d.colour LEFT JOIN games as e ON d.gameid = e.id where original='$heroid' group by original) as y 
+	LEFT JOIN heroes as z ON y.original = z.heroid";
 	if($dbType == 'sqlite')
 {
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
@@ -248,7 +236,7 @@ else
 <?php
 //Beginning of game history table
 $sql = "Select Count(*) as  count FROM (SELECT name FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
- LEFT JOIN dotagames AS c ON c.gameid = a.gameid LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN originals as e ON a.hero = heroid 
+ LEFT JOIN dotagames AS c ON c.gameid = a.gameid LEFT JOIN games AS d ON d.id = a.gameid LEFT JOIN heroes as e ON a.hero = heroid 
  where heroid = '$heroid')as t";
  
 if($dbType == 'sqlite')
@@ -633,9 +621,9 @@ else
  FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
  LEFT JOIN dotagames AS c ON c.gameid = a.gameid 
  LEFT JOIN games AS d ON d.id = a.gameid 
- LEFT JOIN originals as e ON a.hero = heroid 
+ LEFT JOIN heroes as e ON a.hero = heroid 
  LEFT JOIN bans as f ON b.name = f.name
- where heroid = '$heroid' $aliasheroes 
+ where original = '$heroid' 
  ORDER BY $sortcat $order, b.name DESC";
 
  if($offset!='all')
@@ -654,7 +642,7 @@ foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	$kdratio=$row["kdratio"];
 	$gamename=$row["gamename"];
 	$name=$row["name"];
-        $banname=$row["banname"];
+    $banname=$row["banname"];
 	$winner=$row["result"];
 	$type=$row["type"];
 	$creepkills=$row["creepkills"];

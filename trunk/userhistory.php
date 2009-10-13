@@ -648,26 +648,31 @@ else
 
 
 $arrStatRow = array(
-	"Top Kills" => "SELECT hero as topHero, kills as topValue, datetime as topDate, a.gameid as topGame
+	"Top Kills" => "SELECT original as topHero, kills as topValue, datetime as topDate, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-		LEFT JOIN games as c on a.gameid = c.id",
-	"Top Assists" => "SELECT hero as topHero, assists as topValue, datetime as topDate, a.gameid as topGame
+		LEFT JOIN games as c on a.gameid = c.id
+		LEFT JOIN heroes as d on hero = heroid",
+	"Top Assists" => "SELECT original as topHero, assists as topValue, datetime as topDate, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-		LEFT JOIN games as c on a.gameid = c.id",
-	"Top Deaths" => "SELECT hero as topHero, deaths as topValue, datetime as topDate, a.gameid as topGame
+		LEFT JOIN games as c on a.gameid = c.id
+		LEFT JOIN heroes as d on hero = heroid",
+	"Top Deaths" => "SELECT original as topHero, deaths as topValue, datetime as topDate, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-		LEFT JOIN games as c on a.gameid = c.id",
-	"Top Creep Kills" => "SELECT hero as topHero, creepkills as topValue, datetime as topDate, a.gameid as topGame
+		LEFT JOIN games as c on a.gameid = c.id
+		LEFT JOIN heroes as d on hero = heroid",
+	"Top Creep Kills" => "SELECT original as topHero, creepkills as topValue, datetime as topDate, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-		LEFT JOIN games as c on a.gameid = c.id",
-	"Top Creep Denies" => "SELECT hero as topHero, creepdenies as topValue, datetime as topDate, a.gameid as topGame
+		LEFT JOIN games as c on a.gameid = c.id
+		LEFT JOIN heroes as d on hero = heroid",
+	"Top Creep Denies" => "SELECT original as topHero, creepdenies as topValue, datetime as topDate, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-		LEFT JOIN games as c on a.gameid = c.id");
+		LEFT JOIN games as c on a.gameid = c.id
+		LEFT JOIN heroes as d on hero = heroid");
 
 
 if($dbType == 'sqlite') // #################################################### SQLITE #########################################################
@@ -699,7 +704,6 @@ if($dbType == 'sqlite') // #################################################### 
 			$topDate = substr($row["topDate"],0,10);
 			$topHero = $row["topHero"];
 			$topGame = $row["topGame"];
-			$topHero = checkIfAliasSQLite($topHero, $dbType, $dbHandle);
 			if(isset($row["topValueUnit"]))
 			{
 				$topValueUnit = $row["topValueUnit"];
@@ -767,7 +771,6 @@ else  // #################################################### MYSQL ############
 			$topDate = substr($row["topDate"],0,10);
 			$topHero = $row["topHero"];
 			$topGame = $row["topGame"];
-			$topHero = checkIfAliasMySQL($topHero);
 			if(isset($row["topValueUnit"]))
 			{
 				$topValueUnit = $row["topValueUnit"];
