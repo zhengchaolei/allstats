@@ -184,87 +184,110 @@ function getUserParam($username)
 	}
 }
 
-function printStatsRowTypeA($rowdata) {
-	$topUser = $rowdata["topUser"];
-	$topDate = substr($rowdata["topDate"],0,10);
-	$topHero = $rowdata["topHero"];
-	$topHeroName = $rowdata["topHeroName"];
-	$topGame = $rowdata["topGame"];
-	if(isset($rowdata["topValueUnit"]))
-	{
-		$topValueUnit = $rowdata["topValueUnit"];
+function printStatsRowType($rowdata) {
+	if(isset($rowdata["topHero"])) {
+		$topHero = $rowdata["topHero"];
+	} else { 
+		$topHero = ''; 
 	}
-	else
-	{
+	
+	if(isset($rowdata["topHeroName"])) {
+		$topHeroName = $rowdata["topHeroName"];
+	} else {
+		$topHeroName = '';
+	}
+	
+	if(isset($rowdata["topGame"])) {
+		$topGame = $rowdata["topGame"];
+	} else {
+		$topGame = '';
+	}
+	
+	if(isset($rowdata["topDate"])) {
+		$topDate = substr($rowdata["topDate"],0,10);
+	} else {
+		$topDate = '';
+	}
+	
+	if(isset($rowdata["topUser"])) {
+		$topUser = $rowdata["topUser"];
+	} else {
+		$topUser = '';
+	}
+	
+	if(isset($rowdata["topValueUnit"])) {
+		$topValueUnit = $rowdata["topValueUnit"];
+	} else {
 		$topValueUnit = '';
 	}
+	
 	if ($topValueUnit <> '') {
 		$topValue = ROUND($rowdata["topValue"],1);
-	}
-	else
-	{
+	} else {
 		$topValue = ROUND($rowdata["topValue"],2);				
 	}
 					
 ?>
 					<tr> 
-						<td align=right width=15%>
+<?php
+	if($topHero != "" && $topGame != '' && $topValue != '')
+	{
+?>						<td align=right width=15%>
 							<a  href="?p=hero&hid=<?php print $topHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $topHero; ?>.gif" title="<?php print $topHeroName; ?>" width="16" height="16"></a>
 						</td>
 						<td align=center width=60px>
 							<a href="?p=gameinfo&gid=<?php print $topGame;?>">(<?php print $topValue;?>)</a> 
 						</td>
-						<td align=left>
+<?php
+	}
+	else if($topValue != "")
+	{
+?>	
+						<td align=center width=80px height=22px colspan=2>
+							(<?php print $topValue.$topValueUnit;?>)
+						</td>
+<?php
+	}
+	else
+	{
+?>	
+						<td align=center width=80px height=22px colspan=2>
+							(ERR)
+						</td>
+<?php
+	}
+?>				
+
+
 <?php
 	if($topUser != "")
 	{
 ?>
+						<td align=left>
 							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
 <?php
 	}
 	else if($topDate != "")
 	{
-		print $topDate;
+?>				
+						<td align=left>
+							<?php print $topDate; ?>
+						</td>
+<?php
 	}
 	else
 	{
-		print "---";
+?>				
+						<td align=left>
+							ERR
+						</td>
+<?php
 	}
 ?>				
-						</td>
 					</tr>
 <?php
 	return 0;
-}
-
-function printStatsRowTypeB($rowdata) {
-	$topUser = $rowdata["topUser"];
-	$topValueUnit = $rowdata["topValueUnit"];
-	if(isset($rowdata["topValueUnit"]))
-	{
-		$topValueUnit = $rowdata["topValueUnit"];
-	}
-	else
-	{
-		$topValueUnit = '';
-	}
-	if ($topValueUnit <> '') {
-		$topValue = ROUND($rowdata["topValue"],1);
-	}
-	else
-	{
-		$topValue = ROUND($rowdata["topValue"],2);				
-	}
-?>
-					<tr> 
-						<td align=center width=80px height=22px colspan=2>
-							(<?php print $topValue.$topValueUnit;?>)
-						</td>
-						<td align=left>
-							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
-						</td>
-					</tr>
-<?php	
 }
 
 function fillEmptyStatsRows($rowCount) {
