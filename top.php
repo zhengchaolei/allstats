@@ -475,24 +475,31 @@ else
 <?php
 if($scoreFromDB)        //Using score table
 {
-$sql = "select *,case when (kills = 0) then 0 when (deaths = 0) then 1000 else ((kills*1.0)/(deaths*1.0)) end as killdeathratio from (
-select gp.name as name, bans.name as banname, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
+$sql = "select gp.name as name, bans.name as banname, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
 avg(dp.towerkills) as towerkills, avg(dp.assists) as assists, avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills,
-avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills, sc.score as totalscore,
-count(*) as totgames, SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as wins, SUM(case when(((dg.winner = 2 and dp.newcolour < 6) or (dg.winner = 1 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as losses
-from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.colour and dp.newcolour <> 12 and dp.newcolour <> 6
-LEFT JOIN games as ga ON dp.gameid = ga.id LEFT JOIN scores as sc ON sc.name = gp.name 
+avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills, sc.score as totalscore, count(*) as totgames, 
+SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as wins, 
+SUM(case when(((dg.winner = 2 and dp.newcolour < 6) or (dg.winner = 1 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as losses
+from gameplayers as gp 
+LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid 
+LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.colour and dp.newcolour <> 12 and dp.newcolour <> 6
+LEFT JOIN games as ga ON dp.gameid = ga.id 
+LEFT JOIN scores as sc ON sc.name = gp.name 
 LEFT JOIN bans on bans.name = gp.name
 where dg.winner <> 0 ";
 }
 else                    //Using score formula
 {
-$sql = "select *, ($scoreFormula) as totalscore from(select *, case when (kills = 0) then 0 when (deaths = 0) then 1000 else ((kills*1.0)/(deaths*1.0)) end as killdeathratio from (
+$sql = "select *, ($scoreFormula) as totalscore from (
 select gp.name as name, bans.name as banname, avg(dp.courierkills) as courierkills, avg(dp.assists) as assists,
 avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills, avg(dp.towerkills) as towerkills, avg(dp.raxkills) as raxkills,
 avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills,
-count(1) as totgames, SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as wins, SUM(case when(((dg.winner = 2 and dp.newcolour < 6) or (dg.winner = 1 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as losses
-from gameplayers as gp LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.colour and dp.newcolour <> 12 and dp.newcolour <> 6
+count(1) as totgames, 
+SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as wins, 
+SUM(case when(((dg.winner = 2 and dp.newcolour < 6) or (dg.winner = 1 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as losses
+from gameplayers as gp 
+LEFT JOIN dotagames as dg ON gp.gameid = dg.gameid 
+LEFT JOIN dotaplayers as dp ON dg.gameid = dp.gameid and gp.colour = dp.colour and dp.newcolour <> 12 and dp.newcolour <> 6
 LEFT JOIN games as ga ON dp.gameid = ga.id 
 LEFT JOIN bans on bans.name = gp.name
 where dg.winner <> 0 ";
@@ -507,7 +514,7 @@ else if($ignorePrivs)
 $sql = $sql." and gamestate = '16'";
 }
 
-$sql = $sql." group by gp.name having totgames >= $games) as h";
+$sql = $sql." group by gp.name having totgames >= $games";
 if(!$scoreFromDB)
 {
 	$sql = $sql.") as i";
@@ -539,7 +546,7 @@ if($dbType == 'sqlite')
 		$wins=$row["wins"];
 		$losses=$row["losses"];
 		$totalscore=$row["totalscore"];
-		$killdeathratio=ROUND($row["killdeathratio"],2);
+		$killdeathratio=getRatio($kills, $death);
 
 	?>
 	<tr class="row">
@@ -584,7 +591,7 @@ else
 		$wins=$row["wins"];
 		$losses=$row["losses"];
 		$totalscore=$row["totalscore"];
-		$killdeathratio=ROUND($row["killdeathratio"],2);
+		$killdeathratio=getRatio($kills, $death);
 
 	?>
 	<tr class="row">
