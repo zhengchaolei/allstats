@@ -184,4 +184,105 @@ function getUserParam($username)
 	}
 }
 
+function printStatsRowTypeA($rowdata) {
+	$topUser = $rowdata["topUser"];
+	$topDate = substr($rowdata["topDate"],0,10);
+	$topHero = $rowdata["topHero"];
+	$topHeroName = $rowdata["topHeroName"];
+	$topGame = $rowdata["topGame"];
+	if(isset($rowdata["topValueUnit"]))
+	{
+		$topValueUnit = $rowdata["topValueUnit"];
+	}
+	else
+	{
+		$topValueUnit = '';
+	}
+	if ($topValueUnit <> '') {
+		$topValue = ROUND($rowdata["topValue"],1);
+	}
+	else
+	{
+		$topValue = ROUND($rowdata["topValue"],2);				
+	}
+					
+?>
+					<tr> 
+						<td align=right width=15%>
+							<a  href="?p=hero&hid=<?php print $topHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $topHero; ?>.gif" title="<?php print $topHeroName; ?>" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							<a href="?p=gameinfo&gid=<?php print $topGame;?>">(<?php print $topValue;?>)</a> 
+						</td>
+						<td align=left>
+<?php
+	if($topUser != "")
+	{
+?>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+<?php
+	}
+	else if($topDate != "")
+	{
+		print $topDate;
+	}
+	else
+	{
+		print "---";
+	}
+?>				
+						</td>
+					</tr>
+<?php
+	return 0;
+}
+
+function printStatsRowTypeB($rowdata) {
+	$topUser = $rowdata["topUser"];
+	$topValueUnit = $rowdata["topValueUnit"];
+	if(isset($rowdata["topValueUnit"]))
+	{
+		$topValueUnit = $rowdata["topValueUnit"];
+	}
+	else
+	{
+		$topValueUnit = '';
+	}
+	if ($topValueUnit <> '') {
+		$topValue = ROUND($rowdata["topValue"],1);
+	}
+	else
+	{
+		$topValue = ROUND($rowdata["topValue"],2);				
+	}
+?>
+					<tr> 
+						<td align=center width=80px height=22px colspan=2>
+							(<?php print $topValue.$topValueUnit;?>)
+						</td>
+						<td align=left>
+							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
+						</td>
+					</tr>
+<?php	
+}
+
+function fillEmptyStatsRows($rowCount) {
+	$idx = 0;
+	while($idx < $rowCount) // fill empty rows
+	{ 
+		$idx = $idx + 1;	
+?>
+					<tr> 
+						<td align=center width=80px height=22px colspan=2>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
+	}
+}
+
 ?>

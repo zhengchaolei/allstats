@@ -485,8 +485,8 @@ else
 	<table class="table" id="data">
 	<?php
 	$sql = "Select *, case when (wins = 0) then 0 when (losses = 0) then 1000 else ((wins*1.0)/(losses*1.0)) end as winratio,
-	case when (kills = 0) then 0 when (deaths = 0) then 1000 else ((kills*1.0)/(deaths*1.0)) end as kdratio, description from 
-	(SELECT original, count(*) as totgames, 
+	case when (kills = 0) then 0 when (deaths = 0) then 1000 else ((kills*1.0)/(deaths*1.0)) end as kdratio from 
+	(SELECT original, description, count(*) as totgames, 
 	SUM(case when(((c.winner = 1 and a.newcolour < 6) or (c.winner = 2 and a.newcolour > 6)) AND d.`left`/e.duration >= $minPlayedRatio) then 1 else 0 end) as wins, 
 	SUM(case when(((c.winner = 2 and a.newcolour < 6) or (c.winner = 1 and a.newcolour > 6)) AND d.`left`/e.duration >= $minPlayedRatio) then 1 else 0 end) as losses, 
 	AVG(kills) as kills, AVG(deaths) as deaths, AVG(assists) as assists, AVG(creepkills) as creepkills, AVG(creepdenies) as creepdenies, AVG(neutralkills) as neutralkills
@@ -504,7 +504,7 @@ else
 	{
 	$sql = $sql." and gamestate = '16'";
 	}
-	$sql= $sql." group by original) as y LEFT JOIN heroes as z on y.original = z.heroid where y.totgames > 0 order by $sortcat $order, description asc";
+	$sql= $sql." group by original) as y where y.totgames > 0 order by $sortcat $order, description asc";
 	if($offset!='all')
 	{
 	$sql = $sql." LIMIT ".$allHeroResultSize*$offset.", $allHeroResultSize";

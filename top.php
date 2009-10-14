@@ -628,27 +628,27 @@ else
 <?php
 
 $arrStatRow = array(
-	"Top Kills" => "SELECT original as topHero, kills as topValue, name as topUser, a.gameid as topGame
+	"Top Kills" => "SELECT original as topHero, description as topHeroName, kills as topValue, name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Assists" => "SELECT original as topHero, assists as topValue, name as topUser, a.gameid as topGame
+	"Top Assists" => "SELECT original as topHero, description as topHeroName, assists as topValue, name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Deaths" => "SELECT original as topHero, deaths as topValue, name as topUser, a.gameid as topGame
+	"Top Deaths" => "SELECT original as topHero, description as topHeroName, deaths as topValue, name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Creep Kills" => "SELECT original as topHero, creepkills as topValue, name as topUser, a.gameid as topGame
+	"Top Creep Kills" => "SELECT original as topHero, description as topHeroName, creepkills as topValue, name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Creep Denies" => "SELECT original as topHero, creepdenies as topValue, name as topUser, a.gameid as topGame
+	"Top Creep Denies" => "SELECT original as topHero, description as topHeroName, creepdenies as topValue, name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id
@@ -680,38 +680,7 @@ if($dbType == 'sqlite') // #################################################### 
 
 		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 		{
-			$topUser = $row["topUser"];
-			$topHero = $row["topHero"];
-			$topGame = $row["topGame"];
-			if(isset($row["topValueUnit"]))
-			{
-				$topValueUnit = $row["topValueUnit"];
-			}
-			else
-			{
-				$topValueUnit = '';
-			}
-			if ($topValueUnit <> '') {
-				$topValue = ROUND($row["topValue"],1);
-			}
-			else
-			{
-				$topValue = ROUND($row["topValue"],2);				
-			}
-					
-?>
-					<tr> 
-						<td align=right width=15%>
-							<a  href="?p=hero&hid=<?php print $topHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $topHero; ?>.gif" width="16" height="16"></a>
-						</td>
-						<td align=center width=60px>
-							<a href="?p=gameinfo&gid=<?php print $topGame;?>">(<?php print $topValue;?>)</a> 
-						</td>
-						<td align=left>
-							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
-						</td>
-					</tr>
-<?php
+			printStatsRowTypeA($row);
 		}
 ?>
 				</table>
@@ -746,37 +715,7 @@ else  // #################################################### MYSQL ############
 		$result = mysql_query($sql);
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 		{
-			$topUser = $row["topUser"];
-			$topHero = $row["topHero"];
-			$topGame = $row["topGame"];
-			if(isset($row["topValueUnit"]))
-			{
-				$topValueUnit = $row["topValueUnit"];
-			}
-			else
-			{
-				$topValueUnit = '';
-			}
-			if ($topValueUnit <> '') {
-				$topValue = ROUND($row["topValue"],1);
-			}
-			else
-			{
-				$topValue = ROUND($row["topValue"],2);				
-			}				
-?>
-					<tr> 
-						<td align=right width=15%>
-							<a  href="?p=hero&hid=<?php print $topHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $topHero; ?>.gif" width="16" height="16"></a>
-						</td>
-						<td align=center width=60px>
-							<a href="?p=gameinfo&gid=<?php print $topGame;?>">(<?php print $topValue;?>)</a> 
-						</td>
-						<td align=left>
-							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
-						</td>
-					</tr>
-<?php
+			printStatsRowTypeA($row);
 		}
 		mysql_free_result($result);
 ?>
