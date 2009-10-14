@@ -1,4 +1,4 @@
-ALTER TABLE  bans ADD INDEX (  name );
+﻿ALTER TABLE  bans ADD INDEX (  name );
 ALTER TABLE  bans ADD INDEX (  date );
 ALTER TABLE  games ADD INDEX (  id );
 ALTER TABLE  games ADD INDEX (  datetime );
@@ -14,7 +14,7 @@ ALTER TABLE  dotaplayers ADD INDEX (  newcolour );
 ALTER TABLE  dotaplayers ADD INDEX (  hero );
 ALTER TABLE  scores ADD INDEX (  name );
 ALTER TABLE  scores ADD INDEX (  score );
-ALTER TABLE  originals ADD INDEX (  description );
-ALTER TABLE  originals ADD INDEX (  original );
-ALTER TABLE  originals ADD INDEX (  heroid );
-
+ALTER TABLE  heroes ADD INDEX (  description );
+ALTER TABLE  heroes ADD INDEX (  original );
+ALTER TABLE  heroes ADD INDEX (  heroid );
+ALTER TABLE  items ADD INDEX (  itemid );
