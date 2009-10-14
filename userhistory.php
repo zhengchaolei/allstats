@@ -701,7 +701,7 @@ if($dbType == 'sqlite') // #################################################### 
 		
 		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 		{
-			printStatsRowTypeA($row);
+			printStatsRowType($row);
 		}
 ?>
 				</table>
@@ -737,7 +737,7 @@ else  // #################################################### MYSQL ############
 		$result = mysql_query($sql);
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 		{
-			printStatsRowTypeA($row);
+			printStatsRowType($row);
 		}
 		mysql_free_result($result);
 ?>

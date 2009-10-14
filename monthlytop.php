@@ -111,6 +111,179 @@ else
 
 $pages = ceil($count/$monthlyTopsResultSize);
 
+
+$arrStatRow1 = array(
+	"Top Kills" => "SELECT original as topHero, description as topHeroName, kills as topValue, name as topUser, a.gameid as topGame
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN heroes as d on hero = heroid",
+	"Top Assists" => "SELECT original as topHero, description as topHeroName, assists as topValue, name as topUser, a.gameid as topGame
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN heroes as d on hero = heroid",
+	"Top Deaths" => "SELECT original as topHero, description as topHeroName, deaths as topValue, name as topUser, a.gameid as topGame
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN heroes as d on hero = heroid",
+	"Top Creep Kills" => "SELECT original as topHero, description as topHeroName, creepkills as topValue, name as topUser, a.gameid as topGame
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN heroes as d on hero = heroid",
+	"Top Creep Denies" => "SELECT original as topHero, description as topHeroName, creepdenies as topValue, name as topUser, a.gameid as topGame
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN heroes as d on hero = heroid");
+
+$arrStatRow2 = array(
+	"Top Gold" => "SELECT original as topHero, description as topHeroName, gold as topValue, name as topUser, a.gameid as topGame
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN heroes as d on hero = heroid",
+	"Top Neutral Kills" => "SELECT original as topHero, description as topHeroName, neutralkills as topValue, name as topUser, a.gameid as topGame
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN heroes as d on hero = heroid",
+	"Top Tower Kills" => "SELECT original as topHero, description as topHeroName, towerkills as topValue, name as topUser, a.gameid as topGame
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN heroes as d on hero = heroid",
+	"Top Rax Kills" => "SELECT original as topHero, description as topHeroName, raxkills as topValue, name as topUser, a.gameid as topGame
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN heroes as d on hero = heroid",
+	"Top Courier Kills" => "SELECT original as topHero, description as topHeroName, courierkills as topValue, name as topUser, a.gameid as topGame
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN heroes as d on hero = heroid");
+		
+$arrStatRow3 = array(
+	"Best K/D ratio" => "SELECT name as topUser, case when (totKills = 0) then 0 when (totDeaths = 0) then 1000 else ((totKills*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name as name, MAX(a.id) as id,
+		SUM(kills) as totKills,
+		SUM(deaths) as totDeaths 
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id
+		where winner <> 0",
+	"Best A/D Ratio" => "SELECT name as topUser, case when (totAssists = 0) then 0 when (totDeaths = 0) then 1000 else ((totAssists*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name as name, MAX(a.id) as id,
+		SUM(assists) as totAssists,
+		SUM(deaths) as totDeaths 
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id
+		where winner <> 0",
+	"Most Games" => "SELECT name as topUser, totGames as topValue from (Select b.name as name, MAX(a.id) as id,
+		COUNT(*) as totGames,
+		SUM(deaths) as totDeaths 
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id
+		where winner <> 1000",
+	"Best Win Percentage" => "SELECT name as topUser, 100*wins*1.0/(totgames*1.0) as topValue, ' %' as topValueUnit from (Select b.name as name, MAX(a.id) as id,
+		count(*) as totgames,
+		SUM(case when((d.winner = 1 and a.newcolour < 6) or (d.winner = 2 and a.newcolour > 6)) then 1 else 0 end) as wins, 
+		SUM(case when((d.winner = 2 and a.newcolour < 6) or (d.winner = 1 and a.newcolour > 6)) then 1 else 0 end) as losses
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id
+		where winner <> 0 AND b.`left`*1.0/c.duration*1.0 >= $minPlayedRatio",
+	"Top Stay Percentage" => "SELECT name as topUser, 100*playedTime*1.0/gameDuration*1.0 as topValue, ' %' as topValueUnit from (Select b.name as name, MAX(a.id) as id,
+		SUM(`left`) as playedTime,
+		SUM(duration) as gameDuration 
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id
+		where winner <> 1000");
+		
+$arrStatRow4 = array(
+	"Most Kills" => "SELECT name as topUser, sumKills as topValue from (Select b.name as name, MAX(a.id) as id,
+		SUM(kills) as sumKills 
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id",
+	"Most Assists" => "SELECT name as topUser, sumAssists as topValue from (Select b.name as name, MAX(a.id) as id,
+		SUM(assists) as sumAssists 
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id",
+	"Most Deaths" => "SELECT name as topUser, sumDeaths as topValue from (Select b.name as name, MAX(a.id) as id,
+		SUM(deaths) as sumDeaths 
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id",
+	"Most Creep Kills" => "SELECT name as topUser, sumCreepKills as topValue from (Select b.name as name, MAX(a.id) as id,
+		SUM(creepkills) as sumCreepKills 
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id",
+	"Most Creep Denies" => "SELECT name as topUser, sumCreepDenies as topValue from (Select b.name as name, MAX(a.id) as id,
+		SUM(creepdenies) as sumCreepDenies 
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id");
+		
+$arrStatRow5 = array(
+	"AVG Kills" => "SELECT name as topUser, sumKills*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+		COUNT(*) as totGames,
+		SUM(kills) as sumKills 
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id
+		where winner <> 0",
+	"AVG Assists" => "SELECT name as topUser, sumAssists*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+		COUNT(*) as totGames,
+		SUM(assists) as sumAssists 
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id
+		where winner <> 0",			
+	"AVG Deaths" => "SELECT name as topUser, sumDeaths*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+		COUNT(*) as totGames,
+		SUM(deaths) as sumDeaths 
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id
+		where winner <> 0",			
+	"AVG Creep Kills" => "SELECT name as topUser, sumCreepKills*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+		COUNT(*) as totGames,
+		SUM(creepkills) as sumCreepKills 
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id
+		where winner <> 0",			
+	"AVG Creep Denies" => "SELECT name as topUser, sumCreepDenies*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+		COUNT(*) as totGames,
+		SUM(creepdenies) as sumCreepDenies 
+		FROM dotaplayers AS a 
+		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
+		LEFT JOIN games as c on a.gameid = c.id 
+		LEFT JOIN dotagames as d on d.gameid = c.id
+		where winner <> 0");		
+		
+
 ?>
 <div class="header" id="header">
 	<table width=1016px>
@@ -331,39 +504,7 @@ if($dbType == 'sqlite')
 		<tr>
 		
 <?php
-			$arrStatRow = array(
-				"Top Kills" => "SELECT original as topHero, description as topHeroName, kills as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Top Assists" => "SELECT original as topHero, description as topHeroName, assists as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Top Deaths" => "SELECT original as topHero, description as topHeroName, deaths as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",		
-				"Top Creep Kills" => "SELECT original as topHero, description as topHeroName, creepkills as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",		
-				"Top Creep Denies" => "SELECT original as topHero, description as topHeroName, creepdenies as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'");
-				
-			foreach($arrStatRow as $title => $sql)
+			foreach($arrStatRow1 as $title => $sql)
 			{
 ?>
 
@@ -374,7 +515,8 @@ if($dbType == 'sqlite')
 					</tr>
 
 <?php
-
+				
+				$sql = $sql." where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 				if($ignorePubs)
 				{
 					$sql = $sql." AND gamestate = '17'";
@@ -387,7 +529,7 @@ if($dbType == 'sqlite')
 		
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
-					printStatsRowTypeA($row);
+					printStatsRowType($row);
 				}
 ?>
 
@@ -413,39 +555,7 @@ if($dbType == 'sqlite')
 		<tr>
 		
 <?php
-			$arrStatRow = array(
-				"Top Gold" => "SELECT original as topHero, description as topHeroName, gold as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Top Neutral Kills" => "SELECT original as topHero, description as topHeroName, neutralkills as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Top Tower Kills" => "SELECT original as topHero, description as topHeroName, towerkills as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",		
-				"Top Rax Kills" => "SELECT original as topHero, description as topHeroName, raxkills as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",		
-				"Top Courier Kills" => "SELECT original as topHero, description as topHeroName, courierkills as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'");
-				
-			foreach($arrStatRow as $title => $sql)
+			foreach($arrStatRow2 as $title => $sql)
 			{
 ?>
 
@@ -457,6 +567,7 @@ if($dbType == 'sqlite')
 
 <?php
 
+				$sql = $sql." where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 				if($ignorePubs)
 				{
 					$sql = $sql." AND gamestate = '17'";
@@ -469,7 +580,7 @@ if($dbType == 'sqlite')
 		
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
-					printStatsRowTypeA($row);
+					printStatsRowType($row);
 				}
 ?>
 
@@ -492,50 +603,7 @@ if($dbType == 'sqlite')
 ?>		
 
 <?php
-			$arrStatRow = array(
-				"Best Win Percentage" => "SELECT name as topUser, 100*wins*1.0/(totgames*1.0) as topValue, ' %' as topValueUnit from (Select b.name as name, MAX(a.id) as id,
-					count(*) as totgames,
-					SUM(case when((d.winner = 1 and a.newcolour < 6) or (d.winner = 2 and a.newcolour > 6)) then 1 else 0 end) as wins, 
-					SUM(case when((d.winner = 2 and a.newcolour < 6) or (d.winner = 1 and a.newcolour > 6)) then 1 else 0 end) as losses
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND b.`left`*1.0/c.duration*1.0 >= $minPlayedRatio AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Best K/D ratio" => "SELECT name as topUser, case when (totKills = 0) then 0 when (totDeaths = 0) then 1000 else ((totKills*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name as name, MAX(a.id) as id,
-					SUM(kills) as totKills,
-					SUM(deaths) as totDeaths 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Best A/D Ratio" => "SELECT name as topUser, case when (totAssists = 0) then 0 when (totDeaths = 0) then 1000 else ((totAssists*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name as name, MAX(a.id) as id,
-					SUM(assists) as totAssists,
-					SUM(deaths) as totDeaths 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Most Games" => "SELECT name as topUser, totGames as topValue from (Select b.name as name, MAX(a.id) as id,
-					COUNT(*) as totGames,
-					SUM(deaths) as totDeaths 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Top Stay Percentage" => "SELECT name as topUser, 100*playedTime*1.0/gameDuration*1.0 as topValue, ' %' as topValueUnit from (Select b.name as name, MAX(a.id) as id,
-					SUM(`left`) as playedTime,
-					SUM(duration) as gameDuration 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'");
-				
-			foreach($arrStatRow as $title => $sql)
+			foreach($arrStatRow3 as $title => $sql)
 			{
 ?>
 
@@ -546,6 +614,7 @@ if($dbType == 'sqlite')
 					</tr>
 <?php
 
+				$sql = $sql." AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 				if($ignorePubs)
 				{
 					$sql = $sql." AND gamestate = '17'";
@@ -560,7 +629,7 @@ if($dbType == 'sqlite')
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
 					$rows = $rows + 1;
-					printStatsRowTypeB($row);
+					printStatsRowType($row);
 				}
 				fillEmptyStatsRows($monthlyTopsListSize - $rows);
 ?>
@@ -584,44 +653,7 @@ if($dbType == 'sqlite')
 		<tr>
 		
 <?php
-			$arrStatRow = array(
-				"Most Kills" => "SELECT name as topUser, sumKills as topValue from (Select b.name as name, MAX(a.id) as id,
-					SUM(kills) as sumKills 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Most Assists" => "SELECT name as topUser, sumAssists as topValue from (Select b.name as name, MAX(a.id) as id,
-					SUM(assists) as sumAssists 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",			
-				"Most Deaths" => "SELECT name as topUser, sumDeaths as topValue from (Select b.name as name, MAX(a.id) as id,
-					SUM(deaths) as sumDeaths 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",			
-				"Most Creep Kills" => "SELECT name as topUser, sumCreepKills as topValue from (Select b.name as name, MAX(a.id) as id,
-					SUM(creepkills) as sumCreepKills 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",			
-				"Most Creep Denies" => "SELECT name as topUser, sumCreepDenies as topValue from (Select b.name as name, MAX(a.id) as id,
-					SUM(creepdenies) as sumCreepDenies 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'");
-				
-			foreach($arrStatRow as $title => $sql)
+			foreach($arrStatRow4 as $title => $sql)
 			{
 ?>
 
@@ -632,6 +664,7 @@ if($dbType == 'sqlite')
 					</tr>
 <?php
 
+				$sql = $sql." where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 				if($ignorePubs)
 				{
 					$sql = $sql." AND gamestate = '17'";
@@ -646,7 +679,7 @@ if($dbType == 'sqlite')
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
 					$rows = $rows + 1;
-					printStatsRowTypeB($row);
+					printStatsRowType($row);
 				}
 				fillEmptyStatsRows($monthlyTopsListSize - $rows);
 ?>
@@ -671,49 +704,7 @@ if($dbType == 'sqlite')
 		<tr>
 		
 <?php
-			$arrStatRow = array(
-				"AVG Kills" => "SELECT name as topUser, sumKills*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
-					COUNT(*) as totGames,
-					SUM(kills) as sumKills 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"AVG Assists" => "SELECT name as topUser, sumAssists*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
-					COUNT(*) as totGames,
-					SUM(assists) as sumAssists 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",			
-				"AVG Deaths" => "SELECT name as topUser, sumDeaths*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
-					COUNT(*) as totGames,
-					SUM(deaths) as sumDeaths 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",			
-				"AVG Creep Kills" => "SELECT name as topUser, sumCreepKills*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
-					COUNT(*) as totGames,
-					SUM(creepkills) as sumCreepKills 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",			
-				"AVG Creep Denies" => "SELECT name as topUser, sumCreepDenies*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
-					COUNT(*) as totGames,
-					SUM(creepdenies) as sumCreepDenies 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'");
-				
-			foreach($arrStatRow as $title => $sql)
+			foreach($arrStatRow5 as $title => $sql)
 			{
 ?>
 
@@ -724,6 +715,7 @@ if($dbType == 'sqlite')
 					</tr>
 <?php
 
+				$sql = $sql." AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 				if($ignorePubs)
 				{
 					$sql = $sql." AND gamestate = '17'";
@@ -738,7 +730,7 @@ if($dbType == 'sqlite')
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
 					$rows = $rows + 1;
-					printStatsRowTypeB($row);
+					printStatsRowType($row);
 				}
 				fillEmptyStatsRows($monthlyTopsListSize - $rows);
 ?>
@@ -805,39 +797,7 @@ else  // #################################################### MYSQL ############
 		<tr>
 		
 <?php
-			$arrStatRow = array(
-				"Top Kills" => "SELECT original as topHero, description as topHeroName, kills as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Assists" => "SELECT original as topHero, description as topHeroName, assists as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Deaths" => "SELECT original as topHero, description as topHeroName, deaths as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Creep Kills" => "SELECT original as topHero, description as topHeroName, creepkills as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Creep Denies" => "SELECT original as topHero, description as topHeroName, creepdenies as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month");
-				
-			foreach($arrStatRow as $title => $sql)
+			foreach($arrStatRow1 as $title => $sql)
 			{
 ?>
 
@@ -848,6 +808,7 @@ else  // #################################################### MYSQL ############
 					</tr>
 
 <?php
+				$sql = $sql." where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 				if($ignorePubs)
 				{
 					$sql = $sql." AND gamestate = '17'";
@@ -861,7 +822,7 @@ else  // #################################################### MYSQL ############
 				$result = mysql_query($sql);
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
-					printStatsRowTypeA($row);
+					printStatsRowType($row);
 				}
 				mysql_free_result($result);
 ?>
@@ -886,39 +847,7 @@ else  // #################################################### MYSQL ############
 		<tr>
 		
 <?php
-			$arrStatRow = array(
-				"Top Gold" => "SELECT original as topHero, description as topHeroName, gold as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Neutral Kills" => "SELECT original as topHero, description as topHeroName, neutralkills as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Tower Kills" => "SELECT original as topHero, description as topHeroName, towerkills as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Rax Kills" => "SELECT original as topHero, description as topHeroName, raxkills as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Courier Kills" => "SELECT original as topHero, description as topHeroName, courierkills as topValue, name as topUser, a.gameid as topGame
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN heroes as d on hero = heroid
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month");
-				
-			foreach($arrStatRow as $title => $sql)
+			foreach($arrStatRow2 as $title => $sql)
 			{
 ?>
 
@@ -929,6 +858,7 @@ else  // #################################################### MYSQL ############
 					</tr>
 
 <?php
+				$sql = $sql." where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 				if($ignorePubs)
 				{
 					$sql = $sql." AND gamestate = '17'";
@@ -942,7 +872,7 @@ else  // #################################################### MYSQL ############
 				$result = mysql_query($sql);
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
-					printStatsRowTypeA($row);
+					printStatsRowType($row);
 				}
 				mysql_free_result($result);
 ?>
@@ -968,50 +898,7 @@ else  // #################################################### MYSQL ############
 		<tr>
 		
 <?php
-			$arrStatRow = array(
-				"Best Win Percentage" => "SELECT name as topUser, 100*wins/totgames as topValue ,' %' as topValueUnit from (Select b.name, MAX(a.id) as id,
-					count(*) as totgames,
-					SUM(case when((d.winner = 1 and a.newcolour < 6) or (d.winner = 2 and a.newcolour > 6)) then 1 else 0 end) as wins, 
-					SUM(case when((d.winner = 2 and a.newcolour < 6) or (d.winner = 1 and a.newcolour > 6)) then 1 else 0 end) as losses
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND b.`left`/c.duration >= $minPlayedRatio AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Best K/D ratio" => "SELECT name as topUser, case when (totKills = 0) then 0 when (totDeaths = 0) then 1000 else ((totKills*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name, MAX(a.id) as id,
-					SUM(kills) as totKills,
-					SUM(deaths) as totDeaths 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",			
-				"Best A/D Ratio" => "SELECT name as topUser, case when (totAssists = 0) then 0 when (totDeaths = 0) then 1000 else ((totAssists*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name, MAX(a.id) as id,
-					SUM(assists) as totAssists,
-					SUM(deaths) as totDeaths 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",			
-				"Most Games" => "SELECT name as topUser, totGames as topValue from (Select b.name, MAX(a.id) as id,
-					COUNT(*) as totGames,
-					SUM(deaths) as totDeaths 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",			
-				"Top Stay Percentage" => "SELECT name as topUser, 100*playedTime/gameDuration as topValue, ' %' as topValueUnit from (Select b.name, MAX(a.id) as id,
-					SUM(`left`) as playedTime,
-					SUM(duration) as gameDuration 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month");
-				
-			foreach($arrStatRow as $title => $sql)
+			foreach($arrStatRow3 as $title => $sql)
 			{
 ?>
 
@@ -1022,6 +909,7 @@ else  // #################################################### MYSQL ############
 					</tr>
 <?php
 
+				$sql = $sql." AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 				if($ignorePubs)
 				{
 					$sql = $sql." AND gamestate = '17'";
@@ -1037,7 +925,7 @@ else  // #################################################### MYSQL ############
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
 					$rows = $rows + 1;
-					printStatsRowTypeB($row);
+					printStatsRowType($row);
 				}
 				fillEmptyStatsRows($monthlyTopsListSize - $rows);
 				mysql_free_result($result);
@@ -1062,44 +950,7 @@ else  // #################################################### MYSQL ############
 		<tr>
 		
 <?php
-			$arrStatRow = array(
-				"Most Kills" => "SELECT name as topUser, sumKills as topValue from (Select b.name, MAX(a.id) as id,
-					SUM(kills) as sumKills 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Most Assists" => "SELECT name as topUser, sumAssists as topValue from (Select b.name, MAX(a.id) as id,
-					SUM(assists) as sumAssists 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",			
-				"Most Deaths" => "SELECT name as topUser, sumDeaths as topValue from (Select b.name, MAX(a.id) as id,
-					SUM(deaths) as sumDeaths 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",			
-				"Most Creep Kills" => "SELECT name as topUser, sumCreepKills as topValue from (Select b.name, MAX(a.id) as id,
-					SUM(creepkills) as sumCreepKills 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",			
-				"Most Creep Denies" => "SELECT name as topUser, sumCreepDenies as topValue from (Select b.name, MAX(a.id) as id,
-					SUM(creepdenies) as sumCreepDenies 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month");
-				
-			foreach($arrStatRow as $title => $sql)
+			foreach($arrStatRow4 as $title => $sql)
 			{
 ?>
 
@@ -1110,6 +961,7 @@ else  // #################################################### MYSQL ############
 					</tr>
 <?php
 
+				$sql = $sql." where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 				if($ignorePubs)
 				{
 					$sql = $sql." AND gamestate = '17'";
@@ -1125,7 +977,7 @@ else  // #################################################### MYSQL ############
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
 					$rows = $rows + 1;
-					printStatsRowTypeB($row);
+					printStatsRowType($row);
 				}
 				fillEmptyStatsRows($monthlyTopsListSize - $rows);
 				mysql_free_result($result);
@@ -1150,49 +1002,7 @@ else  // #################################################### MYSQL ############
 		<tr>
 		
 <?php
-			$arrStatRow = array(
-				"AVG Kills" => "SELECT name as topUser, sumKills/totGames as topValue from (Select b.name, MAX(a.id) as id,
-					COUNT(*) as totGames,
-					SUM(kills) as sumKills 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"AVG Assists" => "SELECT name as topUser, sumAssists/totGames as topValue from (Select b.name, MAX(a.id) as id,
-					COUNT(*) as totGames,
-					SUM(assists) as sumAssists 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",			
-				"AVG Deaths" => "SELECT name as topUser, sumDeaths/totGames as topValue from (Select b.name, MAX(a.id) as id,
-					COUNT(*) as totGames,
-					SUM(deaths) as sumDeaths 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",			
-				"AVG Creep Kills" => "SELECT name as topUser, sumCreepKills/totGames as topValue from (Select b.name, MAX(a.id) as id,
-					COUNT(*) as totGames,
-					SUM(creepkills) as sumCreepKills 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",			
-				"AVG Creep Denies" => "SELECT name as topUser, sumCreepDenies/totGames as topValue from (Select b.name, MAX(a.id) as id,
-					COUNT(*) as totGames,
-					SUM(creepdenies) as sumCreepDenies 
-					FROM dotaplayers AS a 
-					LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
-					LEFT JOIN games as c on a.gameid = c.id 
-					LEFT JOIN dotagames as d on d.gameid = c.id
-					where winner <> 0 AND ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month");
-				
-			foreach($arrStatRow as $title => $sql)
+			foreach($arrStatRow5 as $title => $sql)
 			{
 ?>
 
@@ -1203,6 +1013,7 @@ else  // #################################################### MYSQL ############
 					</tr>
 <?php
 
+				$sql = $sql." AND ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 				if($ignorePubs)
 				{
 					$sql = $sql." AND gamestate = '17'";
@@ -1218,7 +1029,7 @@ else  // #################################################### MYSQL ############
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
 					$rows = $rows + 1;
-					printStatsRowTypeB($row);
+					printStatsRowType($row);
 				}
 				fillEmptyStatsRows($monthlyTopsListSize - $rows);
 				mysql_free_result($result);
