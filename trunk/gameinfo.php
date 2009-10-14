@@ -182,7 +182,7 @@ $replayloc = $replayLocation.'/'.str_ireplace("\\","_",str_ireplace("/","_",$rep
 	
 <?php
 $sql = "SELECT winner, a.gameid, b.colour, newcolour, 
-original as hero, kills, deaths, assists, creepkills, creepdenies, neutralkills, towerkills, gold, 
+original as hero, description, kills, deaths, assists, creepkills, creepdenies, neutralkills, towerkills, gold, 
 item1, item2, item3, item4, item5, item6, 
 it1.icon as itemicon1, it2.icon as itemicon2, it3.icon as itemicon3, it4.icon as itemicon4, it5.icon as itemicon5, it6.icon as itemicon6, 
 it1.name as itemname1, it2.name as itemname2, it3.name as itemname3, it4.name as itemname4, it5.name as itemname5, it6.name as itemname6, 
@@ -319,6 +319,7 @@ if($dbType == 'sqlite')
 		$left=$row["left"];
 		$leftreason=$row["leftreason"];
 		$hero=$row["hero"];	
+		$heroname=$row["description"];	
 		$name=$row["name"];
 		$newcolour=$row["newcolour"];
 		$gameid=$row["gameid"]; 
@@ -369,11 +370,11 @@ if($dbType == 'sqlite')
 			{
 				if($displayStyle == 'all')
 				{
-					print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc&n=all\"><img width=\"24px\" height=\"24px\" src=./img/heroes/".$hero.".gif></a>";
+					print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc&n=all\"><img width=\"24px\" height=\"24px\" src=./img/heroes/".$hero.".gif title=\"".$heroname."\"></a>";
 				}
 				else
 				{
-					print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc&n=0\"><img width=\"24px\" height=\"24px\" src=./img/heroes/".$hero.".gif></a>";
+					print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc&n=0\"><img width=\"24px\" height=\"24px\" src=./img/heroes/".$hero.".gif title=\"".$heroname."\"></a>";
 				}
 			}
 			?>
@@ -519,6 +520,7 @@ else
 		$left=$row["left"];
 		$leftreason=$row["leftreason"];
 		$hero=$row["hero"];	
+		$heroname=$row["description"];	
 		$name=$row["name"];
 		$newcolour=$row["newcolour"];
 		$gameid=$row["gameid"]; 
@@ -569,11 +571,11 @@ else
 			{
 				if($displayStyle == 'all')
 				{
-					print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc&n=all\"><img width=\"24px\" height=\"24px\" src=./img/heroes/".$hero.".gif></a>";
+					print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc&n=all\"><img width=\"24px\" height=\"24px\" src=./img/heroes/".$hero.".gif title=\"".$heroname."\"></a>";
 				}
 				else
 				{
-					print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc&n=0\"><img width=\"24px\" height=\"24px\" src=./img/heroes/".$hero.".gif></a>";
+					print "<a  href=\"?p=hero&hid=".$hero."&s=kdratio&o=desc&n=0\"><img width=\"24px\" height=\"24px\" src=./img/heroes/".$hero.".gif title=\"".$heroname."\"></a>";
 				}
 			}
 			?>

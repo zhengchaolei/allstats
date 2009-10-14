@@ -332,31 +332,31 @@ if($dbType == 'sqlite')
 		
 <?php
 			$arrStatRow = array(
-				"Top Kills" => "SELECT original as topHero, kills as topValue, name as topUser, a.gameid as topGame
+				"Top Kills" => "SELECT original as topHero, description as topHeroName, kills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Top Assists" => "SELECT original as topHero, assists as topValue, name as topUser, a.gameid as topGame
+				"Top Assists" => "SELECT original as topHero, description as topHeroName, assists as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Top Deaths" => "SELECT original as topHero, deaths as topValue, name as topUser, a.gameid as topGame
+				"Top Deaths" => "SELECT original as topHero, description as topHeroName, deaths as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",		
-				"Top Creep Kills" => "SELECT original as topHero, creepkills as topValue, name as topUser, a.gameid as topGame
+				"Top Creep Kills" => "SELECT original as topHero, description as topHeroName, creepkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",		
-				"Top Creep Denies" => "SELECT original as topHero, creepdenies as topValue, name as topUser, a.gameid as topGame
+				"Top Creep Denies" => "SELECT original as topHero, description as topHeroName, creepdenies as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
@@ -387,38 +387,7 @@ if($dbType == 'sqlite')
 		
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
-					$topUser = $row["topUser"];
-					$topHero = $row["topHero"];
-					$topGame = $row["topGame"];
-					if(isset($row["topValueUnit"]))
-					{
-						$topValueUnit = $row["topValueUnit"];
-					}
-					else
-					{
-						$topValueUnit = '';
-					}
-					if ($topValueUnit <> '') {
-						$topValue = ROUND($row["topValue"],1);
-					}
-					else
-					{
-						$topValue = ROUND($row["topValue"],2);				
-					}
-					
-?>
-					<tr> 
-						<td align=right width=15%>
-							<a  href="?p=hero&hid=<?php print $topHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $topHero; ?>.gif" width="16" height="16"></a>
-						</td>
-						<td align=center width=60px>
-							<a href="?p=gameinfo&gid=<?php print $topGame;?>">(<?php print $topValue;?>)</a> 
-						</td>
-						<td align=left>
-							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
-						</td>
-					</tr>
-<?php
+					printStatsRowTypeA($row);
 				}
 ?>
 
@@ -445,31 +414,31 @@ if($dbType == 'sqlite')
 		
 <?php
 			$arrStatRow = array(
-				"Top Gold" => "SELECT hero as topHero, gold as topValue, name as topUser, a.gameid as topGame
+				"Top Gold" => "SELECT original as topHero, description as topHeroName, gold as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Top Neutral Kills" => "SELECT hero as topHero, neutralkills as topValue, name as topUser, a.gameid as topGame
+				"Top Neutral Kills" => "SELECT original as topHero, description as topHeroName, neutralkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",
-				"Top Tower Kills" => "SELECT hero as topHero, towerkills as topValue, name as topUser, a.gameid as topGame
+				"Top Tower Kills" => "SELECT original as topHero, description as topHeroName, towerkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",		
-				"Top Rax Kills" => "SELECT hero as topHero, raxkills as topValue, name as topUser, a.gameid as topGame
+				"Top Rax Kills" => "SELECT original as topHero, description as topHeroName, raxkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'",		
-				"Top Courier Kills" => "SELECT hero as topHero, courierkills as topValue, name as topUser, a.gameid as topGame
+				"Top Courier Kills" => "SELECT original as topHero, description as topHeroName, courierkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
@@ -500,37 +469,7 @@ if($dbType == 'sqlite')
 		
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
-					$topUser = $row["topUser"];
-					$topHero = $row["topHero"];
-					$topGame = $row["topGame"];
-					if(isset($row["topValueUnit"]))
-					{
-						$topValueUnit = $row["topValueUnit"];
-					}
-					else
-					{
-						$topValueUnit = '';
-					}
-					if ($topValueUnit <> '') {
-						$topValue = ROUND($row["topValue"],1);
-					}
-					else
-					{
-						$topValue = ROUND($row["topValue"],2);				
-					}				
-?>
-					<tr> 
-						<td align=right width=15%>
-							<a  href="?p=hero&hid=<?php print $topHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $topHero; ?>.gif" width="16" height="16"></a>
-						</td>
-						<td align=center width=60px>
-							<a href="?p=gameinfo&gid=<?php print $topGame;?>">(<?php print $topValue;?>)</a> 
-						</td>
-						<td align=left>
-							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
-						</td>
-					</tr>
-<?php
+					printStatsRowTypeA($row);
 				}
 ?>
 
@@ -621,48 +560,9 @@ if($dbType == 'sqlite')
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
 					$rows = $rows + 1;
-					$topUser = $row["topUser"];
-					$topValueUnit = $row["topValueUnit"];
-					if(isset($row["topValueUnit"]))
-					{
-						$topValueUnit = $row["topValueUnit"];
-					}
-					else
-					{
-						$topValueUnit = '';
-					}
-					if ($topValueUnit <> '') {
-						$topValue = ROUND($row["topValue"],1);
-					}
-					else
-					{
-						$topValue = ROUND($row["topValue"],2);				
-					}
-?>
-					<tr> 
-						<td align=center width=80px height=22px colspan=2>
-							(<?php print $topValue.$topValueUnit;?>)
-						</td>
-						<td align=left>
-							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
-						</td>
-					</tr>
-<?php	
+					printStatsRowTypeB($row);
 				}
-				while($rows < $monthlyTopsListSize) // fill empty rows
-				{ 
-					$rows = $rows + 1;			
-?>
-					<tr> 
-						<td align=center width=80px height=22px colspan=2>
-							(---)
-						</td>
-						<td align=left>
-							N/A
-						</td>
-					</tr>
-<?php	
-				}
+				fillEmptyStatsRows($monthlyTopsListSize - $rows);
 ?>
 					<tr>
 						<td colspan=3 class="contentemptyspacer"></td>
@@ -746,47 +646,9 @@ if($dbType == 'sqlite')
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
 					$rows = $rows + 1;
-					$topUser = $row["topUser"];
-					if(isset($row["topValueUnit"]))
-					{
-						$topValueUnit = $row["topValueUnit"];
-					}
-					else
-					{
-						$topValueUnit = '';
-					}
-					if ($topValueUnit <> '') {
-						$topValue = ROUND($row["topValue"],1);
-					}
-					else
-					{
-						$topValue = ROUND($row["topValue"],2);				
-					}
-?>
-					<tr> 
-						<td align=center width=80px height=22px colspan=2>
-							(<?php print $topValue;?>)
-						</td>
-						<td align=left>
-							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
-						</td>
-					</tr>
-<?php	
+					printStatsRowTypeB($row);
 				}
-				while($rows < $monthlyTopsListSize) // fill empty rows
-				{ 
-					$rows = $rows + 1;			
-?>
-					<tr> 
-						<td align=center width=80px height=22px colspan=2>
-							(---)
-						</td>
-						<td align=left>
-							N/A
-						</td>
-					</tr>
-<?php	
-				}
+				fillEmptyStatsRows($monthlyTopsListSize - $rows);
 ?>
 					<tr>
 						<td colspan=3 class="contentemptyspacer"></td>
@@ -876,47 +738,9 @@ if($dbType == 'sqlite')
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
 					$rows = $rows + 1;
-					$topUser = $row["topUser"];
-					if(isset($row["topValueUnit"]))
-					{
-						$topValueUnit = $row["topValueUnit"];
-					}
-					else
-					{
-						$topValueUnit = '';
-					}
-					if ($topValueUnit <> '') {
-						$topValue = ROUND($row["topValue"],1);
-					}
-					else
-					{
-						$topValue = ROUND($row["topValue"],2);				
-					}
-?>
-					<tr> 
-						<td align=center width=80px height=22px colspan=2>
-							(<?php print $topValue;?>)
-						</td>
-						<td align=left>
-							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
-						</td>
-					</tr>
-<?php	
+					printStatsRowTypeB($row);
 				}
-				while($rows < $monthlyTopsListSize) // fill empty rows
-				{ 
-					$rows = $rows + 1;			
-?>
-					<tr> 
-						<td align=center width=80px height=22px colspan=2>
-							(---)
-						</td>
-						<td align=left>
-							N/A
-						</td>
-					</tr>
-<?php	
-				}
+				fillEmptyStatsRows($monthlyTopsListSize - $rows);
 ?>
 					<tr>
 						<td colspan=3 class="contentemptyspacer"></td>
@@ -982,31 +806,31 @@ else  // #################################################### MYSQL ############
 		
 <?php
 			$arrStatRow = array(
-				"Top Kills" => "SELECT original as topHero, kills as topValue, name as topUser, a.gameid as topGame
+				"Top Kills" => "SELECT original as topHero, description as topHeroName, kills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Assists" => "SELECT original as topHero, assists as topValue, name as topUser, a.gameid as topGame
+				"Top Assists" => "SELECT original as topHero, description as topHeroName, assists as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Deaths" => "SELECT original as topHero, deaths as topValue, name as topUser, a.gameid as topGame
+				"Top Deaths" => "SELECT original as topHero, description as topHeroName, deaths as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Creep Kills" => "SELECT original as topHero, creepkills as topValue, name as topUser, a.gameid as topGame
+				"Top Creep Kills" => "SELECT original as topHero, description as topHeroName, creepkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Creep Denies" => "SELECT original as topHero, creepdenies as topValue, name as topUser, a.gameid as topGame
+				"Top Creep Denies" => "SELECT original as topHero, description as topHeroName, creepdenies as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
@@ -1037,37 +861,7 @@ else  // #################################################### MYSQL ############
 				$result = mysql_query($sql);
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
-					$topUser = $row["topUser"];
-					$topHero = $row["topHero"];
-					$topGame = $row["topGame"];
-					if(isset($row["topValueUnit"]))
-					{
-						$topValueUnit = $row["topValueUnit"];
-					}
-					else
-					{
-						$topValueUnit = '';
-					}
-					if ($topValueUnit <> '') {
-						$topValue = ROUND($row["topValue"],1);
-					}
-					else
-					{
-						$topValue = ROUND($row["topValue"],2);				
-					}				
-?>
-					<tr> 
-						<td align=right width=15%>
-							<a  href="?p=hero&hid=<?php print $topHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $topHero; ?>.gif" width="16" height="16"></a>
-						</td>
-						<td align=center width=60px>
-							<a href="?p=gameinfo&gid=<?php print $topGame;?>">(<?php print $topValue;?>)</a> 
-						</td>
-						<td align=left>
-							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
-						</td>
-					</tr>
-<?php
+					printStatsRowTypeA($row);
 				}
 				mysql_free_result($result);
 ?>
@@ -1093,31 +887,31 @@ else  // #################################################### MYSQL ############
 		
 <?php
 			$arrStatRow = array(
-				"Top Gold" => "SELECT original as topHero, gold as topValue, name as topUser, a.gameid as topGame
+				"Top Gold" => "SELECT original as topHero, description as topHeroName, gold as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Neutral Kills" => "SELECT original as topHero, neutralkills as topValue, name as topUser, a.gameid as topGame
+				"Top Neutral Kills" => "SELECT original as topHero, description as topHeroName, neutralkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Tower Kills" => "SELECT original as topHero, towerkills as topValue, name as topUser, a.gameid as topGame
+				"Top Tower Kills" => "SELECT original as topHero, description as topHeroName, towerkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Rax Kills" => "SELECT original as topHero, raxkills as topValue, name as topUser, a.gameid as topGame
+				"Top Rax Kills" => "SELECT original as topHero, description as topHeroName, raxkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
 					LEFT JOIN heroes as d on hero = heroid
 					where ".$sqlGroupBy1." = $year AND ".$sqlGroupBy2." = $month",
-				"Top Courier Kills" => "SELECT original as topHero, courierkills as topValue, name as topUser, a.gameid as topGame
+				"Top Courier Kills" => "SELECT original as topHero, description as topHeroName, courierkills as topValue, name as topUser, a.gameid as topGame
 					FROM dotaplayers AS a 
 					LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 					LEFT JOIN games as c on a.gameid = c.id 
@@ -1148,37 +942,7 @@ else  // #################################################### MYSQL ############
 				$result = mysql_query($sql);
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
-					$topUser = $row["topUser"];
-					$topHero = $row["topHero"];
-					$topGame = $row["topGame"];
-					if(isset($row["topValueUnit"]))
-					{
-						$topValueUnit = $row["topValueUnit"];
-					}
-					else
-					{
-						$topValueUnit = '';
-					}
-					if ($topValueUnit <> '') {
-						$topValue = ROUND($row["topValue"],1);
-					}
-					else
-					{
-						$topValue = ROUND($row["topValue"],2);				
-					}				
-?>
-					<tr> 
-						<td align=right width=15%>
-							<a  href="?p=hero&hid=<?php print $topHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $topHero; ?>.gif" width="16" height="16"></a>
-						</td>
-						<td align=center width=60px>
-							<a href="?p=gameinfo&gid=<?php print $topGame;?>">(<?php print $topValue;?>)</a> 
-						</td>
-						<td align=left>
-							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
-						</td>
-					</tr>
-<?php
+					printStatsRowTypeA($row);
 				}
 				mysql_free_result($result);
 ?>
@@ -1273,48 +1037,10 @@ else  // #################################################### MYSQL ############
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
 					$rows = $rows + 1;
-					$topUser = $row["topUser"];
-					if(isset($row["topValueUnit"]))
-					{
-						$topValueUnit = $row["topValueUnit"];
-					}
-					else
-					{
-						$topValueUnit = '';
-					}
-					if ($topValueUnit <> '') {
-						$topValue = ROUND($row["topValue"],1);
-					}
-					else
-					{
-						$topValue = ROUND($row["topValue"],2);				
-					}
-?>
-					<tr> 
-						<td align=center width=80px height=22px colspan=2>
-							(<?php print $topValue.$topValueUnit;?>)
-						</td>
-						<td align=left>
-							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
-						</td>
-					</tr>
-<?php	
+					printStatsRowTypeB($row);
 				}
+				fillEmptyStatsRows($monthlyTopsListSize - $rows);
 				mysql_free_result($result);
-				while($rows < $monthlyTopsListSize) // fill empty rows
-				{ 
-					$rows = $rows + 1;			
-?>
-					<tr> 
-						<td align=center width=80px height=22px colspan=2>
-							(---)
-						</td>
-						<td align=left>
-							N/A
-						</td>
-					</tr>
-<?php	
-				}
 ?>
 					<tr>
 						<td colspan=3 class="contentemptyspacer"></td>
@@ -1399,48 +1125,10 @@ else  // #################################################### MYSQL ############
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
 					$rows = $rows + 1;
-					$topUser = $row["topUser"];
-					if(isset($row["topValueUnit"]))
-					{
-						$topValueUnit = $row["topValueUnit"];
-					}
-					else
-					{
-						$topValueUnit = '';
-					}
-					if ($topValueUnit <> '') {
-						$topValue = ROUND($row["topValue"],1);
-					}
-					else
-					{
-						$topValue = ROUND($row["topValue"],2);				
-					}
-?>
-					<tr> 
-						<td align=center width=80px height=22px colspan=2>
-							(<?php print $topValue;?>)
-						</td>
-						<td align=left>
-							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
-						</td>
-					</tr>
-<?php	
+					printStatsRowTypeB($row);
 				}
+				fillEmptyStatsRows($monthlyTopsListSize - $rows);
 				mysql_free_result($result);
-				while($rows < $monthlyTopsListSize) // fill empty rows
-				{ 
-					$rows = $rows + 1;			
-?>
-					<tr> 
-						<td align=center width=80px height=22px colspan=2>
-							(---)
-						</td>
-						<td align=left>
-							N/A
-						</td>
-					</tr>
-<?php	
-				}
 ?>
 					<tr>
 						<td colspan=3 class="contentemptyspacer"></td>
@@ -1530,48 +1218,10 @@ else  // #################################################### MYSQL ############
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
 					$rows = $rows + 1;
-					$topUser = $row["topUser"];
-					if(isset($row["topValueUnit"]))
-					{
-						$topValueUnit = $row["topValueUnit"];
-					}
-					else
-					{
-						$topValueUnit = '';
-					}
-					if ($topValueUnit <> '') {
-						$topValue = ROUND($row["topValue"],1);
-					}
-					else
-					{
-						$topValue = ROUND($row["topValue"],2);				
-					}
-?>
-					<tr> 
-						<td align=center width=80px height=22px colspan=2>
-							(<?php print $topValue;?>)
-						</td>
-						<td align=left>
-							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
-						</td>
-					</tr>
-<?php	
+					printStatsRowTypeB($row);
 				}
+				fillEmptyStatsRows($monthlyTopsListSize - $rows);
 				mysql_free_result($result);
-				while($rows < $monthlyTopsListSize) // fill empty rows
-				{ 
-					$rows = $rows + 1;			
-?>
-					<tr> 
-						<td align=center width=80px height=22px colspan=2>
-							(---)
-						</td>
-						<td align=left>
-							N/A
-						</td>
-					</tr>
-<?php	
-				}
 ?>
 					<tr>
 						<td colspan=3 class="contentemptyspacer"></td>
