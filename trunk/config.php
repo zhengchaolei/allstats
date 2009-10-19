@@ -79,6 +79,9 @@ $minPlayedRatio = 0.8;
 //string to be shown instead of WIN/LOSS if a game is not counted due to ratio (lefttime/duration)
 $notCompleted = 'LEAVER';
 
+//show bans from table imported_bans (requires this table to be present!)
+$includeImportedBans = false;
+
 //-------------Monthly/Weekly options----------------
 
 // Default view (Month / Week)

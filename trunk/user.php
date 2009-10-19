@@ -368,10 +368,6 @@ if($dbType == 'sqlite')
 		$name=$row["name"];
 		$totgames=$row["COUNT(a.id)"];
 	}
-	//calculate wins
-	$wins=getWinsSQLite($username, $dbType, $dbHandle);
-	//calculate losses
-	$losses=getLossesSQLite($username, $dbType, $dbHandle);
 }
 else
 {
@@ -465,11 +461,12 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$name=$row["name"];
 	$totgames=$row["COUNT(a.id)"];
 	}
-	//calculate wins
-	$wins=getWinsMySQL($username);
-	//calculate losses
-	$losses=getLossesMySQL($username);
 }
+
+//calculate wins
+$wins=getWins($username);
+//calculate losses
+$losses=getLosses($username);
 ?>
 
 <div class="header" id="header">

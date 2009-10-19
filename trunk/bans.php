@@ -49,20 +49,25 @@ else
 	$offset=mysql_real_escape_string($_GET["n"]);
 }
 
+$count = 0;
 $sql = "SELECT COUNT( DISTINCT id ) as count from bans";
+if($includeImportedBans)
+{
+	$sql = $sql." UNION SELECT COUNT( DISTINCT id ) as count from imported_bans";
+}
 if($dbType == 'sqlite')
 {
 	
 	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 	{
-		$count=$row["count"];
+		$count = $count + $row["count"];
 	}
 }
 else
 {
 	$result = mysql_query($sql);
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		$count=$row["count"];
+		$count = $count + $row["count"];
 	}
 	mysql_free_result($result);
 }
@@ -346,7 +351,12 @@ else
 	<div id="datawrapper">
 		<table class="table" id="data">
  <?php 
-$sql = "SELECT id, name,  date, gamename, admin, reason FROM `bans` ORDER BY $sortcat $order, id desc, name asc";
+$sql = "SELECT id, name,  date, gamename, admin, reason FROM `bans`"; 
+if($includeImportedBans)
+{
+	$sql = $sql." UNION SELECT id, name,  date, gamename, admin, reason FROM imported_bans";
+}
+$sql = $sql." ORDER BY $sortcat $order, id desc, name asc";
 if($offset!='all')
 {
 $sql = $sql." LIMIT ".$banResultSize*$offset.", $banResultSize";

@@ -105,38 +105,45 @@ function replayDuration($seconds)
 	return $minutes."m".$seconds_left."s";
 }
 
-
-function getWinsSQLite($username, $dbType, $dbHandle) {
+function getWins($username) {
+	global $dbType, $databasename, $dbHandle;
 	$sql = "SELECT COUNT(*) FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' AND ((winner=1 AND dotaplayers.newcolour>=1 AND dotaplayers.newcolour<=5) OR (winner=2 AND dotaplayers.newcolour>=7 AND dotaplayers.newcolour<=11)) AND gameplayers.`left`/games.duration >= 0.8";
-	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+
+	if($dbType == 'sqlite')
 	{
+		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+		{
+			$inwins=$row["COUNT(*)"];
+		}
+	}
+	else
+	{
+		$result = mysql_query($sql);
+		$row = mysql_fetch_array($result, MYSQL_ASSOC);
 		$inwins=$row["COUNT(*)"];
+		mysql_free_result($result);
 	}
 	return $inwins;
 }
 
-function getLossesSQLite($username, $dbType, $dbHandle) {
+function getLosses($username) {
+	global $dbType, $databasename, $dbHandle;
 	$sql = "SELECT COUNT(*) FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' AND ((winner=2 AND dotaplayers.newcolour>=1 AND dotaplayers.newcolour<=5) OR (winner=1 AND dotaplayers.newcolour>=7 AND dotaplayers.newcolour<=11)) AND gameplayers.`left`/games.duration >= 0.8";
-	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+
+	if($dbType == 'sqlite')
 	{
-		$inlosses=$row["COUNT(*)"];
+		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+		{
+			$inlosses=$row["COUNT(*)"];
+		}
 	}
-	return $inlosses;
-}
-
-function getWinsMySQL($username) {
-
-	$result = mysql_query("SELECT COUNT(*) FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' AND ((winner=1 AND dotaplayers.newcolour>=1 AND dotaplayers.newcolour<=5) OR (winner=2 AND dotaplayers.newcolour>=7 AND dotaplayers.newcolour<=11)) AND gameplayers.`left`/games.duration >= 0.8");
-	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-		$inwins=$row["COUNT(*)"];
-	return $inwins;
-}
-
-function getLossesMySQL($username) {
-
-	$result = mysql_query("SELECT COUNT(*) FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid WHERE name='$username' AND ((winner=2 AND dotaplayers.newcolour>=1 AND dotaplayers.newcolour<=5) OR (winner=1 AND dotaplayers.newcolour>=7 AND dotaplayers.newcolour<=11)) AND gameplayers.`left`/games.duration >= 0.8");
-	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	else
+	{
+		$result = mysql_query($sql);
+		$row = mysql_fetch_array($result, MYSQL_ASSOC);
 		$inlosses=$row["COUNT(*)"];
+		mysql_free_result($result);
+	}
 	return $inlosses;
 }
 
@@ -306,6 +313,30 @@ function fillEmptyStatsRows($rowCount) {
 					</tr>
 <?php	
 	}
+	return 0;
+}
+
+
+function checkDBTable($tablename) {
+	global $dbType, $databasename, $dbHandle;
+	if($dbType == 'sqlite')
+	{
+		$sql = "select count(*) as count from sqlite_master WHERE tbl_name = '$tablename' and type = 'table'";
+		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
+		{
+			$count=$row["count"];
+		}
+	}
+	else
+	{ 
+		$sql = "SELECT count(*) as count FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='$tablename' and TABLE_SCHEMA='$databasename'";
+		$result = mysql_query($sql);
+		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+			$count=$row["count"];
+		}
+		mysql_free_result($result);
+	}
+	return $count;
 }
 
 ?>

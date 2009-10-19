@@ -519,7 +519,7 @@ if(!$scoreFromDB)
 {
 	$sql = $sql.") as i";
 }
-$sql = $sql." ORDER BY $sortcat $order, name asc";
+$sql = $sql." ORDER BY $sortcat $order, gp.name asc";
 
 
 
