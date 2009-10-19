@@ -72,24 +72,7 @@ require_once("config.php");
 			Please choose from menu above.
 <?php
 
-if($dbType == 'sqlite')
-{
-	$sql = "select count(*) as count from sqlite_master WHERE tbl_name = 'heroes' and type = 'table'";
-	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-	{
-		$count=$row["count"];
-	}
-}
-else
-{
-	$sql = "SELECT count(*) as count FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='heroes' and TABLE_SCHEMA='$databasename'";
-	$result = mysql_query($sql);
-	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		$count=$row["count"];
-	}
-	mysql_free_result($result);
-}
-if ($count == 0) 
+if (checkDBTable("heroes") == 0) 
 {
 ?>
 			<br>
@@ -99,24 +82,7 @@ if ($count == 0)
 <?php
 }
 
-if($dbType == 'sqlite')
-{
-	$sql = "select count(*) as count from sqlite_master WHERE tbl_name = 'items' and type = 'table'";
-	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-	{
-		$count=$row["count"];
-	}
-}
-else
-{
-	$sql = "SELECT count(*) as count FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='items' and TABLE_SCHEMA='$databasename'";
-	$result = mysql_query($sql);
-	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		$count=$row["count"];
-	}
-	mysql_free_result($result);
-}
-if ($count == 0) 
+if (checkDBTable("items") == 0) 
 {
 ?>
 			<br>
@@ -126,30 +92,23 @@ if ($count == 0)
 <?php
 }
 
-if($dbType == 'sqlite')
-{
-	$sql = "select count(*) as count from sqlite_master WHERE (tbl_name like 'dota%' or tbl_name like 'game%') and type = 'table'";
-	foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
-	{
-		$count=$row["count"];
-	}
-}
-else
-{
-	$sql = "SELECT count(*) as count FROM INFORMATION_SCHEMA.TABLES WHERE (TABLE_NAME like 'dota%' or TABLE_NAME like 'game%') and TABLE_SCHEMA='$databasename'";
-	$result = mysql_query($sql);
-	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		$count=$row["count"];
-	}
-	mysql_free_result($result);
-}
-if ($count < 4) 
+if (checkDBTable("games") == 0 || checkDBTable("gameplayers") == 0 || checkDBTable("dotagames") == 0 || checkDBTable("dotaplayers") == 0 || checkDBTable("bans") == 0 || checkDBTable("admins") == 0) 
 {
 ?>
 			<br>
 			<br>
 			<br>
 			<div style="color:red">ERROR: ghost tables not found. Please check your configuration</div>
+<?php
+}
+
+if ($includeImportedBans && checkDBTable("imported_bans") == 0) 
+{
+?>
+			<br>
+			<br>
+			<br>
+			<div style="color:red">WARNING: "imported_bans" table not found. Please run allstats sql setup script first!</div>
 <?php
 }
 ?>
@@ -163,3 +122,5 @@ if ($count < 4)
 </div>
 <div id="footer" class="footer">
 </div>
+
+
