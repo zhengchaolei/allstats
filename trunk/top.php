@@ -517,9 +517,12 @@ $sql = $sql." and gamestate = '16'";
 $sql = $sql." group by gp.name having totgames >= $games";
 if(!$scoreFromDB)
 {
-	$sql = $sql.") as i";
+	$sql = $sql.") as i ORDER BY $sortcat $order, name asc";
 }
-$sql = $sql." ORDER BY $sortcat $order, gp.name asc";
+else
+{
+	$sql = $sql." ORDER BY $sortcat $order, gp.name asc";
+}
 
 
 
