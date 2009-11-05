@@ -229,7 +229,7 @@ if($dbType == 'sqlite')
 		{
 			$itemname1=$row["itemname1"];
 			$itemicon1=$row["itemicon1"];
-			if(itemicon1 == '')
+			if($itemicon1 == '')
 			{
 				$itemname1 = $item1;
 				$itemicon1 = "blue_star2.gif";
@@ -246,7 +246,7 @@ if($dbType == 'sqlite')
 		{
 			$itemname2=$row["itemname2"];
 			$itemicon2=$row["itemicon2"];
-			if(itemicon2 == '')
+			if($itemicon2 == '')
 			{
 				$itemname2 = $item2;
 				$itemicon2 = "blue_star2.gif";
@@ -262,7 +262,7 @@ if($dbType == 'sqlite')
 		{
 			$itemname3=$row["itemname3"];
 			$itemicon3=$row["itemicon3"];
-			if(itemicon3 == '')
+			if($itemicon3 == '')
 			{
 				$itemname3 = $item3;
 				$itemicon3 = "blue_star2.gif";
@@ -278,7 +278,7 @@ if($dbType == 'sqlite')
 		{
 			$itemname4=$row["itemname4"];
 			$itemicon4=$row["itemicon4"];
-			if(itemicon4 == '')
+			if($itemicon4 == '')
 			{
 				$itemname4 = $item4;
 				$itemicon4 = "blue_star2.gif";
@@ -294,7 +294,7 @@ if($dbType == 'sqlite')
 		{
 			$itemname5=$row["itemname5"];
 			$itemicon5=$row["itemicon5"];
-			if(itemicon5 == '')
+			if($itemicon5 == '')
 			{
 				$itemname5 = item5;
 				$itemicon5 = "blue_star2.gif";
@@ -310,7 +310,7 @@ if($dbType == 'sqlite')
 		{
 			$itemname6=$row["itemname6"];
 			$itemicon6=$row["itemicon6"];
-			if(itemicon6 == '')
+			if($itemicon6 == '')
 			{
 				$itemname6 = item6;
 				$itemicon6 = "blue_star2.gif";
@@ -430,7 +430,7 @@ else
 		{
 			$itemname1=$row["itemname1"];
 			$itemicon1=$row["itemicon1"];
-			if(itemicon1 == '')
+			if($itemicon1 == '')
 			{
 				$itemname1 = $item1;
 				$itemicon1 = "blue_star2.gif";
@@ -447,7 +447,7 @@ else
 		{
 			$itemname2=$row["itemname2"];
 			$itemicon2=$row["itemicon2"];
-			if(itemicon2 == '')
+			if($itemicon2 == '')
 			{
 				$itemname2 = $item2;
 				$itemicon2 = "blue_star2.gif";
@@ -463,7 +463,7 @@ else
 		{
 			$itemname3=$row["itemname3"];
 			$itemicon3=$row["itemicon3"];
-			if(itemicon3 == '')
+			if($itemicon3 == '')
 			{
 				$itemname3 = $item3;
 				$itemicon3 = "blue_star2.gif";
@@ -479,7 +479,7 @@ else
 		{
 			$itemname4=$row["itemname4"];
 			$itemicon4=$row["itemicon4"];
-			if(itemicon4 == '')
+			if($itemicon4 == '')
 			{
 				$itemname4 = $item4;
 				$itemicon4 = "blue_star2.gif";
@@ -495,7 +495,7 @@ else
 		{
 			$itemname5=$row["itemname5"];
 			$itemicon5=$row["itemicon5"];
-			if(itemicon5 == '')
+			if($itemicon5 == '')
 			{
 				$itemname5 = item5;
 				$itemicon5 = "blue_star2.gif";
@@ -511,7 +511,7 @@ else
 		{
 			$itemname6=$row["itemname6"];
 			$itemicon6=$row["itemicon6"];
-			if(itemicon6 == '')
+			if($itemicon6 == '')
 			{
 				$itemname6 = item6;
 				$itemicon6 = "blue_star2.gif";
