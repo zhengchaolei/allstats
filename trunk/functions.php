@@ -233,12 +233,14 @@ function printStatsRowType($rowdata) {
 	} else {
 		$topValue = ROUND($rowdata["topValue"],2);				
 	}
-					
+	
+	if($topValue != "")
+	{
 ?>
 					<tr> 
 <?php
-	if($topHero != "" && $topGame != '' && $topValue != '')
-	{
+		if($topHero != "" && $topGame != '')
+		{
 ?>						<td align=right width=15%>
 							<a  href="?p=hero&hid=<?php print $topHero;?>&s=kdratio&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><img src="img/heroes/<?php print $topHero; ?>.gif" title="<?php print $topHeroName; ?>" width="16" height="16"></a>
 						</td>
@@ -246,54 +248,52 @@ function printStatsRowType($rowdata) {
 							<a href="?p=gameinfo&gid=<?php print $topGame;?>">(<?php print $topValue;?>)</a> 
 						</td>
 <?php
-	}
-	else if($topValue != "")
-	{
+		}
+		else
+		{
 ?>	
 						<td align=center width=80px height=22px colspan=2>
 							(<?php print $topValue.$topValueUnit;?>)
 						</td>
 <?php
 	}
-	else
-	{
-?>	
-						<td align=center width=80px height=22px colspan=2>
-							(ERR)
-						</td>
-<?php
-	}
 ?>				
 
 
 <?php
-	if($topUser != "")
-	{
+		if($topUser != "")
+		{
 ?>
 						<td align=left>
 							<a href="?p=user&u=<?php print $topUser;?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $topUser;?></a>
 						</td>
 <?php
-	}
-	else if($topDate != "")
-	{
+		}
+		else if($topDate != "")
+		{
 ?>				
 						<td align=left>
 							<?php print $topDate; ?>
 						</td>
 <?php
-	}
-	else
-	{
+		}
+		else
+		{
 ?>				
 						<td align=left>
 							ERR
 						</td>
 <?php
-	}
+		}
 ?>				
 					</tr>
 <?php
+	}
+	else
+	{
+		//no data available
+		fillEmptyStatsRows(1);
+	}
 	return 0;
 }
 
