@@ -475,7 +475,8 @@ else
 <?php
 if($scoreFromDB)        //Using score table
 {
-$sql = "select gp.name as name, bans.name as banname, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
+$sql = "select *, case when (kills = 0) then 0 when (deaths = 0) then 1000 else ((kills*1.0)/(deaths*1.0)) end as killdeathratio from (
+select gp.name as name, bans.name as banname, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
 avg(dp.towerkills) as towerkills, avg(dp.assists) as assists, avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills,
 avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills, sc.score as totalscore, count(*) as totgames, 
 SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as wins, 
@@ -488,13 +489,13 @@ LEFT JOIN scores as sc ON sc.name = gp.name
 LEFT JOIN bans on bans.name = gp.name
 where dg.winner <> 0 ";
 }
-else                    //Using score formula
+else                    //Using score formula 
 {
-$sql = "select *, ($scoreFormula) as totalscore from (
-select gp.name as name, bans.name as banname, avg(dp.courierkills) as courierkills, avg(dp.assists) as assists,
-avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills, avg(dp.towerkills) as towerkills, avg(dp.raxkills) as raxkills,
-avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills,
-count(1) as totgames, 
+$sql = "select *, case when (kills = 0) then 0 when (deaths = 0) then 1000 else ((kills*1.0)/(deaths*1.0)) end as killdeathratio, ($scoreFormula) as totalscore from (
+select gp.name as name, bans.name as banname, avg(dp.courierkills) as courierkills, avg(dp.raxkills) as raxkills,
+avg(dp.towerkills) as towerkills, avg(dp.assists) as assists, avg(dp.creepdenies) as creepdenies, avg(dp.creepkills) as creepkills,
+avg(dp.neutralkills) as neutralkills, avg(dp.deaths) as deaths, avg(dp.kills) as kills, count(*) as totgames, 
+case when (kills = 0) then 0 when (deaths = 0) then 1000 else ((kills*1.0)/(deaths*1.0)) end as killdeathratio,
 SUM(case when(((dg.winner = 1 and dp.newcolour < 6) or (dg.winner = 2 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as wins, 
 SUM(case when(((dg.winner = 2 and dp.newcolour < 6) or (dg.winner = 1 and dp.newcolour > 6)) AND gp.`left`/ga.duration >= $minPlayedRatio) then 1 else 0 end) as losses
 from gameplayers as gp 
@@ -514,16 +515,7 @@ else if($ignorePrivs)
 $sql = $sql." and gamestate = '16'";
 }
 
-$sql = $sql." group by gp.name having totgames >= $games";
-if(!$scoreFromDB)
-{
-	$sql = $sql.") as i ORDER BY $sortcat $order, name asc";
-}
-else
-{
-	$sql = $sql." ORDER BY $sortcat $order, gp.name asc";
-}
-
+$sql = $sql." group by gp.name having totgames >= $games) as i ORDER BY $sortcat $order, name asc";
 
 
 if($offset!='all')
@@ -549,7 +541,7 @@ if($dbType == 'sqlite')
 		$wins=$row["wins"];
 		$losses=$row["losses"];
 		$totalscore=$row["totalscore"];
-		$killdeathratio=getRatio($kills, $death);
+		$killdeathratio=$row["killdeathratio"]; 
 
 	?>
 	<tr class="row">
@@ -562,7 +554,7 @@ if($dbType == 'sqlite')
 	<td width=70px><?php print ROUND($kills,1); ?></td>
 	<td width=70px><?php print ROUND($death,1); ?></td>
 	<td width=70px><?php print ROUND($assists,1); ?></td>
-	<td width=70px><?php print $killdeathratio; ?></td>
+	<td width=70px><?php print ROUND($killdeathratio,2); ?></td>
 
 	<td width=70px><?php print ROUND($creepkills,1) ?></td>
 	<td width=70px><?php print ROUND($creepdenies,1); ?></td>
@@ -594,7 +586,7 @@ else
 		$wins=$row["wins"];
 		$losses=$row["losses"];
 		$totalscore=$row["totalscore"];
-		$killdeathratio=getRatio($kills, $death);
+		$killdeathratio=$row["killdeathratio"]; 
 
 	?>
 	<tr class="row">
@@ -607,7 +599,7 @@ else
 	<td width=70px><?php print ROUND($kills,1); ?></td>
 	<td width=70px><?php print ROUND($death,1); ?></td>
 	<td width=70px><?php print ROUND($assists,1); ?></td>
-	<td width=70px><?php print $killdeathratio; ?></td>
+	<td width=70px><?php print ROUND($killdeathratio,2); ?></td>
 
 	<td width=70px><?php print ROUND($creepkills,1) ?></td>
 	<td width=70px><?php print ROUND($creepdenies,1); ?></td>
