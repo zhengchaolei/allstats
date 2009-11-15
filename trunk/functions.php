@@ -294,7 +294,19 @@ function printStatsRowType($rowdata) {
 	else
 	{
 		//no data available
-		fillEmptyStatsRows(1);
+?>
+					<tr> 
+						<td align=right width=15%>
+							<img src="img/heroes/blank.gif" title="N/A" width="16" height="16"></a>
+						</td>
+						<td align=center width=60px>
+							(---)
+						</td>
+						<td align=left>
+							N/A
+						</td>
+					</tr>
+<?php	
 	}
 	return 0;
 }
