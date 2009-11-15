@@ -111,7 +111,3 @@ Note: by GHost I mean any variation of GHost++ or GHostOne. Use version 13.2+ fo
 	Especially with large databases, this will greatly improve the speed of your AllStats website
 	Inserts into the database from GHost++ will be slightly slower and your database will take up more room
 	- Through the same process as in step 5) import OptimizeMySQL.sql
-	
-		
-		
-		
