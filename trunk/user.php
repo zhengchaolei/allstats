@@ -37,6 +37,12 @@
 
 require_once("functions.php");
 require_once("config.php");
+
+$avgDuration = "N/A";
+$minDuration = "N/A";
+$maxDuration = "N/A";
+$totalDuration = "N/A";
+
 if($dbType == 'sqlite')
 {
 	$username=strtolower(sqlite_escape_string($_GET["u"]));

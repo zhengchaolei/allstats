@@ -192,6 +192,8 @@ function getUserParam($username)
 }
 
 function printStatsRowType($rowdata) {
+	global $displayStyle;
+	
 	if(isset($rowdata["topHero"])) {
 		$topHero = $rowdata["topHero"];
 	} else { 
