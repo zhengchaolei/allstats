@@ -273,16 +273,16 @@ if($sortcat == "totgames")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=totgames&o=desc&n=".$sortoffset."\">Games</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=totgames&o=desc&n=".$sortoffset."\">Games</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=totgames&o=asc&n=".$sortoffset."\">Games</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=totgames&o=asc&n=".$sortoffset."\">Games</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=totgames&o=desc&n=".$sortoffset."\">Games</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=totgames&o=desc&n=".$sortoffset."\">Games</a></td>");
 }
 
 //Kills
@@ -290,16 +290,16 @@ if($sortcat == "kills")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=kills&o=desc&n=".$sortoffset."\">Kills</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=kills&o=desc&n=".$sortoffset."\">Kills</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=kills&o=asc&n=".$sortoffset."\">Kills</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=kills&o=asc&n=".$sortoffset."\">Kills</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=kills&o=desc&n=".$sortoffset."\">Kills</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=kills&o=desc&n=".$sortoffset."\">Kills</a></td>");
 }
 
 //Deaths
@@ -307,16 +307,16 @@ if($sortcat == "deaths")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=deaths&o=desc&n=".$sortoffset."\">Deaths</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=deaths&o=desc&n=".$sortoffset."\">Deaths</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=deaths&o=asc&n=".$sortoffset."\">Deaths</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=deaths&o=asc&n=".$sortoffset."\">Deaths</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=deaths&o=desc&n=".$sortoffset."\">Deaths</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=deaths&o=desc&n=".$sortoffset."\">Deaths</a></td>");
 }
 
 //Assists
@@ -324,16 +324,16 @@ if($sortcat == "assists")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=assists&o=desc&n=".$sortoffset."\">Assists</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=assists&o=desc&n=".$sortoffset."\">Assists</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=assists&o=asc&n=".$sortoffset."\">Assists</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=assists&o=asc&n=".$sortoffset."\">Assists</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=assists&o=desc&n=".$sortoffset."\">Assists</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=assists&o=desc&n=".$sortoffset."\">Assists</a></td>");
 }
 
 //Creep Kills
@@ -341,16 +341,16 @@ if($sortcat == "creepkills")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepkills&o=desc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=creepkills&o=desc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepkills&o=asc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=creepkills&o=asc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepkills&o=desc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=creepkills&o=desc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
 }
 
 //Creep Denies
@@ -358,16 +358,16 @@ if($sortcat == "creepdenies")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepdenies&o=desc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=creepdenies&o=desc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepdenies&o=asc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=creepdenies&o=asc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=creepdenies&o=desc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=creepdenies&o=desc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
 }
 
 //Neutral Kills
@@ -375,16 +375,16 @@ if($sortcat == "neutralkills")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=neutralkills&o=desc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=neutralkills&o=desc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=neutralkills&o=asc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=neutralkills&o=asc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=neutralkills&o=desc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=neutralkills&o=desc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
 }
 
 //Tower Kills
@@ -392,51 +392,52 @@ if($sortcat == "towerkills")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=towerkills&o=desc&n=".$sortoffset."\">Tower<br>Kills</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=towerkills&o=desc&n=".$sortoffset."\">Tower<br>Kills</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=towerkills&o=asc&n=".$sortoffset."\">Tower<br>Kills</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=towerkills&o=asc&n=".$sortoffset."\">Tower<br>Kills</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=towerkills&o=desc&n=".$sortoffset."\">Tower<br>Kills</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=allusers&s=towerkills&o=desc&n=".$sortoffset."\">Tower<br>Kills</a></td>");
 }
 
-//Rax Kills
-if($sortcat == "raxkills")
+//First Played
+if($sortcat == "firstplayed")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=raxkills&o=desc&n=".$sortoffset."\">Rax<br>Kills</a></td>");
+		print("<td class=\"headercell\" width=100px><a href=\"?p=allusers&s=firstplayed&o=desc&n=".$sortoffset."\">First Played</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=raxkills&o=asc&n=".$sortoffset."\">Rax<br>Kills</a></td>");
+		print("<td class=\"headercell\" width=100px><a href=\"?p=allusers&s=firstplayed&o=asc&n=".$sortoffset."\">First Played</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=raxkills&o=desc&n=".$sortoffset."\">Rax<br>Kills</a></td>");
+	print("<td class=\"headercell\" width=100px><a href=\"?p=allusers&s=firstplayed&o=desc&n=".$sortoffset."\">First Played</a></td>");
 }
 
-//Courier Kills
-if($sortcat == "courierkills")
+//Last Played
+if($sortcat == "lastplayed")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=courierkills&o=desc&n=".$sortoffset."\">Courier<br>Kills</a></td>");
+		print("<td class=\"headercell\" width=100px><a href=\"?p=allusers&s=lastplayed&o=desc&n=".$sortoffset."\">Last Played</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=courierkills&o=asc&n=".$sortoffset."\">Courier<br>Kills</a></td>");
+		print("<td class=\"headercell\" width=100px><a href=\"?p=allusers&s=lastplayed&o=asc&n=".$sortoffset."\">Last Played</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=80px><a href=\"?p=allusers&s=courierkills&o=desc&n=".$sortoffset."\">Courier<br>Kills</a></td>");
+	print("<td class=\"headercell\" width=100px><a href=\"?p=allusers&s=lastplayed&o=desc&n=".$sortoffset."\">Last Played</a></td>");
 }
+
 ?>					
 			<td class="headercell" width=16px></td>
 			</tr>
@@ -448,7 +449,7 @@ else
  
 $sql = "SELECT COUNT(a.id) as totgames, AVG(kills) as kills, AVG(deaths) as deaths, AVG(assists) as assists,
 AVG(creepkills) as creepkills, AVG(creepdenies) as creepdenies,  AVG(neutralkills) as neutralkills, AVG(towerkills) as towerkills, 
-AVG(raxkills) as raxkills, AVG(courierkills) as courierkills, b.name as name, e.name as banname 
+MAX(datetime) as lastplayed, MIN(datetime) as firstplayed, b.name as name, e.name as banname 
 FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 LEFT JOIN dotagames AS c ON c.gameid = a.gameid LEFT JOIN games as d ON d.id = c.gameid 
 LEFT JOIN bans AS e on b.name = e.name
@@ -479,24 +480,24 @@ foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 		$creepdenies=$row["creepdenies"];
 		$neutralkills=$row["neutralkills"];
 		$towerkills=$row["towerkills"];
-		$raxkills=$row["raxkills"];
-		$courierkills=$row["courierkills"];
+		$firstplayed=substr($row["firstplayed"],0,10);
+		$lastplayed=substr($row["lastplayed"],0,10);
 		$name=$row["name"];
-                $banname=$row["banname"];
+        $banname=$row["banname"];
 	?>
 
 	<tr class="row">
 		<td width=200px><a <?php if($banname<>'') { print 'style="color:#e56879"'; } ?> href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>
-		<td width=80px><?php print $totgames; ?></td>
-		<td width=80px><?php print ROUND($kills, 1); ?></td>
-		<td width=80px><?php print ROUND($death, 1); ?></td>
-		<td width=80px><?php print ROUND($assists, 1); ?></td>
-		<td width=80px><?php print ROUND($creepkills, 1); ?></td>
-		<td width=80px><?php print ROUND($creepdenies, 1); ?></td>
-		<td width=80px><?php print ROUND($neutralkills, 1); ?></td>
-		<td width=80px><?php print ROUND($towerkills, 1); ?></td>
-		<td width=80px><?php print ROUND($raxkills, 1); ?></td>
-		<td width=80px><?php print ROUND($courierkills, 1); ?></td>
+		<td width=75px><?php print $totgames; ?></td>
+		<td width=75px><?php print ROUND($kills, 1); ?></td>
+		<td width=75px><?php print ROUND($death, 1); ?></td>
+		<td width=75px><?php print ROUND($assists, 1); ?></td>
+		<td width=75px><?php print ROUND($creepkills, 1); ?></td>
+		<td width=75px><?php print ROUND($creepdenies, 1); ?></td>
+		<td width=75px><?php print ROUND($neutralkills, 1); ?></td>
+		<td width=75px><?php print ROUND($towerkills, 1); ?></td>
+		<td width=100px><?php print $firstplayed; ?></td>
+		<td width=100px><?php print $lastplayed; ?></td>
 	</tr>
 
 	<?php
@@ -514,8 +515,8 @@ else
 		$creepdenies=$row["creepdenies"];
 		$neutralkills=$row["neutralkills"];
 		$towerkills=$row["towerkills"];
-		$raxkills=$row["raxkills"];
-		$courierkills=$row["courierkills"];
+		$firstplayed=substr($row["firstplayed"],0,10);
+		$lastplayed=substr($row["lastplayed"],0,10);
 		$name=$row["name"];
 		$banname=$row["banname"];
 
@@ -523,16 +524,16 @@ else
 
 	<tr class="row">
 		<td width=200px><a <?php if($banname<>'') { print 'style="color:#e56879"'; } ?> href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $name; ?></a></td>
-		<td width=80px><?php print $totgames; ?></td>
-		<td width=80px><?php print ROUND($kills, 1); ?></td>
-		<td width=80px><?php print ROUND($death, 1); ?></td>
-		<td width=80px><?php print ROUND($assists, 1); ?></td>
-		<td width=80px><?php print ROUND($creepkills, 1); ?></td>
-		<td width=80px><?php print ROUND($creepdenies, 1); ?></td>
-		<td width=80px><?php print ROUND($neutralkills, 1); ?></td>
-		<td width=80px><?php print ROUND($towerkills, 1); ?></td>
-		<td width=80px><?php print ROUND($raxkills, 1); ?></td>
-		<td width=80px><?php print ROUND($courierkills, 1); ?></td>
+		<td width=75px><?php print $totgames; ?></td>
+		<td width=75px><?php print ROUND($kills, 1); ?></td>
+		<td width=75px><?php print ROUND($death, 1); ?></td>
+		<td width=75px><?php print ROUND($assists, 1); ?></td>
+		<td width=75px><?php print ROUND($creepkills, 1); ?></td>
+		<td width=75px><?php print ROUND($creepdenies, 1); ?></td>
+		<td width=75px><?php print ROUND($neutralkills, 1); ?></td>
+		<td width=75px><?php print ROUND($towerkills, 1); ?></td>
+		<td width=100px><?php print $firstplayed; ?></td>
+		<td width=100px><?php print $lastplayed; ?></td>
 	</tr>
 
 	<?php
