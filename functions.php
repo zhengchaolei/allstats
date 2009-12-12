@@ -290,10 +290,20 @@ function printStatsRowType($rowdata) {
 ?>				
 					</tr>
 <?php
+		return 1;
 	}
 	else
 	{
 		//no data available
+		return 0;
+	}
+}
+
+function fillEmptyStatsRows1($rowCount) {
+	$idx = 0;
+	while($idx < $rowCount) // fill empty rows
+	{ 
+		$idx = $idx + 1;	
 ?>
 					<tr> 
 						<td align=right width=15%>
@@ -311,7 +321,8 @@ function printStatsRowType($rowdata) {
 	return 0;
 }
 
-function fillEmptyStatsRows($rowCount) {
+
+function fillEmptyStatsRows2($rowCount) {
 	$idx = 0;
 	while($idx < $rowCount) // fill empty rows
 	{ 

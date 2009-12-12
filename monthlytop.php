@@ -527,10 +527,12 @@ if($dbType == 'sqlite')
 				}
 				$sql = $sql." ORDER BY topValue DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
 		
+				$rows = 0;
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
-					printStatsRowType($row);
+					$rows = $rows + printStatsRowType($row);
 				}
+				fillEmptyStatsRows1($monthlyTopsListSize - $rows);
 ?>
 
 					<tr>
@@ -578,10 +580,12 @@ if($dbType == 'sqlite')
 				}
 				$sql = $sql." ORDER BY topValue DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
 		
+				$rows = 0;
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
-					printStatsRowType($row);
+					$rows = $rows + printStatsRowType($row);
 				}
+				fillEmptyStatsRows1($monthlyTopsListSize - $rows);
 ?>
 
 					<tr>
@@ -628,10 +632,9 @@ if($dbType == 'sqlite')
 				$rows = 0;
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
-					$rows = $rows + 1;
-					printStatsRowType($row);
+					$rows = $rows + printStatsRowType($row);
 				}
-				fillEmptyStatsRows($monthlyTopsListSize - $rows);
+				fillEmptyStatsRows2($monthlyTopsListSize - $rows);
 ?>
 					<tr>
 						<td colspan=3 class="contentemptyspacer"></td>
@@ -678,10 +681,9 @@ if($dbType == 'sqlite')
 				$rows = 0;
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
-					$rows = $rows + 1;
-					printStatsRowType($row);
+					$rows = $rows + printStatsRowType($row);
 				}
-				fillEmptyStatsRows($monthlyTopsListSize - $rows);
+				fillEmptyStatsRows2($monthlyTopsListSize - $rows);
 ?>
 					<tr>
 						<td colspan=3 class="contentemptyspacer"></td>
@@ -729,10 +731,9 @@ if($dbType == 'sqlite')
 				$rows = 0;
 				foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 				{
-					$rows = $rows + 1;
-					printStatsRowType($row);
+					$rows = $rows + printStatsRowType($row);
 				}
-				fillEmptyStatsRows($monthlyTopsListSize - $rows);
+				fillEmptyStatsRows2($monthlyTopsListSize - $rows);
 ?>
 					<tr>
 						<td colspan=3 class="contentemptyspacer"></td>
@@ -819,11 +820,13 @@ else  // #################################################### MYSQL ############
 				}
 				$sql = $sql." ORDER BY topValue DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
 		
+				$rows = 0;
 				$result = mysql_query($sql);
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
-					printStatsRowType($row);
+					$rows = $rows + printStatsRowType($row);
 				}
+				fillEmptyStatsRows1($monthlyTopsListSize - $rows);
 				mysql_free_result($result);
 ?>
 
@@ -869,11 +872,13 @@ else  // #################################################### MYSQL ############
 				}
 				$sql = $sql." ORDER BY topValue DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
 		
+				$rows = 0;
 				$result = mysql_query($sql);
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
-					printStatsRowType($row);
+					$rows = $rows + printStatsRowType($row);
 				}
+				fillEmptyStatsRows1($monthlyTopsListSize - $rows);
 				mysql_free_result($result);
 ?>
 
@@ -924,10 +929,9 @@ else  // #################################################### MYSQL ############
 				$result = mysql_query($sql);
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
-					$rows = $rows + 1;
-					printStatsRowType($row);
+					$rows = $rows + printStatsRowType($row);
 				}
-				fillEmptyStatsRows($monthlyTopsListSize - $rows);
+				fillEmptyStatsRows2($monthlyTopsListSize - $rows);
 				mysql_free_result($result);
 ?>
 					<tr>
@@ -976,10 +980,9 @@ else  // #################################################### MYSQL ############
 				$result = mysql_query($sql);
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
-					$rows = $rows + 1;
-					printStatsRowType($row);
+					$rows = $rows + printStatsRowType($row);
 				}
-				fillEmptyStatsRows($monthlyTopsListSize - $rows);
+				fillEmptyStatsRows2($monthlyTopsListSize - $rows);
 				mysql_free_result($result);
 ?>
 					<tr>
@@ -1028,10 +1031,9 @@ else  // #################################################### MYSQL ############
 				$result = mysql_query($sql);
 				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 				{
-					$rows = $rows + 1;
-					printStatsRowType($row);
+					$rows = $rows + printStatsRowType($row);
 				}
-				fillEmptyStatsRows($monthlyTopsListSize - $rows);
+				fillEmptyStatsRows2($monthlyTopsListSize - $rows);
 				mysql_free_result($result);
 ?>
 					<tr>
