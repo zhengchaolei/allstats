@@ -136,6 +136,8 @@ INSERT INTO heroes (heroid, original, description, summary, stats, skills) VALUE
 INSERT INTO heroes (heroid, original, description, summary, stats, skills) VALUES ('O016', 'O016', 'Batrider', 'Once an expendable spy, Jin''zakk has outlived the suicidal tendencies of other Bat Riders to create a unique style, one that favours control and precision instead of wanton destruction. His years of battle experience have allowed him to innovate creative uses for his fiery arts: He can douse enemies in a bath of sticky oil that restricts their movements before igniting it, fire an explosive that blows enemies away, or take flight to leave behind a trail of flame. However, his most deadly skill involves lassoing his opponent and dragging the unfortunate foe into the arms of his allies.', '<span style="color:#0042ff">Strength</span> - 23 + 2.5<br><span style="color:#ff0303">Agility</span> - 15 + 1.5<br><span style="color:#0042ff">Intelligence</span> - 24 + 2.5', 'Learns Sticky Napalm, Flamebreak, Firefly, and <span style="color:#ff8000">Flaming Lasso</span>.<br>Attack range of 375.<br>Movement sp ed of 290.');
 INSERT INTO heroes (heroid, original, description, summary, stats, skills) VALUES ('O017', 'O016', 'Batrider','-','-','-');
 INSERT INTO heroes (heroid, original, description, summary, stats, skills) VALUES ('O015', 'O015', 'Tauren Chieftain', 'Since ancient times it has been prophesized by the Tauren elders that a Chieftain will come, strong as the mightiest warriors and wise as the eldest shamans. After many years of wandering the sacred lands, seeking wisdom from his forefathers, Cairne Bloodhoof has proven himself as the long awaited hero. Cairne carries with him the spirit of his mightiest ancestor, and now the ground shakes with the combined strength of the Chieftain and his guardian spirit. No physical nor magical barrier can reduce the power of his enchanted halberd, the weapon used by his guardian in ancient times. Such is the power of this axe that it can split the very earth itself. Seeking revenge for the ravaging of his homeland, Cairne will soon bring his wrath upon the Scourge.', '<span style="color:#0042ff">Strength</span> - 24 + 2.7<br><span style="color:#ff0303">Agility</span> - 14 + 1.5<br><span style="color:#0042ff">Intelligence</span> - 23 + 1.6', 'Learns Echo Stomp, Ancestral Spirit, Natural Order, and <span style="color:#ff8000">Earth Splitter</span>.<br>Attack range of 150.<br>Movement speed of 310.');
+INSERT INTO heroes (heroid, original, description, summary, stats, skills) VALUES ('N0HP', 'N0HP', 'Ancient Apparition', 'Defeated in a battle long forgotten, this once great mage was banished to a tomb of ice for all eternity. For countless ages he lay in unbearable anguish until he was discovered by minions of the Lich King. In a vain attempt to gain favor with this ancient soul for his own purposes, the Lich King released him. But this soul no longer knew gratitude, it no longer knew friend from foe, it knew only pain. With it''s body long since decayed, the soul took up the only form it knew. Consumed with hatred, even a touch from this monstrosity causes agony. Able to conjure devastating ice storms with a mere thought and hurl soul-shattering bolts of frost seemingly impossible distances, this creature punishes all who dare to stand their ground against it.', '<span style="color:#0042ff">Strength</span> - 20 + 2.2<br><span style="color:#0042ff">Agility</span> - 18 + 1.4<br><span style="color:#ff0303">Intelligence</span> - 25 + 2.6', 'Learns Cold Feet, Ice Vortex, Chilling Touch, and <span style="color:#ff8000">Ice Blast</span>.<br>Attack range of 600.<br>Movement speed of 295.');
+INSERT INTO heroes (heroid, original, description, summary, stats, skills) VALUES ('H071', 'H071', 'Murloc Nightcrawler', 'In the deepest, blackest pits of the ocean a fearsome and terrifying creature lurks. Bending the shadows to his will, few have seen his true form and none have lived to speak of it. For the shadows are his sanctuary, a place of empowerment and revitalisation. Bathed in this inpenetrable darkness he strikes unseen, every attack making him swifter and more powerful whilst weakening his enemy. A unbreakable leash awaits all who try to escape, leaving them at mercy of his horrifying phantom. By sacrificing a fraction of his soul, his pact with darkness allows him break even the most powerful bonds and curses. <br> With echoes of the Great War reaching every corner of the earth, this creature, knows only as Slark, has emerged from the depths to search for an ancient relic... ', '<span style="color:#0042ff">Strength</span> - 21 + 1.0<br><span style="color:#ff0303">Agility</span> - 21 + 2.0<br><span style="color:#0042ff">Intelligence</span> - 16 + 1.6', 'Learns Dark Pact, Pounce, Essence Shift, and <span style="color:#ff8000">Shadow Dance</span>.<br>Attack range of 128 (MELEE).<br>Movement speed of 305.');
 
 
 DROP TABLE IF EXISTS items;
@@ -159,7 +161,6 @@ INSERT INTO items (itemid, name, shortname, icon) VALUES('PMAN', 'Potion of Mana
 INSERT INTO items (itemid, name, shortname, icon) VALUES('PSPD', 'Potion of Speed', 'Potion of Speed', 'BTNPotionRed.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('SHEA', 'Scroll of Healing', 'Scroll of Healing', 'BTNScrollOfTownPortal.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('STWP', 'Scroll of Town Portal', 'Scroll of Town Portal', 'BTNScrollUber.gif');
-INSERT INTO items (itemid, name, shortname, icon) VALUES('WARD', 'Warsong Battle Drums', 'Warsong Battle Drums', 'BTNPriestAdept.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('RNEC', 'Rod of Necromancy', 'Rod of Necromancy', 'BTNRodOfNecromancy.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('PAMS', 'Anti-magic Potion', 'Anti-magic Potion', 'BTNSnazzyPotion.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('HSLV', 'Healing Salve', 'Healing Salve', 'BTNHealingSalve.gif');
@@ -453,7 +454,7 @@ INSERT INTO items (itemid, name, shortname, icon) VALUES('I0A4', 'Buriza-do Kyan
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0A5', 'Monkey King Bar (True Strike Active)', 'Monkey King Bar', 'BTNINV_Weapon_Halberd_10.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0A6', 'Monkey King Bar', 'Monkey King Bar', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0A7', 'Radiance', 'Radiance', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, shortname, icon) VALUES('I0A8', 'Radiance', 'Radiance', 'BTNTransmute.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0A8', 'Radiance (On)', 'Radiance', 'BTNTransmute.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0A9', 'Heart of Tarrasque', 'Heart of Tarrasque', 'BTNHeartOfAszune.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0AA', 'Heart of Tarrasque', 'Heart of Tarrasque', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0AB', 'Satanic', 'Satanic', 'BTNHornOfDoom.gif');
@@ -515,7 +516,7 @@ INSERT INTO items (itemid, name, shortname, icon) VALUES('I0B6', 'Aghanim''s Sce
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0B7', 'Aghanim''s Scepter (Rylai)', 'Aghanim''s Scepter', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0B8', 'Aghanim''s Scepter (Basic)', 'Aghanim''s Scepter', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0B9', 'Aghanim''s Scepter (Zeus)', 'Aghanim''s Scepter', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, shortname, icon) VALUES('I0BA', 'Vanguard', 'Vanguard', 'BTNAdvancedUnholyArmor.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0BA', 'Vanguard (melee)', 'Vanguard', 'BTNAdvancedUnholyArmor.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0BB', 'Vanguard', 'Vanguard', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0BC', 'Arcane Ring', 'Arcane Ring', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0BD', 'Arcane Ring', 'Arcane Ring', 'BTNArcaneRing.gif');
@@ -920,3 +921,32 @@ INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KL', 'Disabled Heart
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KM', 'Disabled Heart of Tarrasque', 'Heart of Tarrasque', 'DISBTNHeartOfAszune.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KN', 'Mjollnir Recipe', 'Mjollnir Recipe', 'BTNSnazzyScroll.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KO', 'Mjollnir', 'Mjollnir', 'DISBTNSnazzyScroll.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KP', 'Radiance (Off)', 'Radiance', 'BTNTransmute.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KQ', 'Radiance', 'Radiance', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KR', 'Radiance', 'Radiance', 'DISBTNTransmute.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KS', 'Wand of Illusion', 'Wand of Illusion', 'BTNWandOfManaSteal.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KT', 'Wand of Illusion', 'Wand of Illusion', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KU', 'Urn of Shadows Recipe', 'Urn of Shadows Recipe', 'DISBTNSnazzyScroll.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KV', 'Urn of Shadows Recipe', 'Urn of Shadows Recipe', 'BTNSnazzyScroll.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KW', 'Urn of Shadows Recipe', 'Urn of Shadows Recipe', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KX', 'Urn of Shadows', 'Urn of Shadows', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KY', 'Urn of Shadows', 'Urn of Shadows', 'BTNUrnOfKelThuzad.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KZ', 'Urn of Shadows', 'Urn of Shadows', 'DISBTNUrnOfKelThuzad.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L1', 'Aghanim''s Scepter (Batrider)', 'Aghanim''s Scepter', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L2', 'Aghanim''s Scepter (Alchemist)', 'Aghanim''s Scepter', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L3', 'Aghanim''s Scepter (Axe)', 'Aghanim''s Scepter', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L4', 'Aghanim''s Scepter (Nevermore)', 'Aghanim''s Scepter', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L0', 'Aghanim''s Scepter (Axe)', 'Aghanim''s Scepter', 'BTNINV_Wand_05.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L5', 'Aghanim''s Scepter (Nevermore)', 'Aghanim''s Scepter', 'BTNINV_Wand_05.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L6', 'Aghanim''s Scepter (Batrider)', 'Aghanim''s Scepter', 'BTNINV_Wand_05.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L7', 'Aghanim''s Scepter (Alchemist)', 'Aghanim''s Scepter', 'BTNINV_Wand_05.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L8', 'Aghanim''s Scepter (Nevermore)', 'Aghanim''s Scepter', 'DISBTNINV_Wand_05.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L9', 'Aghanim''s Scepter (Axe)', 'Aghanim''s Scepter', 'DISBTNINV_Wand_05.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LA', 'Aghanim''s Scepter (Alchemist)', 'Aghanim''s Scepter', 'DISBTNINV_Wand_05.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LB', 'Aghanim''s Scepter (Batrider)', 'Aghanim''s Scepter', 'DISBTNINV_Wand_05.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LC', 'Vanguard (ranged)', 'Vanguard', 'BTNAdvancedUnholyArmor.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LD', 'Vanguard', 'Vanguard', 'DISBTNAdvancedUnholyArmor.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LE', 'Vanguard', 'Vanguard', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LF', 'Urn of Shadows (empty)', 'Urn of Shadows', 'BTNUrnOfKelThuzad.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LG', 'Urn of Shadows (empty)', 'Urn of Shadows', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LH', 'Urn of Shadows (empty)', 'Urn of Shadows', 'DISBTNUrnOfKelThuzad.gif');
