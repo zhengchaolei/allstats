@@ -100,6 +100,9 @@ $montlyMinGames = 3;
 //The number of entries in each highscore list
 $monthlyTopsListSize = 5;
 
+//hide banned players on monthly / alltime tops
+$hideBannedPlayersOnTops = true;
+
 //---------------------------------------------------
 //-------------User history options----------------
 
