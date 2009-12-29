@@ -113,54 +113,54 @@ $pages = ceil($count/$monthlyTopsResultSize);
 
 
 $arrStatRow1 = array(
-	"Top Kills" => "SELECT original as topHero, description as topHeroName, kills as topValue, name as topUser, a.gameid as topGame
+	"Top Kills" => "SELECT original as topHero, description as topHeroName, kills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Assists" => "SELECT original as topHero, description as topHeroName, assists as topValue, name as topUser, a.gameid as topGame
+	"Top Assists" => "SELECT original as topHero, description as topHeroName, assists as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Deaths" => "SELECT original as topHero, description as topHeroName, deaths as topValue, name as topUser, a.gameid as topGame
+	"Top Deaths" => "SELECT original as topHero, description as topHeroName, deaths as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Creep Kills" => "SELECT original as topHero, description as topHeroName, creepkills as topValue, name as topUser, a.gameid as topGame
+	"Top Creep Kills" => "SELECT original as topHero, description as topHeroName, creepkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Creep Denies" => "SELECT original as topHero, description as topHeroName, creepdenies as topValue, name as topUser, a.gameid as topGame
+	"Top Creep Denies" => "SELECT original as topHero, description as topHeroName, creepdenies as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid");
 
 $arrStatRow2 = array(
-	"Top Gold" => "SELECT original as topHero, description as topHeroName, gold as topValue, name as topUser, a.gameid as topGame
+	"Top Gold" => "SELECT original as topHero, description as topHeroName, gold as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Neutral Kills" => "SELECT original as topHero, description as topHeroName, neutralkills as topValue, name as topUser, a.gameid as topGame
+	"Top Neutral Kills" => "SELECT original as topHero, description as topHeroName, neutralkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Tower Kills" => "SELECT original as topHero, description as topHeroName, towerkills as topValue, name as topUser, a.gameid as topGame
+	"Top Tower Kills" => "SELECT original as topHero, description as topHeroName, towerkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Rax Kills" => "SELECT original as topHero, description as topHeroName, raxkills as topValue, name as topUser, a.gameid as topGame
+	"Top Rax Kills" => "SELECT original as topHero, description as topHeroName, raxkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Courier Kills" => "SELECT original as topHero, description as topHeroName, courierkills as topValue, name as topUser, a.gameid as topGame
+	"Top Courier Kills" => "SELECT original as topHero, description as topHeroName, courierkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
@@ -515,7 +515,12 @@ if($dbType == 'sqlite')
 					</tr>
 
 <?php
-				
+		
+				if($hideBannedPlayersOnTops)
+				{
+					$sql = $sql." LEFT JOIN bans on b.name = bans.name";
+				}
+
 				$sql = $sql." where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 				if($ignorePubs)
 				{
@@ -525,6 +530,12 @@ if($dbType == 'sqlite')
 				{
 					$sql = $sql." AND gamestate = '16'";
 				}
+
+				if($hideBannedPlayersOnTops)
+				{
+					$sql = $sql." AND bans.name is null";
+				}
+
 				$sql = $sql." ORDER BY topValue DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
 		
 				$rows = 0;
@@ -569,6 +580,11 @@ if($dbType == 'sqlite')
 
 <?php
 
+				if($hideBannedPlayersOnTops)
+				{
+					$sql = $sql." LEFT JOIN bans on b.name = bans.name";
+				}
+
 				$sql = $sql." where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 				if($ignorePubs)
 				{
@@ -577,6 +593,11 @@ if($dbType == 'sqlite')
 				else if($ignorePrivs)
 				{
 					$sql = $sql." AND gamestate = '16'";
+				}
+
+				if($hideBannedPlayersOnTops)
+				{
+					$sql = $sql." AND bans.name is null";
 				}
 				$sql = $sql." ORDER BY topValue DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
 		
@@ -809,6 +830,11 @@ else  // #################################################### MYSQL ############
 					</tr>
 
 <?php
+				if($hideBannedPlayersOnTops)
+				{
+					$sql = $sql." LEFT JOIN bans on b.name = bans.name";
+				}
+
 				$sql = $sql." where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 				if($ignorePubs)
 				{
@@ -817,6 +843,11 @@ else  // #################################################### MYSQL ############
 				else if($ignorePrivs)
 				{
 					$sql = $sql." AND gamestate = '16'";
+				}
+
+				if($hideBannedPlayersOnTops)
+				{
+					$sql = $sql." AND bans.name is null";
 				}
 				$sql = $sql." ORDER BY topValue DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
 		
@@ -861,6 +892,11 @@ else  // #################################################### MYSQL ############
 					</tr>
 
 <?php
+				if($hideBannedPlayersOnTops)
+				{
+					$sql = $sql." LEFT JOIN bans on b.name = bans.name";
+				}
+
 				$sql = $sql." where ".$sqlGroupBy1." = '$year' AND ".$sqlGroupBy2." = '$month'";
 				if($ignorePubs)
 				{
@@ -869,6 +905,11 @@ else  // #################################################### MYSQL ############
 				else if($ignorePrivs)
 				{
 					$sql = $sql." AND gamestate = '16'";
+				}
+
+				if($hideBannedPlayersOnTops)
+				{
+					$sql = $sql." AND bans.name is null";
 				}
 				$sql = $sql." ORDER BY topValue DESC, a.id ASC LIMIT ".$monthlyTopsListSize;
 		
