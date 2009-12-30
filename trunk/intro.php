@@ -72,44 +72,47 @@ require_once("config.php");
 			Please choose from menu above.
 <?php
 
-if (checkDBTable("heroes") == 0) 
+if ($verifytables) 
 {
+	if (checkDBTable("heroes") == 0) 
+	{
 ?>
 			<br>
 			<br>
 			<br>
 			<div style="color:red">WARNING: "heroes" table not found. Please run allstats sql setup script first!</div>
 <?php
-}
+	}
 
-if (checkDBTable("items") == 0) 
-{
+	if (checkDBTable("items") == 0) 
+	{
 ?>
 			<br>
 			<br>
 			<br>
 			<div style="color:red">WARNING: "items" table not found. Please run allstats sql setup script first!</div>
 <?php
-}
+	}
 
-if (checkDBTable("games") == 0 || checkDBTable("gameplayers") == 0 || checkDBTable("dotagames") == 0 || checkDBTable("dotaplayers") == 0 || checkDBTable("bans") == 0 || checkDBTable("admins") == 0) 
-{
+	if (checkDBTable("games") == 0 || checkDBTable("gameplayers") == 0 || checkDBTable("dotagames") == 0 || checkDBTable("dotaplayers") == 0 || checkDBTable("bans") == 0 || checkDBTable("admins") == 0) 
+	{
 ?>
 			<br>
 			<br>
 			<br>
 			<div style="color:red">ERROR: ghost tables not found. Please check your configuration</div>
 <?php
-}
+	}
 
-if ($includeImportedBans && checkDBTable("imported_bans") == 0) 
-{
+	if ($includeImportedBans && checkDBTable("imported_bans") == 0) 
+	{
 ?>
 			<br>
 			<br>
 			<br>
 			<div style="color:red">WARNING: "imported_bans" table not found. Please run allstats sql setup script first!</div>
 <?php
+	}
 }
 ?>
 

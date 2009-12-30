@@ -55,6 +55,10 @@ $username = 'YOUR_USER_NAME';
 $password = 'YOUR_PASSWORD';
 $databasename = 'YOUR_DB_NAME';
 
+// do __NOT__ enable this option on public (free) sql servers as this will
+// query shared tables (information_schema.tables)
+$verifytables = false;
+
 //If you save your replays to a folder that AllStats can access, more information, the ability to download a replay, and a chat log will be displayed on the game info page.
 //If replays cannot be found, this info will be automatically omitted.
 
