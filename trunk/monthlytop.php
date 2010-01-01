@@ -190,7 +190,7 @@ $arrStatRow3 = array(
 		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN dotagames as d on d.gameid = c.id
-		where winner <> 1000",
+		where name is not null",
 	"Best Win Percentage" => "SELECT name as topUser, 100*wins*1.0/(totgames*1.0) as topValue, ' %' as topValueUnit from (Select b.name as name, MAX(a.id) as id,
 		count(*) as totgames,
 		SUM(case when((d.winner = 1 and a.newcolour < 6) or (d.winner = 2 and a.newcolour > 6)) then 1 else 0 end) as wins, 
