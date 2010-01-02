@@ -316,7 +316,7 @@ else
 			if($mostlossescount==""){ $mostlosseshero="blank"; $mostlossescount="0";}
 		}
 		//get hero you have played most with
-		$sql = "SELECT SUM(`left`) as timeplayed, original, description, COUNT(*) as played FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid LEFT JOIN heroes on hero = heroid WHERE name='$username' AND hero != '' group by original order by played desc";
+		$sql = "SELECT SUM(`left`) as timeplayed, original, description, COUNT(*) as played FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid JOIN heroes on hero = heroid WHERE name='$username' group by original order by played desc";
 		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 		{
 			$mostplayedhero=$row["original"];
@@ -432,7 +432,7 @@ else
 		if($mostlossescount==""){ $mostlosseshero="blank"; $mostlossescount="0";}
 
 		//get hero you have played most with
-		$result = mysql_query("SELECT SUM(`left`) as timeplayed, original, description, COUNT(*) as played FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid LEFT JOIN heroes on hero = heroid WHERE name='$username' AND hero != '' group by original order by played desc");	
+		$result = mysql_query("SELECT SUM(`left`) as timeplayed, original, description, COUNT(*) as played FROM gameplayers LEFT JOIN games ON games.id=gameplayers.gameid LEFT JOIN dotaplayers ON dotaplayers.gameid=games.id AND dotaplayers.colour=gameplayers.colour LEFT JOIN dotagames ON games.id=dotagames.gameid JOIN heroes on hero = heroid WHERE name='$username' group by original order by played desc");	
 		$row = mysql_fetch_array($result, MYSQL_ASSOC);
 		$mostplayedhero=$row["original"];
 		$mostplayedheroname=$row["description"];

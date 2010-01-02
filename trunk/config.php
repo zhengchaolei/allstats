@@ -207,4 +207,14 @@ else
 		die ('Can\'t use current db : ' . mysql_error());
 	}
 }
+
+// automatic version update
+$revision = '$Rev:$';
+$date     = '$Date:$';
+
+$version  = substr($revision, 6, -2);
+$versiondate = substr($date, 7, 10);
+
+define('VERSION', "1.3." . $revision);
+define('VERSIONDATE', $versiondate);
 ?>
