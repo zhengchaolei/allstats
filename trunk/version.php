@@ -35,8 +35,8 @@
 **********************************************/
 
 // automatic version update
-$revision = '$Rev:$';
-$date     = '$Date:$';
+$revision = '$Rev$';
+$date     = '$Date$';
 
 $version  = substr($revision, 6, -2);
 $versiondate = substr($date, 7, 10);
