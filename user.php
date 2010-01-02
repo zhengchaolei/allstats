@@ -7,12 +7,12 @@
 *	Contact: developer@miq.no - Reinert
 *
 *	
-*	Please see http://forum.codelain.com/index.php?topic=4752.0
+*	Please see http://www.codelain.com/forum/index.php?topic=4752.0
 *	and post your webpage there, so I know who's using it.
 *
 *	Files downloaded from http://code.google.com/p/allstats/
 *
-*	Copyright (C) 2009  Reinert, Dag Morten , Netbrain, Billbabong, Boltergeist
+*	Copyright (C) 2009-2010  Reinert, Dag Morten , Netbrain, Billbabong, Boltergeist
 *
 *
 *	This file is part of DOTA ALLSTATS.
