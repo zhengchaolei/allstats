@@ -150,7 +150,6 @@ CREATE TABLE IF NOT EXISTS items (
 );
 
 
-INSERT INTO items (itemid, name, shortname, icon) VALUES('OFLG', 'Orc Flag', 'Orc Flag', 'BTNOrcCaptureFlag.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('MDPB', 'Medusa Pebble', 'Medusa Pebble', 'BTNPebble.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('OFIR', 'Orb of Fire', 'Orb of Fire', 'BTNOrbOfFire.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('OLI2', 'Orb of Lightning', 'Orb of Lightning', 'BTNOrbOfLightning.gif');
@@ -158,7 +157,6 @@ INSERT INTO items (itemid, name, shortname, icon) VALUES('OVEN', 'Orb of Venom',
 INSERT INTO items (itemid, name, shortname, icon) VALUES('OCOR', 'Orb of Corruption', 'Orb of Corruption', 'BTNOrbOfCorruption.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('PHEA', 'Potion of Healing', 'Potion of Healing', 'BTNPotionGreenSmall.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('PMAN', 'Potion of Mana', 'Potion of Mana', 'BTNPotionBlueSmall.gif');
-INSERT INTO items (itemid, name, shortname, icon) VALUES('PSPD', 'Potion of Speed', 'Potion of Speed', 'BTNPotionRed.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('SHEA', 'Scroll of Healing', 'Scroll of Healing', 'BTNScrollOfTownPortal.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('STWP', 'Scroll of Town Portal', 'Scroll of Town Portal', 'BTNScrollUber.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('RNEC', 'Rod of Necromancy', 'Rod of Necromancy', 'BTNRodOfNecromancy.gif');
@@ -533,7 +531,7 @@ INSERT INTO items (itemid, name, shortname, icon) VALUES('I0BN', 'Hood of Defian
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I006', 'Haste', 'Haste', 'BTNBootsOfSpeed.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I008', 'Regeneration', 'Regeneration', 'BTNRegenerate.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I00J', 'Invisibility', 'Invisibility', 'BTNInvisibility.gif');
-INSERT INTO items (itemid, name, shortname, icon) VALUES('I00K', 'Double Damage', 'Double Damage', 'BTNShamanMaster.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I00K', 'Double Damage ', 'Double Damage ', 'BTNShamanMaster.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I00L', 'Empty Bottle', 'Bottle', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I00M', 'Armlet of Mordiggian', 'Armlet of Mordiggian', 'BTNImprovedUnholyStrength.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I00N', 'Armlet of Mordiggian (Courier Edition)', 'Armlet of Mordiggian', 'BTNImprovedUnholyStrength.gif');
@@ -933,16 +931,16 @@ INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KX', 'Urn of Shadows
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KY', 'Urn of Shadows', 'Urn of Shadows', 'BTNUrnOfKelThuzad.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0KZ', 'Urn of Shadows', 'Urn of Shadows', 'DISBTNUrnOfKelThuzad.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L1', 'Aghanim''s Scepter (Batrider)', 'Aghanim''s Scepter', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L2', 'Aghanim''s Scepter (Alchemist)', 'Aghanim''s Scepter', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L2', 'Aghanim''s Scepter (Earthshaker)', 'Aghanim''s Scepter', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L3', 'Aghanim''s Scepter (Axe)', 'Aghanim''s Scepter', 'BTNSnazzyScrollPurple.gif');
-INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L4', 'Aghanim''s Scepter (Nevermore)', 'Aghanim''s Scepter', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L4', 'Aghanim''s Scepter (Dirge)', 'Aghanim''s Scepter', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L0', 'Aghanim''s Scepter (Axe)', 'Aghanim''s Scepter', 'BTNINV_Wand_05.gif');
-INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L5', 'Aghanim''s Scepter (Nevermore)', 'Aghanim''s Scepter', 'BTNINV_Wand_05.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L5', 'Aghanim''s Scepter (Dirge)', 'Aghanim''s Scepter', 'BTNINV_Wand_05.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L6', 'Aghanim''s Scepter (Batrider)', 'Aghanim''s Scepter', 'BTNINV_Wand_05.gif');
-INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L7', 'Aghanim''s Scepter (Alchemist)', 'Aghanim''s Scepter', 'BTNINV_Wand_05.gif');
-INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L8', 'Aghanim''s Scepter (Nevermore)', 'Aghanim''s Scepter', 'DISBTNINV_Wand_05.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L7', 'Aghanim''s Scepter (Earthshaker)', 'Aghanim''s Scepter', 'BTNINV_Wand_05.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L8', 'Aghanim''s Scepter (Dirge)', 'Aghanim''s Scepter', 'DISBTNINV_Wand_05.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0L9', 'Aghanim''s Scepter (Axe)', 'Aghanim''s Scepter', 'DISBTNINV_Wand_05.gif');
-INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LA', 'Aghanim''s Scepter (Alchemist)', 'Aghanim''s Scepter', 'DISBTNINV_Wand_05.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LA', 'Aghanim''s Scepter (Earthshaker)', 'Aghanim''s Scepter', 'DISBTNINV_Wand_05.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LB', 'Aghanim''s Scepter (Batrider)', 'Aghanim''s Scepter', 'DISBTNINV_Wand_05.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LC', 'Vanguard (ranged)', 'Vanguard', 'BTNAdvancedUnholyArmor.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LD', 'Vanguard', 'Vanguard', 'DISBTNAdvancedUnholyArmor.gif');
@@ -950,3 +948,6 @@ INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LE', 'Vanguard', 'Va
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LF', 'Urn of Shadows (empty)', 'Urn of Shadows', 'BTNUrnOfKelThuzad.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LG', 'Urn of Shadows (empty)', 'Urn of Shadows', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LH', 'Urn of Shadows (empty)', 'Urn of Shadows', 'DISBTNUrnOfKelThuzad.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LI', 'Divine Rapier', 'Divine Rapier', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LJ', 'Divine Rapier', 'Divine Rapier', 'BTNINV_Sword_25.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LK', 'Divine Rapier', 'Divine Rapier', 'BTNINV_Sword_25.gif');
