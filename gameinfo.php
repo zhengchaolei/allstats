@@ -119,7 +119,7 @@ $replayloc = $replayLocation.'/'.str_ireplace("\\","_",str_ireplace("/","_",$rep
 			?>
 			</td>
 			<td width=50%>
-				<h2>Game Information for: <?php print $gamename; ?></h2>
+				<h2><?php print $phrase1.": ".$gamename; ?></h2>
 			</td>
 			<td width=25%>
 			<?php
@@ -135,22 +135,22 @@ $replayloc = $replayLocation.'/'.str_ireplace("\\","_",str_ireplace("/","_",$rep
 	</tr>
 	<tr class="rowuh" style="border-top: 1px solid #EBEBEB;">
 		<td>
-		  Game Name:&nbsp; <?php print $gamename; ?>
+		  <?php print $phrase2.":&nbsp; ".$gamename; ?>
 		</td>
 		<td>
-		  Date: &nbsp; <?php print $gametime; ?> 
+		  <?php print $phrase3.":&nbsp;".$gametime; ?> 
 		<td>
 		<td>
-		  Creator: &nbsp;<?php print $creatorname; ?>
+		  <?php print $phrase4.":&nbsp;".$creatorname; ?>
 		</td>
 		<td>
-		  Duration: &nbsp;<?php print secondsToTime($duration); ?>
+		  <?php print $phrase5.":&nbsp;".secondsToTime($duration); ?>
 		</td>
 		
 		  <?php 
 		  //only show the link if the replay feature is enabled in config.php and it actually exists
 		  if(file_exists($replayloc)){ ?>
-		  <td><a href=<?php print $replayurl;?>>Download replay</a></td>
+		  <td><a href=<?php print $replayurl;?>><?php print $phrase6;?></a></td>
 		  <?php } //end of enablefeature ?> 
 
 	</tr>
@@ -163,19 +163,19 @@ $replayloc = $replayLocation.'/'.str_ireplace("\\","_",str_ireplace("/","_",$rep
 		<div id="gameInfo" class="shown">
 			<table class="tableheader" id="tableheader">
 				<tr>
-					<td class="headercell" width=150px>Player</td>
-					<td class="headercell" width=40px>Hero</td>
-					<td class="headercell" width=60px>Kills</td>
-					<td class="headercell" width=60px>Deaths</td>
-					<td class="headercell" width=60px>Assists</td>
-					<td class="headercell" width=60px>Creep Kills</td>
-					<td class="headercell" width=60px>Creep Denies</td>
-					<td class="headercell" width=60px>Neutral Kills</td>
-					<td class="headercell" width=60px>Towers</td> 
-					<td class="headercell" width=60px>Gold</td>
-					<td class="headercell" width=170x>Items</td>
-					<td class="headercell" width=60px>Left At</td>
-					<td class="headercell" width=100px>Reason</td>	
+					<td class="headercell" width=150px><?php print $phrase7;?></td>
+					<td class="headercell" width=40px><?php print $phrase8;?></td>
+					<td class="headercell" width=60px><?php print $phrase9;?></td>
+					<td class="headercell" width=60px><?php print $phrase10;?></td>
+					<td class="headercell" width=60px><?php print $phrase11;?></td>
+					<td class="headercell" width=60px><?php print $phrase12;?></td>
+					<td class="headercell" width=60px><?php print $phrase13;?></td>
+					<td class="headercell" width=60px><?php print $phrase14;?></td>
+					<td class="headercell" width=60px><?php print $phrase15;?></td> 
+					<td class="headercell" width=60px><?php print $phrase16;?></td>
+					<td class="headercell" width=170x><?php print $phrase17;?></td>
+					<td class="headercell" width=60px><?php print $phrase18;?></td>
+					<td class="headercell" width=100px><?php print $phrase19;?></td>	
 				</tr>
 			</table>
 			<table class="table" id="data">
@@ -337,7 +337,7 @@ if($dbType == 'sqlite')
 		?>
 		<tr>
 			<td colspan=13 class="sentinelheader">
-				SENTINEL - <?php if($win==1) print "Winner!"; else print "Loser!";?>
+				<?php print $phrase20; if($win==1) print $phrase21; else print $phrase22;?>
 			</td>
 		</tr>
 		<?php
@@ -347,7 +347,7 @@ if($dbType == 'sqlite')
 		?>
 		<tr>
 			<td colspan=13 class="scourgeheader">
-			SCOURGE - <?php if($win==2) print "Winner!"; else print "Loser!";?> 
+			<?php print $phrase23; if($win==2) print $phrase21; else print $phrase22;?> 
 			</td>
 		</tr>
 		<?php
@@ -358,7 +358,7 @@ if($dbType == 'sqlite')
 				
 		<tr class="row">
 			<td width=150px>
-			<a <?php if($banname<>'') { print 'style="color:#e56879"'; } ?> href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><b><?php print $name; ?></b></a>
+			<a <?php if($banname<>'') { print 'class="banned"'; } ?> href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><b><?php print $name; ?></b></a>
 			</td>
 			<td width=40px>
 			<?php
@@ -559,7 +559,7 @@ else
 				
 		<tr class="row">
 			<td width=150px>
-			<a <?php if($banname<>'') { print 'style="color:#e56879"'; } ?> href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><b><?php print $name; ?></b></a>
+			<a <?php if($banname<>'') { print 'class="banned"'; } ?> href="?p=user&u=<?php print $name; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><b><?php print $name; ?></b></a>
 			</td>
 			<td width=40px>
 			<?php

@@ -47,14 +47,14 @@ if($dbType == 'sqlite')
 
 	if($interval == 'week' || $interval == 'Week')
 	{
-		$interval="Week";
+		$interval=$phrase104;
 		$sqlGroupBy1="strftime('%Y', datetime)";
 		$sqlGroupBy2="strftime('%W', datetime)";
 		$sqlGroupBy3="strftime('%W', datetime)";
 	}
 	else
 	{
-		$interval="Month";
+		$interval=$phrase105;
 		$sqlGroupBy1="strftime('%Y', datetime)";
 		$sqlGroupBy2="strftime('%m', datetime)";
 		$sqlGroupBy3="strftime('%m', datetime)";
@@ -70,14 +70,14 @@ else
 
 	if($interval == 'week' || $interval == 'Week')
 	{
-		$interval="Week";
+		$interval=$phrase104;
 		$sqlGroupBy1="YEAR(datetime)";
 		$sqlGroupBy2="WEEK(datetime,3)";
 		$sqlGroupBy3="WEEK(datetime,3)";
 	}
 	else
 	{
-		$interval="Month";
+		$interval=$phrase105;
 		$sqlGroupBy1="YEAR(datetime)";
 		$sqlGroupBy2="MONTH(datetime)";
 		$sqlGroupBy3="MONTHNAME(datetime)";
@@ -129,20 +129,20 @@ else
 						<?php
 						if($offset == 'all')
 						{
-							print "Showing All ".$interval."s";
+							print $phrase126." ".$interval.$phrase127;
 						}
 						else
 						{
-							print "<a href=\"?p=userhistory&s=".$sortcat."&o=".$order."&i=".$interval."&u=".$username."&n=all\">Show All ".$interval."s";
+							print "<a href=\"?p=userhistory&s=".$sortcat."&o=".$order."&i=".$interval."&u=".$username."&n=all\">".$phrase128." ".$interval.$phrase127;
 						}
 						print "<br/><br/>";
-						if($interval == 'Week')
+						if($interval == $phrase104)
 						{
-							print "<a href=\"?p=userhistory&s=".$sortcat."&o=".$order."&u=".$username."&n=".$offset."&i=month\">Toggle Montly/Weekly View</a>";
+							print "<a href=\"?p=userhistory&s=".$sortcat."&o=".$order."&u=".$username."&n=".$offset."&i=month\">".$phrase129."</a>";
 						}
 						else
 						{
-							print "<a href=\"?p=userhistory&s=".$sortcat."&o=".$order."&u=".$username."&n=".$offset."&i=week\">Toggle Montly/Weekly View</a>";
+							print "<a href=\"?p=userhistory&s=".$sortcat."&o=".$order."&u=".$username."&n=".$offset."&i=week\">".$phrase129."</a>";
 						}						
 						?>
 						</td>
@@ -151,7 +151,7 @@ else
 				</table>
 			</td>
 			<td width=50%>
-				<h2><?php print $interval; ?>ly History for: <a href="?p=user&u=<?php print $username; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $username; ?></a></h2>
+				<h2><?php print $interval.$phrase145; ?>: <a href="?p=user&u=<?php print $username; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $username; ?></a></h2>
 			</td>
 			<td width=25% class="rowuh">
 				<table class="rowuh" width = 235px style="float:right">
@@ -161,7 +161,7 @@ else
 					<?php
 					if($offset == 'all')
 					{
-						print "Show ".$interval."s Page:";
+						print $phrase170." ".$interval.$phrase127." ".$phrase131.":";
 					}
 					else
 					{
@@ -171,7 +171,7 @@ else
 						{
 							$max = $count;
 						}
-						print "Showing ".$interval."s: ".$min." - ".$max;
+						print $phrase169." ".$interval.$phrase127.": ".$min." - ".$max;
 					}
 					?>
 					</td>
@@ -180,7 +180,7 @@ else
 				<?php
 				if($offset == 'all')
 				{
-					print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+					print "<td width=35px><span class=\"ddd\"><</span></td>";
 					for($counter = 1; $counter < 6; $counter++)
 					{
 						if($counter <= $pages)
@@ -188,7 +188,7 @@ else
 						print "<td width=35px><a href=\"?p=userhistory&s=".$sortcat."&o=".$order."&u=".$username."&i=".$interval."&n=".($counter-1)."\">".$counter."</a></td>";
 						}
 					}
-					print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+					print "<td width=35px><span class=\"ddd\">></span></td>";
 				}
 				else
 				{
@@ -198,14 +198,14 @@ else
 					}
 					else
 					{
-						print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+						print "<td width=35px><span class=\"ddd\"><</span></td>";
 					}
 					
 					if($offset < 2)		//Close to start
 					{
 						if($offset == 0)
 						{
-							print "<td width=35px><span style=\"color:#ddd;\">1</span></td>";
+							print "<td width=35px><span class=\"ddd\">1</span></td>";
 							for($counter = 2; $counter < 6; $counter++)
 							{
 								if($counter-1 < $pages)
@@ -217,7 +217,7 @@ else
 						if($offset == 1)
 						{
 							print "<td width=35px><a href=\"?p=userhistory&s=".$sortcat."&o=".$order."&u=".$username."&i=".$interval."&n=0\">1</a></td>";
-							print "<td width=35px><span style=\"color:#ddd;\">2</span></td>";
+							print "<td width=35px><span class=\"ddd\">2</span></td>";
 							for($counter = 3; $counter < 6; $counter++)
 							{
 								if($counter-1 < $pages)
@@ -239,7 +239,7 @@ else
 								print "<td width=35px><a href=\"?p=userhistory&s=".$sortcat."&o=".$order."&u=".$username."&i=".$interval."&n=".($counter-1)."\">".$counter."</a></td>";
 								}
 							}
-							print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
+							print "<td width=35px><span class=\"ddd\">".$counter."</span></td>";
 						}
 						else
 						{
@@ -251,7 +251,7 @@ else
 									print "<td width=35px><a href=\"?p=userhistory&s=".$sortcat."&o=".$order."&u=".$username."&i=".$interval."&n=".($counter-1)."\">".$counter."</a></td>";
 								}
 							}
-							print "<td width=35px><span style=\"color:#ddd;\">".($offset+1)."</span>";
+							print "<td width=35px><span class=\"ddd\">".($offset+1)."</span>";
 							print "<td width=35px><a href=\"?p=userhistory&s=".$sortcat."&o=".$order."&u=".$username."&i=".$interval."&n=".($offset+1)."\">".($offset+2)."</a></td>";
 						}
 					}
@@ -261,7 +261,7 @@ else
 							{
 							if($counter == ($offset+1))
 							{
-								print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
+								print "<td width=35px><span class=\"ddd\">".$counter."</span></td>";
 							}
 							else
 							{
@@ -275,7 +275,7 @@ else
 					}
 					else
 					{
-						print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+						print "<td width=35px><span class=\"ddd\">></span></td>";
 					}
 				}
 				?>
@@ -321,191 +321,191 @@ if($sortcat == "totgames")
 {
 	if($order == "asc")
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=totgames&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Games</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=totgames&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase26."</a></td>");
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=totgames&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Games</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=totgames&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase26."</a></td>");
 	}
 }
 else
 {
-	print("<td width=70px><a href=\"?p=userhistory&s=totgames&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Games</a></td>");
+	print("<td width=70px><a href=\"?p=userhistory&s=totgames&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase26."</a></td>");
 }
 //Wins
 if($sortcat == "wins")
 {
 	if($order == "asc")
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=wins&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Wins</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=wins&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase28."</a></td>");
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=wins&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Wins</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=wins&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase28."</a></td>");
 	}
 }
 else
 {
-	print("<td width=70px><a href=\"?p=userhistory&s=wins&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Wins</a></td>");
+	print("<td width=70px><a href=\"?p=userhistory&s=wins&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase28."</a></td>");
 }
 //Losses
 if($sortcat == "losses")
 {
 	if($order == "asc")
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=losses&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Losses</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=losses&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase29."</a></td>");
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=losses&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Losses</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=losses&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase29."</a></td>");
 	}
 }
 else
 {
-	print("<td width=70px><a href=\"?p=userhistory&s=losses&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Losses</a></td>");
+	print("<td width=70px><a href=\"?p=userhistory&s=losses&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase29."</a></td>");
 }
 //WinPercent
 if($sortcat == "winpercent")
 {
 	if($order == "asc")
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=winpercent&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Wins<br/>(Percent)</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=winpercent&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase175."</a></td>");
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=winpercent&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Wins<br/>(Percent)</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=winpercent&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase175."</a></td>");
 	}
 }
 else
 {
-	print("<td width=70px><a href=\"?p=userhistory&s=winpercent&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Wins<br/>(Percent)</a></td>");
+	print("<td width=70px><a href=\"?p=userhistory&s=winpercent&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase175."</a></td>");
 }	//Kills
 if($sortcat == "kills")
 {
 	if($order == "asc")
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=kills&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Kills</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=kills&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase9."</a></td>");
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=kills&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Kills</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=kills&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase9."</a></td>");
 	}
 }
 else
 {
-	print("<td width=70px><a href=\"?p=userhistory&s=kills&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Kills</a></td>");
+	print("<td width=70px><a href=\"?p=userhistory&s=kills&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase9."</a></td>");
 }
 //CreepKills
 if($sortcat == "deaths")
 {
 	if($order == "asc")
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=deaths&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Deaths</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=deaths&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase10."</a></td>");
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=deaths&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Deaths</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=deaths&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase10."</a></td>");
 	}
 }
 else
 {
-	print("<td width=70px><a href=\"?p=userhistory&s=deaths&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Deaths</a></td>");
+	print("<td width=70px><a href=\"?p=userhistory&s=deaths&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase10."</a></td>");
 }
 //Assists
 if($sortcat == "assists")
 {
 	if($order == "asc")
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=assists&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Assists</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=assists&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase11."</a></td>");
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=assists&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Assists</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=assists&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase11."</a></td>");
 	}
 }
 else
 {
-	print("<td width=70px><a href=\"?p=userhistory&s=assists&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Assists</a></td>");
+	print("<td width=70px><a href=\"?p=userhistory&s=assists&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase11."</a></td>");
 }
 //KDRatio
 if($sortcat == "killdeathratio")
 {
 	if($order == "asc")
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=killdeathratio&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Kills/<br/>Death</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=killdeathratio&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase45."</a></td>");
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=killdeathratio&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Kills/<br/>Death</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=killdeathratio&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase45."</a></td>");
 	}
 }
 else
 {
-	print("<td width=70px><a href=\"?p=userhistory&s=killdeathratio&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Kills/<br/>Death</a></td>");
+	print("<td width=70px><a href=\"?p=userhistory&s=killdeathratio&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase45."</a></td>");
 }
 //Creep Kills
 if($sortcat == "creepkills")
 {
 	if($order == "asc")
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=creepkills&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Creep<br/>Kills</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=creepkills&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase42."</a></td>");
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=creepkills&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Creep<br/>Kills</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=creepkills&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase42."</a></td>");
 	}
 }
 else
 {
-	print("<td width=70px><a href=\"?p=userhistory&s=creepkills&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Creep<br/>Kills</a></td>");
+	print("<td width=70px><a href=\"?p=userhistory&s=creepkills&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase42."</a></td>");
 }
 //Denies
 if($sortcat == "creepdenies")
 {
 	if($order == "asc")
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=creepdenies&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Creep<br/>Denies</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=creepdenies&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase43."</a></td>");
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=creepdenies&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Creep<br/>Denies</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=creepdenies&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase43."</a></td>");
 	}
 }
 else
 {
-	print("<td width=70px><a href=\"?p=userhistory&s=creepdenies&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Creep<br/>Denies</a></td>");
+	print("<td width=70px><a href=\"?p=userhistory&s=creepdenies&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase43."</a></td>");
 }
 //Neutral Kills
 if($sortcat == "neutralkills")
 {
 	if($order == "asc")
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=neutralkills&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Neutral<br/>Kills</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=neutralkills&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase44."</a></td>");
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=neutralkills&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Neutral<br/>Kills</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=neutralkills&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase44."</a></td>");
 	}
 }
 else
 {
-	print("<td width=70px><a href=\"?p=userhistory&s=neutralkills&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Neutral<br/>Kills</a></td>");
+	print("<td width=70px><a href=\"?p=userhistory&s=neutralkills&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase44."</a></td>");
 }
 //Time Played
 if($sortcat == "timeplayed")
 {
 	if($order == "asc")
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=timeplayed&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Time<br/>Played</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=timeplayed&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase146."</a></td>");
 	}
 	else
 	{
-		print("<td width=70px><a href=\"?p=userhistory&s=timeplayed&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Time<br/>Played</a></td>");
+		print("<td width=70px><a href=\"?p=userhistory&s=timeplayed&o=asc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase146."</a></td>");
 	}
 }
 else
 {
-	print("<td width=70px><a href=\"?p=userhistory&s=timeplayed&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">Time<br/>Played</a></td>");
+	print("<td width=70px><a href=\"?p=userhistory&s=timeplayed&o=desc&u=".$username."&i=".$interval."&n=".$sortoffset."\">".$phrase146."</a></td>");
 }
 ?>
 				<td width=16px></td>
@@ -657,7 +657,7 @@ else
 	<table class="table" width=1016px>
 		<tr>
 			<td colspan=5>
-				<h3><?php print $username; ?>'s All Time Top Statistics per Game</h3>
+				<h3><?php print $username.$phrase176." ".$phrase54; ?></h3>
 			</td>
 		</tr>
 		<tr>
@@ -667,27 +667,27 @@ else
 
 
 $arrStatRow = array(
-	"Top Kills" => "SELECT original as topHero, description as topHeroName, kills as topValue, datetime as topDate, a.gameid as topGame
+	$phrase55 => "SELECT original as topHero, description as topHeroName, kills as topValue, datetime as topDate, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Assists" => "SELECT original as topHero, description as topHeroName, assists as topValue, datetime as topDate, a.gameid as topGame
+	$phrase56 => "SELECT original as topHero, description as topHeroName, assists as topValue, datetime as topDate, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Deaths" => "SELECT original as topHero, description as topHeroName, deaths as topValue, datetime as topDate, a.gameid as topGame
+	$phrase57 => "SELECT original as topHero, description as topHeroName, deaths as topValue, datetime as topDate, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Creep Kills" => "SELECT original as topHero, description as topHeroName, creepkills as topValue, datetime as topDate, a.gameid as topGame
+	$phrase58 => "SELECT original as topHero, description as topHeroName, creepkills as topValue, datetime as topDate, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Creep Denies" => "SELECT original as topHero, description as topHeroName, creepdenies as topValue, datetime as topDate, a.gameid as topGame
+	$phrase59 => "SELECT original as topHero, description as topHeroName, creepdenies as topValue, datetime as topDate, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id
@@ -773,5 +773,5 @@ else  // #################################################### MYSQL ############
 	</table>
 </div>
 <div id="footer" class="footer">
-		<h5>Total Players: <?php print $count; ?></h5>
+		<h5><?php print $phrase46;?>: <?php print $count; ?></h5>
 </div>

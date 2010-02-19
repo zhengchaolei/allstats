@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*********************************************
 <!-- 
 *   	DOTA ALLSTATS
@@ -50,7 +50,7 @@ require_once("version.php");
 			<br>
 			<br>
 			<h4>
-			Welcome to the <?php print $botName; ?> Stats Page
+			<?php print $phrase147." ".$botName." ".$phrase148; ?><br>
 			</h4>
 			<br>
 			<br>
@@ -66,11 +66,11 @@ require_once("version.php");
 			<br>
 			<br>
 			<br>
-			Here you can find information about all players who have played games hosted by <?php print $botName; ?> 
+			<?php print $phrase149." ".$botName; ?> 
 			<br>
 			<br>
 			<br>
-			Please choose from menu above.
+			<?php print $phrase150; ?>
 <?php
 
 if ($verifytables) 
@@ -126,7 +126,7 @@ if ($verifytables)
 </div>
 <div id="footer" class="footer">
   <h5> 
-	Allstats Version: <?php print VERSION;?> | <?php print VERSIONDATE;?>
+	 <?php print $phrase168;?>: <?php print VERSION;?> | <?php print VERSIONDATE;?>
   </h5>
 </div>
 

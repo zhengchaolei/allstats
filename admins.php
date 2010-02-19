@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*********************************************
 <!-- 
 *   	DOTA ALLSTATS
@@ -35,7 +35,6 @@
 **********************************************/
 require_once("functions.php");
 require_once("config.php");
-
 if($dbType == 'sqlite')
 {
 	$offset=sqlite_escape_string($_GET["n"]);
@@ -74,11 +73,11 @@ $pages = ceil($count/$adminResultSize);
 						<?php
 						if($offset == 'all')
 						{
-							print "Showing All Admins";
+							print $phrase60;
 						}
 						else
 						{
-							print "<a href=\"?p=admins&n=all\"><strong>Show All Admins</strong></a>";
+							print "<a href=\"?p=admins&n=all\"><strong>".$phrase61."</strong></a>";
 						}
 						?>
 						</td>
@@ -86,7 +85,7 @@ $pages = ceil($count/$adminResultSize);
 				</table>
 			</td>
 			<td width=50%>
-				<h2>Administrators:</h2>
+				<h2><?php print $phrase62;?>:</h2>
 			</td>
 			<td width=25% class="rowuh">
 				<table class="rowuh" width = 235px style="float:right">
@@ -96,7 +95,7 @@ $pages = ceil($count/$adminResultSize);
 					<?php
 					if($offset == 'all')
 					{
-						print "Show Admins Page:";
+						print $phrase157.":";
 					}
 					else
 					{
@@ -106,7 +105,7 @@ $pages = ceil($count/$adminResultSize);
 						{
 							$max = $count;
 						}
-						print "Showing Admins: ".$min." - ".$max;
+						print $phrase158.": ".$min." - ".$max;
 					}
 					?>
 					</td>
@@ -115,7 +114,7 @@ $pages = ceil($count/$adminResultSize);
 				<?php
 				if($offset == 'all')
 				{
-					print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+					print "<td width=35px><span class=\"ddd\"><</span></td>";
 					for($counter = 1; $counter < 6; $counter++)
 					{
 						if($counter <= $pages)
@@ -123,7 +122,7 @@ $pages = ceil($count/$adminResultSize);
 						print "<td width=35px><a href=\"?p=admins&n=".($counter-1)."\">".$counter."</a></td>";
 						}
 					}
-					print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+					print "<td width=35px><span class=\"ddd\">></span></td>";
 				}
 				else
 				{
@@ -133,14 +132,14 @@ $pages = ceil($count/$adminResultSize);
 					}
 					else
 					{
-						print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+						print "<td width=35px><span class=\"ddd\"><</span></td>";
 					}
 					
 					if($offset < 2)		//Close to start
 					{
 						if($offset == 0)
 						{
-							print "<td width=35px><span style=\"color:#ddd;\">1</span></td>";
+							print "<td width=35px><span class=\"ddd\">1</span></td>";
 							for($counter = 2; $counter < 6; $counter++)
 							{
 								if($counter-1 < $pages)
@@ -152,7 +151,7 @@ $pages = ceil($count/$adminResultSize);
 						if($offset == 1)
 						{
 							print "<td width=35px><a href=\"?p=admins&n=0\">1</a></td>";
-							print "<td width=35px><span style=\"color:#ddd;\">2</span></td>";
+							print "<td width=35px><span class=\"ddd\">2</span></td>";
 							for($counter = 3; $counter < 6; $counter++)
 							{
 								if($counter-1 < $pages)
@@ -174,7 +173,7 @@ $pages = ceil($count/$adminResultSize);
 								print "<td width=35px><a href=\"?p=admins&n=".($counter-1)."\">".$counter."</a></td>";
 								}
 							}
-							print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
+							print "<td width=35px><span class=\"ddd\">".$counter."</span></td>";
 						}
 						else
 						{
@@ -186,7 +185,7 @@ $pages = ceil($count/$adminResultSize);
 									print "<td width=35px><a href=\"?p=admins&n=".($counter-1)."\">".$counter."</a></td>";
 								}
 							}
-							print "<td width=35px><span style=\"color:#ddd;\">".($offset+1)."</span>";
+							print "<td width=35px><span class=\"ddd\">".($offset+1)."</span>";
 							print "<td width=35px><a href=\"?p=admins&n=".($offset+1)."\">".($offset+2)."</a></td>";
 						}
 					}
@@ -196,7 +195,7 @@ $pages = ceil($count/$adminResultSize);
 							{
 							if($counter == ($offset+1))
 							{
-								print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
+								print "<td width=35px><span class=\"ddd\">".$counter."</span></td>";
 							}
 							else
 							{
@@ -210,7 +209,7 @@ $pages = ceil($count/$adminResultSize);
 					}
 					else
 					{
-						print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+						print "<td width=35px><span class=\"ddd\">></span></td>";
 					}
 				}
 				?>
@@ -225,8 +224,8 @@ $pages = ceil($count/$adminResultSize);
 	<div id="theader">
 		<table class="tableheader" id="tableheader">
 			  <tr>
-				<td class="headercell" width=508px align="center"><h5>Head Administrator: <a href="?p=user&u=<?php print $rootAdmin; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $rootAdmin; ?></a></h5></td>   
-				<td class="headercell" width=508px align="center"><h5>Number of Administrators: <?php print $count; ?> </h5></td>   
+				<td class="headercell" width=508px align="center"><h5><?php print $phrase63;?>: <a href="?p=user&u=<?php print $rootAdmin; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $rootAdmin; ?></a></h5></td>   
+				<td class="headercell" width=508px align="center"><h5><?php print $phrase64;?>: <?php print $count; ?> </h5></td>   
 			</tr>
 		</table>
 	</div>
@@ -271,68 +270,68 @@ else
 
 
 <tr class="rowuh">
-<td colspan=3><h3>General Commands:</h3><br></td>
+<td colspan=3><h3><?php print $phrase65;?>:</h3><br></td>
 </tr>
 
 <tr class="rowuh">
 <td align=right width=30%>!stats [name]</td>
 <td align=center width=10%>|</td>
-<td align=left width=60%>Display basic player statistics, optionally add [name] to display statistics for another player</td>
+<td align=left width=60%><?php print $phrase66;?></td>
 </tr>
 <tr class="rowuh">
 <td align=right width=30%>!statsdota [name]</td>
 <td align=center width=10%>|</td>
-<td align=left width=60%>Display DotA player statistics, optionally add [name] to display statistics for another player</td>
+<td align=left width=60%><?php print $phrase67;?></td>
 </tr>
 
 <tr class="rowuh">
-<td colspan=3><br><h3>Admin Commands:</h3><br></td>
+<td colspan=3><br><h3><?php print $phrase68;?>:</h3><br></td>
 </tr>
 
 <tr class="rowuh">
 <td align=right width=30%>!priv [name]</td>
 <td align=center width=10%>|</td>
-<td align=left width=60%>Host a private game</td>
+<td align=left width=60%><?php print $phrase69;?></td>
 </tr>
 <tr class="rowuh">
 <td align=right width=30%>!pub [name]</td>
 <td align=center width=10%>|</td>
-<td align=left width=60%>Host a public game</td>
+<td align=left width=60%><?php print $phrase70;?></td>
 </tr>
 <tr class="rowuh">
 <td align=right width=30%>!unhost</td>
 <td align=center width=10%>|</td>
-<td align=left width=60%>Unhost the current game</td>
+<td align=left width=60%><?php print $phrase71;?></td>
 </tr>
 <tr class="rowuh">
 <td align=right width=30%>!swap [n1] [n2]</td>
 <td align=center width=10%>|</td>
-<td align=left width=60%>Swap slots</td>
+<td align=left width=60%><?php print $phrase72;?></td>
 </tr>
 <tr class="rowuh">
 <td align=right width=30%>!start [force]</td>
 <td align=center width=10%>|</td>
-<td align=left width=60%>Start game, optionally add [force] to skip checks</td>
+<td align=left width=60%><?php print $phrase73;?></td>
 </tr>
 <tr class="rowuh">
 <td align=right width=30%>!ping [number]</td>
 <td align=center width=10%>|</td>
-<td align=left width=60%>Ping players, optionally add [number] to kick players with ping above [number]</td>
+<td align=left width=60%><?php print $phrase74;?></td>
 </tr>
 <tr class="rowuh">
 <td align=right width=30%>!close [number]</td>
 <td align=center width=10%>|</td>
-<td align=left width=60%>Close slot</td>
+<td align=left width=60%><?php print $phrase75;?></td>
 </tr>
 <tr class="rowuh">
 <td align=right width=30%>!open [number]</td>
 <td align=center width=10%>|</td>
-<td align=left width=60%>Open slot</td>
+<td align=left width=60%><?php print $phrase76;?></td>
 </tr>
 <tr class="rowuh">
 <td align=right width=30%>!say [text]</td>
 <td align=center width=10%>|</td>
-<td align=left width=60%>Send [text] to battle.net as a chat command.</td>
+<td align=left width=60%><?php print $phrase77;?></td>
 </tr>
 <tr class="rowuh">
 <td colspan=3><br></td>
@@ -340,17 +339,17 @@ else
 <tr class="rowuh">
 <td align=right width=30%>!ban [name] [reason]</td>
 <td align=center width=10%>|</td>
-<td align=left width=60%>Permabans [name] for [reason].</td>
+<td align=left width=60%><?php print $phrase78;?></td>
 </tr>
 <tr class="rowuh">
 <td align=right width=30%>!kick  [partial name]</td>
 <td align=center width=10%>|</td>
-<td align=left width=60%>Kick [partial name] from game.</td>
+<td align=left width=60%><?php print $phrase79;?></td>
 </tr>
 <tr class="rowuh">
 <td align=right width=30%>!latency [number]</td>
 <td align=center width=10%>|</td>
-<td align=left width=60%>Set in game latency to [number]. Set higher if people are spiking, lower if people have delay.</td>
+<td align=left width=60%><?php print $phrase80;?></td>
 </tr>
 
 </table>

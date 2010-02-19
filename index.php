@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*********************************************
 <!-- 
 *   	DOTA ALLSTATS
@@ -40,8 +40,8 @@ require_once("config.php");
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title><?php print $botName; ?> Statistics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title><?php print $botName." ".$phrase151; ?></title>
 <link rel="stylesheet" href="styles.css" type="text/css">
 <script type="text/javascript">
 	function displayvis(id) {
@@ -151,33 +151,39 @@ require_once("config.php");
 				<!-- MENU -->
 				 <li>
 <?php 
-if($monthlyDefaultView == 'week' || $monthlyDefaultView == 'Week') { $interval = 'Week'; } else { $interval = 'Month'; }
+if($monthlyDefaultView == 'week' || $monthlyDefaultView == 'Week') { 
+	$interval = "week"; 
+	$intervalname = $phrase104; 
+} else { 
+	$interval = "month"; 
+	$intervalname = $phrase105; 
+}
 if($displayStyle == 'all') { $pageStyle = 'all'; } else { $pageStyle = '0'; }
 ?>
-						  <a href="./">Home</a></li> 
+						  <a href="./"><?php print $phrase152;?></a></li> 
 							<?php if ($showTops) { ?>
-								<li><a href="?p=top&s=totalscore&o=desc&g=<?php print $minGamesPlayed; ?>&n=<?php print $pageStyle; ?>">Top Players</a></li>
+								<li><a href="?p=top&s=totalscore&o=desc&g=<?php print $minGamesPlayed; ?>&n=<?php print $pageStyle; ?>"><?php print $phrase153;?></a></li>
 							<?php } if ($showMonthlyTops) { ?>
-								<li><a href="?p=monthlytop&i=<?php print $interval;?>&n=<?php print $pageStyle; ?>"><?php print $interval;?>ly Tops</a></li> 
+								<li><a href="?p=monthlytop&i=<?php print $interval;?>&n=<?php print $pageStyle; ?>"><?php print $intervalname.$phrase130;?></a></li> 
 							<?php } if ($showPlayerStats) { ?>
-								<li><a href="?p=allusers&s=totgames&o=desc&n=<?php print $pageStyle; ?>">Player Statistics</a></li> 
+								<li><a href="?p=allusers&s=totgames&o=desc&n=<?php print $pageStyle; ?>"><?php print $phrase144;?></a></li> 
 							<?php } if ($showHeroStats) { ?>
-								<li><a href="?p=heroall&s=description&o=asc&n=<?php print $pageStyle; ?>">Hero Statistics</a></li> 
+								<li><a href="?p=heroall&s=description&o=asc&n=<?php print $pageStyle; ?>"><?php print $phrase101;?></a></li> 
 							<?php } if ($showGameHistoy) { ?>
-								<li><a href="?p=games&s=datetime&o=desc&n=<?php print $pageStyle; ?>">Game History</a></li> 
+								<li><a href="?p=games&s=datetime&o=desc&n=<?php print $pageStyle; ?>"><?php print $phrase142;?></a></li> 
 							<?php } if ($showBans) { ?>
-								<li><a href="?p=bans&s=date&o=desc&n=<?php print $pageStyle; ?>">Bans</a></li>
+								<li><a href="?p=bans&s=date&o=desc&n=<?php print $pageStyle; ?>"><?php print $phrase155;?></a></li>
 							<?php } if ($showAdmins) { ?>
-								<li><a href="?p=admins&n=<?php print $pageStyle; ?>">Admins</a></li> 
+								<li><a href="?p=admins&n=<?php print $pageStyle; ?>"><?php print $phrase167;?></a></li> 
 							<?php } ?>
 						  <li>
 							<form name="testForm" method=GET action="">
 								<input type="text" 
 								class="searchBox" 
 								name="u" 
-								onfocus="if(this.value=='Search for User') {this.value='';this.style.color='white';} else this.select();" 
-								onblur="if(this.value==''){this.value='Search for User';this.style.color='#EBEBEB';}" 
-								value="Search for User"
+								onfocus="if(this.value=='<?php print $phrase156;?>') {this.value='';this.style.color='white';} else this.select();" 
+								onblur="if(this.value==''){this.value='<?php print $phrase156;?>';this.style.color='black';}" 
+								value="<?php print $phrase156;?>"
 								/>
 								<input type="hidden" value="datetime" name="s" />
 								<input type="hidden" value="desc" name="o" />

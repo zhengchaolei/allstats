@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*********************************************
 <!-- 
 *   	DOTA ALLSTATS
@@ -91,11 +91,11 @@ $pages = ceil($count/$gameResultSize);
 						<?php
 						if($offset == 'all')
 						{
-							print "Showing All Games";
+							print $phrase81;
 						}
 						else
 						{
-							print "<a href=\"?p=games&s=".$sortcat."&o=".$order."&n=all\">Show All Games</a>";
+							print "<a href=\"?p=games&s=".$sortcat."&o=".$order."&n=all\">".$phrase82."</a>";
 						}
 						?>
 						</td>
@@ -104,7 +104,7 @@ $pages = ceil($count/$gameResultSize);
 				</table>
 			</td>
 			<td width=50%>
-				<h2>Recent Games:</h2>
+				<h2><?php print $phrase83;?>:</h2>
 			</td>
 			<td width=25% class="rowuh">
 				<table class="rowuh" width = 235px style="float:right">
@@ -114,7 +114,7 @@ $pages = ceil($count/$gameResultSize);
 					<?php
 					if($offset == 'all')
 					{
-						print "Show Games Page:";
+						print $phrase164.":";
 					}
 					else
 					{
@@ -124,7 +124,7 @@ $pages = ceil($count/$gameResultSize);
 						{
 							$max = $count;
 						}
-						print "Showing Games: ".$min." - ".$max;
+						print $phrase84.": ".$min." - ".$max;
 					}
 					?>
 					</td>
@@ -133,7 +133,7 @@ $pages = ceil($count/$gameResultSize);
 				<?php
 				if($offset == 'all')
 				{
-					print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+					print "<td width=35px><span class=\"ddd\"><</span></td>";
 					for($counter = 1; $counter < 6; $counter++)
 					{
 						if($counter <= $pages)
@@ -141,7 +141,7 @@ $pages = ceil($count/$gameResultSize);
 						print "<td width=35px><a href=\"?p=games&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
 						}
 					}
-					print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+					print "<td width=35px><span class=\"ddd\">></span></td>";
 				}
 				else
 				{
@@ -151,14 +151,14 @@ $pages = ceil($count/$gameResultSize);
 					}
 					else
 					{
-						print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+						print "<td width=35px><span class=\"ddd\"><</span></td>";
 					}
 					
 					if($offset < 2)		//Close to start
 					{
 						if($offset == 0)
 						{
-							print "<td width=35px><span style=\"color:#ddd;\">1</span></td>";
+							print "<td width=35px><span class=\"ddd\">1</span></td>";
 							for($counter = 2; $counter < 6; $counter++)
 							{
 								if($counter-1 < $pages)
@@ -170,7 +170,7 @@ $pages = ceil($count/$gameResultSize);
 						if($offset == 1)
 						{
 							print "<td width=35px><a href=\"?p=games&s=".$sortcat."&o=".$order."&n=0\">1</a></td>";
-							print "<td width=35px><span style=\"color:#ddd;\">2</span></td>";
+							print "<td width=35px><span class=\"ddd\">2</span></td>";
 							for($counter = 3; $counter < 6; $counter++)
 							{
 								if($counter-1 < $pages)
@@ -192,7 +192,7 @@ $pages = ceil($count/$gameResultSize);
 								print "<td width=35px><a href=\"?p=games&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
 								}
 							}
-							print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
+							print "<td width=35px><span class=\"ddd\">".$counter."</span></td>";
 						}
 						else
 						{
@@ -204,7 +204,7 @@ $pages = ceil($count/$gameResultSize);
 									print "<td width=35px><a href=\"?p=games&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
 								}
 							}
-							print "<td width=35px><span style=\"color:#ddd;\">".($offset+1)."</span>";
+							print "<td width=35px><span class=\"ddd\">".($offset+1)."</span>";
 							print "<td width=35px><a href=\"?p=games&s=".$sortcat."&o=".$order."&n=".($offset+1)."\">".($offset+2)."</a></td>";
 						}
 					}
@@ -214,7 +214,7 @@ $pages = ceil($count/$gameResultSize);
 							{
 							if($counter == ($offset+1))
 							{
-								print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
+								print "<td width=35px><span class=\"ddd\">".$counter."</span></td>";
 							}
 							else
 							{
@@ -228,7 +228,7 @@ $pages = ceil($count/$gameResultSize);
 					}
 					else
 					{
-						print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+						print "<td width=35px><span class=\"ddd\">></span></td>";
 					}
 				}
 				?>
@@ -259,64 +259,64 @@ if($sortcat == "datetime")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=desc&n=".$sortoffset."\">Date and Time</a></td>");
+		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=desc&n=".$sortoffset."\">".$phrase85."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=asc&n=".$sortoffset."\">Date and Time</a></td>");
+		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=asc&n=".$sortoffset."\">".$phrase85."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=desc&n=".$sortoffset."\">Date and Time</a></td>");
+	print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=datetime&o=desc&n=".$sortoffset."\">".$phrase85."</a></td>");
 }
 //Map
 if($sortcat == "map")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=desc&n=".$sortoffset."\">Map</a></td>");
+		print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=desc&n=".$sortoffset."\">".$phrase86."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=asc&n=".$sortoffset."\">Map</a></td>");
+		print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=asc&n=".$sortoffset."\">".$phrase86."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=asc&n=".$sortoffset."\">Map</a></td>");
+	print("<td class=\"headercell\" width=200px><a href=\"?p=games&s=map&o=asc&n=".$sortoffset."\">".$phrase86."</a></td>");
 }
 //Game Type
 if($sortcat == "type")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=desc&n=".$sortoffset."\">Type</a></td>");
+		print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=desc&n=".$sortoffset."\">".$phrase39."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=asc&n=".$sortoffset."\">Type</a></td>");
+		print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=asc&n=".$sortoffset."\">".$phrase39."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=desc&n=".$sortoffset."\">Type</a></td>");
+	print("<td class=\"headercell\" width=50px><a href=\"?p=games&s=type&o=desc&n=".$sortoffset."\">".$phrase39."</a></td>");
 }	
 //Game
 if($sortcat == "gamename")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=desc&n=".$sortoffset."\">Game</a></td>");
+		print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=desc&n=".$sortoffset."\">".$phrase2."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=asc&n=".$sortoffset."\">Game</a></td>");
+		print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=asc&n=".$sortoffset."\">".$phrase2."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=asc&n=".$sortoffset."\">Game</a></td>");
+	print("<td class=\"headercell\" width=375px><a href=\"?p=games&s=gamename&o=asc&n=".$sortoffset."\">".$phrase2."</a></td>");
 }
 
 //Duration
@@ -324,16 +324,16 @@ if($sortcat == "duration")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=desc&n=".$sortoffset."\">Duration</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=desc&n=".$sortoffset."\">".$phrase5."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=asc&n=".$sortoffset."\">Duration</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=asc&n=".$sortoffset."\">".$phrase5."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=desc&n=".$sortoffset."\">Duration</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=games&s=duration&o=desc&n=".$sortoffset."\">".$phrase5."</a></td>");
 }
 
 //Creator
@@ -341,16 +341,16 @@ if($sortcat == "creatorname")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=desc&n=".$sortoffset."\">Creator</a></td>");
+		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=desc&n=".$sortoffset."\">".$phrase4."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=asc&n=".$sortoffset."\">Creator</a></td>");
+		print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=asc&n=".$sortoffset."\">".$phrase4."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=asc&n=".$sortoffset."\">Creator</a></td>");
+	print("<td class=\"headercell\" width=150px><a href=\"?p=games&s=creatorname&o=asc&n=".$sortoffset."\">".$phrase4."</a></td>");
 }
 
 ?> 
@@ -387,7 +387,7 @@ if($dbType == 'sqlite')
 		<td width=150px align=center><?php print $gametime;?></td>   
 		<td width=200px align=center><?php print $map;?></td>
 		<td width=50px align=center><?php print $type;?></td>
-		<td width=375px align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#e56879"';}elseif($winner==2){print 'style="color:#86E573"';}?>><?php print $gamename;?></a></td>
+		<td width=375px align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'class="sentinel"';}elseif($winner==2){print 'class="scourge"';}?>><?php print $gamename;?></a></td>
 		<td width=75px align=center><?php print secondsToTime($duration);?></td>
 		<td width=150px align=center><a href="?p=user&u=<?php print $creator; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><?php print $creator;?></a></td>
 	</tr>
@@ -412,7 +412,7 @@ else
 		<td width=150px align=center><?php print $gametime;?></td>   
 		<td width=200px align=center><?php print $map;?></td>
 		<td width=50px align=center><?php print $type;?></td>
-		<td width=375px align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'style="color:#e56879"';}elseif($winner==2){print 'style="color:#86E573"';}?>><?php print $gamename;?></a></td>
+		<td width=375px align=center><a href="?p=gameinfo&gid=<?php print $gameid; ?>" target="_self" <?php if($winner==1){print 'class="sentinel"';}elseif($winner==2){print 'class="scourge"';}?>><?php print $gamename;?></a></td>
 		<td width=75px align=center><?php print secondsToTime($duration);?></td>
 		<td width=150px align=center><a href="?p=user&u=<?php print $creator; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>" target="_self"><?php print $creator;?></a></td>
 	</tr>
@@ -425,7 +425,7 @@ else
 </div>
 </div>
 <div id="footer" class="footer">
-	<h5>Number of Games Played: <?php print $count; ?>
-	~~~~~~ Game Duration(hh:mm:ss):
-	AVG: <?php print $avgDuration;?> | TOTAL: <?php print $totalDuration;?></h5>
+	<h5><?php print $phrase87.": ".$count; ?>
+	~~~~~~ <?php print $phrase5;?>(hh:mm:ss):
+	<?php print $phrase88;?>: <?php print $avgDuration;?> | <?php print $phrase89;?>: <?php print $totalDuration;?></h5>
 </div>

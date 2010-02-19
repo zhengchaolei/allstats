@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*********************************************
 <!-- 
 *   	DOTA ALLSTATS
@@ -98,11 +98,11 @@ else
 						<?php
 						if($offset == 'all')
 						{
-							print "Showing All Heroes";
+							print $phrase99;
 						}
 						else
 						{
-							print "<a href=\"?p=heroall".getUserParam($username)."&s=".$sortcat."&o=".$order."&n=all\">Show All Heroes</a>";
+							print "<a href=\"?p=heroall".getUserParam($username)."&s=".$sortcat."&o=".$order."&n=all\">".$phrase100."</a>";
 						}
 						?>
 						</td>
@@ -113,13 +113,13 @@ else
 <?php
 if($username == '') {
 ?>				
-				<h2>Hero Statistics <?php if($ignorePubs){ print "for Private Games";} else if($ignorePrivs){ print "for Public Games";} else { print "for All Games";} ?>:</h2>
+				<h2><?php print $phrase101." "; if($ignorePubs){ print $phrase48;} else if($ignorePrivs){ print $phrase49;} else { print $phrase50;} ?>:</h2>
 <?php
 }
 else 
 {
 ?>
-				<h2>Hero Statistics for: <a href="?p=user&u=<?php print $username; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $username; ?></a></h2>
+				<h2><?php print $phrase102;?>: <a href="?p=user&u=<?php print $username; ?>&s=datetime&o=desc&n=<?php if($displayStyle=='all'){ print 'all'; } else { print '0'; } ?>"><?php print $username; ?></a></h2>
 <?php
 }
 ?>				
@@ -132,7 +132,7 @@ else
 					<?php
 					if($offset == 'all')
 					{
-						print "Show Heroes Page:";
+						print $phrase165.":";
 					}
 					else
 					{
@@ -142,7 +142,7 @@ else
 						{
 							$max = $count;
 						}
-						print "Showing Heroes: ".$min." - ".$max;
+						print $phrase166.": ".$min." - ".$max;
 					}
 					?>
 					</td>
@@ -151,7 +151,7 @@ else
 				<?php
 				if($offset == 'all')
 				{
-					print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+					print "<td width=35px><span class=\"ddd\"><</span></td>";
 					for($counter = 1; $counter < 6; $counter++)
 					{
 						if($counter <= $pages)
@@ -159,7 +159,7 @@ else
 						print "<td width=35px><a href=\"?p=heroall".getUserParam($username)."&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
 						}
 					}
-					print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+					print "<td width=35px><span class=\"ddd\">></span></td>";
 				}
 				else
 				{
@@ -169,14 +169,14 @@ else
 					}
 					else
 					{
-						print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+						print "<td width=35px><span class=\"ddd\"><</span></td>";
 					}
 					
 					if($offset < 2)		//Close to start
 					{
 						if($offset == 0)
 						{
-							print "<td width=35px><span style=\"color:#ddd;\">1</span></td>";
+							print "<td width=35px><span class=\"ddd\">1</span></td>";
 							for($counter = 2; $counter < 6; $counter++)
 							{
 								if($counter-1 < $pages)
@@ -188,7 +188,7 @@ else
 						if($offset == 1)
 						{
 							print "<td width=35px><a href=\"?p=heroall".getUserParam($username)."&s=".$sortcat."&o=".$order."&n=0\">1</a></td>";
-							print "<td width=35px><span style=\"color:#ddd;\">2</span></td>";
+							print "<td width=35px><span class=\"ddd\">2</span></td>";
 							for($counter = 3; $counter < 6; $counter++)
 							{
 								if($counter-1 < $pages)
@@ -210,7 +210,7 @@ else
 								print "<td width=35px><a href=\"?p=heroall".getUserParam($username)."&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
 								}
 							}
-							print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
+							print "<td width=35px><span class=\"ddd\">".$counter."</span></td>";
 						}
 						else
 						{
@@ -222,7 +222,7 @@ else
 									print "<td width=35px><a href=\"?p=heroall".getUserParam($username)."&s=".$sortcat."&o=".$order."&n=".($counter-1)."\">".$counter."</a></td>";
 								}
 							}
-							print "<td width=35px><span style=\"color:#ddd;\">".($offset+1)."</span>";
+							print "<td width=35px><span class=\"ddd\">".($offset+1)."</span>";
 							print "<td width=35px><a href=\"?p=heroall".getUserParam($username)."&s=".$sortcat."&o=".$order."&n=".($offset+1)."\">".($offset+2)."</a></td>";
 						}
 					}
@@ -232,7 +232,7 @@ else
 							{
 							if($counter == ($offset+1))
 							{
-								print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
+								print "<td width=35px><span class=\"ddd\">".$counter."</span></td>";
 							}
 							else
 							{
@@ -246,7 +246,7 @@ else
 					}
 					else
 					{
-						print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+						print "<td width=35px><span class=\"ddd\">></span></td>";
 					}
 				}
 				?>
@@ -278,16 +278,16 @@ if($sortcat == "description")
 {
 	if($order == "asc")
 	{
-		print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall".getUserParam($username)."&s=description&o=desc&n=".$sortoffset."\">Hero</a></td>");
+		print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall".getUserParam($username)."&s=description&o=desc&n=".$sortoffset."\">".$phrase8."</a></td>");
 	}
 	else
 	{
-		print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall".getUserParam($username)."&s=description&o=asc&n=".$sortoffset."\">Hero</a></td>");
+		print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall".getUserParam($username)."&s=description&o=asc&n=".$sortoffset."\">".$phrase8."</a></td>");
 	}
 }
 else
 {
-	print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall".getUserParam($username)."&s=description&o=asc&n=".$sortoffset."\">Hero</a></td>");
+	print("<td width=145px class=\"headercell\" colspan=2><a href=\"?p=heroall".getUserParam($username)."&s=description&o=asc&n=".$sortoffset."\">".$phrase8."</a></td>");
 }
 
 //Times played
@@ -295,16 +295,16 @@ if($sortcat == "totgames")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=totgames&o=desc&n=".$sortoffset."\">Times<br>Played</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=totgames&o=desc&n=".$sortoffset."\">".$phrase103."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=totgames&o=asc&n=".$sortoffset."\">Times<br>Played</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=totgames&o=asc&n=".$sortoffset."\">".$phrase103."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=totgames&o=desc&n=".$sortoffset."\">Times<br>Played</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=totgames&o=desc&n=".$sortoffset."\">".$phrase103."</a></td>");
 }
 
 //Wins
@@ -312,16 +312,16 @@ if($sortcat == "wins")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=wins&o=desc&n=".$sortoffset."\">Wins</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=wins&o=desc&n=".$sortoffset."\">".$phrase28."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=wins&o=asc&n=".$sortoffset."\">Wins</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=wins&o=asc&n=".$sortoffset."\">".$phrase28."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=wins&o=desc&n=".$sortoffset."\">Wins</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=wins&o=desc&n=".$sortoffset."\">".$phrase28."</a></td>");
 }
 
 //Losses
@@ -329,16 +329,16 @@ if($sortcat == "losses")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=losses&o=desc&n=".$sortoffset."\">Losses</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=losses&o=desc&n=".$sortoffset."\">".$phrase29."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=losses&o=asc&n=".$sortoffset."\">Losses</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=losses&o=asc&n=".$sortoffset."\">".$phrase29."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=losses&o=desc&n=".$sortoffset."\">Losses</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=losses&o=desc&n=".$sortoffset."\">".$phrase29."</a></td>");
 }
 
 //Win/Loss ratio
@@ -346,16 +346,16 @@ if($sortcat == "winratio")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=winratio&o=desc&n=".$sortoffset."\">Win/Loss<br>Ratio</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=winratio&o=desc&n=".$sortoffset."\">".$phrase27."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=winratio&o=asc&n=".$sortoffset."\">Win/Loss<br>Ratio</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=winratio&o=asc&n=".$sortoffset."\">".$phrase27."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=winratio&o=desc&n=".$sortoffset."\">Win/Loss<br>Ratio</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=winratio&o=desc&n=".$sortoffset."\">".$phrase27."</a></td>");
 }
 
 //Kills
@@ -363,16 +363,16 @@ if($sortcat == "kills")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=kills&o=desc&n=".$sortoffset."\">Kills</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=kills&o=desc&n=".$sortoffset."\">".$phrase9."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=kills&o=asc&n=".$sortoffset."\">Kills</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=kills&o=asc&n=".$sortoffset."\">".$phrase9."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=kills&o=desc&n=".$sortoffset."\">Kills</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=kills&o=desc&n=".$sortoffset."\">".$phrase9."</a></td>");
 }
 
 //Deaths
@@ -380,16 +380,16 @@ if($sortcat == "deaths")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=deaths&o=desc&n=".$sortoffset."\">Deaths</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=deaths&o=desc&n=".$sortoffset."\">".$phrase10."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=deaths&o=asc&n=".$sortoffset."\">Deaths</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=deaths&o=asc&n=".$sortoffset."\">".$phrase10."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=deaths&o=desc&n=".$sortoffset."\">Deaths</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=deaths&o=desc&n=".$sortoffset."\">".$phrase10."</a></td>");
 }
 
 //Assists
@@ -397,16 +397,16 @@ if($sortcat == "assists")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=assists&o=desc&n=".$sortoffset."\">Assists</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=assists&o=desc&n=".$sortoffset."\">".$phrase11."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=assists&o=asc&n=".$sortoffset."\">Assists</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=assists&o=asc&n=".$sortoffset."\">".$phrase11."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=assists&o=desc&n=".$sortoffset."\">Assists</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=assists&o=desc&n=".$sortoffset."\">".$phrase11."</a></td>");
 }
 
 //KDRatio
@@ -414,16 +414,16 @@ if($sortcat == "kdratio")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=kdratio&o=desc&n=".$sortoffset."\">K/D<br>Ratio</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=kdratio&o=desc&n=".$sortoffset."\">".$phrase41."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=kdratio&o=asc&n=".$sortoffset."\">K/D<br>Ratio</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=kdratio&o=asc&n=".$sortoffset."\">".$phrase41."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=kdratio&o=desc&n=".$sortoffset."\">K/D<br>Ratio</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=kdratio&o=desc&n=".$sortoffset."\">".$phrase41."</a></td>");
 }
 
 //Creep Kills
@@ -431,16 +431,16 @@ if($sortcat == "creepkills")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=creepkills&o=desc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=creepkills&o=desc&n=".$sortoffset."\">".$phrase42."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=creepkills&o=asc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=creepkills&o=asc&n=".$sortoffset."\">".$phrase42."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=creepkills&o=desc&n=".$sortoffset."\">Creep<br>Kills</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=creepkills&o=desc&n=".$sortoffset."\">".$phrase42."</a></td>");
 }
 
 //Creep Denies
@@ -448,16 +448,16 @@ if($sortcat == "creepdenies")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=creepdenies&o=desc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=creepdenies&o=desc&n=".$sortoffset."\">".$phrase43."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=creepdenies&o=asc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=creepdenies&o=asc&n=".$sortoffset."\">".$phrase43."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=creepdenies&o=desc&n=".$sortoffset."\">Creep<br>Denies</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=creepdenies&o=desc&n=".$sortoffset."\">".$phrase43."</a></td>");
 }
 
 //Neutral Kills
@@ -465,16 +465,16 @@ if($sortcat == "neutralkills")
 {
 	if($order == "asc")
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=neutralkills&o=desc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=neutralkills&o=desc&n=".$sortoffset."\">".$phrase44."</a></td>");
 	}
 	else
 	{
-		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=neutralkills&o=asc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
+		print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=neutralkills&o=asc&n=".$sortoffset."\">".$phrase44."</a></td>");
 	}
 }
 else
 {
-	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=neutralkills&o=desc&n=".$sortoffset."\">Neutral<br>Kills</a></td>");
+	print("<td class=\"headercell\" width=75px><a href=\"?p=heroall".getUserParam($username)."&s=neutralkills&o=desc&n=".$sortoffset."\">".$phrase44."</a></td>");
 }
 ?>
 	<td class="headercell" width=16px></td>
