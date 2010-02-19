@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*********************************************
 <!-- 
 *   	DOTA ALLSTATS
@@ -37,6 +37,10 @@
 /*************************************
  *	EDITABLE CONFIGURATION SETTINGS  *
  *************************************/
+
+// language for AllStats, please change this to "rus.php" if you want russian version
+require_once("eng.php");
+
 
 //Database type:
 //Enter sqlite to use a SQLite database.

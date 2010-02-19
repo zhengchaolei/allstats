@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*********************************************
 <!-- 
 *   	DOTA ALLSTATS
@@ -44,14 +44,14 @@ if($dbType == 'sqlite')
 
 	if($interval == 'week' || $interval == 'Week')
 	{
-		$interval="Week";
+		$interval=$phrase104;
 		$sqlGroupBy1="strftime('%Y', datetime)";
 		$sqlGroupBy2="strftime('%W', datetime)";
 		$sqlGroupBy3="strftime('%W', datetime)";
 	}
 	else
 	{
-		$interval="Month";
+		$interval=$phrase105;
 		$sqlGroupBy1="strftime('%Y', datetime)";
 		$sqlGroupBy2="strftime('%m', datetime)";
 		$sqlGroupBy3="strftime('%m', datetime)";
@@ -64,14 +64,14 @@ else
 
 	if($interval == 'week' || $interval == 'Week')
 	{
-		$interval="Week";
+		$interval=$phrase104;
 		$sqlGroupBy1="YEAR(datetime)";
 		$sqlGroupBy2="WEEK(datetime,3)";
 		$sqlGroupBy3="WEEK(datetime,3)";
 	}
 	else
 	{
-		$interval="Month";
+		$interval=$phrase105;
 		$sqlGroupBy1="YEAR(datetime)";
 		$sqlGroupBy2="MONTH(datetime)";
 		$sqlGroupBy3="MONTHNAME(datetime)";
@@ -113,61 +113,61 @@ $pages = ceil($count/$monthlyTopsResultSize);
 
 
 $arrStatRow1 = array(
-	"Top Kills" => "SELECT original as topHero, description as topHeroName, kills as topValue, b.name as topUser, a.gameid as topGame
+	$phrase55 => "SELECT original as topHero, description as topHeroName, kills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Assists" => "SELECT original as topHero, description as topHeroName, assists as topValue, b.name as topUser, a.gameid as topGame
+	$phrase56 => "SELECT original as topHero, description as topHeroName, assists as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Deaths" => "SELECT original as topHero, description as topHeroName, deaths as topValue, b.name as topUser, a.gameid as topGame
+	$phrase57 => "SELECT original as topHero, description as topHeroName, deaths as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Creep Kills" => "SELECT original as topHero, description as topHeroName, creepkills as topValue, b.name as topUser, a.gameid as topGame
+	$phrase58 => "SELECT original as topHero, description as topHeroName, creepkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Creep Denies" => "SELECT original as topHero, description as topHeroName, creepdenies as topValue, b.name as topUser, a.gameid as topGame
+	$phrase59 => "SELECT original as topHero, description as topHeroName, creepdenies as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid");
 
 $arrStatRow2 = array(
-	"Top Gold" => "SELECT original as topHero, description as topHeroName, gold as topValue, b.name as topUser, a.gameid as topGame
+	$phrase106 => "SELECT original as topHero, description as topHeroName, gold as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Neutral Kills" => "SELECT original as topHero, description as topHeroName, neutralkills as topValue, b.name as topUser, a.gameid as topGame
+	$phrase107 => "SELECT original as topHero, description as topHeroName, neutralkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Tower Kills" => "SELECT original as topHero, description as topHeroName, towerkills as topValue, b.name as topUser, a.gameid as topGame
+	$phrase108 => "SELECT original as topHero, description as topHeroName, towerkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Rax Kills" => "SELECT original as topHero, description as topHeroName, raxkills as topValue, b.name as topUser, a.gameid as topGame
+	$phrase109 => "SELECT original as topHero, description as topHeroName, raxkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid",
-	"Top Courier Kills" => "SELECT original as topHero, description as topHeroName, courierkills as topValue, b.name as topUser, a.gameid as topGame
+	$phrase110 => "SELECT original as topHero, description as topHeroName, courierkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN heroes as d on hero = heroid");
 		
 $arrStatRow3 = array(
-	"Best K/D ratio" => "SELECT name as topUser, case when (totKills = 0) then 0 when (totDeaths = 0) then 1000 else ((totKills*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name as name, MAX(a.id) as id,
+	$phrase111 => "SELECT name as topUser, case when (totKills = 0) then 0 when (totDeaths = 0) then 1000 else ((totKills*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name as name, MAX(a.id) as id,
 		SUM(kills) as totKills,
 		SUM(deaths) as totDeaths 
 		FROM dotaplayers AS a 
@@ -175,7 +175,7 @@ $arrStatRow3 = array(
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN dotagames as d on d.gameid = c.id
 		where winner <> 0",
-	"Best A/D Ratio" => "SELECT name as topUser, case when (totAssists = 0) then 0 when (totDeaths = 0) then 1000 else ((totAssists*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name as name, MAX(a.id) as id,
+	$phrase112 => "SELECT name as topUser, case when (totAssists = 0) then 0 when (totDeaths = 0) then 1000 else ((totAssists*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name as name, MAX(a.id) as id,
 		SUM(assists) as totAssists,
 		SUM(deaths) as totDeaths 
 		FROM dotaplayers AS a 
@@ -183,7 +183,7 @@ $arrStatRow3 = array(
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN dotagames as d on d.gameid = c.id
 		where winner <> 0",
-	"Most Games" => "SELECT name as topUser, totGames as topValue from (Select b.name as name, MAX(a.id) as id,
+	$phrase113 => "SELECT name as topUser, totGames as topValue from (Select b.name as name, MAX(a.id) as id,
 		COUNT(*) as totGames,
 		SUM(deaths) as totDeaths 
 		FROM dotaplayers AS a 
@@ -191,7 +191,7 @@ $arrStatRow3 = array(
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN dotagames as d on d.gameid = c.id
 		where name is not null",
-	"Best Win Percentage" => "SELECT name as topUser, 100*wins*1.0/(totgames*1.0) as topValue, ' %' as topValueUnit from (Select b.name as name, MAX(a.id) as id,
+	$phrase114 => "SELECT name as topUser, 100*wins*1.0/(totgames*1.0) as topValue, ' %' as topValueUnit from (Select b.name as name, MAX(a.id) as id,
 		count(*) as totgames,
 		SUM(case when((d.winner = 1 and a.newcolour < 6) or (d.winner = 2 and a.newcolour > 6)) then 1 else 0 end) as wins, 
 		SUM(case when((d.winner = 2 and a.newcolour < 6) or (d.winner = 1 and a.newcolour > 6)) then 1 else 0 end) as losses
@@ -200,7 +200,7 @@ $arrStatRow3 = array(
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN dotagames as d on d.gameid = c.id
 		where winner <> 0 AND b.`left`*1.0/c.duration*1.0 >= $minPlayedRatio",
-	"Top Stay Percentage" => "SELECT name as topUser, 100*playedTime*1.0/gameDuration*1.0 as topValue, ' %' as topValueUnit from (Select b.name as name, MAX(a.id) as id,
+	$phrase115 => "SELECT name as topUser, 100*playedTime*1.0/gameDuration*1.0 as topValue, ' %' as topValueUnit from (Select b.name as name, MAX(a.id) as id,
 		SUM(`left`) as playedTime,
 		SUM(duration) as gameDuration 
 		FROM dotaplayers AS a 
@@ -210,31 +210,31 @@ $arrStatRow3 = array(
 		where winner <> 1000");
 		
 $arrStatRow4 = array(
-	"Most Kills" => "SELECT name as topUser, sumKills as topValue from (Select b.name as name, MAX(a.id) as id,
+	$phrase116 => "SELECT name as topUser, sumKills as topValue from (Select b.name as name, MAX(a.id) as id,
 		SUM(kills) as sumKills 
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN dotagames as d on d.gameid = c.id",
-	"Most Assists" => "SELECT name as topUser, sumAssists as topValue from (Select b.name as name, MAX(a.id) as id,
+	$phrase117 => "SELECT name as topUser, sumAssists as topValue from (Select b.name as name, MAX(a.id) as id,
 		SUM(assists) as sumAssists 
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN dotagames as d on d.gameid = c.id",
-	"Most Deaths" => "SELECT name as topUser, sumDeaths as topValue from (Select b.name as name, MAX(a.id) as id,
+	$phrase118 => "SELECT name as topUser, sumDeaths as topValue from (Select b.name as name, MAX(a.id) as id,
 		SUM(deaths) as sumDeaths 
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN dotagames as d on d.gameid = c.id",
-	"Most Creep Kills" => "SELECT name as topUser, sumCreepKills as topValue from (Select b.name as name, MAX(a.id) as id,
+	$phrase119 => "SELECT name as topUser, sumCreepKills as topValue from (Select b.name as name, MAX(a.id) as id,
 		SUM(creepkills) as sumCreepKills 
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN dotagames as d on d.gameid = c.id",
-	"Most Creep Denies" => "SELECT name as topUser, sumCreepDenies as topValue from (Select b.name as name, MAX(a.id) as id,
+	$phrase120 => "SELECT name as topUser, sumCreepDenies as topValue from (Select b.name as name, MAX(a.id) as id,
 		SUM(creepdenies) as sumCreepDenies 
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON a.gameid = b.gameid and a.colour = b.colour 
@@ -242,7 +242,7 @@ $arrStatRow4 = array(
 		LEFT JOIN dotagames as d on d.gameid = c.id");
 		
 $arrStatRow5 = array(
-	"AVG Kills" => "SELECT name as topUser, sumKills*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+	$phrase121 => "SELECT name as topUser, sumKills*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
 		COUNT(*) as totGames,
 		SUM(kills) as sumKills 
 		FROM dotaplayers AS a 
@@ -250,7 +250,7 @@ $arrStatRow5 = array(
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN dotagames as d on d.gameid = c.id
 		where winner <> 0",
-	"AVG Assists" => "SELECT name as topUser, sumAssists*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+	$phrase122 => "SELECT name as topUser, sumAssists*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
 		COUNT(*) as totGames,
 		SUM(assists) as sumAssists 
 		FROM dotaplayers AS a 
@@ -258,7 +258,7 @@ $arrStatRow5 = array(
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN dotagames as d on d.gameid = c.id
 		where winner <> 0",			
-	"AVG Deaths" => "SELECT name as topUser, sumDeaths*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+	$phrase123 => "SELECT name as topUser, sumDeaths*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
 		COUNT(*) as totGames,
 		SUM(deaths) as sumDeaths 
 		FROM dotaplayers AS a 
@@ -266,7 +266,7 @@ $arrStatRow5 = array(
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN dotagames as d on d.gameid = c.id
 		where winner <> 0",			
-	"AVG Creep Kills" => "SELECT name as topUser, sumCreepKills*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+	$phrase124 => "SELECT name as topUser, sumCreepKills*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
 		COUNT(*) as totGames,
 		SUM(creepkills) as sumCreepKills 
 		FROM dotaplayers AS a 
@@ -274,7 +274,7 @@ $arrStatRow5 = array(
 		LEFT JOIN games as c on a.gameid = c.id 
 		LEFT JOIN dotagames as d on d.gameid = c.id
 		where winner <> 0",			
-	"AVG Creep Denies" => "SELECT name as topUser, sumCreepDenies*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
+	$phrase125 => "SELECT name as topUser, sumCreepDenies*1.0/totGames*1.0 as topValue from (Select b.name as name, MAX(a.id) as id,
 		COUNT(*) as totGames,
 		SUM(creepdenies) as sumCreepDenies 
 		FROM dotaplayers AS a 
@@ -296,20 +296,20 @@ $arrStatRow5 = array(
 						<?php
 						if($offset == 'all')
 						{
-							print "Showing All ".$interval."s";
+							print $phrase126." ".$interval.$phrase127;
 						}
 						else
 						{
-							print "<a href=\"?p=monthlytop&n=all&i=".$interval."\">Show All ".$interval."s</a>";
+							print "<a href=\"?p=monthlytop&n=all&i=".$interval."\">".$phrase128." ".$interval.$phrase127."</a>";
 						}
 						print "<br/><br/>";
-						if($interval == 'Week')
+						if($interval == $phrase104)
 						{
-							print "<a href=\"?p=monthlytop&n=".$offset."&i=month\">Toggle Montly/Weekly View</a>";
+							print "<a href=\"?p=monthlytop&n=".$offset."&i=month\">".$phrase129."</a>";
 						}
 						else
 						{
-							print "<a href=\"?p=monthlytop&n=".$offset."&i=week\">Toggle Montly/Weekly View</a>";
+							print "<a href=\"?p=monthlytop&n=".$offset."&i=week\">".$phrase129."</a>";
 						}
 						?>
 						</td>
@@ -318,7 +318,7 @@ $arrStatRow5 = array(
 				</table>
 			</td>
 			<td width=50%>
-				<h2><?php print $interval; ?>ly Tops for <?php if($ignorePubs){ print "Private Games";} else if($ignorePrivs){ print "Public Games";} else { print "All Games";} ?></h2>
+				<h2><?php print $interval.$phrase130." "; if($ignorePubs){ print $phrase48;} else if($ignorePrivs){ print $phrase49;} else { print $phrase50;} ?></h2>
 			</td>
 			<td width=25% class="rowuh">
 				<table class="rowuh" width = 235px style="float:right">
@@ -328,7 +328,7 @@ $arrStatRow5 = array(
 					<?php
 					if($offset == 'all')
 					{
-						print "Show ".$interval."s Page:";
+						print $phrase170." ".$interval.$phrase127." ".$phrase131.":";
 					}
 					else
 					{
@@ -338,7 +338,7 @@ $arrStatRow5 = array(
 						{
 							$max = $count;
 						}
-						print "Showing ".$interval."s: ".$min." - ".$max;
+						print $phrase169." ".$interval.$phrase127.": ".$min." - ".$max;
 					}
 					?>
 					</td>
@@ -347,7 +347,7 @@ $arrStatRow5 = array(
 				<?php
 				if($offset == 'all')
 				{
-					print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+					print "<td width=35px><span class=\"ddd\"><</span></td>";
 					for($counter = 1; $counter < 6; $counter++)
 					{
 						if($counter <= $pages)
@@ -355,7 +355,7 @@ $arrStatRow5 = array(
 						print "<td width=35px><a href=\"?p=monthlytop&n=".($counter-1)."&i=".$interval."\">".$counter."</a></td>";
 						}
 					}
-					print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+					print "<td width=35px><span class=\"ddd\">></span></td>";
 				}
 				else
 				{
@@ -365,14 +365,14 @@ $arrStatRow5 = array(
 					}
 					else
 					{
-						print "<td width=35px><span style=\"color:#ddd;\"><</span></td>";
+						print "<td width=35px><span class=\"ddd\"><</span></td>";
 					}
 					
 					if($offset < 2)		//Close to start
 					{
 						if($offset == 0)
 						{
-							print "<td width=35px><span style=\"color:#ddd;\">1</span></td>";
+							print "<td width=35px><span class=\"ddd\">1</span></td>";
 							for($counter = 2; $counter < 6; $counter++)
 							{
 								if($counter-1 < $pages)
@@ -384,7 +384,7 @@ $arrStatRow5 = array(
 						if($offset == 1)
 						{
 							print "<td width=35px><a href=\"?p=monthlytop&n=0&i=".$interval."\">1</a></td>";
-							print "<td width=35px><span style=\"color:#ddd;\">2</span></td>";
+							print "<td width=35px><span class=\"ddd\">2</span></td>";
 							for($counter = 3; $counter < 6; $counter++)
 							{
 								if($counter-1 < $pages)
@@ -406,7 +406,7 @@ $arrStatRow5 = array(
 								print "<td width=35px><a href=\"?p=monthlytop&n=".($counter-1)."&i=".$interval."\">".$counter."</a></td>";
 								}
 							}
-							print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
+							print "<td width=35px><span class=\"ddd\">".$counter."</span></td>";
 						}
 						else
 						{
@@ -418,7 +418,7 @@ $arrStatRow5 = array(
 									print "<td width=35px><a href=\"?p=monthlytop&n=".($counter-1)."&i=".$interval."\">".$counter."</a></td>";
 								}
 							}
-							print "<td width=35px><span style=\"color:#ddd;\">".($offset+1)."</span>";
+							print "<td width=35px><span class=\"ddd\">".($offset+1)."</span>";
 							print "<td width=35px><a href=\"?p=monthlytop&n=".($offset+1)."&i=".$interval."\">".($offset+2)."</a></td>";
 						}
 					}
@@ -428,7 +428,7 @@ $arrStatRow5 = array(
 							{
 							if($counter == ($offset+1))
 							{
-								print "<td width=35px><span style=\"color:#ddd;\">".$counter."</span></td>";
+								print "<td width=35px><span class=\"ddd\">".$counter."</span></td>";
 							}
 							else
 							{
@@ -442,7 +442,7 @@ $arrStatRow5 = array(
 					}
 					else
 					{
-						print "<td width=35px><span style=\"color:#ddd;\">></span></td>";
+						print "<td width=35px><span class=\"ddd\">></span></td>";
 					}
 				}
 				?>
@@ -1105,5 +1105,5 @@ else  // #################################################### MYSQL ############
 </div>
 
 <div id="footer" class="footer">
-		<h5>Total <?php print $interval; ?>s: <?php print $count; ?></h5>
+		<h5><?php print $phrase89." ".$interval.$phrase127; ?>: <?php print $count; ?></h5>
 </div>

@@ -41,7 +41,7 @@ $date     = '$Date$';
 $version  = substr($revision, 6, -2);
 $versiondate = substr($date, 7, 10);
 
-define('VERSION', "1.3." . $version);
+define('VERSION', "1.4." . $version);
 define('VERSIONDATE', $versiondate);
 
 
