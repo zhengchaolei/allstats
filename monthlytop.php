@@ -44,14 +44,16 @@ if($dbType == 'sqlite')
 
 	if($interval == 'week' || $interval == 'Week')
 	{
-		$interval=$phrase104;
+		$interval="week";
+		$intervalname=$phrase104;
 		$sqlGroupBy1="strftime('%Y', datetime)";
 		$sqlGroupBy2="strftime('%W', datetime)";
 		$sqlGroupBy3="strftime('%W', datetime)";
 	}
 	else
 	{
-		$interval=$phrase105;
+		$interval="month";
+		$intervalname=$phrase105;
 		$sqlGroupBy1="strftime('%Y', datetime)";
 		$sqlGroupBy2="strftime('%m', datetime)";
 		$sqlGroupBy3="strftime('%m', datetime)";
@@ -64,14 +66,16 @@ else
 
 	if($interval == 'week' || $interval == 'Week')
 	{
-		$interval=$phrase104;
+		$interval="week";
+		$intervalname=$phrase104;
 		$sqlGroupBy1="YEAR(datetime)";
 		$sqlGroupBy2="WEEK(datetime,3)";
 		$sqlGroupBy3="WEEK(datetime,3)";
 	}
 	else
 	{
-		$interval=$phrase105;
+		$interval="month";
+		$intervalname=$phrase105;
 		$sqlGroupBy1="YEAR(datetime)";
 		$sqlGroupBy2="MONTH(datetime)";
 		$sqlGroupBy3="MONTHNAME(datetime)";
@@ -296,14 +300,14 @@ $arrStatRow5 = array(
 						<?php
 						if($offset == 'all')
 						{
-							print $phrase126." ".$interval.$phrase127;
+							print $phrase126." ".$intervalname.$phrase127;
 						}
 						else
 						{
-							print "<a href=\"?p=monthlytop&n=all&i=".$interval."\">".$phrase128." ".$interval.$phrase127."</a>";
+							print "<a href=\"?p=monthlytop&n=all&i=".$interval."\">".$phrase128." ".$intervalname.$phrase127."</a>";
 						}
 						print "<br/><br/>";
-						if($interval == $phrase104)
+						if($interval == 'week')
 						{
 							print "<a href=\"?p=monthlytop&n=".$offset."&i=month\">".$phrase129."</a>";
 						}
@@ -318,7 +322,7 @@ $arrStatRow5 = array(
 				</table>
 			</td>
 			<td width=50%>
-				<h2><?php print $interval.$phrase130." "; if($ignorePubs){ print $phrase48;} else if($ignorePrivs){ print $phrase49;} else { print $phrase50;} ?></h2>
+				<h2><?php print $intervalname.$phrase130." "; if($ignorePubs){ print $phrase48;} else if($ignorePrivs){ print $phrase49;} else { print $phrase50;} ?></h2>
 			</td>
 			<td width=25% class="rowuh">
 				<table class="rowuh" width = 235px style="float:right">
@@ -328,7 +332,7 @@ $arrStatRow5 = array(
 					<?php
 					if($offset == 'all')
 					{
-						print $phrase170." ".$interval.$phrase127." ".$phrase131.":";
+						print $phrase170." ".$intervalname.$phrase127." ".$phrase131.":";
 					}
 					else
 					{
@@ -338,7 +342,7 @@ $arrStatRow5 = array(
 						{
 							$max = $count;
 						}
-						print $phrase169." ".$interval.$phrase127.": ".$min." - ".$max;
+						print $phrase169." ".$intervalname.$phrase127.": ".$min." - ".$max;
 					}
 					?>
 					</td>
@@ -1105,5 +1109,5 @@ else  // #################################################### MYSQL ############
 </div>
 
 <div id="footer" class="footer">
-		<h5><?php print $phrase89." ".$interval.$phrase127; ?>: <?php print $count; ?></h5>
+		<h5><?php print $phrase89." ".$intervalname.$phrase127; ?>: <?php print $count; ?></h5>
 </div>
