@@ -117,54 +117,54 @@ $arrStatRow1 = array(
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
-		LEFT JOIN heroes as d on hero = heroid",
+		JOIN heroes as d on hero = heroid",
 	$phrase56 => "SELECT original as topHero, description as topHeroName, assists as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
-		LEFT JOIN heroes as d on hero = heroid",
+		JOIN heroes as d on hero = heroid",
 	$phrase57 => "SELECT original as topHero, description as topHeroName, deaths as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
-		LEFT JOIN heroes as d on hero = heroid",
+		JOIN heroes as d on hero = heroid",
 	$phrase58 => "SELECT original as topHero, description as topHeroName, creepkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
-		LEFT JOIN heroes as d on hero = heroid",
+		JOIN heroes as d on hero = heroid",
 	$phrase59 => "SELECT original as topHero, description as topHeroName, creepdenies as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
-		LEFT JOIN heroes as d on hero = heroid");
+		JOIN heroes as d on hero = heroid");
 
 $arrStatRow2 = array(
 	$phrase106 => "SELECT original as topHero, description as topHeroName, gold as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
-		LEFT JOIN heroes as d on hero = heroid",
+		JOIN heroes as d on hero = heroid",
 	$phrase107 => "SELECT original as topHero, description as topHeroName, neutralkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
-		LEFT JOIN heroes as d on hero = heroid",
+		JOIN heroes as d on hero = heroid",
 	$phrase108 => "SELECT original as topHero, description as topHeroName, towerkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
-		LEFT JOIN heroes as d on hero = heroid",
+		JOIN heroes as d on hero = heroid",
 	$phrase109 => "SELECT original as topHero, description as topHeroName, raxkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
-		LEFT JOIN heroes as d on hero = heroid",
+		JOIN heroes as d on hero = heroid",
 	$phrase110 => "SELECT original as topHero, description as topHeroName, courierkills as topValue, b.name as topUser, a.gameid as topGame
 		FROM dotaplayers AS a 
 		LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour 
 		LEFT JOIN games as c on a.gameid = c.id 
-		LEFT JOIN heroes as d on hero = heroid");
+		JOIN heroes as d on hero = heroid");
 		
 $arrStatRow3 = array(
 	$phrase111 => "SELECT name as topUser, case when (totKills = 0) then 0 when (totDeaths = 0) then 1000 else ((totKills*1.0)/(totDeaths*1.0)) end as topValue from (Select b.name as name, MAX(a.id) as id,
