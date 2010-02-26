@@ -266,32 +266,32 @@ else
 	{
 		//Find top heroes for this dude!
 		//find hero with most kills
-		$sql = "SELECT original, description, max(kills) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY max(kills) DESC LIMIT 1 ";
+		$sql = "SELECT original, description, max(kills) as topValue FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY topValue DESC LIMIT 1 ";
 		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 		{
 			$mostkillshero=$row["original"];
 			$mostkillsheroname=$row["description"];
-			$mostkillscount=$row["max(kills)"];
+			$mostkillscount=$row["topValue"];
 			//put an blank if you haven't scored yet
 			if($mostkillscount==0){ $mostkillshero="blank";}
 		}
 		//find hero with most deaths
-		$sql = "SELECT original, description, max(deaths) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY max(deaths) DESC LIMIT 1 ";
+		$sql = "SELECT original, description, max(deaths) as topValue FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY topValue DESC LIMIT 1 ";
 		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 		{
 			$mostdeathshero=$row["original"];
 			$mostdeathsheroname=$row["description"];
-			$mostdeathscount=$row["max(deaths)"];
+			$mostdeathscount=$row["topValue"];
 			//put an blank if you haven't scored yet
 			if($mostdeathscount==0){ $mostdeathshero="blank";}
 		}
 		//find hero with most assists
-		$sql = "SELECT original, description, max(assists) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY max(assists) DESC LIMIT 1 ";
+		$sql = "SELECT original, description, max(assists) as topValue FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY topValue DESC LIMIT 1 ";
 		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 		{
 			$mostassistshero=$row["original"];
 			$mostassistsheroname=$row["description"];
-			$mostassistscount=$row["max(assists)"];
+			$mostassistscount=$row["topValue"];
 			//put an blank if you haven't scored yet
 			if($mostassistscount==0){ $mostassistshero="blank";}
 		}
@@ -366,50 +366,50 @@ else
 		{
 			$score=$row["score"];
 		}
-			
-		$sql = "SELECT COUNT(a.id), SUM(kills), SUM(deaths), SUM(creepkills), SUM(creepdenies), SUM(assists), SUM(neutralkills), SUM(towerkills), SUM(raxkills), SUM(courierkills), name FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.newcolour = b.colour where name= '$username' group by name ORDER BY sum(kills)";
+
+		$sql = "SELECT COUNT(a.id) as totGames, SUM(kills) as sumKills, SUM(deaths) as sumDeaths, SUM(creepkills) as sumCreepkills, SUM(creepdenies) as sumCreepdenies, SUM(assists) as sumAssists, SUM(neutralkills) as sumNeutralkills, SUM(towerkills) as sumTowerkills, SUM(raxkills) as sumRaxkills, SUM(courierkills) as sumCourierkills, name FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour where name= '$username' group by name ORDER BY sumKills desc ";
 		foreach ($dbHandle->query($sql, PDO::FETCH_ASSOC) as $row)
 		{
-			$kills=$row["SUM(kills)"];
-			$death=$row["SUM(deaths)"];
-			$assists=$row["SUM(assists)"];
-			$creepkills=$row["SUM(creepkills)"];
-			$creepdenies=$row["SUM(creepdenies)"];
-			$neutralkills=$row["SUM(neutralkills)"];
-			$towerkills=$row["SUM(towerkills)"];
-			$raxkills=$row["SUM(raxkills)"];
-			$courierkills=$row["SUM(courierkills)"];
+			$kills=$row["sumKills"];
+			$death=$row["sumDeaths"];
+			$assists=$row["sumAssists"];
+			$creepkills=$row["sumCreepkills"];
+			$creepdenies=$row["sumCreepdenies"];
+			$neutralkills=$row["sumNeutralkills"];
+			$towerkills=$row["sumTowerkills"];
+			$raxkills=$row["sumRaxkills"];
+			$courierkills=$row["sumCourierkills"];
 			$name=$row["name"];
-			$totgames=$row["COUNT(a.id)"];
+			$totgames=$row["totGames"];
 		}
 	}
 	else
 	{
 		//Find top heroes for this dude!
 		//find hero with most kills
-		$result = mysql_query("SELECT original, description, max(kills) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY max(kills) DESC LIMIT 1 ");
+		$result = mysql_query("SELECT original, description, max(kills) as topValue FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY topValue DESC LIMIT 1 ");
 		$row = mysql_fetch_array($result, MYSQL_ASSOC);
 		$mostkillshero=$row["original"];
 		$mostkillsheroname=$row["description"];
-		$mostkillscount=$row["max(kills)"];
+		$mostkillscount=$row["topValue"];
 		//put an blank if you haven't scored yet
 		if($mostkillscount==0){ $mostkillshero="blank";}
 		
 		//find hero with most deaths
-		$result = mysql_query("SELECT original, description, max(deaths) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY max(deaths) DESC LIMIT 1 ");
+		$result = mysql_query("SELECT original, description, max(deaths) as topValue FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY topValue DESC LIMIT 1 ");
 		$row = mysql_fetch_array($result, MYSQL_ASSOC);
 		$mostdeathshero=$row["original"];
 		$mostdeathsheroname=$row["description"];
-		$mostdeathscount=$row["max(deaths)"];
+		$mostdeathscount=$row["topValue"];
 		//put an blank if you haven't scored yet
 		if($mostdeathscount==0){ $mostdeathshero="blank";}
 		
 		//find hero with most assists
-		$result = mysql_query("SELECT original, description, max(assists) FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY max(assists) DESC LIMIT 1 ");
+		$result = mysql_query("SELECT original, description, max(assists) as topValue FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour LEFT JOIN heroes on hero = heroid where name= '$username' group by original ORDER BY topValue DESC LIMIT 1 ");
 		$row = mysql_fetch_array($result, MYSQL_ASSOC);
 		$mostassistshero=$row["original"];
 		$mostassistsheroname=$row["description"];
-		$mostassistscount=$row["max(assists)"];
+		$mostassistscount=$row["topValue"];
 		//put an blank if you haven't scored yet
 		if($mostassistscount==0){ $mostassistshero="blank";}
 		
@@ -476,19 +476,19 @@ else
 		$row = mysql_fetch_array($result, MYSQL_ASSOC);
 			$score=$row["score"];
 			
-		$result = mysql_query("SELECT COUNT(a.id), SUM(kills), SUM(deaths), SUM(creepkills), SUM(creepdenies), SUM(assists), SUM(neutralkills), SUM(towerkills), SUM(raxkills), SUM(courierkills), name FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour where name= '$username' group by name ORDER BY sum(kills) desc ");
+		$result = mysql_query("SELECT COUNT(a.id) as totGames, SUM(kills) as sumKills, SUM(deaths) as sumDeaths, SUM(creepkills) as sumCreepkills, SUM(creepdenies) as sumCreepdenies, SUM(assists) as sumAssists, SUM(neutralkills) as sumNeutralkills, SUM(towerkills) as sumTowerkills, SUM(raxkills) as sumRaxkills, SUM(courierkills) as sumCourierkills, name FROM dotaplayers AS a LEFT JOIN gameplayers AS b ON b.gameid = a.gameid and a.colour = b.colour where name= '$username' group by name ORDER BY sumKills desc ");
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-			$kills=$row["SUM(kills)"];
-			$death=$row["SUM(deaths)"];
-			$assists=$row["SUM(assists)"];
-			$creepkills=$row["SUM(creepkills)"];
-			$creepdenies=$row["SUM(creepdenies)"];
-			$neutralkills=$row["SUM(neutralkills)"];
-			$towerkills=$row["SUM(towerkills)"];
-			$raxkills=$row["SUM(raxkills)"];
-			$courierkills=$row["SUM(courierkills)"];
+			$kills=$row["sumKills"];
+			$death=$row["sumDeaths"];
+			$assists=$row["sumAssists"];
+			$creepkills=$row["sumCreepkills"];
+			$creepdenies=$row["sumCreepdenies"];
+			$neutralkills=$row["sumNeutralkills"];
+			$towerkills=$row["sumTowerkills"];
+			$raxkills=$row["sumRaxkills"];
+			$courierkills=$row["sumCourierkills"];
 			$name=$row["name"];
-			$totgames=$row["COUNT(a.id)"];
+			$totgames=$row["totGames"];
 			}
 		}
 
