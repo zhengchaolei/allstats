@@ -951,3 +951,5 @@ INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LH', 'Urn of Shadows
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LI', 'Divine Rapier', 'Divine Rapier', 'BTNSnazzyScrollPurple.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LJ', 'Divine Rapier', 'Divine Rapier', 'BTNINV_Sword_25.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LK', 'Divine Rapier', 'Divine Rapier', 'BTNINV_Sword_25.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LL', 'Soul Ring', 'Soul Ring', 'BTNSoulRing.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LT', 'Ethereal Blade', 'Ethereal Blade', 'BTNEtherealBlade.gif');
