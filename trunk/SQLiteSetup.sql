@@ -243,7 +243,7 @@ INSERT INTO items (itemid, name, shortname, icon) VALUES('I04C', 'Gauntlets of S
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I04D', 'Gem of True Sight', 'Gem of True Sight', 'BTNGem.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I04E', 'Helm of Iron Will', 'Helm of Iron Will', 'BTNHelmutPurple.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I04F', 'Hyperstone', 'Hyperstone', 'BTNPeriapt1.gif');
-INSERT INTO items (itemid, name, shortname, icon) VALUES('I04G', 'Ironwood Branch', 'Ironwood Branch', 'BTNNatureTouchGrow.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I04G', 'Ironwood Branch', 'Ironwood Branch', 'BTNIronwoodbranch.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I04H', 'Kelen''s Dagger', 'Kelen''s Dagger', 'BTNDaggerOfEscape.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I04I', 'Disabled Kelen''s Dagger', 'Kelen''s Dagger', 'BTNCancel.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I04J', 'Mantle of Intelligence', 'Mantle of Intelligence', 'BTNMantleOfIntelligence.gif');
@@ -627,7 +627,7 @@ INSERT INTO items (itemid, name, shortname, icon) VALUES('I0CP', 'Robe of the Ma
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0CQ', 'Hyperstone', 'Hyperstone', 'DISBTNPeriapt1.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0CR', 'Energy Booster', 'Energy Booster', 'DISBTNEnchantedGemstone.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0CS', 'Boots of Elvenskin', 'Boots of Elvenskin', 'DISBTNBoots.gif');
-INSERT INTO items (itemid, name, shortname, icon) VALUES('I0CU', 'Ironwood Branch', 'Ironwood Branch', 'DISBTNNatureTouchGrow.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0CU', 'Ironwood Branch', 'Ironwood Branch', 'DISBTNIronwoodbranch.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0CV', 'Belt of Giant Strength', 'Belt of Giant Strength', 'DISBTNBelt.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0CW', 'Ring of Protection', 'Ring of Protection', 'DISBTNRingPurple.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0CX', 'Claymore', 'Claymore', 'DISBTNINV_Sword_19.gif');
@@ -952,4 +952,17 @@ INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LI', 'Divine Rapier'
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LJ', 'Divine Rapier', 'Divine Rapier', 'BTNINV_Sword_25.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LK', 'Divine Rapier', 'Divine Rapier', 'BTNINV_Sword_25.gif');
 INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LL', 'Soul Ring', 'Soul Ring', 'BTNSoulRing.gif');
-INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LT', 'Ethereal Blade', 'Ethereal Blade', 'BTNEtherealBlade.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LM', 'Soul Ring Recipe', 'Soul Ring Recipe', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LN', 'Soul Ring Recipe', 'Soul Ring Recipe', 'BTNSnazzyScroll.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LO', 'Soul Ring Recipe', 'Soul Ring Recipe', 'DISBTNSnazzyScroll.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LP', 'Soul Ring', 'Soul Ring', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LQ', 'Soul Ring', 'Soul Ring', 'DISBTNSoulRing.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LR', 'Ethereal Blade', 'Ethereal Blade', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LS', 'Ethereal Blade', 'Ethereal Blade', 'DISBTNGhostBlade.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LT', 'Ethereal Blade', 'Ethereal Blade', 'BTNGhostBlade.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LU', 'Aghanim''s Scepter (Puck)', 'Aghanim''s Scepter', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LV', 'Aghanim''s Scepter (Puck)', 'Aghanim''s Scepter', 'BTNINV_Wand_05.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LW', 'Aghanim''s Scepter (Puck)', 'Aghanim''s Scepter', 'DISBTNINV_Wand_05.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LX', 'Ethereal Blade Recipe', 'Ethereal Blade Recipe', 'BTNSnazzyScroll.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LY', 'Ethereal Blade Recipe', 'Ethereal Blade Recipe', 'BTNSnazzyScrollPurple.gif');
+INSERT INTO items (itemid, name, shortname, icon) VALUES('I0LZ', 'Ethereal Blade Recipe', 'Ethereal Blade Recipe', 'DISBTNSnazzyScroll.gif');

@@ -44,5 +44,4 @@ $versiondate = substr($date, 7, 10);
 define('VERSION', "1.4." . $version);
 define('VERSIONDATE', $versiondate);
 
-
 ?>
