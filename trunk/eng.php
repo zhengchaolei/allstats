@@ -1,4 +1,4 @@
-﻿<?php
+<?php
  $phrase1 = "Game Information for";
  $phrase2 = "Game Name";
  $phrase3 = "Date";

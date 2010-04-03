@@ -1,4 +1,4 @@
-﻿DROP TABLE IF EXISTS originals;
+DROP TABLE IF EXISTS originals;
 DROP TABLE IF EXISTS heroes;
 CREATE TABLE IF NOT EXISTS heroes (
   heroid varchar(4) NOT NULL,
