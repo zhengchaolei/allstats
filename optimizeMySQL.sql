@@ -1,4 +1,4 @@
-﻿ALTER TABLE  bans ADD INDEX (  name );
+ALTER TABLE  bans ADD INDEX (  name );
 ALTER TABLE  bans ADD INDEX (  date );
 ALTER TABLE  games ADD INDEX (  id );
 ALTER TABLE  games ADD INDEX (  datetime );
