@@ -48,7 +48,15 @@ else
 	$sortcat=mysql_real_escape_string($_GET["s"]);
 	$order=mysql_real_escape_string($_GET["o"]);
 	$offset=mysql_real_escape_string($_GET["n"]);
-	$username=strtolower(mysql_real_escape_string($_GET["u"]));
+	
+	if(isset($_GET["u"])) 
+	{
+		$username=strtolower(mysql_real_escape_string($_GET["u"]));
+	}
+	else
+	{
+		$username="";
+	}		
 }
 
 $sql = "Select count(*) as count FROM
