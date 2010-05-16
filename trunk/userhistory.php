@@ -777,5 +777,5 @@ else  // #################################################### MYSQL ############
 	</table>
 </div>
 <div id="footer" class="footer">
-		<h5><?php print $phrase46;?>: <?php print $count; ?></h5>
+		<h5><?php print $phrase178;?>: <?php print $count; ?></h5>
 </div>

@@ -1109,5 +1109,5 @@ else  // #################################################### MYSQL ############
 </div>
 
 <div id="footer" class="footer">
-		<h5><?php print $phrase89." ".$intervalname.$phrase127; ?>: <?php print $count; ?></h5>
+		<h5><?php print $phrase177." ".$intervalname.$phrase127; ?>: <?php print $count; ?></h5>
 </div>
