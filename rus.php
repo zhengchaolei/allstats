@@ -175,4 +175,6 @@
  $phrase174 = "Times Played";
  $phrase175 = "Wins<br/>(Percent)";
  $phrase176 = "'s";
-?>
+ $phrase177 = "Total";
+ $phrase178 = "Total Months";
+ ?>
