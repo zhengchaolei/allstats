@@ -34,7 +34,6 @@
 -->
 **********************************************/
 
-
 // automatic version update
 $revision = '$Rev$';
 $date     = '$Date$';
