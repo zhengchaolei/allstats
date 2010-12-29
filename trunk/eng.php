@@ -176,4 +176,11 @@
  $phrase175 = "Wins<br/>(Percent)";
  $phrase176 = "'s";
  $phrase177 = "Total";
+ $phrase178 = "Safelisted";
+ $phrase179 = "Showing All Safelisted";
+ $phrase180 = "Show All Safelisted";
+ $phrase181 = "Safelisted Players";
+ $phrase182 = "Show Safelisted Page";
+ $phrase183 = "Showing Safe";
+ $phrase184 = "Number of Safelisted";
  ?>
