@@ -274,12 +274,12 @@ else
 </tr>
 
 <tr class="rowuh">
-<td align=right width=30%>!stats [name]</td>
+<td align=right width=30%><?php print $commandTrigger; ?>stats [name]</td>
 <td align=center width=10%>|</td>
 <td align=left width=60%><?php print $phrase66;?></td>
 </tr>
 <tr class="rowuh">
-<td align=right width=30%>!statsdota [name]</td>
+<td align=right width=30%><?php print $commandTrigger; ?>statsdota [name]</td>
 <td align=center width=10%>|</td>
 <td align=left width=60%><?php print $phrase67;?></td>
 </tr>
@@ -289,47 +289,47 @@ else
 </tr>
 
 <tr class="rowuh">
-<td align=right width=30%>!priv [name]</td>
+<td align=right width=30%><?php print $commandTrigger; ?>priv [name]</td>
 <td align=center width=10%>|</td>
 <td align=left width=60%><?php print $phrase69;?></td>
 </tr>
 <tr class="rowuh">
-<td align=right width=30%>!pub [name]</td>
+<td align=right width=30%><?php print $commandTrigger; ?>pub [name]</td>
 <td align=center width=10%>|</td>
 <td align=left width=60%><?php print $phrase70;?></td>
 </tr>
 <tr class="rowuh">
-<td align=right width=30%>!unhost</td>
+<td align=right width=30%><?php print $commandTrigger; ?>unhost</td>
 <td align=center width=10%>|</td>
 <td align=left width=60%><?php print $phrase71;?></td>
 </tr>
 <tr class="rowuh">
-<td align=right width=30%>!swap [n1] [n2]</td>
+<td align=right width=30%><?php print $commandTrigger; ?>swap [n1] [n2]</td>
 <td align=center width=10%>|</td>
 <td align=left width=60%><?php print $phrase72;?></td>
 </tr>
 <tr class="rowuh">
-<td align=right width=30%>!start [force]</td>
+<td align=right width=30%><?php print $commandTrigger; ?>start [force]</td>
 <td align=center width=10%>|</td>
 <td align=left width=60%><?php print $phrase73;?></td>
 </tr>
 <tr class="rowuh">
-<td align=right width=30%>!ping [number]</td>
+<td align=right width=30%><?php print $commandTrigger; ?>ping [number]</td>
 <td align=center width=10%>|</td>
 <td align=left width=60%><?php print $phrase74;?></td>
 </tr>
 <tr class="rowuh">
-<td align=right width=30%>!close [number]</td>
+<td align=right width=30%><?php print $commandTrigger; ?>close [number]</td>
 <td align=center width=10%>|</td>
 <td align=left width=60%><?php print $phrase75;?></td>
 </tr>
 <tr class="rowuh">
-<td align=right width=30%>!open [number]</td>
+<td align=right width=30%><?php print $commandTrigger; ?>open [number]</td>
 <td align=center width=10%>|</td>
 <td align=left width=60%><?php print $phrase76;?></td>
 </tr>
 <tr class="rowuh">
-<td align=right width=30%>!say [text]</td>
+<td align=right width=30%><?php print $commandTrigger; ?>say [text]</td>
 <td align=center width=10%>|</td>
 <td align=left width=60%><?php print $phrase77;?></td>
 </tr>
@@ -337,17 +337,17 @@ else
 <td colspan=3><br></td>
 </tr>
 <tr class="rowuh">
-<td align=right width=30%>!ban [name] [reason]</td>
+<td align=right width=30%><?php print $commandTrigger; ?>ban [name] [reason]</td>
 <td align=center width=10%>|</td>
 <td align=left width=60%><?php print $phrase78;?></td>
 </tr>
 <tr class="rowuh">
-<td align=right width=30%>!kick  [partial name]</td>
+<td align=right width=30%><?php print $commandTrigger; ?>kick  [partial name]</td>
 <td align=center width=10%>|</td>
 <td align=left width=60%><?php print $phrase79;?></td>
 </tr>
 <tr class="rowuh">
-<td align=right width=30%>!latency [number]</td>
+<td align=right width=30%><?php print $commandTrigger; ?>latency [number]</td>
 <td align=center width=10%>|</td>
 <td align=left width=60%><?php print $phrase80;?></td>
 </tr>

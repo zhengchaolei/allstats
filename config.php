@@ -77,6 +77,9 @@ $botName = 'YOUR_BOT_NAME';
 //GHost++ root administrator name:
 $rootAdmin = 'YOUR_ROOT_ADMIN';
 
+//Ghost++ command trigger
+$commandTrigger = '.';
+
 //Settings for Top Players page
 
 //Default minimum number of games played in order to be displayed on Top Players page:
@@ -169,6 +172,8 @@ $userResultSize = 20;
 $monthlyTopsResultSize = 1;
 //The number of results returned in a page on the monthly tops page
 $userHistoryResultSize = 20;
+//The number of results returned in a page on the safelisted page
+$safeResultSize = 30;
 
 
 //configure which pages to be shown
@@ -179,6 +184,7 @@ $showHeroStats=true;
 $showGameHistoy=true;
 $showBans=true;
 $showAdmins=true;
+$showSafe=false;
 
 /**********************************
  *	DO NOT EDIT BELOW THIS POINT. *

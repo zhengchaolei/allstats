@@ -175,6 +175,8 @@ if($displayStyle == 'all') { $pageStyle = 'all'; } else { $pageStyle = '0'; }
 								<li><a href="?p=bans&s=date&o=desc&n=<?php print $pageStyle; ?>"><?php print $phrase155;?></a></li>
 							<?php } if ($showAdmins) { ?>
 								<li><a href="?p=admins&n=<?php print $pageStyle; ?>"><?php print $phrase167;?></a></li> 
+							<?php } if ($showSafe) { ?>
+								<li><a href="?p=safe&n=<?php print $pageStyle; ?>"><?php print $phrase178;?></a></li> 
 							<?php } ?>
 						  <li>
 							<form name="testForm" method=GET action="">
@@ -218,7 +220,8 @@ if($displayStyle == 'all') { $pageStyle = 'all'; } else { $pageStyle = '0'; }
 							'hero', 
 							'top',
 							'monthlytop', 
-							'admins');
+							'admins',
+							'safe');
 
 		if(!empty($_GET['p']))
 		{
